@@ -593,34 +593,82 @@
 <h2 id="patrones">Analisis de Patrones de Examen</h2>
 
 <div class="card important">
-    <div class="card-label">Que tipos de preguntas caen en examen?</div>
-    <p><strong>Probabilidad (Tema 1):</strong> Suelen preguntar de forma mixta. En el examen de probabilidad puro, el primer ejercicio mezcla sucesos, condicionada y Bayes. El segundo es operaciones con sucesos (union, interseccion, De Morgan). Binomial casi siempre.</p>
-    <p><strong>Binomial (Tema 2):</strong> El 60% del examen es binomial. Preguntan: $P(X = k)$, $P(X \le k)$, $P(X \ge k)$, media, varianza. Raro que no salga.</p>
-    <p><strong>Normal e IC (Tema 3):</strong> Muy sistematico. Siempre sale: (1) tipificacion, (2) aproximacion de binomial a normal, (3) medias muestrales, (4) intervalos de confianza (media y proporcion).</p>
+    <div class="card-label">Estructura real de los examenes (analisis de 3 examenes)</div>
+    <table>
+        <tr><th>Bloque</th><th>Que pone</th><th>Pts</th><th>Aparece en</th></tr>
+        <tr><td><strong>Prob. Total + Bayes</strong></td><td>Contexto real con 3 categorias (danza, peliculas, turistas). Apartado a) prob. total, b) Bayes inverso.</td><td>2,5</td><td>Examen Prob + Recuperacion</td></tr>
+        <tr><td><strong>Operaciones A y B</strong></td><td>Te dan P(A), P(B), P(algo). Pide union, condicionada, independencia, incompatibilidad. Ej: $P(A)=0{,}7$, $P(B)=0{,}6$, $P(\bar{A} \cap \bar{B})=0{,}58$.</td><td>2,5</td><td>Examen Prob</td></tr>
+        <tr><td><strong>Binomial directa</strong></td><td>$B(n,p)$ con n pequeno (6-11). Pide $P(X=k)$, $P(X \ge k)$, media, tamano muestra. Ej: futbol n=11 p=0,3; tratamiento n=6 p=0,65.</td><td>2,5</td><td>TODOS los examenes</td></tr>
+        <tr><td><strong>Binomial &rarr; Normal</strong></td><td>n grande (200). Comprobar condiciones, aproximar, tipificar. Ej: diabeticos n=200 p=0,2.</td><td>1,25</td><td>Examen Estad + Recuperacion</td></tr>
+        <tr><td><strong>Medias muestrales</strong></td><td>$N(\mu,\sigma)$, muestra de n. P(media entre X e Y). Ej: $N(50,9)$ n=64; mazorcas $\mu=193$ $\sigma=31$ n=400.</td><td>1,25</td><td>Examen Estad + Recuperacion</td></tr>
+        <tr><td><strong>IC media o proporcion</strong></td><td>Calcular IC. A veces problema inverso (hallar nivel o tamano). Ej: TV 400 personas 100 gustan; mazorcas IC al 93%.</td><td>1,25</td><td>Examen Estad + Recuperacion</td></tr>
+        <tr><td><strong>Muestreo estratificado</strong></td><td>Afijacion proporcional. Regla de tres por estrato. Ej: empresa 150+450+200+100 trabajadores, muestra 180.</td><td>1,25</td><td>Examen Estad + Recuperacion</td></tr>
+        <tr><td><strong>Tabla contingencia</strong></td><td>Construir tabla, calcular condicionadas, comprobar independencia. Ej: congreso medicos andaluces/catalanes/gallegos.</td><td>2,5</td><td>Examen Prob</td></tr>
+    </table>
 </div>
 
-<div class="card important">
-    <div class="card-label">Patrones en los problemas</div>
-    <p><strong>Estadistica vs Probabilidad:</strong> Si es "Examen de Estadistica" (tiene fechas, datos de empresas), es Tema 2 y 3. Si es "Examen de Probabilidad", es Tema 1 y el inicio del Tema 2. Recuperacion siempre mezcla todo.</p>
-    <p><strong>Contextos reales:</strong> Los problemas vienen con historias: "pacientes mejoran", "programa de TV", "competicion de danza", "agencia de viajes". Ignoralo. Lo importante es extraer los numeros.</p>
-    <p><strong>Nivel de dificultad:</strong> El examen de probabilidad es mas teorico (preguntas tipo "independientes?", "incompatibles?"). El de estadistica tiene mas calculos (medias, desviaciones, IC).</p>
+<div class="card warning">
+    <div class="card-label">Formato de los examenes (como los pone tu profesora)</div>
+    <ul>
+        <li><strong>Examen de Probabilidad (22/10):</strong> 6 ejercicios, debes elegir 4 (2 de Opcion A + 2 de Opcion B). Cada ejercicio 2,5 pts. Duracion 1h15.</li>
+        <li><strong>Examen de Estadistica (19/11):</strong> 4 ejercicios obligatorios. En algunos eliges apartado a) o b). Duracion 1h15.</li>
+        <li><strong>Recuperacion (08/01):</strong> 5 ejercicios, todos obligatorios. Cada uno 2 pts (excepto los que indican otra puntuacion). Duracion 1h15.</li>
+        <li><strong>0,10 pts por proceso:</strong> La profesora valora que escribas TODOS los pasos y calculos intermedios.</li>
+        <li><strong>"Si obtiene resultados directamente con la calculadora, explique con detalle los pasos"</strong> — aparece en las instrucciones de cada examen.</li>
+        <li><strong>Da opciones a/b</strong> en ejercicios. Elige el que mejor entiendas, suelen ser de dificultad similar.</li>
+        <li><strong>Siempre pide "razona"</strong> en independencia e incompatibilidad. Escribe la comprobacion completa.</li>
+    </ul>
 </div>
 
-<div class="card important">
-    <div class="card-label">Errores mas frecuentes</div>
-    <p><strong>Error 1:</strong> Confundir "al menos" con el complementario. Ve $P(X \ge 3)$? Calcula $1 - P(X \le 2)$, no $P(X=3) + P(X=4) + \cdots$.</p>
-    <p><strong>Error 2:</strong> Olvidar verificar $np \ge 5$ y $nq \ge 5$ antes de aproximar binomial a normal. Sin eso, puedes perder puntos.</p>
-    <p><strong>Error 3:</strong> En tipificacion, confundir $\sigma$ con $\sigma/\sqrt{n}$. Un individuo: usa $\sigma$. La media de una muestra: usa $\sigma/\sqrt{n}$.</p>
-    <p><strong>Error 4:</strong> Calcular mal $z_{\alpha/2}$. Confianza 95% NO significa buscar 0,95 en la tabla. Es $1 - \alpha/2 = 1 - 0,025 = 0,975$ &rarr; $z = 1,96$.</p>
-    <p><strong>Error 5:</strong> Redondear $n$ hacia abajo en tamano de muestra. Siempre hacia ARRIBA.</p>
+<div class="card warning">
+    <div class="card-label">Trucos especificos de estos examenes</div>
+    <ul>
+        <li><strong>Probabilidad condicionada inversa:</strong> En el examen de prob, ejercicio 3 te dan $P(\bar{A} \cap \bar{B}) = 0{,}58$. Clave: usar De Morgan &rarr; $P(A \cup B) = 1 - 0{,}58 = 0{,}42$, y de ahi despejar $P(A \cap B)$.</li>
+        <li><strong>Binomial condicionada:</strong> En el examen de estad, ejercicio 2a.iv pide "$P(X < 3 | X \ge 1)$". Es una condicionada dentro de binomial: $\frac{P(1 \le X \le 2)}{P(X \ge 1)}$.</li>
+        <li><strong>Pregunta trampa de tamano:</strong> "¿Cuantos pacientes para que el esperado sea $\ge 20$?" &rarr; $n \cdot p \ge 20$ &rarr; despejar $n$.</li>
+        <li><strong>IC al 93%:</strong> No es un nivel estandar. $1 - \alpha = 0{,}93 \Rightarrow \alpha/2 = 0{,}035 \Rightarrow P(Z \le z) = 0{,}965 \Rightarrow z \approx 1{,}81$. Hay que saber buscar valores no habituales en la tabla.</li>
+        <li><strong>Contextos que se repiten:</strong> agencia de viajes, peliculas/recomendaciones, danza, futbol, morosos bancarios, programa de TV, diabeticos, mazorcas de maiz, detergente, paquetes de transporte.</li>
+    </ul>
 </div>
 
-<div class="card important">
-    <div class="card-label">Consejos de estudio</div>
-    <p><strong>Practica con contextos:</strong> Los numeros en estos ejercicios varían, pero la estructura es siempre igual. Si dominas estos 30+ problemas, dominas la logica del examen.</p>
-    <p><strong>Memoriza estos valores de z:</strong> 90% &rarr; 1,645 | 95% &rarr; 1,96 | 97% &rarr; 2,17 | 99% &rarr; 2,575</p>
-    <p><strong>Dibuja tablas:</strong> Tabla de contingencia en probabilidad, tabla de calculo paso a paso en estadistica. Te ayuda a ver donde esta cada numero.</p>
-    <p><strong>Verifica siempre:</strong> Despues de cada examen resuelto, preguntate: &laquo;Por que ponen esta pregunta? Que quieren que verifique?&raquo;. Por ejemplo, preguntar si dos sucesos son independientes es verificar si entiendes la diferencia con incompatibles.</p>
+<div class="card definition">
+    <div class="card-label">Errores que te hacen perder puntos (de los examenes reales)</div>
+    <ul>
+        <li><strong>Error 1:</strong> No usar complementario en "al menos". Si pide $P(X \ge 1)$, calcula $1 - P(X=0)$.</li>
+        <li><strong>Error 2:</strong> Olvidar comprobar $np \ge 5$ y $nq \ge 5$ antes de aproximar B a N. Sin esa frase, pierdes puntos.</li>
+        <li><strong>Error 3:</strong> Confundir $\sigma$ con $\sigma/\sqrt{n}$. Individuo: $\sigma$. Media muestral: $\sigma/\sqrt{n}$.</li>
+        <li><strong>Error 4:</strong> Calcular mal $z_{\alpha/2}$. Confianza 95% &rarr; buscar $P(Z \le z) = 0{,}975$ (no 0,95). &rarr; $z = 1{,}96$.</li>
+        <li><strong>Error 5:</strong> Redondear $n$ hacia abajo. SIEMPRE hacia arriba.</li>
+        <li><strong>Error 6:</strong> No interpretar el resultado con una frase. La profesora lo pide explicitamente.</li>
+        <li><strong>Error 7:</strong> En independencia, no escribir la comprobacion: "$P(A) \cdot P(B) = \_$ y $P(A \cap B) = \_$, como son iguales/distintos, si/no son independientes."</li>
+    </ul>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Checklist: 8 cosas que revisar antes de entregar</div>
+    <ol>
+        <li>¿Has identificado bien $n$, $p$, $\mu$, $\sigma$ del enunciado?</li>
+        <li>¿Has usado complementario donde toca? ($P(X \ge k) = 1 - P(X \le k-1)$)</li>
+        <li>¿Has escrito "Comprobamos: $np = \_ \ge 5$ y $nq = \_ \ge 5$" antes de aproximar?</li>
+        <li>¿El denominador de la tipificacion es correcto? (individuo: $\sigma$ | muestra: $\sigma/\sqrt{n}$)</li>
+        <li>¿Has sacado $z_{\alpha/2}$ con $P(Z \le z) = 1 - \alpha/2$?</li>
+        <li>¿Has redondeado $n$ al entero SUPERIOR?</li>
+        <li>¿Has escrito una frase interpretando cada resultado?</li>
+        <li>¿Todos los calculos intermedios estan escritos?</li>
+    </ol>
+</div>
+
+<div class="card">
+    <div class="card-label">Valores de z que debes memorizar</div>
+    <table>
+        <tr><th>Confianza</th><th>$\alpha$</th><th>$\alpha/2$</th><th>$P(Z \le z) = 1 - \alpha/2$</th><th>$z_{\alpha/2}$</th></tr>
+        <tr><td>90%</td><td>0,10</td><td>0,05</td><td>0,950</td><td><strong>1,645</strong></td></tr>
+        <tr><td>95%</td><td>0,05</td><td>0,025</td><td>0,975</td><td><strong>1,96</strong></td></tr>
+        <tr><td>95,44%</td><td>0,0456</td><td>0,0228</td><td>0,9772</td><td><strong>2</strong></td></tr>
+        <tr><td>97%</td><td>0,03</td><td>0,015</td><td>0,985</td><td><strong>2,17</strong></td></tr>
+        <tr><td>99%</td><td>0,01</td><td>0,005</td><td>0,995</td><td><strong>2,575</strong></td></tr>
+        <tr><td>99,74%</td><td>0,0026</td><td>0,0013</td><td>0,9987</td><td><strong>3</strong></td></tr>
+    </table>
 </div>
 
 </div><!-- end main -->
