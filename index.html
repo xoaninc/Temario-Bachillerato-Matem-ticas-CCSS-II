@@ -102,14 +102,28 @@
 <p>Todo el temario de probabilidad y estadistica de 2o Bachillerato CCSS II, explicado paso a paso con ejercicios resueltos de los examenes reales.</p>
 
 <div class="card definition" style="padding: 28px;">
-    <h3 style="margin-top: 0;">De que va esta asignatura?</h3>
-    <p>Toda la asignatura trata de <strong>medir la incertidumbre con numeros</strong>. En la vida real no sabemos que va a pasar (si un producto sera defectuoso, si acertaremos al azar, si la media de una muestra representara a la poblacion). La estadistica nos da herramientas para cuantificar esa incertidumbre.</p>
-    <p>Se divide en <strong>3 bloques</strong> que se construyen uno sobre otro:</p>
-    <ol>
-        <li><strong>Probabilidad</strong> — las reglas basicas: calcular P(algo ocurra), combinar sucesos, Bayes.</li>
-        <li><strong>Distribuciones</strong> — modelos matematicos que describen como se reparten los resultados (binomial para "cuantos exitos en n intentos", normal para la campana de Gauss).</li>
-        <li><strong>Inferencia</strong> — sacar conclusiones sobre una poblacion entera a partir de una muestra pequena (intervalos de confianza).</li>
-    </ol>
+    <h3 style="margin-top: 0;">Antes de empezar: lo basico que necesitas saber</h3>
+
+    <h4>Que es la probabilidad?</h4>
+    <p>Un numero entre <strong>0</strong> (imposible) y <strong>1</strong> (seguro) que mide cuanto de probable es que algo ocurra. Si lanzas una moneda, la probabilidad de cara es $0{,}5$ (50%). Si lanzas un dado, la probabilidad de sacar un 6 es $\frac{1}{6} \approx 0{,}167$ (16,7%).</p>
+    <p>La forma mas intuitiva de calcularla es la <strong>Regla de Laplace</strong>: dividir los casos que te interesan entre todos los posibles. Por ejemplo, en un dado hay 6 caras posibles y solo una es un 6, asi que $P(6) = \frac{1}{6}$.</p>
+
+    <h4>Que es un suceso?</h4>
+    <p>Cualquier cosa que pueda pasar o no pasar en un experimento. "Sacar par" al lanzar un dado es un suceso. "Que llueva manana" es un suceso. Los llamamos con letras: $A$, $B$, $C$... y escribimos su probabilidad como $P(A)$.</p>
+    <p>Los sucesos se pueden combinar: "A <em>o</em> B" (union, $A \cup B$), "A <em>y</em> B a la vez" (interseccion, $A \cap B$), "que NO ocurra A" (complementario, $\overline{A}$).</p>
+
+    <h4>Que es una distribucion?</h4>
+    <p>Cuando repites un experimento muchas veces (lanzar un dado 100 veces, preguntar a 1000 personas si votan a un partido), los resultados se reparten siguiendo un patron. Ese patron es la <strong>distribucion</strong>. En esta asignatura estudiamos dos:</p>
+    <ul>
+        <li><strong>Binomial:</strong> para contar exitos en $n$ intentos. Ejemplo: "de 10 preguntas tipo test contestadas al azar, cuantas acierto?"</li>
+        <li><strong>Normal</strong> (campana de Gauss): para variables continuas como alturas, pesos, notas. La mayoria de valores caen cerca de la media.</li>
+    </ul>
+
+    <h4>Que es la inferencia?</h4>
+    <p>Imagina que quieres saber la altura media de todos los espanoles. No puedes medir a 47 millones de personas, pero si mides a 500, puedes decir: "con un 95% de confianza, la media real esta entre 1,70m y 1,74m". Eso es un <strong>intervalo de confianza</strong>: usar una muestra pequena para sacar conclusiones sobre toda la poblacion.</p>
+
+    <h4>Como funciona un examen tipico?</h4>
+    <p>Te dan un contexto real (una fabrica, una encuesta, un tratamiento medico) y te piden calcular probabilidades, aplicar formulas y razonar si dos cosas son independientes o no. La clave es <strong>identificar que tipo de problema es</strong> (ver la <a href="herramientas.html#guia-decision">guia "que formula uso"</a>) y seguir los pasos sin saltarte ninguno.</p>
 </div>
 
 <div class="card warning" style="padding: 28px;">
