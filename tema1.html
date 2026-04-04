@@ -201,35 +201,113 @@
     </div>
 </div>
 
-<h2 id="prob-condicionada">1.4 Probabilidad Condicionada</h2>
+<h2 id="prob-condicionada">1.4 Probabilidad Condicionada. Sucesos independientes.</h2>
+
+<div class="card definition">
+    <div class="card-label">Que es la probabilidad condicionada</div>
+    <p>La probabilidad de un suceso A puede verse alterada si la informacion de que disponemos se incrementa, reduciendo la incertidumbre del experimento aleatorio. Este incremento de informacion se traduce en una <strong>disminucion de los casos posibles</strong>, aumentando la probabilidad de A.</p>
+    <p><em>Ejemplo:</em> Lanzamos tres monedas. El espacio muestral es $E = \{CCC, CCX, CXC, XCC, CXX, XCX, XXC, XXX\}$. Consideremos el suceso $A = \{\text{sacar dos caras}\}$, cuya probabilidad es $P(A) = \frac{3}{8}$ (3 casos favorables de 8 posibles).</p>
+    <p>Ahora supongamos que sabemos que <strong>ha salido al menos una cruz</strong> (suceso B). Entonces los casos posibles se reducen a 7 (todos menos CCC). La probabilidad de A sabiendo B es:</p>
+    <p style="text-align:center;">$P(A/B) = \frac{3}{7}$</p>
+    <p>Observa que 3 son los casos comunes a A y a B (favorables a $A \cap B$), siendo $P(A \cap B) = \frac{3}{8}$. Por otra parte $P(B) = \frac{7}{8}$. Y como la probabilidad del suceso A/B es el cociente entre casos favorables y casos posibles:</p>
+    <p style="text-align:center;">$P(A/B) = \frac{3}{7} = \frac{3/8}{7/8} = \frac{P(A \cap B)}{P(B)}$</p>
+</div>
 
 <div class="card formula">
-    <div class="card-label">Formula</div>
-    <p>La probabilidad de A sabiendo que ha ocurrido B:</p>
-    $$\boxed{P(A|B) = \frac{P(A \cap B)}{P(B)}}$$
+    <div class="card-label">Formula de la probabilidad condicionada</div>
+    <p>Se define la probabilidad condicionada de un suceso A por otro B como:</p>
+    $$\boxed{P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) \neq 0}$$
+    <p>Del mismo modo: $P(B|A) = \frac{P(A \cap B)}{P(A)}, \quad P(A) \neq 0$</p>
     <p><strong>Lectura:</strong> "Probabilidad de A <em>dado</em> B" o "Probabilidad de A <em>sabiendo que</em> B".</p>
-    <p>De aqui se deduce la <strong>regla del producto:</strong> $P(A \cap B) = P(B) \cdot P(A|B) = P(A) \cdot P(B|A)$</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Probabilidad de la interseccion (regla del producto)</div>
+    <p>De la formula de la condicionada, despejando $P(A \cap B)$:</p>
+    $$\boxed{P(A \cap B) = P(A) \cdot P(B|A) = P(B) \cdot P(A|B)}$$
+    <p>Para la interseccion de tres sucesos:</p>
+    <p>$P(A \cap B \cap C) = P(A) \cdot P(B|A) \cdot P(C|A \cap B)$</p>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo - Sucesos con datos</div>
-    <p><strong>Situacion:</strong> Tenemos dos sucesos A y B de los que conocemos: $P(A) = 0{,}5$, $P(B) = 0{,}3$ y $P(A \cap B) = 0{,}1$. A partir de estos tres datos, podemos calcular cualquier probabilidad relacionada. Vamos a calcular la union, la condicionada, y comprobar si son independientes.</p>
+    <div class="card-label">Ejemplo del temario - Instituto de Bachillerato (tabla contingencia + condicionada)</div>
+    <p>En un Instituto hay 500 alumnos de Bachillerato distribuidos por cursos y modalidades:</p>
+    <table>
+        <tr><th></th><th>Curso 1o</th><th>Curso 2o</th><th>Total</th></tr>
+        <tr><td>Tecnologico</td><td>80</td><td>60</td><td>140</td></tr>
+        <tr><td>CCSS</td><td>100</td><td>90</td><td>190</td></tr>
+        <tr><td>CC Naturales</td><td>85</td><td>85</td><td>170</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>265</strong></td><td><strong>235</strong></td><td><strong>500</strong></td></tr>
+    </table>
+    <p>Llamamos T, S, N a los sucesos "cursar Tecnologico, CCSS o Naturales", y I, II a "ser de 1o o 2o curso".</p>
+    <p>Las probabilidades condicionadas de ser de 1er curso son:</p>
+    <p>$P(T|I) = \frac{80}{265}$, $P(S|I) = \frac{100}{265}$, $P(N|I) = \frac{85}{265}$</p>
+    <p>Comprobamos con la formula: $P(T|I) = \frac{P(T \cap I)}{P(I)} = \frac{80/500}{265/500} = \frac{80}{265}$ &#10003;</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo del temario - Opositor (interseccion de 3 sucesos)</div>
+    <p>Un opositor se sabe 35 temas de los 50 que consta el temario. La prueba consiste en responder a tres temas elegidos al azar. Calcula que probabilidad tiene de superar la oposicion (contestar correctamente los tres temas).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Hay que contestar los tres temas: suceso $A \cap B \cap C$.</p>
+        <p>$P(A) = \frac{35}{50}$ (contestar bien el primer tema)</p>
+        <p>$P(B|A) = \frac{34}{49}$ (contestar bien el segundo, sabiendo que el primero lo sabe)</p>
+        <p>$P(C|A \cap B) = \frac{33}{48}$ (contestar bien el tercero, sabiendo que los dos primeros los sabe)</p>
+        <p>$P(A \cap B \cap C) = \frac{35}{50} \cdot \frac{34}{49} \cdot \frac{33}{48} = \frac{39270}{117600} \approx 0{,}334$</p>
+    </div>
+</div>
+
+<h3>Independencia de sucesos</h3>
+
+<div class="card definition">
+    <div class="card-label">Definicion de independencia</div>
+    <p>La finalidad de la probabilidad condicionada es recoger la influencia que puede ejercer un suceso sobre otro. Si <strong>no existe esa influencia</strong>, se habla de <em>independencia</em> de los sucesos.</p>
+    <p>Un suceso A es <strong>independiente</strong> de otro B si $P(A|B) = P(A)$, es decir, la presencia de B no influye en la probabilidad de A.</p>
+    <p>De la formula de condicionada, $\frac{P(A \cap B)}{P(B)} = P(A)$, despejando:</p>
+    $$\boxed{P(A \cap B) = P(A) \cdot P(B)}$$
+    <p>Ademas, la independencia es reciproca: si A es independiente de B, entonces B es independiente de A.</p>
+    <p><strong>Teorema:</strong> La independencia se conserva en los complementarios. Si A y B son independientes:</p>
+    <p>$P(\bar{A} \cap \bar{B}) = P(\bar{A}) \cdot P(\bar{B})$</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Atencion: Independientes ≠ Incompatibles</div>
+    <table>
+        <tr><th></th><th>Incompatibles</th><th>Independientes</th></tr>
+        <tr><td><strong>Definicion</strong></td><td>$P(A \cap B) = 0$</td><td>$P(A \cap B) = P(A) \cdot P(B)$</td></tr>
+        <tr><td><strong>Significado</strong></td><td>No pueden pasar a la vez</td><td>Uno no afecta al otro</td></tr>
+        <tr><td><strong>Ejemplo</strong></td><td>Sacar par e impar en un dado</td><td>Lanzar dado y moneda</td></tr>
+    </table>
+    <p><strong>Si dos sucesos son incompatibles y tienen probabilidad > 0, NO pueden ser independientes</strong> (porque $P(A) \cdot P(B) > 0$ pero $P(A \cap B) = 0$).</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo del temario - Tirador (independencia en disparos)</div>
+    <p>Un tirador tiene probabilidad 0,8 de dar en el blanco. Realiza tres disparos independientes. Calcula la probabilidad de haber hecho diana: a) con algun disparo. b) con exactamente dos disparos.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> Fallar los tres: $P(\bar{A} \cap \bar{B} \cap \bar{C}) = P(\bar{A}) \cdot P(\bar{B}) \cdot P(\bar{C}) = (1-0{,}8)^3 = 0{,}2^3 = 0{,}008$</p>
+        <p>Acertar con algun disparo = complementario de fallar todos: $P = 1 - 0{,}008 = 0{,}992$</p>
+        <p><strong>b)</strong> Hay 3 caminos posibles (acierta 1o y 2o pero no 3o, acierta 1o y 3o pero no 2o, acierta 2o y 3o pero no 1o):</p>
+        <p>$P = 3 \times 0{,}8 \times 0{,}8 \times 0{,}2 = 3 \times 0{,}128 = 0{,}384$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Sucesos con datos (tipo examen)</div>
+    <p>$P(A) = 0{,}5$, $P(B) = 0{,}3$, $P(A \cap B) = 0{,}1$. Calcula: a) $P(A \cup B)$, b) $P(A|B)$, c) $P(A|A \cap B)$, d) $P(A|A \cup B)$, e) ¿Son independientes?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <h4>a) $P(A \cup B)$</h4>
         <p>$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0{,}5 + 0{,}3 - 0{,}1 = 0{,}7$</p>
-
         <h4>b) $P(A|B)$</h4>
         <p>$P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{0{,}1}{0{,}3} = 0{,}333$</p>
-
         <h4>c) $P(A | A \cap B)$</h4>
-        <p>$P(A | A \cap B) = \frac{P(A \cap (A \cap B))}{P(A \cap B)} = \frac{P(A \cap B)}{P(A \cap B)} = 1$</p>
-        <p>Si ya sabemos que ocurrio $A \cap B$, entonces A seguro que ocurrio.</p>
-
+        <p>$P(A | A \cap B) = \frac{P(A \cap (A \cap B))}{P(A \cap B)} = \frac{P(A \cap B)}{P(A \cap B)} = 1$ (si ya ocurrio $A \cap B$, seguro que ocurrio A)</p>
         <h4>d) $P(A | A \cup B)$</h4>
-        <p>$P(A | A \cup B) = \frac{P(A \cap (A \cup B))}{P(A \cup B)} = \frac{P(A)}{P(A \cup B)} = \frac{0{,}5}{0{,}7} = 0{,}714$</p>
-
-        <h4>e) Independientes?</h4>
+        <p>$P(A | A \cup B) = \frac{P(A)}{P(A \cup B)} = \frac{0{,}5}{0{,}7} = 0{,}714$</p>
+        <h4>e) ¿Independientes?</h4>
         <p>$P(A) \cdot P(B) = 0{,}5 \times 0{,}3 = 0{,}15 \neq 0{,}1 = P(A \cap B)$ &rarr; <strong>No son independientes.</strong></p>
     </div>
 </div>
