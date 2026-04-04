@@ -965,7 +965,66 @@
     </div>
 </div>
 
-<!-- FICHA RAPIDA -->
+<h2 id="ejercicios-t3">Ejercicios Clave del Tema</h2>
+
+<div class="card example">
+    <div class="card-label">Ejemplo resuelto - Medias muestrales (bolsas de azucar)</div>
+    <p>Las bolsas de azucar de una maquina tienen media 500g y desviacion tipica 35g. Se empaquetan en cajas de 100 unidades.</p>
+    <p>a) ¿Como se distribuyen las medias de los pesos de cada caja? b) P(media inferior a 495g).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> $\mu = 500$, $\sigma = 35$, $n = 100$. Por el TCL:</p>
+        <p>$\bar{X} \to N\left(500, \frac{35}{\sqrt{100}}\right) = N(500;\; 3{,}5)$</p>
+        <p><strong>b)</strong> $P(\bar{X} < 495) = P\left(Z < \frac{495 - 500}{3{,}5}\right) = P(Z < -1{,}43)$</p>
+        <p>$= 1 - P(Z < 1{,}43) = 1 - 0{,}9236 = 0{,}0764$</p>
+        <p>El 7,6% de las cajas tendran peso medio inferior a 495g.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo resuelto - Individual vs muestra (soldados)</div>
+    <p>Las estaturas de un grupo de soldados: $N(173, 6)$ en cm.</p>
+    <p>a) P(soldado al azar mida menos de 175cm). b) Muestra de 12 soldados: P(media supere 176cm).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Individuo</strong> (se usa $\sigma$, NO $\sigma/\sqrt{n}$):</p>
+        <p>$P(X < 175) = P\left(Z < \frac{175-173}{6}\right) = P(Z < 0{,}33) = 0{,}6293$</p>
+        <p><strong>b) Muestra</strong> (se usa $\sigma/\sqrt{n}$):</p>
+        <p>$\bar{X} \to N\left(173, \frac{6}{\sqrt{12}}\right) = N(173;\; 1{,}73)$</p>
+        <p>$P(\bar{X} > 176) = P\left(Z > \frac{176-173}{1{,}73}\right) = P(Z > 1{,}73) = 1 - 0{,}9582 = 0{,}0418$</p>
+        <p><strong>Clave:</strong> Distinguir si preguntan por UN individuo o por la MEDIA de una muestra.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo resuelto - IC para la media al 99% (calcio)</div>
+    <p>Estudio sobre 100 afectados: media de calcio al dia 900mg, $\sigma = 150$mg. IC al 99% para la media poblacional. Interpretar.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Datos: $\bar{x} = 900$, $\sigma = 150$, $n = 100$, confianza 99% $\Rightarrow z_{\alpha/2} = 2{,}575$</p>
+        <p>$IC = \left(900 - 2{,}575 \cdot \frac{150}{\sqrt{100}}\;;\; 900 + 2{,}575 \cdot \frac{150}{\sqrt{100}}\right) = (900 - 38{,}625\;;\; 900 + 38{,}625)$</p>
+        <p>$IC = (861{,}375\;;\; 938{,}625)$</p>
+        <p><strong>Interpretacion:</strong> Con un 99% de confianza, la media de calcio diario de toda la poblacion afectada esta entre 861,4 y 938,6 mg.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo resuelto - Tamano de muestra (encuesta, PEVAU)</div>
+    <p>Se quiere estimar la proporcion de personas mayores de 18 anos con un error de 2,9% y confianza del 95,5%. ¿Tamano minimo de muestra?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>No conocemos $p$, asi que $p = q = 0{,}5$ (caso mas desfavorable).</p>
+        <p>$1 - \alpha = 0{,}955 \Rightarrow z_{\alpha/2} = 2$</p>
+        <p>$n = \left(\frac{z_{\alpha/2}}{E}\right)^2 \cdot pq = \left(\frac{2}{0{,}029}\right)^2 \times 0{,}5 \times 0{,}5 = 4756{,}24 \times 0{,}25 \approx 1189$</p>
+        <p><strong>n = 1189 personas</strong> (se redondea siempre hacia arriba).</p>
+    </div>
+</div>
+
+<div class="card" style="text-align: center; border: 2px solid var(--green); padding: 24px; margin-top: 30px;">
+    <h3 style="color: var(--green);">Practicar este tema</h3>
+    <p>Completa el test interactivo para consolidar estos conceptos.</p>
+    <a href="tests.html?tema=3" style="display: inline-block; padding: 12px 24px; background: var(--green); color: var(--bg); border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 12px;">Ir al Test de Tema 3</a>
+</div>
 
 </div><!-- end main -->
 

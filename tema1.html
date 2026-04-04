@@ -306,6 +306,52 @@
     </div>
 </div>
 
+<h2 id="ejercicios-t1">Ejercicios Clave del Tema</h2>
+
+<div class="card example">
+    <div class="card-label">Ejercicio - Condicionada con tabla</div>
+    <p>En una clase, el 40% aprobo filosofia, el 50% aprobo matematicas. La probabilidad de aprobar matematicas si se ha aprobado filosofia es 0,6.</p>
+    <p>a) Que porcentaje aprobo ambas? b) De los que aprobaron filosofia, que porcentaje aprobo mates?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> $P(F) = 0{,}4$, $P(M) = 0{,}5$, $P(M|F) = 0{,}6$</p>
+        <p>$P(F \cap M) = P(F) \cdot P(M|F) = 0{,}4 \times 0{,}6 = 0{,}24$ &rarr; <strong>24% aprobo ambas</strong></p>
+        <p><strong>b)</strong> $P(M|F) = 0{,}6$ &rarr; <strong>el 60%</strong></p>
+        <p>Extra: $P(F|M) = \frac{P(F \cap M)}{P(M)} = \frac{0{,}24}{0{,}5} = 0{,}48$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejercicio - Bayes con 3 categorias (tipo PEVAU)</div>
+    <p>En una poblacion, el 20% trabaja en agricultura (A), el 25% en industria (I) y el 55% en servicios (S). Los menores de 45: 37% en A, 62% en I, 56% en S.</p>
+    <p>a) P(menor de 45). b) Si es menor de 45, P(cada sector).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> $P(-45) = 0{,}2 \times 0{,}37 + 0{,}25 \times 0{,}62 + 0{,}55 \times 0{,}56 = 0{,}074 + 0{,}155 + 0{,}308 = 0{,}537$</p>
+        <p><strong>b)</strong> $P(A|-45) = \frac{0{,}074}{0{,}537} \approx 0{,}138$, $P(I|-45) = \frac{0{,}155}{0{,}537} \approx 0{,}289$, $P(S|-45) = \frac{0{,}308}{0{,}537} \approx 0{,}574$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejercicio - Independencia (tipo examen)</div>
+    <p>Muestra de 1000 personas: 300 saben ingles, 100 ruso, 50 ambos. ¿Son independientes?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$P(I) \cdot P(R) = 0{,}3 \times 0{,}1 = 0{,}03 \neq 0{,}05 = P(I \cap R)$ &rarr; <strong>No son independientes.</strong></p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejercicio Selectividad - Spam y Bayes (CCSS II 2023)</div>
+    <p>El 20% de correos son spam. "lottery" aparece en 40% del spam y 0,6% del no spam. a) P(spam dado "lottery"). b) P(sin "lottery"). c) P(etiqueta incorrecta).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> $P(L) = 0{,}2 \times 0{,}4 + 0{,}8 \times 0{,}006 = 0{,}0848$ &rarr; $P(S|L) = \frac{0{,}08}{0{,}0848} = 0{,}943$</p>
+        <p><strong>b)</strong> $P(\bar{L}) = 1 - 0{,}0848 = 0{,}915$</p>
+        <p><strong>c)</strong> $P(\text{error}) = P(S \cap \bar{L}) + P(\bar{S} \cap L) = 0{,}12 + 0{,}0048 = 0{,}125$</p>
+    </div>
+</div>
+
 <div class="card important" style="margin-top: 40px;">
     <h3 style="color: var(--green);">Practicar este tema</h3>
     <p>Completa el test interactivo para consolidar estos conceptos.</p>
