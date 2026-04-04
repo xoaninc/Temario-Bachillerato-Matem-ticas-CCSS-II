@@ -115,14 +115,14 @@ li { margin: 4px 0; }
 .main { margin-left: 260px; padding: 32px 44px 60px; max-width: 860px; }
 
 /* TEMA HEADER */
-.tema-header { padding: 24px 0; margin-bottom: 28px; border-bottom: 2px solid var(--border); }
-.tema-header h1 { color: var(--text-bright); margin-bottom: 6px; }
+.tema-header { padding: 24px 0; margin-bottom: 28px; border-bottom: 2px solid var(--blue); }
+.tema-header h1 { color: var(--blue); margin-bottom: 6px; }
 .tema-header p { color: var(--text-dim); font-size: 0.95rem; }
 
 /* HEADINGS */
-.main > h2 { color: var(--text-bright); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.main > h2 { color: var(--blue); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-size: 1.4rem; }
 .main h3 { color: var(--teal); margin: 24px 0 12px; }
-.main h4 { color: var(--violet); margin: 16px 0 8px; }
+.main h4 { color: var(--amber); margin: 16px 0 8px; }
 
 /* COLLAPSIBLE */
 .section-toggle {

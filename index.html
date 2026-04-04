@@ -97,23 +97,23 @@
 
 <!-- GUIA DESDE CERO -->
 <div class="tema-header" id="guia-aprender">
-    <h1>Guia desde cero</h1>
-    <p>Todo el temario de estadistica, organizado para que lo entiendas paso a paso.</p>
+    <h1>Estadistica CCSS II</h1>
+    <p>Todo el temario explicado paso a paso, con ejercicios resueltos y tests</p>
 </div>
 
-<div class="card" style="border: 2px solid var(--blue); padding: 28px;">
-    <h3 style="color: var(--blue);">La idea general</h3>
-    <p>Toda esta asignatura trata de <strong>una sola cosa</strong>: medir la incertidumbre con numeros. En la vida real no sabemos que va a pasar, pero podemos poner un <strong>numero entre 0 y 1</strong> a cada posibilidad. Eso es la probabilidad.</p>
-    <p>Los 3 temas se construyen uno sobre otro:</p>
+<div class="card definition" style="padding: 28px;">
+    <h3 style="margin-top: 0;">¿De que va esta asignatura?</h3>
+    <p>Toda la asignatura trata de <strong>medir la incertidumbre con numeros</strong>. En la vida real no sabemos que va a pasar (si llovera, si un producto sera defectuoso, si aprobare), pero podemos calcular la <strong>probabilidad</strong> de que algo ocurra: un numero entre 0 (imposible) y 1 (seguro).</p>
+    <p>Con esa base, aprendemos a trabajar con <strong>distribuciones</strong> (binomial y normal) que nos dicen como se reparten los resultados. Y al final, usamos todo eso para <strong>sacar conclusiones sobre poblaciones enteras</strong> mirando solo una muestra pequena.</p>
 </div>
 
-<h3 style="color: var(--blue); margin-top: 28px;">Hoja de ruta: los 3 temas en orden</h3>
+<h2>Los 3 temas</h2>
 
 <a href="tema1.html" class="roadmap-step">
     <span class="roadmap-num">1</span>
     <div class="roadmap-content">
         <h4>Probabilidad</h4>
-        <p>Las reglas basicas: sucesos, union, interseccion, condicionada, Bayes, tablas de contingencia.</p>
+        <p>Las reglas del juego: que es un suceso, como combinarlos (union, interseccion, complementario), probabilidad condicionada ("sabiendo que..."), independencia, y el teorema de Bayes para invertir probabilidades. Tambien tablas de contingencia.</p>
     </div>
 </a>
 
@@ -121,7 +121,7 @@
     <span class="roadmap-num">2</span>
     <div class="roadmap-content">
         <h4>Distribucion Binomial</h4>
-        <p>Variable aleatoria, formula binomial, media y varianza. "Repito algo n veces, cuantas salen bien?"</p>
+        <p>Cuando repites un experimento $n$ veces y cada vez solo hay exito o fracaso. La formula te dice la probabilidad de obtener exactamente $k$ exitos. Tambien la media ($\\mu = np$), la varianza, y cuando usar el complementario.</p>
     </div>
 </a>
 
@@ -129,13 +129,40 @@
     <span class="roadmap-num">3</span>
     <div class="roadmap-content">
         <h4>Normal, Muestreo e Inferencia</h4>
-        <p>Campana de Gauss, tipificacion, aproximacion binomial-normal, medias muestrales, intervalos de confianza.</p>
+        <p>La campana de Gauss, tipificacion ($Z = \\frac{X-\\mu}{\\sigma}$), aproximar binomial por normal, medias muestrales ($\\sigma/\\sqrt{n}$), y los intervalos de confianza: "la media real esta entre X e Y con un 95% de seguridad".</p>
     </div>
 </a>
 
-<div class="card" style="border: 1px solid var(--border); padding: 24px; margin-top: 24px;">
-    <h3 style="color: var(--green);">Orden de estudio recomendado</h3>
-    <p><strong>Cada concepto se construye sobre los anteriores.</strong> Si no entiendes la condicionada (Nivel 3), no pierdas tiempo con intervalos de confianza (Nivel 10).</p>
+<h2>Herramientas</h2>
+
+<a href="herramientas.html" class="roadmap-step">
+    <span class="roadmap-num">?</span>
+    <div class="roadmap-content">
+        <h4>Que formula uso? + Errores tipicos</h4>
+        <p>Guia paso a paso para elegir la formula correcta en cada tipo de problema, y los 7 errores mas comunes en el examen.</p>
+    </div>
+</a>
+
+<a href="examenes.html" class="roadmap-step">
+    <span class="roadmap-num">!</span>
+    <div class="roadmap-content">
+        <h4>Ejercicios de examen resueltos</h4>
+        <p>Todos los ejercicios de examenes reales resueltos paso a paso, mezclados para practicar.</p>
+    </div>
+</a>
+
+<a href="tests.html" class="roadmap-step">
+    <span class="roadmap-num">&#10003;</span>
+    <div class="roadmap-content">
+        <h4>Tests interactivos</h4>
+        <p>Preguntas aleatorias por tema con explicaciones detalladas. 10 preguntas por tema.</p>
+    </div>
+</a>
+
+<h2>Orden de estudio recomendado</h2>
+
+<div class="card" style="padding: 24px;">
+    <p><strong>Cada concepto se construye sobre los anteriores.</strong> No saltes temas. Si no entiendes la condicionada, no pierdas tiempo con intervalos de confianza.</p>
     <table>
         <tr><th>Nivel</th><th>Concepto</th><th>Necesitas antes</th></tr>
         <tr><td>1-2</td><td><strong>Probabilidad basica + operaciones</strong></td><td>Algebra basica</td></tr>

@@ -393,68 +393,120 @@
 const questions = {
     1: [
         {
-            question: "Si $P(A)=0{,}4$ y $P(B)=0{,}3$ y son independientes, ¿cuanto vale $P(A \\cap B)$?",
-            answer: "$P(A \\cap B) = P(A) \\cdot P(B) = 0{,}4 \\times 0{,}3 = 0{,}12$"
+            question: "Si $P(A)=0{,}4$ y $P(B)=0{,}3$ y A y B son independientes, ¿cuanto vale $P(A \\cap B)$?",
+            answer: "<strong>Paso 1:</strong> Como son independientes, se cumple que $P(A \\cap B) = P(A) \\cdot P(B)$.<br><br><strong>Paso 2:</strong> Sustituimos: $P(A \\cap B) = 0{,}4 \\times 0{,}3 = 0{,}12$.<br><br><strong>Clave:</strong> Independientes significa que uno no afecta al otro, por eso se multiplican directamente."
         },
         {
             question: "$P(A)=0{,}5$, $P(B)=0{,}6$, $P(A \\cap B)=0{,}2$. Calcula $P(A \\cup B)$.",
-            answer: "$P(A \\cup B) = P(A)+P(B)-P(A \\cap B) = 0{,}5+0{,}6-0{,}2 = 0{,}9$"
+            answer: "<strong>Formula:</strong> $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$<br><br><strong>Sustituimos:</strong> $P(A \\cup B) = 0{,}5 + 0{,}6 - 0{,}2 = 0{,}9$<br><br><strong>Por que se resta?</strong> Porque la interseccion esta incluida tanto en A como en B, y si no la restamos la contamos dos veces."
         },
         {
             question: "$P(A \\cup B)=0{,}8$. ¿Cuanto vale $P(\\bar{A} \\cap \\bar{B})$? (ni A ni B)",
-            answer: "Por De Morgan: $P(\\bar{A} \\cap \\bar{B}) = 1 - P(A \\cup B) = 1 - 0{,}8 = 0{,}2$"
+            answer: "<strong>Leyes de De Morgan:</strong> \"ni A ni B\" es el complementario de \"A o B\".<br><br>$P(\\bar{A} \\cap \\bar{B}) = 1 - P(A \\cup B) = 1 - 0{,}8 = 0{,}2$<br><br><strong>Truco:</strong> Siempre que veas \"ni ... ni ...\", piensa en $1 - P(\\text{union})$."
         },
         {
-            question: "$P(A)=0{,}3$, $P(A \\cap B)=0{,}15$, $P(B)=0{,}5$. Calcula $P(A|B)$. ¿Son independientes?",
-            answer: "$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{0{,}15}{0{,}5} = 0{,}3$.<br><br>Independencia: $P(A) \\cdot P(B) = 0{,}3 \\times 0{,}5 = 0{,}15 = P(A \\cap B)$ &#10003; Son independientes."
+            question: "$P(A)=0{,}3$, $P(A \\cap B)=0{,}15$, $P(B)=0{,}5$. Calcula $P(A|B)$ y di si son independientes.",
+            answer: "<strong>Paso 1 - Condicionada:</strong><br>$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{0{,}15}{0{,}5} = 0{,}3$<br><br><strong>Paso 2 - Independencia:</strong><br>Comprobamos si $P(A) \\cdot P(B) = P(A \\cap B)$:<br>$0{,}3 \\times 0{,}5 = 0{,}15 = P(A \\cap B)$ &#10003;<br><br><strong>Si, son independientes.</strong> Fijate que $P(A|B) = P(A) = 0{,}3$, lo cual confirma que saber B no cambia la probabilidad de A."
         },
         {
-            question: "El 60% compra online y el 40% en tienda. Online devuelve el 10%, tienda el 5%. Un cliente devuelve. ¿$P(\\text{compro online})$?",
-            answer: "Prob. total: $P(D) = 0{,}6 \\times 0{,}10 + 0{,}4 \\times 0{,}05 = 0{,}06+0{,}02 = 0{,}08$<br><br>Bayes: $P(\\text{Online}|D) = \\frac{0{,}6 \\times 0{,}10}{0{,}08} = \\frac{0{,}06}{0{,}08} = 0{,}75$"
+            question: "El 60% compra online y el 40% en tienda. Online devuelve el 10%, tienda el 5%. Un cliente devuelve. ¿Probabilidad de que comprara online?",
+            answer: "<strong>Paso 1 - Identificar datos:</strong><br>$P(O) = 0{,}6$, $P(T) = 0{,}4$<br>$P(D|O) = 0{,}10$, $P(D|T) = 0{,}05$<br><br><strong>Paso 2 - Prob. total (P de devolver):</strong><br>$P(D) = P(O) \\cdot P(D|O) + P(T) \\cdot P(D|T)$<br>$= 0{,}6 \\times 0{,}10 + 0{,}4 \\times 0{,}05 = 0{,}06 + 0{,}02 = 0{,}08$<br><br><strong>Paso 3 - Bayes (invertir):</strong><br>$P(O|D) = \\frac{P(O) \\cdot P(D|O)}{P(D)} = \\frac{0{,}06}{0{,}08} = 0{,}75$<br><br><strong>Interpretacion:</strong> Si alguien devuelve, hay un 75% de probabilidad de que comprara online."
+        },
+        {
+            question: "$P(A)=0{,}7$, $P(B)=0{,}6$, $P(A \\cup B)=0{,}9$. Calcula $P(A \\cap B)$ y $P(A|B)$.",
+            answer: "<strong>Paso 1 - Despejar interseccion:</strong><br>De $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$ despejamos:<br>$P(A \\cap B) = P(A) + P(B) - P(A \\cup B) = 0{,}7 + 0{,}6 - 0{,}9 = 0{,}4$<br><br><strong>Paso 2 - Condicionada:</strong><br>$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{0{,}4}{0{,}6} = 0{,}667$<br><br><strong>Truco:</strong> En muchos ejercicios te dan la union y tienes que despejar la interseccion. Es la misma formula pero al reves."
+        },
+        {
+            question: "Una fabrica tiene 3 maquinas: M1 (45%), M2 (30%), M3 (25%). Defectos: M1 el 3%, M2 el 4%, M3 el 5%. Se saca una pieza defectuosa. ¿De que maquina viene probablemente?",
+            answer: "<strong>Paso 1 - Prob. total:</strong><br>$P(D) = 0{,}45 \\times 0{,}03 + 0{,}30 \\times 0{,}04 + 0{,}25 \\times 0{,}05$<br>$= 0{,}0135 + 0{,}012 + 0{,}0125 = 0{,}038$<br><br><strong>Paso 2 - Bayes para cada maquina:</strong><br>$P(M1|D) = \\frac{0{,}0135}{0{,}038} = 0{,}355$<br>$P(M2|D) = \\frac{0{,}012}{0{,}038} = 0{,}316$<br>$P(M3|D) = \\frac{0{,}0125}{0{,}038} = 0{,}329$<br><br><strong>Viene de M1</strong> (35,5%), aunque M3 tiene mayor tasa de defectos, M1 produce mas piezas."
+        },
+        {
+            question: "¿Son lo mismo sucesos incompatibles e independientes? Razona con un ejemplo.",
+            answer: "<strong>NO son lo mismo. Son conceptos distintos.</strong><br><br><strong>Incompatibles:</strong> $P(A \\cap B) = 0$ (no pueden pasar a la vez).<br>Ejemplo: sacar par e impar en un dado.<br><br><strong>Independientes:</strong> $P(A \\cap B) = P(A) \\cdot P(B)$ (uno no afecta al otro).<br>Ejemplo: lanzar un dado y una moneda.<br><br><strong>Atencion:</strong> Si dos sucesos son incompatibles y tienen probabilidad > 0, NO pueden ser independientes (porque $P(A) \\cdot P(B) > 0$ pero $P(A \\cap B) = 0$)."
+        },
+        {
+            question: "En una clase, 300 saben ingles, 100 saben ruso, 50 saben ambos (de 1000). ¿Son independientes \"saber ingles\" y \"saber ruso\"?",
+            answer: "<strong>Paso 1 - Calcular probabilidades:</strong><br>$P(I) = 300/1000 = 0{,}3$<br>$P(R) = 100/1000 = 0{,}1$<br>$P(I \\cap R) = 50/1000 = 0{,}05$<br><br><strong>Paso 2 - Comprobar independencia:</strong><br>$P(I) \\cdot P(R) = 0{,}3 \\times 0{,}1 = 0{,}03$<br>$P(I \\cap R) = 0{,}05 \\neq 0{,}03$<br><br><strong>No son independientes.</strong> Hay mas gente que sabe ambos idiomas de lo que cabria esperar si fueran independientes."
+        },
+        {
+            question: "$P(A)=0{,}4$, $P(B)=0{,}5$, $P(A \\cap B)=0{,}1$. Calcula $P(\\bar{A} \\cup \\bar{B})$.",
+            answer: "<strong>Usamos De Morgan:</strong> $\\overline{A \\cap B} = \\bar{A} \\cup \\bar{B}$<br><br>Por tanto: $P(\\bar{A} \\cup \\bar{B}) = P(\\overline{A \\cap B}) = 1 - P(A \\cap B) = 1 - 0{,}1 = 0{,}9$<br><br><strong>Significado:</strong> La probabilidad de que NO ocurran A y B a la vez es 0,9."
         }
     ],
     2: [
         {
             question: "$X \\sim B(8,\\; 0{,}3)$. Calcula la media y la desviacion tipica.",
-            answer: "$\\mu = np = 8 \\times 0{,}3 = 2{,}4$<br><br>$\\sigma = \\sqrt{npq} = \\sqrt{8 \\times 0{,}3 \\times 0{,}7} = \\sqrt{1{,}68} \\approx 1{,}30$"
+            answer: "<strong>Formulas de la Binomial:</strong><br>$\\mu = n \\cdot p = 8 \\times 0{,}3 = 2{,}4$<br><br>$\\sigma = \\sqrt{n \\cdot p \\cdot q} = \\sqrt{8 \\times 0{,}3 \\times 0{,}7} = \\sqrt{1{,}68} \\approx 1{,}30$<br><br><strong>Interpretacion:</strong> De media esperamos 2,4 exitos en 8 intentos. La mayoria de veces saldran entre 1 y 4 exitos (media $\\pm$ desviacion)."
         },
         {
             question: "Lanzo un dado 5 veces. Exito = sacar 6. Calcula $P(\\text{exactamente dos 6})$.",
-            answer: "$X \\sim B(5,\\; 1/6)$<br><br>$P(X=2) = \\binom{5}{2} \\cdot \\left(\\frac{1}{6}\\right)^2 \\cdot \\left(\\frac{5}{6}\\right)^3 = 10 \\times \\frac{1}{36} \\times \\frac{125}{216} \\approx 0{,}1608$"
+            answer: "<strong>Paso 1 - Identificar:</strong> $X \\sim B(5,\\; 1/6)$ porque $n=5$ lanzamientos, $p=1/6$.<br><br><strong>Paso 2 - Formula:</strong><br>$P(X=2) = \\binom{5}{2} \\cdot \\left(\\frac{1}{6}\\right)^2 \\cdot \\left(\\frac{5}{6}\\right)^3$<br><br><strong>Paso 3 - Calcular:</strong><br>$\\binom{5}{2} = 10$ (formas de elegir en que 2 lanzamientos sale 6)<br>$= 10 \\times \\frac{1}{36} \\times \\frac{125}{216} = 10 \\times 0{,}01608 \\approx 0{,}1608$"
         },
         {
             question: "$X \\sim B(10,\\; 0{,}2)$. Calcula $P(X \\geq 1)$.",
-            answer: "Complementario: $P(X \\geq 1) = 1 - P(X=0) = 1 - 0{,}8^{10} = 1 - 0{,}1074 = 0{,}8926$"
+            answer: "<strong>Truco del complementario:</strong> \"Al menos 1\" es mas facil calcularlo como \"1 menos la probabilidad de ninguno\".<br><br>$P(X \\geq 1) = 1 - P(X = 0)$<br><br>$P(X=0) = \\binom{10}{0} \\cdot 0{,}2^0 \\cdot 0{,}8^{10} = 1 \\cdot 1 \\cdot 0{,}8^{10} = 0{,}1074$<br><br>$P(X \\geq 1) = 1 - 0{,}1074 = 0{,}8926$<br><br><strong>Regla:</strong> Siempre que veas \"al menos\", usa el complementario."
         },
         {
-            question: "El 40% aprueba. Se eligen 20 estudiantes. ¿Cuantos se espera que aprueben? ¿Que $n$ para esperar 30 aprobados?",
-            answer: "$\\mu = 20 \\times 0{,}4 = 8$ aprobados.<br><br>Para $\\mu \\geq 30$: $n \\times 0{,}4 \\geq 30 \\Rightarrow n \\geq 75$ alumnos."
+            question: "El 40% aprueba. 20 estudiantes al azar. ¿Cuantos se espera que aprueben? ¿Que $n$ necesitamos para esperar 30 aprobados?",
+            answer: "<strong>Parte 1:</strong> $\\mu = n \\cdot p = 20 \\times 0{,}4 = 8$ aprobados esperados.<br><br><strong>Parte 2:</strong> Queremos $\\mu \\geq 30$:<br>$n \\cdot p \\geq 30$<br>$n \\times 0{,}4 \\geq 30$<br>$n \\geq 30 / 0{,}4 = 75$<br><br><strong>Necesitamos al menos 75 estudiantes.</strong>"
+        },
+        {
+            question: "Un tirador acierta el 80% de los disparos. Hace 3 disparos. ¿Prob. de acertar al menos uno?",
+            answer: "<strong>Paso 1:</strong> $X \\sim B(3,\\; 0{,}8)$. Queremos $P(X \\geq 1)$.<br><br><strong>Paso 2 - Complementario:</strong><br>$P(X \\geq 1) = 1 - P(X = 0) = 1 - 0{,}2^3 = 1 - 0{,}008 = 0{,}992$<br><br><strong>Interpretacion:</strong> Es casi seguro (99,2%) que acierte al menos una vez."
+        },
+        {
+            question: "$X \\sim B(6,\\; 0{,}5)$. Calcula $P(X = 3)$ y explica que significa.",
+            answer: "<strong>Paso 1:</strong> $P(X=3) = \\binom{6}{3} \\cdot 0{,}5^3 \\cdot 0{,}5^3 = 20 \\times 0{,}125 \\times 0{,}125 = 20 \\times 0{,}015625 = 0{,}3125$<br><br><strong>Significado:</strong> Si lanzas una moneda 6 veces, la probabilidad de obtener exactamente 3 caras es del 31,25%. Es el resultado mas probable porque $p = 0{,}5$."
+        },
+        {
+            question: "Un examen tipo test tiene 10 preguntas con 4 opciones cada una. Si contestas al azar, ¿prob. de acertar 5 o mas?",
+            answer: "<strong>Datos:</strong> $X \\sim B(10,\\; 0{,}25)$ porque cada pregunta tiene 1/4 de probabilidad.<br><br><strong>Necesitamos:</strong> $P(X \\geq 5) = 1 - P(X \\leq 4)$<br><br>Calculando cada termino (o con calculadora):<br>$P(X \\leq 4) \\approx 0{,}9219$<br><br>$P(X \\geq 5) = 1 - 0{,}9219 = 0{,}0781$<br><br><strong>Solo un 7,8% de probabilidad.</strong> Contestar al azar no funciona."
+        },
+        {
+            question: "¿Cuando se usa el complementario en la binomial? Pon un ejemplo.",
+            answer: "<strong>Se usa cuando piden:</strong><br>- \"Al menos 1\": $P(X \\geq 1) = 1 - P(X=0)$<br>- \"Al menos k\": $P(X \\geq k) = 1 - P(X \\leq k-1)$<br>- \"Mas de k\": $P(X > k) = 1 - P(X \\leq k)$<br><br><strong>Ejemplo:</strong> Si $X \\sim B(5, 0{,}3)$ y piden $P(X \\geq 3)$:<br>Es mas facil calcular $P(X=0)+P(X=1)+P(X=2)$ y restar de 1, que calcular $P(X=3)+P(X=4)+P(X=5)$."
         }
     ],
     3: [
         {
-            question: "$X \\sim N(100,\\; 15)$. Tipifica el valor $x=130$.",
-            answer: "$Z = \\frac{130-100}{15} = \\frac{30}{15} = 2$<br><br>El valor 130 esta a 2 desviaciones tipicas por encima de la media."
+            question: "$X \\sim N(100,\\; 15)$. Tipifica $x=130$ y explica que significa.",
+            answer: "<strong>Formula de tipificacion:</strong> $Z = \\frac{X - \\mu}{\\sigma} = \\frac{130 - 100}{15} = \\frac{30}{15} = 2$<br><br><strong>Significado:</strong> El valor 130 esta a 2 desviaciones tipicas por encima de la media. Buscando en la tabla: $P(Z \\leq 2) = 0{,}9772$, asi que el 97,72% de los valores son menores que 130."
         },
         {
-            question: "Si $P(Z \\leq 1{,}96)=0{,}975$, calcula $P(Z \\geq 1{,}96)$ y $P(Z \\leq -1{,}96)$.",
-            answer: "$P(Z \\geq 1{,}96) = 1-0{,}975 = 0{,}025$<br><br>$P(Z \\leq -1{,}96) = 1-P(Z \\leq 1{,}96) = 0{,}025$ (por simetria de la normal)."
+            question: "Si $P(Z \\leq 1{,}96) = 0{,}975$, calcula $P(Z \\geq 1{,}96)$ y $P(Z \\leq -1{,}96)$.",
+            answer: "<strong>Complementario:</strong> $P(Z \\geq 1{,}96) = 1 - P(Z \\leq 1{,}96) = 1 - 0{,}975 = 0{,}025$<br><br><strong>Simetria:</strong> $P(Z \\leq -1{,}96) = P(Z \\geq 1{,}96) = 0{,}025$<br><br><strong>Por que?</strong> La campana de Gauss es simetrica respecto a 0. Lo que queda a la derecha de 1,96 es lo mismo que queda a la izquierda de -1,96."
         },
         {
             question: "$X \\sim B(200,\\; 0{,}3)$. ¿Se puede aproximar por normal? ¿Con que parametros?",
-            answer: "$np=60 \\geq 5$ &#10003; y $nq=140 \\geq 5$ &#10003;<br><br>$X \\approx N(60,\\; \\sqrt{42}) = N(60;\\; 6{,}48)$"
+            answer: "<strong>Paso 1 - Comprobar condiciones:</strong><br>$np = 200 \\times 0{,}3 = 60 \\geq 5$ &#10003;<br>$nq = 200 \\times 0{,}7 = 140 \\geq 5$ &#10003;<br><br><strong>Paso 2 - Calcular parametros:</strong><br>$\\mu = np = 60$<br>$\\sigma = \\sqrt{npq} = \\sqrt{200 \\times 0{,}3 \\times 0{,}7} = \\sqrt{42} \\approx 6{,}48$<br><br>$X \\approx N(60;\\; 6{,}48)$<br><br><strong>Importante:</strong> SIEMPRE hay que escribir que se comprueban las condiciones antes de aproximar."
         },
         {
-            question: "Poblacion con $\\mu=50$, $\\sigma=10$. Muestra de $n=100$. ¿Distribucion de $\\bar{X}$?",
-            answer: "$\\bar{X} \\sim N\\left(50,\\; \\frac{10}{\\sqrt{100}}\\right) = N(50;\\; 1)$<br><br>La desviacion tipica se divide entre $\\sqrt{n}$, quedando 10 veces menor."
+            question: "Poblacion $\\mu=50$, $\\sigma=10$, muestra $n=100$. ¿Distribucion de la media muestral?",
+            answer: "<strong>Teorema Central del Limite:</strong><br>$\\bar{X} \\sim N\\left(\\mu,\\; \\frac{\\sigma}{\\sqrt{n}}\\right) = N\\left(50,\\; \\frac{10}{\\sqrt{100}}\\right) = N(50;\\; 1)$<br><br><strong>Atencion:</strong> La desviacion se divide entre $\\sqrt{n}$, NO entre $n$. Con $n=100$, la desviacion pasa de 10 a 1: 10 veces menor.<br><br><strong>Error comun:</strong> Confundir $\\sigma$ (individuo) con $\\sigma/\\sqrt{n}$ (muestra). Si te preguntan por UN individuo, usas $\\sigma$. Si por la MEDIA de una muestra, usas $\\sigma/\\sqrt{n}$."
         },
         {
-            question: "$\\bar{x}=75$, $\\sigma=12$, $n=36$. Intervalo de confianza al 95% ($z_{\\alpha/2}=1{,}96$).",
-            answer: "$E = 1{,}96 \\times \\frac{12}{\\sqrt{36}} = 1{,}96 \\times 2 = 3{,}92$<br><br>$IC = (75-3{,}92;\\; 75+3{,}92) = (71{,}08;\\; 78{,}92)$"
+            question: "$\\bar{x}=75$, $\\sigma=12$, $n=36$. IC al 95%. Interpretalo.",
+            answer: "<strong>Paso 1 - Identificar z:</strong> Confianza 95% $\\Rightarrow z_{\\alpha/2} = 1{,}96$<br><br><strong>Paso 2 - Error:</strong><br>$E = z_{\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}} = 1{,}96 \\times \\frac{12}{\\sqrt{36}} = 1{,}96 \\times 2 = 3{,}92$<br><br><strong>Paso 3 - Intervalo:</strong><br>$IC = (75 - 3{,}92;\\; 75 + 3{,}92) = (71{,}08;\\; 78{,}92)$<br><br><strong>Interpretacion:</strong> Con un 95% de confianza, la media real de la poblacion esta entre 71,08 y 78,92."
         },
         {
-            question: "De 400 encuestados, 120 responden si. Calcula $\\hat{p}$ y el IC al 95%.",
-            answer: "$\\hat{p}=\\frac{120}{400}=0{,}3$, $\\hat{q}=0{,}7$<br><br>$E=1{,}96 \\times \\sqrt{\\frac{0{,}3 \\times 0{,}7}{400}}=1{,}96 \\times 0{,}0229=0{,}045$<br><br>$IC=(0{,}255;\\; 0{,}345)$"
+            question: "400 encuestados, 120 dicen si. Calcula $\\hat{p}$ y el IC al 95%.",
+            answer: "<strong>Paso 1:</strong> $\\hat{p} = 120/400 = 0{,}3$, $\\hat{q} = 0{,}7$<br><br><strong>Paso 2 - Error:</strong><br>$E = 1{,}96 \\times \\sqrt{\\frac{\\hat{p} \\cdot \\hat{q}}{n}} = 1{,}96 \\times \\sqrt{\\frac{0{,}3 \\times 0{,}7}{400}} = 1{,}96 \\times 0{,}0229 = 0{,}045$<br><br><strong>Paso 3:</strong> $IC = (0{,}3 - 0{,}045;\\; 0{,}3 + 0{,}045) = (0{,}255;\\; 0{,}345)$<br><br><strong>Interpretacion:</strong> Entre el 25,5% y el 34,5% de la poblacion diria que si."
+        },
+        {
+            question: "Bolsas de azucar: $\\mu=500$g, $\\sigma=35$g. Cajas de $n=100$. ¿P(media de la caja < 495g)?",
+            answer: "<strong>Paso 1 - Distribucion muestral:</strong><br>$\\bar{X} \\sim N\\left(500,\\; \\frac{35}{\\sqrt{100}}\\right) = N(500;\\; 3{,}5)$<br><br><strong>Paso 2 - Tipificar:</strong><br>$Z = \\frac{495 - 500}{3{,}5} = \\frac{-5}{3{,}5} = -1{,}43$<br><br><strong>Paso 3 - Tabla:</strong><br>$P(Z < -1{,}43) = 1 - P(Z < 1{,}43) = 1 - 0{,}9236 = 0{,}0764$<br><br><strong>El 7,6%</strong> de las cajas tendran peso medio inferior a 495g."
+        },
+        {
+            question: "Soldados con estatura $N(173, 6)$. a) P(uno mida < 175). b) Muestra de 12: P(media > 176).",
+            answer: "<strong>a) INDIVIDUO</strong> (se usa $\\sigma = 6$):<br>$Z = \\frac{175-173}{6} = 0{,}33 \\Rightarrow P(Z < 0{,}33) = 0{,}6293$<br><br><strong>b) MUESTRA</strong> (se usa $\\sigma/\\sqrt{n} = 6/\\sqrt{12} = 1{,}73$):<br>$Z = \\frac{176-173}{1{,}73} = 1{,}73 \\Rightarrow P(Z > 1{,}73) = 1 - 0{,}9582 = 0{,}0418$<br><br><strong>CLAVE del examen:</strong> Distinguir si preguntan por UN individuo ($\\sigma$) o por la MEDIA de una muestra ($\\sigma/\\sqrt{n}$). Es el error mas comun."
+        },
+        {
+            question: "¿Que tamano de muestra necesitamos para estimar una proporcion con error < 3% y confianza 95,5%?",
+            answer: "<strong>Paso 1 - Datos:</strong> $E = 0{,}03$, $1-\\alpha = 0{,}955 \\Rightarrow z_{\\alpha/2} = 2$<br>No conocemos $p$, asi que usamos $p = q = 0{,}5$ (peor caso).<br><br><strong>Paso 2 - Formula:</strong><br>$n = \\left(\\frac{z_{\\alpha/2}}{E}\\right)^2 \\cdot p \\cdot q = \\left(\\frac{2}{0{,}03}\\right)^2 \\times 0{,}25 = 4444{,}4 \\times 0{,}25 = 1111{,}1$<br><br><strong>n = 1112</strong> (siempre redondeamos hacia ARRIBA).<br><br><strong>Regla:</strong> Si no te dan $p$, usa $p = q = 0{,}5$."
+        },
+        {
+            question: "Te dan un IC = (1076,08; 1083,92) con $\\sigma=20$, $n=100$. ¿Cual es la media muestral y el nivel de confianza?",
+            answer: "<strong>Paso 1 - Media:</strong> Es el punto medio del intervalo:<br>$\\bar{x} = \\frac{1076{,}08 + 1083{,}92}{2} = 1080$<br><br><strong>Paso 2 - Error:</strong><br>$E = 1083{,}92 - 1080 = 3{,}92$<br><br><strong>Paso 3 - Despejar z:</strong><br>$E = z_{\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}} \\Rightarrow 3{,}92 = z_{\\alpha/2} \\cdot \\frac{20}{\\sqrt{100}} = z_{\\alpha/2} \\cdot 2$<br>$z_{\\alpha/2} = 1{,}96$<br><br><strong>Paso 4:</strong> $P(Z \\leq 1{,}96) = 0{,}975 \\Rightarrow \\alpha/2 = 0{,}025 \\Rightarrow \\alpha = 0{,}05$<br><strong>Nivel de confianza = 95%</strong>"
         }
     ]
 };
