@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 1: Probabilidad - Estadistica CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--gold);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--rose);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Estadistica</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
+
+    <h2>Tema 1 &middot; Probabilidad</h2>
+    <a href="#conceptos-prob">1.1 Conceptos basicos</a>
+    <a href="#operaciones-sucesos">1.2 Operaciones sucesos</a>
+    <a href="#exp-compuestos">1.3 Arboles y compuestos</a>
+    <a href="#prob-condicionada">1.4 Condicionada</a>
+    <a href="#prob-total-bayes">1.5 Bayes</a>
+    <a href="#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
+
+    <h2>Tema 2 &middot; Binomial</h2>
+    <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
+    <a href="tema2.html#parametros">2.2 Media y varianza</a>
+    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
+    <a href="tema2.html#binom-formula" class="sub">Formula</a>
+    <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
+    <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
+
+    <h2>Tema 3 &middot; Normal e IC</h2>
+    <a href="tema3.html#poblacion">3.1 Muestreo</a>
+    <a href="tema3.html#normal">3.2 Normal (campana)</a>
+    <a href="tema3.html#tipificacion" class="sub">Tipificacion</a>
+    <a href="tema3.html#aprox-binom">3.3 Binomial &rarr; Normal</a>
+    <a href="tema3.html#medias-muestrales">3.4 Medias muestrales</a>
+    <a href="tema3.html#ic-media" class="sub">IC para la media</a>
+    <a href="tema3.html#proporcion">3.5 Proporciones e IC</a>
+    <a href="tests.html?tema=3" class="sub test-link">Practicar Test T3</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#ficha-rapida">Ficha rapida formulas</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+    <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
+    <a href="herramientas.html#calculadoras">Calculadoras</a>
+
+    <h2>Examenes resueltos</h2>
+    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
+    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
+    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+</nav>
+
+<div class="main">
+
+<h1>Tema 1: Probabilidad</h1>
+<p>Sucesos, probabilidad, condicionada, Bayes, tablas de contingencia</p>
+
+<h2 id="conceptos-prob">1.1 Conceptos Basicos de Probabilidad</h2>
+
+<div class="card definition">
+    <div class="card-label">Definiciones fundamentales</div>
+    <ul>
+        <li><strong>Experimento aleatorio:</strong> aquel cuyo resultado no se puede predecir (lanzar un dado, elegir una carta...).</li>
+        <li><strong>Espacio muestral ($E$):</strong> conjunto de todos los resultados posibles. Ej: dado &rarr; $E = \{1,2,3,4,5,6\}$.</li>
+        <li><strong>Suceso:</strong> cualquier subconjunto del espacio muestral. Ej: "sacar par" = $\{2,4,6\}$.</li>
+        <li><strong>Suceso seguro:</strong> el espacio muestral completo ($P(E) = 1$).</li>
+        <li><strong>Suceso imposible:</strong> el conjunto vacio ($P(\emptyset) = 0$).</li>
+    </ul>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Regla de Laplace</div>
+    <p>Si todos los resultados son equiprobables:</p>
+    $$P(A) = \frac{\text{casos favorables}}{\text{casos posibles}} = \frac{|A|}{|E|}$$
+</div>
+
+<h2 id="operaciones-sucesos">1.2 Operaciones con Sucesos</h2>
+
+<div class="card formula">
+    <div class="card-label">Formulas esenciales</div>
+    <table>
+        <tr><th>Operacion</th><th>Notacion</th><th>Significado</th><th>Formula</th></tr>
+        <tr><td><strong>Union</strong></td><td>$A \cup B$</td><td>A o B (o ambos)</td><td>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</td></tr>
+        <tr><td><strong>Interseccion</strong></td><td>$A \cap B$</td><td>A y B a la vez</td><td>$P(A \cap B) = P(A) \cdot P(B|A)$</td></tr>
+        <tr><td><strong>Complementario</strong></td><td>$\overline{A}$</td><td>No ocurre A</td><td>$P(\overline{A}) = 1 - P(A)$</td></tr>
+        <tr><td><strong>Diferencia</strong></td><td>$A - B$</td><td>A pero no B</td><td>$P(A \cap \overline{B}) = P(A) - P(A \cap B)$</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Leyes de De Morgan</div>
+    <ul>
+        <li>$\overline{A \cup B} = \overline{A} \cap \overline{B}$ &rarr; "no (A o B)" = "no A y no B"</li>
+        <li>$\overline{A \cap B} = \overline{A} \cup \overline{B}$ &rarr; "no (A y B)" = "no A o no B"</li>
+    </ul>
+    <p><strong>Consecuencia util:</strong></p>
+    <ul>
+        <li>$P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B)$ &larr; "ni A ni B"</li>
+        <li>$P(\overline{A} \cup \overline{B}) = 1 - P(A \cap B)$</li>
+    </ul>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Sucesos especiales</div>
+    <table>
+        <tr><th>Tipo</th><th>Condicion</th><th>Significado</th></tr>
+        <tr><td><strong>Incompatibles</strong> (mutuamente excluyentes)</td><td>$P(A \cap B) = 0$</td><td>No pueden ocurrir a la vez. Entonces $P(A \cup B) = P(A) + P(B)$</td></tr>
+        <tr><td><strong>Independientes</strong></td><td>$P(A \cap B) = P(A) \cdot P(B)$</td><td>Uno no afecta al otro. Equivale a $P(A|B) = P(A)$</td></tr>
+    </table>
+    <p><strong>Atencion:</strong> Incompatibles ≠ Independientes. Son conceptos distintos. Si dos sucesos son incompatibles y tienen probabilidad &gt; 0, NO pueden ser independientes.</p>
+</div>
+
+<h2 id="exp-compuestos">1.3 Experimentos Compuestos y Diagramas de Arbol</h2>
+
+<div class="card definition">
+    <div class="card-label">Experimentos compuestos</div>
+    <p>Cuando un experimento aleatorio se compone de dos o mas experimentos simples realizados a la vez o en secuencia, se llama <strong>experimento compuesto</strong>.</p>
+    <p><strong>Regla fundamental:</strong> La probabilidad de un resultado en un experimento compuesto se calcula <strong>multiplicando</strong> las probabilidades de los sucesos elementales que lo forman.</p>
+    <p><em>Ejemplo:</em> "Lanzar 3 monedas". La probabilidad de obtener 3 caras es:</p>
+    <p>$P(CCC) = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{8}$</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Diagrama de arbol</div>
+    <p>Un <strong>diagrama de arbol</strong> es una representacion grafica que muestra todas las posibles ramas de un experimento compuesto. Cada rama se etiqueta con su probabilidad.</p>
+    <p><strong>Como usarlo:</strong></p>
+    <ol>
+        <li>Dibuja las ramas del primer experimento (primer nivel).</li>
+        <li>Desde cada resultado, dibuja las ramas del segundo experimento (segundo nivel).</li>
+        <li>La probabilidad de un camino completo = <strong>producto</strong> de las probabilidades de cada rama.</li>
+        <li>Si necesitas la probabilidad de un suceso que puede ocurrir por varios caminos, <strong>suma</strong> las probabilidades de esos caminos.</li>
+    </ol>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Ladron y escaleras (Diagrama de arbol)</div>
+    <p><strong>Situacion:</strong> Una casa tiene dos escaleras (A y B), cada una con probabilidad 1/2 de ser elegida. La escalera A tiene 10 pisos, de los cuales 4 tienen joyas. La escalera B tiene 10 pisos, de los cuales 5 tienen joyas. Un ladron entra al azar en una escalera y luego en un piso. Cual es la probabilidad de que entre en un piso con joyas?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Diagrama de arbol</h4>
+        <p>Escalera A (prob 1/2) &rarr; Joyas (4/10) o No joyas (6/10)</p>
+        <p>Escalera B (prob 1/2) &rarr; Joyas (5/10) o No joyas (5/10)</p>
+        <h4>Probabilidad total</h4>
+        <p>$P(\text{joyas}) = P(A) \cdot P(\text{joyas}|A) + P(B) \cdot P(\text{joyas}|B)$</p>
+        <p>$= \frac{1}{2} \cdot \frac{4}{10} + \frac{1}{2} \cdot \frac{5}{10} = \frac{4}{20} + \frac{5}{20} = \frac{9}{20} = 0{,}45$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Tirador (Independencia en compuestos)</div>
+    <p><strong>Situacion:</strong> Un tirador tiene un 80% de probabilidad de dar en el blanco en cada disparo. Realiza 3 disparos independientes. Calcular: a) P(acertar con algun disparo). b) P(acertar exactamente con 2).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) P(acertar con algun disparo) = complementario de fallar los 3</h4>
+        <p>$P(\text{fallar los 3}) = P(\overline{A}) \cdot P(\overline{B}) \cdot P(\overline{C}) = 0{,}2 \times 0{,}2 \times 0{,}2 = 0{,}008$</p>
+        <p>$P(\text{acertar algun disparo}) = 1 - 0{,}008 = 0{,}992$</p>
+
+        <h4>b) P(acertar exactamente 2)</h4>
+        <p>Hay 3 caminos posibles (acierta 1o y 2o pero no 3o, acierta 1o y 3o pero no 2o, acierta 2o y 3o pero no 1o):</p>
+        <p>$P = 3 \times 0{,}8 \times 0{,}8 \times 0{,}2 = 3 \times 0{,}128 = 0{,}384$</p>
+    </div>
+</div>
+
+<h2 id="prob-condicionada">1.4 Probabilidad Condicionada</h2>
+
+<div class="card formula">
+    <div class="card-label">Formula</div>
+    <p>La probabilidad de A sabiendo que ha ocurrido B:</p>
+    $$\boxed{P(A|B) = \frac{P(A \cap B)}{P(B)}}$$
+    <p><strong>Lectura:</strong> "Probabilidad de A <em>dado</em> B" o "Probabilidad de A <em>sabiendo que</em> B".</p>
+    <p>De aqui se deduce la <strong>regla del producto:</strong> $P(A \cap B) = P(B) \cdot P(A|B) = P(A) \cdot P(B|A)$</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Sucesos con datos</div>
+    <p><strong>Situacion:</strong> Tenemos dos sucesos A y B de los que conocemos: $P(A) = 0{,}5$, $P(B) = 0{,}3$ y $P(A \cap B) = 0{,}1$. A partir de estos tres datos, podemos calcular cualquier probabilidad relacionada. Vamos a calcular la union, la condicionada, y comprobar si son independientes.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) $P(A \cup B)$</h4>
+        <p>$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0{,}5 + 0{,}3 - 0{,}1 = 0{,}7$</p>
+
+        <h4>b) $P(A|B)$</h4>
+        <p>$P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{0{,}1}{0{,}3} = 0{,}333$</p>
+
+        <h4>c) $P(A | A \cap B)$</h4>
+        <p>$P(A | A \cap B) = \frac{P(A \cap (A \cap B))}{P(A \cap B)} = \frac{P(A \cap B)}{P(A \cap B)} = 1$</p>
+        <p>Si ya sabemos que ocurrio $A \cap B$, entonces A seguro que ocurrio.</p>
+
+        <h4>d) $P(A | A \cup B)$</h4>
+        <p>$P(A | A \cup B) = \frac{P(A \cap (A \cup B))}{P(A \cup B)} = \frac{P(A)}{P(A \cup B)} = \frac{0{,}5}{0{,}7} = 0{,}714$</p>
+
+        <h4>e) Independientes?</h4>
+        <p>$P(A) \cdot P(B) = 0{,}5 \times 0{,}3 = 0{,}15 \neq 0{,}1 = P(A \cap B)$ &rarr; <strong>No son independientes.</strong></p>
+    </div>
+</div>
+
+<h2 id="prob-total-bayes">1.5 Probabilidad Total y Teorema de Bayes</h2>
+
+<div class="card formula">
+    <div class="card-label">Probabilidad Total</div>
+    <p>Si $B_1, B_2, \ldots, B_n$ forman una particion del espacio muestral (son exhaustivos y mutuamente excluyentes):</p>
+    $$\boxed{P(A) = P(B_1) \cdot P(A|B_1) + P(B_2) \cdot P(A|B_2) + \cdots + P(B_n) \cdot P(A|B_n)}$$
+    <p>Se usa cuando conocemos las probabilidades "por ramas" y queremos el total.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Teorema de Bayes</div>
+    <p>Para "invertir" una probabilidad condicionada (ir del efecto a la causa):</p>
+    $$\boxed{P(B_i | A) = \frac{P(B_i) \cdot P(A|B_i)}{P(A)}}$$
+    <p>donde $P(A)$ se calcula con la formula de probabilidad total.</p>
+    <p><strong>Cuando usarlo:</strong> Cuando te preguntan "sabiendo que ocurrio A, cual es la probabilidad de que viniera de $B_i$?"</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Fabrica con 3 maquinas (Bayes clasico)</div>
+    <p><strong>Situacion:</strong> Una fabrica tiene 3 maquinas que fabrican piezas: la maquina A produce el 25% del total, la B el 35% y la C el 40%. Se ha descubierto que el 2,05% de TODAS las piezas son defectuosas. Sabemos que la maquina B solo produce un 1% de defectuosas. Las maquinas A y C tienen la misma tasa de defectos (que debemos calcular).</p>
+    <p>a) Pieza no defectuosa, P(sea de B). b) Si A y C iguales, pieza defectuosa, P(sea de A).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Datos</h4>
+        <p>$P(A) = 0{,}25$, $P(B) = 0{,}35$, $P(C) = 0{,}40$</p>
+        <p>$P(D|B) = 0{,}01$. Total: $P(D) = 0{,}0205$</p>
+        <p>Hallamos $P(D|A) = P(D|C) = x$:</p>
+        <p>$0{,}25x + 0{,}35 \cdot 0{,}01 + 0{,}40x = 0{,}0205$</p>
+        <p>$0{,}65x + 0{,}0035 = 0{,}0205 \Rightarrow 0{,}65x = 0{,}017 \Rightarrow x = 0{,}02615$</p>
+
+        <h4>a) $P(B | \overline{D})$</h4>
+        <p>$P(\overline{D}) = 1 - 0{,}0205 = 0{,}9795$</p>
+        <p>$P(\overline{D}|B) = 1 - 0{,}01 = 0{,}99$</p>
+        <p>$P(B|\overline{D}) = \frac{0{,}35 \times 0{,}99}{0{,}9795} = \frac{0{,}3465}{0{,}9795} = 0{,}3537$</p>
+
+        <h4>b) $P(A|D)$</h4>
+        <p>$P(A|D) = \frac{P(A) \cdot P(D|A)}{P(D)} = \frac{0{,}25 \times 0{,}02615}{0{,}0205} = \frac{0{,}006538}{0{,}0205} = 0{,}3189$</p>
+    </div>
+</div>
+
+<h2 id="tablas-contingencia">1.6 Tablas de Contingencia</h2>
+
+<div class="card definition">
+    <div class="card-label">Como funcionan</div>
+    <p>Una tabla de contingencia organiza datos en filas y columnas. Para calcular probabilidades, divide cada celda entre el total.</p>
+    <p><strong>Truco:</strong> Rellena primero los totales de filas y columnas, luego las celdas que faltan por resta.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Clase de 24 alumnos</div>
+    <p><strong>Situacion:</strong> En una clase de 24 alumnos, todos estudian ingles y matematicas. Resultados del trimestre: la mitad (12) aprueba ingles, 16 aprueban matematicas, y 4 alumnos suspenden las dos asignaturas. Con estos datos construimos una tabla de contingencia para analizar la relacion entre ambas asignaturas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) Tabla de contingencia</h4>
+        <p>Aprueban ingles: 12. Suspenden ingles: 12. Aprueban mates: 16. Suspenden mates: 8.</p>
+        <p>Suspenden ambas: 4. Entonces suspenden mates y aprueban ingles: $8 - 4 = 4$.</p>
+        <table>
+            <tr><th></th><th>Aprueba Mates</th><th>Suspende Mates</th><th>Total</th></tr>
+            <tr><td><strong>Aprueba Ingles</strong></td><td>8</td><td>4</td><td>12</td></tr>
+            <tr><td><strong>Suspende Ingles</strong></td><td>8</td><td>4</td><td>12</td></tr>
+            <tr><td><strong>Total</strong></td><td>16</td><td>8</td><td>24</td></tr>
+        </table>
+
+        <h4>b) Independientes "aprobar ingles" y "aprobar mates"?</h4>
+        <p>$P(I) = 12/24 = 0{,}5$, $P(M) = 16/24 = 2/3$, $P(I \cap M) = 8/24 = 1/3$</p>
+        <p>$P(I) \cdot P(M) = 0{,}5 \times 2/3 = 1/3 = P(I \cap M)$ &check; <strong>Si son independientes.</strong></p>
+
+        <h4>c) P(aprueba mates y suspende ingles)</h4>
+        <p>$P(M \cap \overline{I}) = 8/24 = 1/3 \approx 0{,}333$</p>
+    </div>
+</div>
+
+<div class="card important" style="margin-top: 40px;">
+    <h3 style="color: var(--green);">Practicar este tema</h3>
+    <p>Completa el test interactivo para consolidar estos conceptos.</p>
+    <a href="tests.html?tema=1" class="btn" style="display: inline-block; padding: 12px 24px; background: var(--green); color: white; text-decoration: none; border-radius: 6px; margin-top: 12px;">Ir al Test de Tema 1</a>
+</div>
+
+</div><!-- end main -->
+
+<script>
+// Toggle solutions
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+// Progress bar
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+// Active nav highlight
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+// Mobile nav: close on link click
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

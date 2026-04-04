@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 3: Normal, Muestreo e Inferencia - Estadistica CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--gold);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--rose);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Estadistica</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
+
+    <h2>Tema 1 &middot; Probabilidad</h2>
+    <a href="#conceptos-prob">1.1 Conceptos basicos</a>
+    <a href="#operaciones-sucesos">1.2 Operaciones sucesos</a>
+    <a href="#exp-compuestos">1.3 Arboles y compuestos</a>
+    <a href="#prob-condicionada">1.4 Condicionada</a>
+    <a href="#prob-total-bayes">1.5 Bayes</a>
+    <a href="#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
+
+    <h2>Tema 2 &middot; Binomial</h2>
+    <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
+    <a href="tema2.html#parametros">2.2 Media y varianza</a>
+    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
+    <a href="tema2.html#binom-formula" class="sub">Formula</a>
+    <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
+    <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
+
+    <h2>Tema 3 &middot; Normal e IC</h2>
+    <a href="tema3.html#poblacion">3.1 Muestreo</a>
+    <a href="tema3.html#normal">3.2 Normal (campana)</a>
+    <a href="tema3.html#tipificacion" class="sub">Tipificacion</a>
+    <a href="tema3.html#aprox-binom">3.3 Binomial &rarr; Normal</a>
+    <a href="tema3.html#medias-muestrales">3.4 Medias muestrales</a>
+    <a href="tema3.html#ic-media" class="sub">IC para la media</a>
+    <a href="tema3.html#proporcion">3.5 Proporciones e IC</a>
+    <a href="tests.html?tema=3" class="sub test-link">Practicar Test T3</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#ficha-rapida">Ficha rapida formulas</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+    <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
+    <a href="herramientas.html#calculadoras">Calculadoras</a>
+
+    <h2>Examenes resueltos</h2>
+    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
+    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
+    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+</nav>
+
+<div class="main">
+
+<div class="main">
+
+<div class="tema-header">
+    <h1>Tema 3: Normal, Muestreo e Inferencia</h1>
+    <p>Campana de Gauss, tipificacion, intervalos de confianza, calculadoras</p>
+</div>
+
+<h2 id="poblacion">3.1 Poblacion y Muestra</h2>
+
+<div class="card definition">
+    <div class="card-label">Conceptos clave</div>
+    <ul>
+        <li><strong>Individuo:</strong> cada elemento que aporta informacion sobre el fenomeno estudiado.</li>
+        <li><strong>Poblacion:</strong> conjunto de <em>todos</em> los individuos de interes para el estudio.</li>
+        <li><strong>Muestra:</strong> subconjunto representativo seleccionado de la poblacion.</li>
+    </ul>
+    <p><strong>Variables:</strong></p>
+    <ul>
+        <li><em>Cualitativas (atributos):</em> no se miden numericamente (nacionalidad, sexo...).</li>
+        <li><em>Cuantitativas:</em> tienen valor numerico.
+            <ul>
+                <li><em>Discretas:</em> valores enteros (n. de hermanos).</li>
+                <li><em>Continuas:</em> cualquier valor en un intervalo (velocidad, peso).</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Medidas de centralizacion y dispersion</div>
+    <p><strong>Media aritmetica:</strong></p>
+    $$\bar{x} = \frac{\sum_{i=1}^{n} x_i \cdot n_i}{N}$$
+    <p><strong>Varianza:</strong></p>
+    $$S^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2 \cdot n_i}{N} = \frac{\sum x_i^2 \cdot n_i}{N} - \bar{x}^2$$
+    <p><strong>Desviacion tipica:</strong> $S = +\sqrt{S^2}$</p>
+</div>
+
+<h3 id="muestreo">Tipos de Muestreo</h3>
+
+<div class="card definition">
+    <div class="card-label">Metodos</div>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'tab-mas')">Aleatorio Simple</button>
+        <button class="tab-btn" onclick="showTab(event, 'tab-sist')">Sistematico</button>
+        <button class="tab-btn" onclick="showTab(event, 'tab-estrat')">Estratificado</button>
+    </div>
+    <div class="tab-content active" id="tab-mas">
+        <h4>Muestreo Aleatorio Simple</h4>
+        <p>Se seleccionan $n$ elementos de los $N$ de la poblacion, de modo que <strong>todas las muestras tengan la misma probabilidad</strong> de ser elegidas.</p>
+        <p>En la practica: se enumeran los individuos y se sortean (tabla de numeros aleatorios, etc.).</p>
+    </div>
+    <div class="tab-content" id="tab-sist">
+        <h4>Muestreo Aleatorio Sistematico</h4>
+        <p>Se elige un individuo al azar y, a partir de el, se eligen los demas a <strong>intervalos constantes</strong>.</p>
+        <p><strong>Intervalo de seleccion:</strong> $k = N / n$</p>
+        <p><em>Ejemplo:</em> Poblacion de 100, muestra de 25 &rarr; $k = 4$. Si el arranque es 2: seleccionamos 2, 6, 10, 14, ..., 98.</p>
+    </div>
+    <div class="tab-content" id="tab-estrat">
+        <h4>Muestreo Aleatorio Estratificado</h4>
+        <p>La poblacion se divide en <strong>estratos</strong> homogeneos y se muestrea cada estrato por separado.</p>
+        <p><strong>Tipos de afijacion:</strong></p>
+        <ul>
+            <li><em>Uniforme:</em> mismo numero de elementos en cada estrato.</li>
+            <li><em>Proporcional:</em> el numero de elementos es proporcional al tamano del estrato.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Estratificado proporcional</div>
+    <p>Ciudad de 15.000 hab.: 7.500 adultos, 4.500 ninos, 3.000 ancianos. Muestra de 300 personas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Identificar los datos</h4>
+        <ul>
+            <li><strong>Poblacion total:</strong> $N = 15.000$ habitantes</li>
+            <li><strong>Estratos:</strong> Ninos (4.500), Adultos (7.500), Ancianos (3.000)</li>
+            <li><strong>Tamano de la muestra:</strong> $n = 300$ personas</li>
+            <li><strong>Metodo:</strong> Estratificado con afijacion <em>proporcional</em> (cada estrato aporta proporcionalmente a su tamano)</li>
+        </ul>
+
+        <h4>Paso 2: Calcular la proporcion de cada estrato</h4>
+        <p>La idea es: si los ninos son el 30% de la poblacion, deben ser el 30% de la muestra.</p>
+        <p>Formula: $\text{muestra del estrato} = \frac{\text{tamano del estrato}}{N} \times n$</p>
+
+        <h4>Paso 3: Aplicar a cada estrato</h4>
+        <p><strong>Ninos:</strong> $\frac{4.500}{15.000} \times 300 = 0{,}3 \times 300 = 90$ ninos</p>
+        <p>Los ninos son el 30% de la poblacion &rarr; 30% de 300 = 90.</p>
+
+        <p><strong>Adultos:</strong> $\frac{7.500}{15.000} \times 300 = 0{,}5 \times 300 = 150$ adultos</p>
+        <p>Los adultos son el 50% &rarr; la mitad de 300 = 150.</p>
+
+        <p><strong>Ancianos:</strong> $\frac{3.000}{15.000} \times 300 = 0{,}2 \times 300 = 60$ ancianos</p>
+        <p>Los ancianos son el 20% &rarr; 20% de 300 = 60.</p>
+
+        <h4>Paso 4: Verificar</h4>
+        <p>$90 + 150 + 60 = 300$ &check; (la muestra total cuadra)</p>
+        <p>Dentro de cada estrato, las 90, 150 y 60 personas se eligen por muestreo aleatorio simple.</p>
+    </div>
+</div>
+
+<!-- 3.2 DISTRIBUCION NORMAL -->
+<h2 id="normal">3.2 Distribucion Normal. Tipificacion.</h2>
+
+<div class="card definition">
+    <div class="card-label">Definicion</div>
+    <p>La <strong>distribucion normal</strong> es la distribucion continua mas importante. Una variable $X$ sigue una distribucion normal con media $\mu$ y desviacion tipica $\sigma$ si:</p>
+    $$X \sim N(\mu, \sigma)$$
+    <p>Su <strong>funcion de densidad</strong> es:</p>
+    $$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$$
+</div>
+
+<div class="card definition">
+    <div class="card-label">Propiedades de la campana de Gauss</div>
+    <div class="bell-container">
+        <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="bellGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.4"/>
+                    <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:0.05"/>
+                </linearGradient>
+            </defs>
+            <!-- Axis -->
+            <line x1="30" y1="200" x2="470" y2="200" stroke="#475569" stroke-width="1.5"/>
+            <line x1="250" y1="200" x2="250" y2="20" stroke="#475569" stroke-width="0.5" stroke-dasharray="5"/>
+            <!-- Bell curve -->
+            <path d="M30,200 C30,200 80,198 120,190 C150,183 170,160 190,120 C210,80 230,40 250,30 C270,40 290,80 310,120 C330,160 350,183 380,190 C420,198 470,200 470,200" fill="url(#bellGrad)" stroke="#38bdf8" stroke-width="2.5"/>
+            <!-- Labels -->
+            <text x="250" y="220" text-anchor="middle" fill="#94a3b8" font-size="13">&#956;</text>
+            <text x="175" y="220" text-anchor="middle" fill="#94a3b8" font-size="12">&#956;-&#963;</text>
+            <text x="325" y="220" text-anchor="middle" fill="#94a3b8" font-size="12">&#956;+&#963;</text>
+            <text x="105" y="220" text-anchor="middle" fill="#94a3b8" font-size="12">&#956;-2&#963;</text>
+            <text x="395" y="220" text-anchor="middle" fill="#94a3b8" font-size="12">&#956;+2&#963;</text>
+            <!-- Percentage zones -->
+            <line x1="175" y1="200" x2="175" y2="130" stroke="#a78bfa" stroke-width="0.8" stroke-dasharray="3"/>
+            <line x1="325" y1="200" x2="325" y2="130" stroke="#a78bfa" stroke-width="0.8" stroke-dasharray="3"/>
+            <text x="250" y="170" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="bold">68,26%</text>
+            <line x1="105" y1="205" x2="395" y2="205" stroke="#34d399" stroke-width="1.5"/>
+            <text x="250" y="245" text-anchor="middle" fill="#34d399" font-size="11">95,44%</text>
+        </svg>
+    </div>
+    <ul>
+        <li>Simetrica respecto a $x = \mu$ (la media es el eje de simetria).</li>
+        <li>Tiene un maximo en $x = \mu$ y puntos de inflexion en $x = \mu \pm \sigma$.</li>
+        <li>El eje de abscisas es asintota horizontal.</li>
+        <li>El area total bajo la curva es 1.</li>
+    </ul>
+    <table>
+        <tr><th>Intervalo</th><th>Area (probabilidad)</th></tr>
+        <tr><td>$(\mu - \sigma,\; \mu + \sigma)$</td><td><strong>68,26%</strong></td></tr>
+        <tr><td>$(\mu - 2\sigma,\; \mu + 2\sigma)$</td><td><strong>95,44%</strong></td></tr>
+        <tr><td>$(\mu - 3\sigma,\; \mu + 3\sigma)$</td><td><strong>99,73%</strong></td></tr>
+    </table>
+</div>
+
+<h3 id="normal-estandar">Distribucion Normal Estandar $N(0, 1)$</h3>
+
+<div class="card definition">
+    <div class="card-label">Definicion</div>
+    <p>Es la normal con $\mu = 0$ y $\sigma = 1$. Se denota $Z \sim N(0, 1)$ y es la <strong>unica que esta tabulada</strong>.</p>
+    <p>La tabla proporciona $P(Z \le z)$ para valores de $z > 0$.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Reglas para calcular probabilidades con la tabla</div>
+    <p>Para $z > 0$:</p>
+    <table>
+        <tr><th>Caso</th><th>Formula</th></tr>
+        <tr><td>$P(Z \le z)$</td><td>Lectura directa de la tabla</td></tr>
+        <tr><td>$P(Z \ge z)$</td><td>$= 1 - P(Z \le z)$</td></tr>
+        <tr><td>$P(Z \le -z)$</td><td>$= 1 - P(Z \le z)$</td></tr>
+        <tr><td>$P(Z \ge -z)$</td><td>$= P(Z \le z)$</td></tr>
+        <tr><td>$P(z_1 \le Z \le z_2)$</td><td>$= P(Z \le z_2) - P(Z \le z_1)$</td></tr>
+    </table>
+    <p><strong>Clave:</strong> En distribuciones continuas, $P(X = a) = 0$, por lo que $P(Z \le z) = P(Z < z)$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Uso de la tabla</div>
+    <p>Si $Z \sim N(0,1)$, calcular las siguientes probabilidades:</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver soluciones</button>
+    <div class="solution-content">
+        <h4>a) $P(Z \le 0{,}67)$ &mdash; Lectura directa</h4>
+        <p>En la tabla buscamos la fila <strong>0,6</strong> (parte entera y primera decimal) y la columna <strong>0,07</strong> (segunda decimal):</p>
+        <p>$P(Z \le 0{,}67) = 0{,}7486$</p>
+        <p>Significa: el 74,86% de los valores de una normal estandar son menores o iguales que 0,67.</p>
+
+        <h4>b) $P(Z \ge 0{,}67)$ &mdash; Complementario</h4>
+        <p>Como el area total bajo la curva es 1, el area a la <em>derecha</em> de 0,67 es lo que "sobra":</p>
+        <p>$P(Z \ge 0{,}67) = 1 - P(Z \le 0{,}67) = 1 - 0{,}7486 = 0{,}2514$</p>
+
+        <h4>c) $P(Z \le -0{,}67)$ &mdash; Valor negativo (simetria)</h4>
+        <p>La tabla solo tiene valores positivos. Pero como la campana es <strong>simetrica</strong>, el area a la izquierda de $-0{,}67$ es igual al area a la derecha de $+0{,}67$:</p>
+        <p>$P(Z \le -0{,}67) = P(Z \ge 0{,}67) = 1 - P(Z \le 0{,}67) = 1 - 0{,}7486 = 0{,}2514$</p>
+
+        <h4>d) $P(Z \ge -0{,}67)$ &mdash; Cola derecha de un negativo</h4>
+        <p>Por simetria, es igual al area a la izquierda de $+0{,}67$:</p>
+        <p>$P(Z \ge -0{,}67) = P(Z \le 0{,}67) = 0{,}7486$</p>
+
+        <h4>e) $P(-0{,}67 \le Z \le 0{,}67)$ &mdash; Intervalo centrado</h4>
+        <p>Restamos las areas acumuladas:</p>
+        <p>$P(-0{,}67 \le Z \le 0{,}67) = P(Z \le 0{,}67) - P(Z \le -0{,}67) = 0{,}7486 - 0{,}2514 = 0{,}4972$</p>
+        <p>Casi el 50% de los valores caen entre $-0{,}67$ y $+0{,}67$.</p>
+    </div>
+</div>
+
+<h3 id="tipificacion">Tipificacion: pasar de $N(\mu, \sigma)$ a $N(0, 1)$</h3>
+
+<div class="card formula">
+    <div class="card-label">Formula fundamental</div>
+    <p>Para calcular probabilidades de cualquier normal $X \sim N(\mu, \sigma)$, la <strong>tipificamos</strong> mediante el cambio de variable:</p>
+    $$\boxed{Z = \frac{X - \mu}{\sigma}}$$
+    <p>Asi, la probabilidad se transforma:</p>
+    $$P(X \le x) = P\left(Z \le \frac{x - \mu}{\sigma}\right)$$
+    <p>Y ya podemos usar la tabla $N(0,1)$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Tipificacion</div>
+    <p>Si $X \sim N(10,\; 2)$, calcular $P(X \le 11)$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Identificar los datos</h4>
+        <ul>
+            <li>$X \sim N(10,\; 2)$ significa: media $\mu = 10$, desviacion tipica $\sigma = 2$</li>
+            <li>Queremos calcular: $P(X \le 11)$ &mdash; probabilidad de que $X$ sea menor o igual que 11</li>
+        </ul>
+
+        <h4>Paso 2: Tipificar (cambio de variable)</h4>
+        <p>No podemos usar la tabla directamente con $N(10, 2)$. Necesitamos transformar a $N(0, 1)$:</p>
+        <p>$Z = \frac{X - \mu}{\sigma} = \frac{X - 10}{2}$</p>
+        <p>Sustituimos $X = 11$: $\quad z = \frac{11 - 10}{2} = \frac{1}{2} = 0{,}5$</p>
+        <p>Esto quiere decir que el valor 11 esta <strong>media desviacion tipica por encima</strong> de la media.</p>
+
+        <h4>Paso 3: Buscar en la tabla</h4>
+        <p>$P(X \le 11) = P(Z \le 0{,}5) = 0{,}6915$</p>
+        <p>En la tabla: fila <strong>0,5</strong>, columna <strong>0,00</strong> &rarr; $0{,}6915$</p>
+
+        <h4>Interpretacion</h4>
+        <p>Hay un <strong>69,15%</strong> de probabilidad de que $X$ sea menor o igual que 11.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Errores astronomicos (Bessel)</div>
+    <p>Los errores de 300 medidas astronomicas siguen $X \sim N(0,\; 8)$. Calcular que porcentaje tiene un error inferior a 2 grados, es decir $P(-2 \le X \le 2)$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Datos</h4>
+        <ul>
+            <li>$\mu = 0$ (los errores se centran en cero, sin sesgo)</li>
+            <li>$\sigma = 8$ grados</li>
+            <li>Queremos: $P(-2 \le X \le 2)$ &mdash; error entre $-2$ y $+2$ grados</li>
+        </ul>
+
+        <h4>Paso 2: Tipificar ambos extremos</h4>
+        <p>$Z = \frac{X - 0}{8} = \frac{X}{8}$</p>
+        <p>Extremo izquierdo: $z_1 = \frac{-2}{8} = -0{,}25$</p>
+        <p>Extremo derecho: $z_2 = \frac{2}{8} = 0{,}25$</p>
+
+        <h4>Paso 3: Calcular la probabilidad del intervalo</h4>
+        <p>$P(-0{,}25 \le Z \le 0{,}25) = P(Z \le 0{,}25) - P(Z \le -0{,}25)$</p>
+        <p>Por simetria, $P(Z \le -0{,}25) = 1 - P(Z \le 0{,}25)$, asi que:</p>
+        <p>$= P(Z \le 0{,}25) - [1 - P(Z \le 0{,}25)] = 2 \cdot P(Z \le 0{,}25) - 1$</p>
+        <p>De la tabla: $P(Z \le 0{,}25) = 0{,}5987$</p>
+        <p>$= 2 \times 0{,}5987 - 1 = 1{,}1974 - 1 = 0{,}1974$</p>
+
+        <h4>Conclusion</h4>
+        <p>Solo el <strong>19,74%</strong> de las medidas astronomicas tienen un error inferior a 2 grados. La desviacion tipica es 8 grados, asi que un error de 2 grados es muy pequeno comparado con la dispersion habitual.</p>
+    </div>
+</div>
+
+<!-- 3.3 APROXIMACION BINOMIAL A NORMAL -->
+<h2 id="aprox-binom">3.3 Aproximacion de la Binomial por la Normal</h2>
+
+<h3 id="tcl">Teorema Central del Limite</h3>
+
+<div class="card important">
+    <div class="card-label">Teorema</div>
+    <p>Si $X_1, X_2, \ldots, X_n$ son variables aleatorias independientes con medias $\mu_i$ y varianzas $\sigma_i^2$, entonces la variable $Y = X_1 + X_2 + \cdots + X_n$, cuando $n$ es grande, se aproxima a:</p>
+    $$Y \to N\left(\mu_1 + \mu_2 + \cdots + \mu_n,\; \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2}\right)$$
+</div>
+
+<div class="card formula">
+    <div class="card-label">De la Binomial a la Normal</div>
+    <p>Una $B(n, p)$ puede verse como la suma de $n$ variables Bernoulli independientes, cada una con media $p$ y varianza $p(1-p)$. Por el T.C.L.:</p>
+
+    <div class="flow">
+        <div class="flow-box">$X \sim B(n, p)$</div>
+        <div class="flow-arrow">&xrarr;</div>
+        <div class="flow-box green">$n$ "grande"</div>
+        <div class="flow-arrow">&xrarr;</div>
+        <div class="flow-box purple">$X \approx N\left(np,\; \sqrt{np(1-p)}\right)$</div>
+    </div>
+
+    <p><strong>Condicion para buena aproximacion:</strong></p>
+    $$\boxed{np \ge 5 \quad \text{y} \quad n(1-p) \ge 5}$$
+    <p>(Equivalente a decir $n > 30$ y $p$ no muy extremo.)</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo 1 - Voluntarios</div>
+    <p>El 75% del voluntariado son mujeres ($p_{\text{hombre}} = 0{,}25$). Se eligen 1000 voluntarios. $P(X \ge 260)$ donde $X$ = hombres.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion paso a paso</button>
+    <div class="solution-content">
+        <h4>Paso 1: Plantear la binomial</h4>
+        <ul>
+            <li>$n = 1000$ voluntarios seleccionados</li>
+            <li>$p = 0{,}25$ (probabilidad de que un voluntario sea hombre)</li>
+            <li>$q = 1 - 0{,}25 = 0{,}75$</li>
+            <li>$X$ = "numero de hombres en la muestra" &rarr; $X \sim B(1000,\; 0{,}25)$</li>
+        </ul>
+        <p>Calcular $P(X = 260) + P(X = 261) + \cdots + P(X = 1000)$ directamente seria imposible (741 terminos). Por eso aproximamos por la normal.</p>
+
+        <h4>Paso 2: Comprobar condiciones de aproximacion</h4>
+        <ul>
+            <li>$np = 1000 \times 0{,}25 = 250 \ge 5$ &check;</li>
+            <li>$nq = 1000 \times 0{,}75 = 750 \ge 5$ &check;</li>
+        </ul>
+        <p>Ambas condiciones se cumplen con creces. La aproximacion sera muy buena.</p>
+
+        <h4>Paso 3: Calcular los parametros de la normal</h4>
+        <ul>
+            <li>$\mu = np = 1000 \times 0{,}25 = 250$</li>
+            <li>$\sigma = \sqrt{npq} = \sqrt{1000 \times 0{,}25 \times 0{,}75} = \sqrt{187{,}5} \approx 13{,}7$</li>
+        </ul>
+        <p>Aproximamos: $X \approx N(250;\; 13{,}7)$</p>
+
+        <h4>Paso 4: Tipificar y buscar en la tabla</h4>
+        <p>$P(X \ge 260) = P\left(Z \ge \frac{260 - 250}{13{,}7}\right) = P\left(Z \ge \frac{10}{13{,}7}\right) = P(Z \ge 0{,}73)$</p>
+        <p>$= 1 - P(Z \le 0{,}73) = 1 - 0{,}7673 = 0{,}2327$</p>
+
+        <h4>Conclusion</h4>
+        <p>Hay un <strong>23,27%</strong> de probabilidad de que al menos 260 de los 1000 voluntarios sean hombres. Es un resultado razonable: como esperamos 250 hombres de media, tener 260 (solo 10 mas) no es tan raro.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo 2 - Teatro</div>
+    <p>Se sabe que el 10% de los habitantes de una ciudad va regularmente al teatro. Se toma una muestra de 100. Cual es la probabilidad aproximada de que al menos el 13% vayan al teatro, es decir $P(X \ge 13)$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Plantear</h4>
+        <ul>
+            <li>$X$ = "numero de personas que van al teatro" en la muestra</li>
+            <li>$X \sim B(100,\; 0{,}1)$</li>
+        </ul>
+
+        <h4>Paso 2: Verificar condiciones</h4>
+        <ul>
+            <li>$np = 100 \times 0{,}1 = 10 \ge 5$ &check;</li>
+            <li>$nq = 100 \times 0{,}9 = 90 \ge 5$ &check;</li>
+        </ul>
+
+        <h4>Paso 3: Parametros de la normal</h4>
+        <ul>
+            <li>$\mu = np = 10$</li>
+            <li>$\sigma = \sqrt{100 \times 0{,}1 \times 0{,}9} = \sqrt{9} = 3$</li>
+        </ul>
+        <p>$X \approx N(10,\; 3)$</p>
+
+        <h4>Paso 4: Correccion por continuidad</h4>
+        <p>Como $P(X \ge 13)$ <strong>incluye</strong> el 13, ampliamos el intervalo medio punto hacia abajo:</p>
+        <p>$P(X \ge 13) \approx P(Y \ge 12{,}5)$ donde $Y \sim N(10, 3)$</p>
+
+        <h4>Paso 5: Tipificar</h4>
+        <p>$P(Y \ge 12{,}5) = P\left(Z \ge \frac{12{,}5 - 10}{3}\right) = P\left(Z \ge \frac{2{,}5}{3}\right) = P(Z \ge 0{,}83)$</p>
+        <p>$= 1 - P(Z \le 0{,}83) = 1 - 0{,}7967 = 0{,}2033$</p>
+
+        <h4>Conclusion</h4>
+        <p>Hay un <strong>20,33%</strong> de probabilidad de que al menos 13 de los 100 encuestados vayan al teatro, cuando en realidad el porcentaje real es del 10%.</p>
+    </div>
+</div>
+
+<h3 id="correccion">Correccion por Continuidad</h3>
+
+<div class="card warning">
+    <div class="card-label">Importante</div>
+    <p>Al aproximar una variable <strong>discreta</strong> (binomial) por una <strong>continua</strong> (normal), se comete un error que se corrige ajustando $\pm 0{,}5$:</p>
+    <table>
+        <tr><th>Binomial (discreta)</th><th>Normal (continua)</th></tr>
+        <tr><td>$P(X = a)$</td><td>$P(a - 0{,}5 \le Y \le a + 0{,}5)$</td></tr>
+        <tr><td>$P(X \le a)$</td><td>$P(Y \le a + 0{,}5)$</td></tr>
+        <tr><td>$P(X < a)$</td><td>$P(Y \le a - 0{,}5)$</td></tr>
+        <tr><td>$P(X \ge a)$</td><td>$P(Y \ge a - 0{,}5)$</td></tr>
+        <tr><td>$P(X > a)$</td><td>$P(Y \ge a + 0{,}5)$</td></tr>
+        <tr><td>$P(a \le X \le b)$</td><td>$P(a - 0{,}5 \le Y \le b + 0{,}5)$</td></tr>
+    </table>
+    <p><strong>Regla nemotecnica:</strong> si el valor $a$ debe estar <em>incluido</em>, ampliamos el intervalo ($\pm 0{,}5$ hacia fuera). Si debe estar <em>excluido</em>, lo reducimos ($\pm 0{,}5$ hacia dentro).</p>
+</div>
+
+<!-- 3.4 MEDIAS MUESTRALES -->
+<h2 id="medias-muestrales">3.4 Estimacion de las Medias Muestrales. Intervalos de Confianza.</h2>
+
+<div class="card definition">
+    <div class="card-label">Distribucion de medias muestrales</div>
+    <p>Si tomamos todas las muestras posibles de tamano $n$ de una poblacion con media $\mu$ y desviacion tipica $\sigma$, las medias muestrales $\bar{X}$ verifican:</p>
+    <ol>
+        <li>La media de las medias muestrales es $\mu$: $\quad \overline{X} = \mu$</li>
+        <li>La desviacion tipica de las medias muestrales es: $\quad \sigma_{\bar{X}} = \dfrac{\sigma}{\sqrt{n}}$</li>
+    </ol>
+</div>
+
+<div class="card important">
+    <div class="card-label">Teorema Central del Limite (para medias)</div>
+    <p>Si la poblacion tiene media $\mu$ y desviacion tipica $\sigma$, y tomamos muestras de tamano $n$ ($n \ge 30$, o cualquier $n$ si la poblacion es normal), entonces:</p>
+    $$\boxed{\bar{X} \to N\left(\mu,\; \frac{\sigma}{\sqrt{n}}\right)}$$
+    <p>Para tipificar la media muestral:</p>
+    $$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Bolsas de azucar</div>
+    <p><strong>Situacion:</strong> Una maquina empaqueta bolsas de azucar. El peso de cada bolsa individual tiene media $\mu = 500$g y desviacion tipica $\sigma = 35$g. Las bolsas se agrupan en cajas de 100 unidades. Un cliente se queja si el peso medio de las bolsas de su caja es inferior a 495g. Que porcentaje de cajas generaran quejas?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Identificar que tipo de problema es</h4>
+        <p>Nos preguntan por la <strong>media de una muestra</strong> (la media de los pesos de 100 bolsas), NO por una bolsa individual. Esto es un problema de <strong>medias muestrales</strong>.</p>
+        <ul>
+            <li>Poblacion: $\mu = 500$g, $\sigma = 35$g</li>
+            <li>Tamano de muestra: $n = 100$ bolsas por caja</li>
+        </ul>
+
+        <h4>Paso 2: Distribucion de la media muestral</h4>
+        <p>Como $n = 100 > 30$, por el T.C.L. la media muestral se distribuye como:</p>
+        <p>$\bar{X} \to N\left(\mu,\; \frac{\sigma}{\sqrt{n}}\right) = N\left(500,\; \frac{35}{\sqrt{100}}\right) = N(500;\; 3{,}5)$</p>
+        <p>Observa: la desviacion tipica de las medias ($3{,}5$) es mucho menor que la de las bolsas individuales ($35$). Las medias varian menos porque los valores extremos se compensan.</p>
+
+        <h4>Paso 3: Tipificar</h4>
+        <p>$P(\bar{X} < 495) = P\left(Z < \frac{495 - 500}{3{,}5}\right) = P\left(Z < \frac{-5}{3{,}5}\right) = P(Z < -1{,}43)$</p>
+
+        <h4>Paso 4: Usar la tabla (valor negativo)</h4>
+        <p>$P(Z < -1{,}43) = 1 - P(Z < 1{,}43) = 1 - 0{,}9236 = 0{,}0764$</p>
+
+        <h4>Conclusion</h4>
+        <p>Solo el <strong>7,64%</strong> de las cajas tendran un peso medio inferior a 495g. Aunque bolsas individuales pueden pesar mucho menos de 495g, cuando promedias 100 bolsas, es raro que la media baje tanto.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Soldados</div>
+    <p>Estaturas de soldados distribuidas $N(173,\; 6)$ cm. a) $P(X < 175)$ para un soldado. b) $P(\bar{X} > 176)$ para muestra de 12.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) Un solo soldado &mdash; Normal individual</h4>
+        <p>Aqui <strong>no hay muestra</strong>, solo un soldado al azar. Es un ejercicio directo de normal:</p>
+        <p>$X \sim N(173,\; 6)$ &rarr; $Z = \frac{X - 173}{6}$</p>
+        <p>$P(X < 175) = P\left(Z < \frac{175-173}{6}\right) = P\left(Z < \frac{2}{6}\right) = P(Z < 0{,}33) = 0{,}6293$</p>
+        <p><strong>Interpretacion:</strong> El 62,93% de los soldados miden menos de 175 cm.</p>
+
+        <h4>b) Media de 12 soldados &mdash; Medias muestrales</h4>
+        <p>Ahora si hay muestra ($n = 12$). Aunque $n < 30$, como la <strong>poblacion de partida ya es normal</strong>, podemos aplicar el T.C.L. igualmente.</p>
+
+        <p><strong>Distribucion de la media muestral:</strong></p>
+        <p>$\bar{X} \to N\left(173,\; \frac{6}{\sqrt{12}}\right) = N(173;\; 1{,}73)$</p>
+        <p>Observa: $\frac{6}{\sqrt{12}} = \frac{6}{3{,}46} \approx 1{,}73$. La desviacion tipica de la media ($1{,}73$) es mucho menor que la individual ($6$).</p>
+
+        <p><strong>Tipificar:</strong></p>
+        <p>$P(\bar{X} > 176) = P\left(Z > \frac{176-173}{1{,}73}\right) = P\left(Z > \frac{3}{1{,}73}\right) = P(Z > 1{,}73)$</p>
+        <p>$= 1 - P(Z < 1{,}73) = 1 - 0{,}9582 = 0{,}0418$</p>
+
+        <h4>Comparacion clave</h4>
+        <p>Un soldado individual tiene un 62,9% de medir menos de 175. Pero que la <strong>media</strong> de 12 soldados supere 176 solo ocurre el 4,18%. Las medias muestrales varian mucho menos que los individuos.</p>
+    </div>
+</div>
+
+<h3 id="ic-media">Intervalo de Confianza para la Media</h3>
+
+<div class="card formula">
+    <div class="card-label">Formula del Intervalo de Confianza</div>
+    <p>El intervalo que contiene a la media poblacional $\mu$ con un nivel de confianza $1 - \alpha$:</p>
+    $$\boxed{IC = \left(\bar{x} - z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}},\quad \bar{x} + z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}}\right)}$$
+    <p>donde:</p>
+    <ul>
+        <li>$\bar{x}$ = media de la muestra</li>
+        <li>$\sigma$ = desviacion tipica poblacional (o de la muestra si no se conoce)</li>
+        <li>$n$ = tamano de la muestra</li>
+        <li>z<sub>α/2</sub> = valor critico de la normal estandar</li>
+        <li>$1 - \alpha$ = nivel de confianza</li>
+    </ul>
+</div>
+
+<div class="card important">
+    <div class="card-label">Que es z<sub>α/2</sub> y como se calcula</div>
+    <p>z<sub>α/2</sub> es el <strong>valor critico</strong> de la normal estandar. Es el numero que "corta" la campana dejando un area de $\alpha/2$ en cada cola.</p>
+
+    <h4>Paso a paso para calcularlo</h4>
+    <p>Supongamos que el nivel de confianza es del <strong>95%</strong>:</p>
+    <ol>
+        <li><strong>Nivel de confianza:</strong> $1 - \alpha = 0{,}95$</li>
+        <li><strong>Despejamos $\alpha$:</strong> $\alpha = 1 - 0{,}95 = 0{,}05$ (esto es el riesgo, lo que "sobra")</li>
+        <li><strong>Dividimos entre 2:</strong> $\alpha/2 = 0{,}025$ (porque el riesgo se reparte en las dos colas de la campana)</li>
+        <li><strong>Calculamos la probabilidad acumulada:</strong> $P(Z \le z_{ \alpha / 2 }) = 1 - \alpha/2 = 1 - 0{,}025 = 0{,}975$</li>
+        <li><strong>Buscamos 0,975 en la tabla:</strong> Miramos dentro de la tabla donde aparece el valor 0,9750. Lo encontramos en la fila $z = 1{,}9$ y columna $0{,}06$ &rarr; $z_{ \alpha / 2 } = 1{,}96$</li>
+    </ol>
+
+    <h4>Que significa geometricamente?</h4>
+    <p>$z_{ \alpha / 2 } = 1{,}96$ significa que el 95% del area de la campana esta entre $-1{,}96$ y $+1{,}96$. Queda un 2,5% en cada cola.</p>
+    <p>Por eso multiplicamos z<sub>α/2</sub> por el error estandar: asi obtenemos el "margen" a cada lado de la media que contiene el valor real con esa confianza.</p>
+
+    <h4>Diferencia entre $z$ y z<sub>α/2</sub></h4>
+    <table>
+        <tr><th></th><th>$z$ (tipificacion)</th><th>z<sub>α/2</sub> (valor critico)</th></tr>
+        <tr><td><strong>Que es</strong></td><td>Cualquier valor de la N(0,1). Resultado de tipificar un dato.</td><td>Un valor <strong>fijo y concreto</strong> que depende solo del nivel de confianza.</td></tr>
+        <tr><td><strong>Para que</strong></td><td>Calcular probabilidades: $P(Z \le z)$</td><td>Construir intervalos de confianza y calcular errores</td></tr>
+        <tr><td><strong>Cambia?</strong></td><td>Si, cambia en cada ejercicio segun los datos</td><td>No, siempre es el mismo para el mismo nivel de confianza</td></tr>
+        <tr><td><strong>Ejemplo</strong></td><td>$z = \frac{175 - 173}{6} = 0{,}33$</td><td>Confianza 95% &rarr; z<sub>α/2</sub> = 1,96 (siempre)</td></tr>
+    </table>
+    <p><strong>Resumen:</strong> $z$ es lo que calculas tu. z<sub>α/2</sub> es lo que buscas en la tabla de niveles de confianza.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Niveles de confianza habituales</div>
+    <table>
+        <tr><th>Nivel de confianza ($1-\alpha$)</th><th>$\alpha$</th><th>$\alpha/2$</th><th>z<sub>α/2</sub></th></tr>
+        <tr><td>90%</td><td>0,10</td><td>0,05</td><td><strong>1,645</strong></td></tr>
+        <tr><td>95%</td><td>0,05</td><td>0,025</td><td><strong>1,96</strong></td></tr>
+        <tr><td>95,44%</td><td>0,0456</td><td>0,0228</td><td><strong>2</strong></td></tr>
+        <tr><td>97%</td><td>0,03</td><td>0,015</td><td><strong>2,17</strong></td></tr>
+        <tr><td>98%</td><td>0,02</td><td>0,01</td><td><strong>2,33</strong></td></tr>
+        <tr><td>99%</td><td>0,01</td><td>0,005</td><td><strong>2,575</strong></td></tr>
+        <tr><td>99,74%</td><td>0,0026</td><td>0,0013</td><td><strong>3</strong></td></tr>
+    </table>
+    <p><strong>Como obtener z<sub>α/2</sub>:</strong> Buscar en la tabla el valor de $z$ tal que $P(Z \le z_{ \alpha / 2 }) = 1 - \alpha/2$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Recien nacidos</div>
+    <p>Poblacion normal: $\mu = 3100$g, $\sigma = 150$g. Muestra $n = 100$. Hallar IC al 90%, 95% y 99%.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Datos</h4>
+        <ul>
+            <li>$\bar{x} = \mu = 3100$g (media), $\sigma = 150$g (desviacion tipica), $n = 100$</li>
+        </ul>
+
+        <h4>Paso comun: calcular el error estandar</h4>
+        <p>$\frac{\sigma}{\sqrt{n}} = \frac{150}{\sqrt{100}} = \frac{150}{10} = 15$</p>
+        <p>Este valor ($15$) es la desviacion tipica de las medias muestrales. Es el "bloque" que multiplicamos por z<sub>α/2</sub>.</p>
+
+        <h4>IC al 90% &mdash; $z_{ \alpha / 2 } = 1{,}645$</h4>
+        <p>$IC = (3100 - 1{,}645 \times 15,\;\; 3100 + 1{,}645 \times 15) = (3100 - 24{,}7,\;\; 3100 + 24{,}7)$</p>
+        <p>$= \boldsymbol{(3075{,}3;\;\; 3124{,}7)}$ &mdash; Amplitud: $49{,}4$g</p>
+
+        <h4>IC al 95% &mdash; $z_{ \alpha / 2 } = 1{,}96$</h4>
+        <p>$IC = (3100 - 1{,}96 \times 15,\;\; 3100 + 1{,}96 \times 15) = (3100 - 29{,}4,\;\; 3100 + 29{,}4)$</p>
+        <p>$= \boldsymbol{(3070{,}6;\;\; 3129{,}4)}$ &mdash; Amplitud: $58{,}8$g</p>
+
+        <h4>IC al 99% &mdash; $z_{ \alpha / 2 } = 2{,}575$</h4>
+        <p>$IC = (3100 - 2{,}575 \times 15,\;\; 3100 + 2{,}575 \times 15) = (3100 - 38{,}6,\;\; 3100 + 38{,}6)$</p>
+        <p>$= \boldsymbol{(3061{,}4;\;\; 3138{,}6)}$ &mdash; Amplitud: $77{,}2$g</p>
+
+        <h4>Conclusion importante</h4>
+        <p>A <strong>mayor confianza, mayor amplitud</strong> del intervalo. Si quieres estar mas seguro (99% vs 90%), necesitas un intervalo mas ancho. Es un equilibrio: precision vs seguridad.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo PEVAU - Calcio</div>
+    <p>100 afectados por osteoporosis consumen media 900mg de calcio/dia. $\sigma = 150$mg. IC al 99%.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Extraer los datos del enunciado</h4>
+        <ul>
+            <li><strong>Tamano de la muestra:</strong> $n = 100$ pacientes</li>
+            <li><strong>Media de la muestra:</strong> $\bar{x} = 900$ mg</li>
+            <li><strong>Desviacion tipica poblacional:</strong> $\sigma = 150$ mg</li>
+            <li><strong>Nivel de confianza:</strong> $1 - \alpha = 0{,}99$ (99%)</li>
+        </ul>
+
+        <h4>Paso 2: Encontrar z<sub>α/2</sub></h4>
+        <p>$1 - \alpha = 0{,}99 \Rightarrow \alpha = 0{,}01 \Rightarrow \alpha/2 = 0{,}005$</p>
+        <p>Buscamos el $z$ tal que $P(Z \le z) = 1 - 0{,}005 = 0{,}995$. En la tabla: $z_{ \alpha / 2 } = 2{,}575$</p>
+
+        <h4>Paso 3: Calcular el error (radio del intervalo)</h4>
+        <p>$E = z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}} = 2{,}575 \times \frac{150}{\sqrt{100}} = 2{,}575 \times \frac{150}{10} = 2{,}575 \times 15 = 38{,}625$</p>
+
+        <h4>Paso 4: Construir el intervalo</h4>
+        <p>$IC = (\bar{x} - E,\;\; \bar{x} + E) = (900 - 38{,}625,\;\; 900 + 38{,}625) = \boldsymbol{(861{,}375;\;\; 938{,}625)}$</p>
+
+        <h4>Paso 5: Interpretar</h4>
+        <p>Podemos asegurar con un <strong>99% de confianza</strong> que la media de consumo de calcio al dia de <em>toda</em> la poblacion afectada por osteoporosis esta entre <strong>861,4 mg y 938,6 mg</strong>.</p>
+        <p>Esto significa que si tomaramos 100 muestras diferentes de 100 pacientes, en 99 de ellas la media caeria dentro de este intervalo.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo PEVAU - Problema inverso</div>
+    <p>Pantallas HD: IC = (1076,08; 1083,92), $\sigma = 20$ pixeles, $n = 100$. Hallar: a) La media muestral $\bar{x}$. b) El nivel de confianza. c) Como reducir la amplitud del intervalo.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) Hallar la media muestral $\bar{x}$</h4>
+        <p>La media muestral siempre esta en el <strong>centro exacto</strong> del intervalo de confianza (porque el IC es simetrico respecto a $\bar{x}$):</p>
+        <p>$\bar{x} = \frac{\text{extremo inferior} + \text{extremo superior}}{2} = \frac{1076{,}08 + 1083{,}92}{2} = \frac{2160}{2} = \boldsymbol{1080}$ pixeles</p>
+
+        <h4>b) Hallar el nivel de confianza</h4>
+        <p><strong>Paso b.1:</strong> Calcular el radio del IC (la distancia del centro a un extremo):</p>
+        <p>$E = 1083{,}92 - 1080 = 3{,}92$</p>
+
+        <p><strong>Paso b.2:</strong> Usar la formula del error para despejar z<sub>α/2</sub>:</p>
+        <p>$E = z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}} \Rightarrow 3{,}92 = z_{ \alpha / 2 } \cdot \frac{20}{\sqrt{100}} = z_{ \alpha / 2 } \cdot 2$</p>
+        <p>$z_{ \alpha / 2 } = \frac{3{,}92}{2} = 1{,}96$</p>
+
+        <p><strong>Paso b.3:</strong> Ir a la tabla y buscar $z = 1{,}96$:</p>
+        <p>$P(Z \le 1{,}96) = 0{,}9750$</p>
+        <p>Esto significa $1 - \alpha/2 = 0{,}975 \Rightarrow \alpha/2 = 0{,}025 \Rightarrow \alpha = 0{,}05$</p>
+        <p><strong>Nivel de confianza = $1 - \alpha = 1 - 0{,}05 = 0{,}95$ = 95%</strong></p>
+
+        <h4>c) Como reducir la amplitud del IC</h4>
+        <p>El radio es $E = z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}}$. Para hacerlo mas pequeno:</p>
+        <ul>
+            <li><strong>Aumentar $n$</strong> (tomar mas datos) &rarr; $\sqrt{n}$ crece y $E$ disminuye</li>
+            <li><strong>Reducir el nivel de confianza</strong> &rarr; z<sub>α/2</sub> disminuye y $E$ disminuye (pero asumimos mas riesgo)</li>
+        </ul>
+    </div>
+</div>
+
+<!-- 3.5 PROPORCION -->
+<h2 id="proporcion">3.5 Estimacion de la Proporcion. Intervalos de Confianza.</h2>
+
+<div class="card definition">
+    <div class="card-label">Distribucion muestral de proporciones</div>
+    <p>Si la probabilidad de exito en la poblacion es $p$ (con $q = 1 - p$), y tomamos muestras de tamano $n$ ($n \ge 30$), la proporcion muestral $\hat{p}$ sigue:</p>
+    $$\boxed{\hat{P} \to N\left(p,\; \sqrt{\frac{p \cdot q}{n}}\right)}$$
+    <p><strong>Relacion con la binomial:</strong></p>
+    <ul>
+        <li>Binomial: $\mu = np$, $\sigma = \sqrt{npq}$</li>
+        <li>Proporcion muestral (dividiendo por $n$): $\hat{P} = p$, $\sigma_{\hat{P}} = \sqrt{\frac{pq}{n}}$</li>
+    </ul>
+</div>
+
+<h3 id="ic-proporcion">Intervalo de Confianza para la Proporcion</h3>
+
+<div class="card formula">
+    <div class="card-label">Formula</div>
+    <p>El intervalo de confianza para la proporcion poblacional $p$ con nivel $1 - \alpha$:</p>
+    $$\boxed{IC = \left(\hat{p} - z_{ \alpha / 2 } \cdot \sqrt{\frac{\hat{p} \cdot \hat{q}}{n}},\quad \hat{p} + z_{ \alpha / 2 } \cdot \sqrt{\frac{\hat{p} \cdot \hat{q}}{n}}\right)}$$
+    <p>donde $\hat{p}$ es la proporcion observada en la muestra y $\hat{q} = 1 - \hat{p}$.</p>
+    <p><strong>Nota:</strong> Si no se conoce $p$, se usa $\hat{p}$. En el caso mas desfavorable, $p = q = 0{,}5$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Ordenadores</div>
+    <p>Se pregunta a 500 alumnos de ESO si tienen ordenador en casa. 200 dicen que si. Hallar un IC al 95% para la proporcion real de alumnos con ordenador.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Paso 1: Calcular la proporcion muestral</h4>
+        <p>$\hat{p} = \frac{\text{exitos}}{\text{total}} = \frac{200}{500} = 0{,}4$ (40% de la muestra tiene ordenador)</p>
+        <p>$\hat{q} = 1 - \hat{p} = 1 - 0{,}4 = 0{,}6$</p>
+
+        <h4>Paso 2: Identificar z<sub>α/2</sub></h4>
+        <p>Nivel de confianza 95% &rarr; $z_{ \alpha / 2 } = 1{,}96$ (de la tabla de valores habituales)</p>
+
+        <h4>Paso 3: Calcular el error estandar de la proporcion</h4>
+        <p>$\sigma_{\hat{p}} = \sqrt{\frac{\hat{p} \cdot \hat{q}}{n}} = \sqrt{\frac{0{,}4 \times 0{,}6}{500}} = \sqrt{\frac{0{,}24}{500}} = \sqrt{0{,}00048} \approx 0{,}0219$</p>
+
+        <h4>Paso 4: Calcular el error maximo</h4>
+        <p>$E = z_{ \alpha / 2 } \times \sigma_{\hat{p}} = 1{,}96 \times 0{,}0219 \approx 0{,}043$</p>
+
+        <h4>Paso 5: Construir el IC</h4>
+        <p>$IC = (\hat{p} - E,\;\; \hat{p} + E) = (0{,}4 - 0{,}043,\;\; 0{,}4 + 0{,}043) = \boldsymbol{(0{,}357;\;\; 0{,}443)}$</p>
+
+        <h4>Interpretacion</h4>
+        <p>Con un 95% de confianza, la proporcion real de alumnos de ESO con ordenador esta entre el <strong>35,7%</strong> y el <strong>44,3%</strong>. El error maximo admisible es del 4,3% (la estimacion difiere como maximo esa cantidad del valor real).</p>
+    </div>
+</div>
+
+<div class="card" style="border-left: 4px solid #475569; background: rgba(71,85,105,0.1);">
+    <div class="card-label" style="background: rgba(71,85,105,0.15); color: #94a3b8;">Formulas del Tema 3 que rara vez caen en examen</div>
+    <p>Conocelas pero no pierdas mucho tiempo memorizandolas:</p>
+    <ul>
+        <li><strong>Funcion de densidad de la normal</strong> $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2}$: NUNCA te piden calcularla. Solo debes saber que existe y que genera la campana de Gauss.</li>
+        <li><strong>Correccion por continuidad (Yates):</strong> a veces no la piden. Si el enunciado no la menciona, puedes omitirla y el resultado sera muy parecido. Pero si la mencionan, aplicala.</li>
+        <li><strong>Muestreo sistematico:</strong> rara vez preguntan los detalles. Solo recuerda: se elige un arranque al azar y luego cada $k = N/n$ elementos.</li>
+        <li><strong>Afijacion uniforme:</strong> casi siempre piden proporcional. La uniforme (mismo numero en cada estrato) es rara.</li>
+    </ul>
+    <p><strong>Lo que SI cae SIEMPRE:</strong> Tipificacion $Z = \frac{X - \mu}{\sigma}$, aproximar Binomial a Normal (con condiciones), medias muestrales $N(\mu, \sigma/\sqrt{n})$, IC para media y proporcion, y calcular z<sub>α/2</sub> a partir del nivel de confianza.</p>
+</div>
+
+<div class="card" style="border: 2px solid var(--accent3); text-align: center; padding: 25px;">
+    <h3 style="color: var(--green); margin: 0 0 10px;">Test Tema 3: Normal, Muestreo e IC</h3>
+    <p>6 preguntas para comprobar si dominas los conceptos</p>
+    <a href="tests.html?tema=3" style="display: inline-block; padding: 10px 24px; background: var(--green); color: var(--bg); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-top: 10px;">Hacer el test &rarr;</a>
+</div>
+
+<!-- RESUMEN DE FORMULAS -->
+<h2 id="resumen-formulas" class="extra-content">Resumen de Todas las Formulas</h2>
+
+<div class="card formula">
+    <div class="card-label">Distribucion Binomial $X \sim B(n,p)$</div>
+    <table>
+        <tr><th>Concepto</th><th>Formula</th></tr>
+        <tr><td>Probabilidad puntual</td><td>$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$</td></tr>
+        <tr><td>Media</td><td>$\mu = np$</td></tr>
+        <tr><td>Varianza</td><td>$\sigma^2 = np(1-p)$</td></tr>
+        <tr><td>Desviacion tipica</td><td>$\sigma = \sqrt{np(1-p)}$</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Distribucion Normal $X \sim N(\mu, \sigma)$</div>
+    <table>
+        <tr><th>Concepto</th><th>Formula</th></tr>
+        <tr><td>Tipificacion</td><td>$Z = \frac{X - \mu}{\sigma}$</td></tr>
+        <tr><td>Funcion densidad</td><td>$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Aproximacion Binomial &rarr; Normal</div>
+    <table>
+        <tr><th>Concepto</th><th>Formula</th></tr>
+        <tr><td>Condicion</td><td>$np \ge 5$ y $n(1-p) \ge 5$</td></tr>
+        <tr><td>Aproximacion</td><td>$B(n,p) \approx N(np, \sqrt{np(1-p)})$</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Distribuciones Muestrales</div>
+    <table>
+        <tr><th>Concepto</th><th>Formula</th></tr>
+        <tr><td>Media muestral</td><td>$\bar{X} \to N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)$</td></tr>
+        <tr><td>Tipificacion medias</td><td>$Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}$</td></tr>
+        <tr><td>Proporcion muestral</td><td>$\hat{P} \to N\left(p, \sqrt{\frac{pq}{n}}\right)$</td></tr>
+        <tr><td>Tipificacion proporcion</td><td>$Z = \frac{\hat{p} - p}{\sqrt{pq/n}}$</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Intervalos de Confianza</div>
+    <table>
+        <tr><th>Para la media</th><th>Para la proporcion</th></tr>
+        <tr><td>$\left(\bar{x} - z_{ \alpha / 2 }\frac{\sigma}{\sqrt{n}},\; \bar{x} + z_{ \alpha / 2 }\frac{\sigma}{\sqrt{n}}\right)$</td>
+            <td>$\left(\hat{p} - z_{ \alpha / 2 }\sqrt{\frac{\hat{p}\hat{q}}{n}},\; \hat{p} + z_{ \alpha / 2 }\sqrt{\frac{\hat{p}\hat{q}}{n}}\right)$</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Error y Tamano de Muestra</div>
+    <table>
+        <tr><th>Concepto</th><th>Para medias</th><th>Para proporciones</th></tr>
+        <tr><td>Error maximo</td><td>$E = z_{ \alpha / 2 }\frac{\sigma}{\sqrt{n}}$</td><td>$E = z_{ \alpha / 2 }\sqrt{\frac{pq}{n}}$</td></tr>
+        <tr><td>Tamano muestra</td><td>$n = \left(\frac{z_{ \alpha / 2 } \cdot \sigma}{E}\right)^2$</td><td>$n = \left(\frac{z_{ \alpha / 2 }}{E}\right)^2 pq$</td></tr>
+    </table>
+</div>
+
+<!-- TABLA Z -->
+<h2 id="tabla-z" class="extra-content">Tabla de la Distribucion Normal Estandar $N(0, 1)$</h2>
+
+<div class="card">
+    <p>Valores de $P(Z \le z)$ para $z \ge 0$. Para valores negativos usar: $P(Z \le -z) = 1 - P(Z \le z)$.</p>
+    <div class="z-table-container">
+        <table class="z-table">
+            <tr><th>$z$</th><th>0,00</th><th>0,01</th><th>0,02</th><th>0,03</th><th>0,04</th><th>0,05</th><th>0,06</th><th>0,07</th><th>0,08</th><th>0,09</th></tr>
+            <tr><td><strong>0,0</strong></td><td>0,5000</td><td>0,5040</td><td>0,5080</td><td>0,5120</td><td>0,5160</td><td>0,5199</td><td>0,5239</td><td>0,5279</td><td>0,5319</td><td>0,5359</td></tr>
+            <tr><td><strong>0,1</strong></td><td>0,5398</td><td>0,5438</td><td>0,5478</td><td>0,5517</td><td>0,5557</td><td>0,5596</td><td>0,5636</td><td>0,5675</td><td>0,5714</td><td>0,5753</td></tr>
+            <tr><td><strong>0,2</strong></td><td>0,5793</td><td>0,5832</td><td>0,5871</td><td>0,5910</td><td>0,5948</td><td>0,5987</td><td>0,6026</td><td>0,6064</td><td>0,6103</td><td>0,6141</td></tr>
+            <tr><td><strong>0,3</strong></td><td>0,6179</td><td>0,6217</td><td>0,6255</td><td>0,6293</td><td>0,6331</td><td>0,6368</td><td>0,6406</td><td>0,6443</td><td>0,6480</td><td>0,6517</td></tr>
+            <tr><td><strong>0,4</strong></td><td>0,6554</td><td>0,6591</td><td>0,6628</td><td>0,6664</td><td>0,6700</td><td>0,6736</td><td>0,6772</td><td>0,6808</td><td>0,6844</td><td>0,6879</td></tr>
+            <tr><td><strong>0,5</strong></td><td>0,6915</td><td>0,6950</td><td>0,6985</td><td>0,7019</td><td>0,7054</td><td>0,7088</td><td>0,7123</td><td>0,7157</td><td>0,7190</td><td>0,7224</td></tr>
+            <tr><td><strong>0,6</strong></td><td>0,7257</td><td>0,7291</td><td>0,7324</td><td>0,7357</td><td>0,7389</td><td>0,7422</td><td>0,7454</td><td>0,7486</td><td>0,7517</td><td>0,7549</td></tr>
+            <tr><td><strong>0,7</strong></td><td>0,7580</td><td>0,7611</td><td>0,7642</td><td>0,7673</td><td>0,7704</td><td>0,7734</td><td>0,7764</td><td>0,7794</td><td>0,7823</td><td>0,7852</td></tr>
+            <tr><td><strong>0,8</strong></td><td>0,7881</td><td>0,7910</td><td>0,7939</td><td>0,7967</td><td>0,7995</td><td>0,8023</td><td>0,8051</td><td>0,8078</td><td>0,8106</td><td>0,8133</td></tr>
+            <tr><td><strong>0,9</strong></td><td>0,8159</td><td>0,8186</td><td>0,8212</td><td>0,8238</td><td>0,8264</td><td>0,8289</td><td>0,8315</td><td>0,8340</td><td>0,8365</td><td>0,8389</td></tr>
+            <tr><td><strong>1,0</strong></td><td>0,8413</td><td>0,8438</td><td>0,8461</td><td>0,8485</td><td>0,8508</td><td>0,8531</td><td>0,8554</td><td>0,8577</td><td>0,8599</td><td>0,8621</td></tr>
+            <tr><td><strong>1,1</strong></td><td>0,8643</td><td>0,8665</td><td>0,8686</td><td>0,8708</td><td>0,8729</td><td>0,8749</td><td>0,8770</td><td>0,8790</td><td>0,8810</td><td>0,8830</td></tr>
+            <tr><td><strong>1,2</strong></td><td>0,8849</td><td>0,8869</td><td>0,8888</td><td>0,8907</td><td>0,8925</td><td>0,8944</td><td>0,8962</td><td>0,8980</td><td>0,8997</td><td>0,9015</td></tr>
+            <tr><td><strong>1,3</strong></td><td>0,9032</td><td>0,9049</td><td>0,9066</td><td>0,9082</td><td>0,9099</td><td>0,9115</td><td>0,9131</td><td>0,9147</td><td>0,9162</td><td>0,9177</td></tr>
+            <tr><td><strong>1,4</strong></td><td>0,9192</td><td>0,9207</td><td>0,9222</td><td>0,9236</td><td>0,9251</td><td>0,9265</td><td>0,9279</td><td>0,9292</td><td>0,9306</td><td>0,9319</td></tr>
+            <tr><td><strong>1,5</strong></td><td>0,9332</td><td>0,9345</td><td>0,9357</td><td>0,9370</td><td>0,9382</td><td>0,9394</td><td>0,9406</td><td>0,9418</td><td>0,9429</td><td>0,9441</td></tr>
+            <tr><td><strong>1,6</strong></td><td>0,9452</td><td>0,9463</td><td>0,9474</td><td>0,9484</td><td>0,9495</td><td>0,9505</td><td>0,9515</td><td>0,9525</td><td>0,9535</td><td>0,9545</td></tr>
+            <tr><td><strong>1,7</strong></td><td>0,9554</td><td>0,9564</td><td>0,9573</td><td>0,9582</td><td>0,9591</td><td>0,9599</td><td>0,9608</td><td>0,9616</td><td>0,9625</td><td>0,9633</td></tr>
+            <tr><td><strong>1,8</strong></td><td>0,9641</td><td>0,9649</td><td>0,9656</td><td>0,9664</td><td>0,9671</td><td>0,9678</td><td>0,9686</td><td>0,9693</td><td>0,9699</td><td>0,9706</td></tr>
+            <tr><td><strong>1,9</strong></td><td>0,9713</td><td>0,9719</td><td>0,9726</td><td>0,9732</td><td>0,9738</td><td>0,9744</td><td>0,9750</td><td>0,9756</td><td>0,9761</td><td>0,9767</td></tr>
+            <tr><td><strong>2,0</strong></td><td>0,9772</td><td>0,9778</td><td>0,9783</td><td>0,9788</td><td>0,9793</td><td>0,9798</td><td>0,9803</td><td>0,9808</td><td>0,9812</td><td>0,9817</td></tr>
+            <tr><td><strong>2,1</strong></td><td>0,9821</td><td>0,9826</td><td>0,9830</td><td>0,9834</td><td>0,9838</td><td>0,9842</td><td>0,9846</td><td>0,9850</td><td>0,9854</td><td>0,9857</td></tr>
+            <tr><td><strong>2,2</strong></td><td>0,9861</td><td>0,9864</td><td>0,9868</td><td>0,9871</td><td>0,9875</td><td>0,9878</td><td>0,9881</td><td>0,9884</td><td>0,9887</td><td>0,9890</td></tr>
+            <tr><td><strong>2,3</strong></td><td>0,9893</td><td>0,9896</td><td>0,9898</td><td>0,9901</td><td>0,9904</td><td>0,9906</td><td>0,9909</td><td>0,9911</td><td>0,9913</td><td>0,9916</td></tr>
+            <tr><td><strong>2,4</strong></td><td>0,9918</td><td>0,9920</td><td>0,9922</td><td>0,9925</td><td>0,9927</td><td>0,9929</td><td>0,9931</td><td>0,9932</td><td>0,9934</td><td>0,9936</td></tr>
+            <tr><td><strong>2,5</strong></td><td>0,9938</td><td>0,9940</td><td>0,9941</td><td>0,9943</td><td>0,9945</td><td>0,9946</td><td>0,9948</td><td>0,9949</td><td>0,9951</td><td>0,9952</td></tr>
+            <tr><td><strong>2,6</strong></td><td>0,9953</td><td>0,9955</td><td>0,9956</td><td>0,9957</td><td>0,9959</td><td>0,9960</td><td>0,9961</td><td>0,9962</td><td>0,9963</td><td>0,9964</td></tr>
+            <tr><td><strong>2,7</strong></td><td>0,9965</td><td>0,9966</td><td>0,9967</td><td>0,9968</td><td>0,9969</td><td>0,9970</td><td>0,9971</td><td>0,9972</td><td>0,9973</td><td>0,9974</td></tr>
+            <tr><td><strong>2,8</strong></td><td>0,9974</td><td>0,9975</td><td>0,9976</td><td>0,9977</td><td>0,9977</td><td>0,9978</td><td>0,9979</td><td>0,9979</td><td>0,9980</td><td>0,9981</td></tr>
+            <tr><td><strong>2,9</strong></td><td>0,9981</td><td>0,9982</td><td>0,9982</td><td>0,9983</td><td>0,9984</td><td>0,9984</td><td>0,9985</td><td>0,9985</td><td>0,9986</td><td>0,9986</td></tr>
+            <tr><td><strong>3,0</strong></td><td>0,9987</td><td>0,9987</td><td>0,9987</td><td>0,9988</td><td>0,9988</td><td>0,9989</td><td>0,9989</td><td>0,9989</td><td>0,9990</td><td>0,9990</td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- CALCULADORAS -->
+<h2 id="calculadoras" class="extra-content">Calculadoras Interactivas</h2>
+
+<div class="card">
+    <h3>Calculadora Binomial $P(X = k)$</h3>
+    <div class="calc-grid">
+        <div><label>n (ensayos)</label><input type="number" id="binom-n" value="10" min="1"></div>
+        <div><label>p (prob. exito)</label><input type="number" id="binom-p" value="0.5" step="0.01" min="0" max="1"></div>
+        <div><label>k (exitos)</label><input type="number" id="binom-k" value="3" min="0"></div>
+        <div></div>
+        <button class="calc-btn" onclick="calcBinom()">Calcular</button>
+        <div class="calc-result" id="binom-result"></div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Calculadora: Intervalo de Confianza para la Media</h3>
+    <div class="calc-grid">
+        <div><label>$\bar{x}$ (media muestral)</label><input type="number" id="ic-xbar" value="900" step="0.01"></div>
+        <div><label>$\sigma$ (desv. tipica)</label><input type="number" id="ic-sigma" value="150" step="0.01"></div>
+        <div><label>$n$ (tamano muestra)</label><input type="number" id="ic-n" value="100" min="1"></div>
+        <div>
+            <label>Nivel de confianza</label>
+            <select id="ic-conf">
+                <option value="1.645">90%</option>
+                <option value="1.96" selected>95%</option>
+                <option value="2.17">97%</option>
+                <option value="2.33">98%</option>
+                <option value="2.575">99%</option>
+            </select>
+        </div>
+        <button class="calc-btn" onclick="calcICMedia()">Calcular IC</button>
+        <div class="calc-result" id="ic-result"></div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Calculadora: Intervalo de Confianza para la Proporcion</h3>
+    <div class="calc-grid">
+        <div><label>$\hat{p}$ (proporcion muestral)</label><input type="number" id="icp-p" value="0.4" step="0.01" min="0" max="1"></div>
+        <div><label>$n$ (tamano muestra)</label><input type="number" id="icp-n" value="500" min="1"></div>
+        <div>
+            <label>Nivel de confianza</label>
+            <select id="icp-conf">
+                <option value="1.645">90%</option>
+                <option value="1.96" selected>95%</option>
+                <option value="2.17">97%</option>
+                <option value="2.33">98%</option>
+                <option value="2.575">99%</option>
+            </select>
+        </div>
+        <div></div>
+        <button class="calc-btn" onclick="calcICProp()">Calcular IC</button>
+        <div class="calc-result" id="icp-result"></div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Calculadora: Tamano minimo de muestra</h3>
+    <div class="calc-grid">
+        <div>
+            <label>Tipo</label>
+            <select id="tm-type">
+                <option value="media">Para la media</option>
+                <option value="proporcion">Para la proporcion</option>
+            </select>
+        </div>
+        <div>
+            <label>Nivel de confianza</label>
+            <select id="tm-conf">
+                <option value="1.645">90%</option>
+                <option value="1.96" selected>95%</option>
+                <option value="2">95,44%</option>
+                <option value="2.17">97%</option>
+                <option value="2.575">99%</option>
+            </select>
+        </div>
+        <div><label>Error maximo (E)</label><input type="number" id="tm-e" value="0.03" step="0.001"></div>
+        <div><label>$\sigma$ o $p$ (segun tipo)</label><input type="number" id="tm-param" value="0.5" step="0.01"></div>
+        <button class="calc-btn" onclick="calcTamano()">Calcular tamano</button>
+        <div class="calc-result" id="tm-result"></div>
+    </div>
+</div>
+
+<!-- FICHA RAPIDA -->
+
+</div><!-- end main -->
+
+<script>
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+function showTab(e, tabId) {
+    var parent = e.target.closest('.card') || e.target.parentElement.parentElement;
+    parent.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    parent.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById(tabId).classList.add('active');
+    e.target.classList.add('active');
+}
+
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+// Tabs
+function showTab(e, tabId) {
+    var parent = e.target.closest('.card') || e.target.parentElement.parentElement;
+    parent.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    parent.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById(tabId).classList.add('active');
+    e.target.classList.add('active');
+}
+
+// Progress bar
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+// Calculators
+function fact(n) { var r = 1; for (var i = 2; i <= n; i++) r *= i; return r; }
+function comb(n, k) { return fact(n) / (fact(k) * fact(n - k)); }
+
+function calcBinom() {
+    var n = parseInt(document.getElementById('binom-n').value);
+    var p = parseFloat(document.getElementById('binom-p').value);
+    var k = parseInt(document.getElementById('binom-k').value);
+    var q = 1 - p;
+    if (k > n || k < 0) { document.getElementById('binom-result').innerHTML = 'Error: k debe estar entre 0 y n'; return; }
+    var prob = comb(n, k) * Math.pow(p, k) * Math.pow(q, n - k);
+    var cumul = 0;
+    for (var i = 0; i <= k; i++) cumul += comb(n, i) * Math.pow(p, i) * Math.pow(q, n - i);
+    document.getElementById('binom-result').innerHTML =
+        '<strong>P(X = ' + k + ') = ' + prob.toFixed(6) + '</strong><br>' +
+        'P(X &le; ' + k + ') = ' + cumul.toFixed(6) + '<br>' +
+        'P(X &ge; ' + k + ') = ' + (1 - cumul + prob).toFixed(6) + '<br>' +
+        '&mu; = ' + (n*p).toFixed(2) + ', &sigma; = ' + Math.sqrt(n*p*q).toFixed(4);
+}
+
+function calcICMedia() {
+    var xbar = parseFloat(document.getElementById('ic-xbar').value);
+    var sigma = parseFloat(document.getElementById('ic-sigma').value);
+    var n = parseInt(document.getElementById('ic-n').value);
+    var z = parseFloat(document.getElementById('ic-conf').value);
+    var err = z * sigma / Math.sqrt(n);
+    document.getElementById('ic-result').innerHTML =
+        '<strong>IC = (' + (xbar-err).toFixed(4) + ' ; ' + (xbar+err).toFixed(4) + ')</strong><br>' +
+        'Error maximo: E = ' + err.toFixed(4);
+}
+
+function calcICProp() {
+    var p = parseFloat(document.getElementById('icp-p').value);
+    var n = parseInt(document.getElementById('icp-n').value);
+    var z = parseFloat(document.getElementById('icp-conf').value);
+    var err = z * Math.sqrt(p * (1-p) / n);
+    document.getElementById('icp-result').innerHTML =
+        '<strong>IC = (' + (p-err).toFixed(4) + ' ; ' + (p+err).toFixed(4) + ')</strong><br>' +
+        'Error maximo: E = ' + err.toFixed(4);
+}
+
+function calcTamano() {
+    var type = document.getElementById('tm-type').value;
+    var z = parseFloat(document.getElementById('tm-conf').value);
+    var E = parseFloat(document.getElementById('tm-e').value);
+    var param = parseFloat(document.getElementById('tm-param').value);
+    var n = (type === 'media') ? Math.pow(z * param / E, 2) : Math.pow(z / E, 2) * param * (1-param);
+    document.getElementById('tm-result').innerHTML =
+        '<strong>n &ge; ' + Math.ceil(n) + '</strong> (valor exacto: ' + n.toFixed(2) + ')';
+}
+
+
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) document.querySelector('.sidebar').classList.remove('show');
+    });
+});
+</script>
+
+</body>
+</html>

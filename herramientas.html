@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas - Estadistica CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--gold);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--rose);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Estadistica</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
+
+    <h2>Tema 1 &middot; Probabilidad</h2>
+    <a href="tema1.html#conceptos-prob">1.1 Conceptos basicos</a>
+    <a href="tema1.html#operaciones-sucesos">1.2 Operaciones sucesos</a>
+    <a href="tema1.html#exp-compuestos">1.3 Arboles y compuestos</a>
+    <a href="tema1.html#prob-condicionada">1.4 Condicionada</a>
+    <a href="tema1.html#prob-total-bayes">1.5 Bayes</a>
+    <a href="tema1.html#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
+
+    <h2>Tema 2 &middot; Binomial</h2>
+    <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
+    <a href="tema2.html#parametros">2.2 Media y varianza</a>
+    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
+    <a href="tema2.html#binom-formula" class="sub">Formula</a>
+    <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
+    <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
+
+    <h2>Tema 3 &middot; Normal e IC</h2>
+    <a href="tema3.html#poblacion">3.1 Muestreo</a>
+    <a href="tema3.html#normal">3.2 Normal (campana)</a>
+    <a href="tema3.html#tipificacion" class="sub">Tipificacion</a>
+    <a href="tema3.html#aprox-binom">3.3 Binomial &rarr; Normal</a>
+    <a href="tema3.html#medias-muestrales">3.4 Medias muestrales</a>
+    <a href="tema3.html#ic-media" class="sub">IC para la media</a>
+    <a href="tema3.html#proporcion">3.5 Proporciones e IC</a>
+    <a href="tests.html?tema=3" class="sub test-link">Practicar Test T3</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#ficha-rapida">Ficha rapida formulas</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+    <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
+    <a href="herramientas.html#calculadoras">Calculadoras</a>
+
+    <h2>Examenes resueltos</h2>
+    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
+    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
+    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+</nav>
+
+<div class="main">
+
+<div class="tema-header">
+    <h1>Herramientas</h1>
+    <p>Guias, formulas rapidas y errores tipicos</p>
+</div>
+
+<h2 id="guia-decision">Guia: "Que formula uso?"</h2>
+
+<div class="card important">
+    <div class="card-label">Diagrama de decision - Lee el enunciado y sigue las flechas</div>
+
+    <h4>Paso 1: Que tipo de variable/problema es?</h4>
+    <table>
+        <tr><th>Si el enunciado dice...</th><th>Entonces es...</th></tr>
+        <tr><td>"n ensayos", "probabilidad de exito p", "cuantos exitos"</td><td><strong>BINOMIAL</strong> $B(n,p)$</td></tr>
+        <tr><td>"se distribuye normalmente", "media $\mu$ y desviacion tipica $\sigma$"</td><td><strong>NORMAL</strong> $N(\mu, \sigma)$</td></tr>
+        <tr><td>"media muestral", "muestra de tamano n", "medias de las muestras"</td><td><strong>MEDIAS MUESTRALES</strong></td></tr>
+        <tr><td>"proporcion", "porcentaje de la muestra", "$\hat{p}$"</td><td><strong>PROPORCIONES</strong></td></tr>
+        <tr><td>"intervalo de confianza", "nivel de confianza"</td><td><strong>IC</strong> (mira si es para media o proporcion)</td></tr>
+        <tr><td>"error maximo", "tamano minimo de muestra"</td><td><strong>ERROR / TAMANO</strong></td></tr>
+    </table>
+
+    <h4>Paso 2: Binomial - Puedo aproximar por Normal?</h4>
+    <table>
+        <tr><th>Situacion</th><th>Que hacer</th></tr>
+        <tr><td>$n$ pequeno (hasta ~20)</td><td>Calcular con la formula binomial directamente</td></tr>
+        <tr><td>$n$ grande Y $np \ge 5$ Y $nq \ge 5$</td><td>Aproximar: $B(n,p) \approx N(np, \sqrt{npq})$. Aplicar correccion de continuidad</td></tr>
+    </table>
+
+    <h4>Paso 3: Normal - Que formula de tipificacion?</h4>
+    <table>
+        <tr><th>Que me piden</th><th>Formula</th></tr>
+        <tr><td>Probabilidad de <strong>un individuo</strong></td><td>$Z = \frac{X - \mu}{\sigma}$</td></tr>
+        <tr><td>Probabilidad de la <strong>media de una muestra</strong></td><td>$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$</td></tr>
+        <tr><td>Probabilidad de una <strong>proporcion muestral</strong></td><td>$Z = \frac{\hat{p} - p}{\sqrt{pq/n}}$</td></tr>
+    </table>
+
+    <h4>Paso 4: Intervalo de confianza - Para que?</h4>
+    <table>
+        <tr><th>Si busco estimar...</th><th>Formula del IC</th></tr>
+        <tr><td>La <strong>media</strong> poblacional $\mu$</td><td>$\bar{x} \pm z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}}$</td></tr>
+        <tr><td>La <strong>proporcion</strong> poblacional $p$</td><td>$\hat{p} \pm z_{ \alpha / 2 } \cdot \sqrt{\frac{\hat{p}\hat{q}}{n}}$</td></tr>
+    </table>
+</div>
+
+<h2 id="errores-tipicos">Errores Tipicos en el Examen (Evitalos!)</h2>
+
+<div class="card warning">
+    <div class="card-label">Error 1 - Confundir individuo con muestra</div>
+    <p><strong>Mal:</strong> "Probabilidad de que un soldado..." y usas $\sigma/\sqrt{n}$.</p>
+    <p><strong>Bien:</strong> Si es UN individuo, tipificas con $\sigma$. Si es la MEDIA de una muestra, tipificas con $\sigma/\sqrt{n}$.</p>
+    <p><strong>Truco:</strong> Busca las palabras "media muestral", "media de la muestra", "peso medio de las bolsas de una caja". Si aparecen, es medias muestrales.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Error 2 - Olvidar "al menos" = complementario</div>
+    <p><strong>Mal:</strong> Calcular $P(X \ge 3) = P(X=3) + P(X=4) + \cdots$ (muchos terminos).</p>
+    <p><strong>Bien:</strong> $P(X \ge 3) = 1 - P(X \le 2) = 1 - [P(X=0) + P(X=1) + P(X=2)]$</p>
+    <p>Siempre que veas "al menos", "como minimo", "$\ge$": piensa en el <strong>complementario</strong>.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Error 3 - No verificar condiciones de aproximacion</div>
+    <p>Antes de aproximar Binomial por Normal, SIEMPRE escribe:</p>
+    <p>"Comprobamos: $np = \_ \ge 5$ y $nq = \_ \ge 5$. Se cumplen las condiciones."</p>
+    <p>Si no lo pones, te pueden quitar puntos aunque el calculo sea correcto.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Error 4 - Calcular mal z<sub>α/2</sub></div>
+    <p><strong>Mal:</strong> Para confianza del 95%, buscar directamente 0,95 en la tabla.</p>
+    <p><strong>Bien:</strong> $1 - \alpha = 0{,}95 \Rightarrow \alpha = 0{,}05 \Rightarrow \alpha/2 = 0{,}025 \Rightarrow$ buscar $P(Z \le z) = 1 - 0{,}025 = 0{,}975$ en la tabla $\Rightarrow z = 1{,}96$</p>
+    <p><strong>Memoriza estos:</strong> 90% &rarr; 1,645 | 95% &rarr; 1,96 | 97% &rarr; 2,17 | 99% &rarr; 2,575</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Error 5 - Redondear $n$ hacia abajo</div>
+    <p><strong>Mal:</strong> $n = 42{,}38 \Rightarrow n = 42$</p>
+    <p><strong>Bien:</strong> $n = 42{,}38 \Rightarrow n = 43$ (SIEMPRE al entero superior)</p>
+    <p>Si redondeas hacia abajo, el error sera mayor que el admisible.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Error 6 - Signo negativo en la tipificacion</div>
+    <p>Si al tipificar te sale $z$ negativo (ej: $z = -1{,}43$), recuerda:</p>
+    <p>$P(Z \le -1{,}43) = 1 - P(Z \le 1{,}43)$ &larr; cambia el signo y resta de 1</p>
+    <p>La tabla solo tiene valores positivos. Nunca busques un $z$ negativo directamente en ella.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Error 7 - $p$ desconocida en tamano de muestra</div>
+    <p>Si el enunciado NO te da $p$ y te pide el tamano de muestra, usa <strong>$p = q = 0{,}5$</strong>.</p>
+    <p>Es el caso mas desfavorable y te garantiza que la muestra sea suficiente.</p>
+</div>
+
+<h2 id="ficha-rapida">Ficha Rapida - Resumen Visual de Formulas</h2>
+
+<div class="card important">
+    <div class="card-label">Esquema completo en una sola vista</div>
+    <table>
+        <tr><th>Concepto</th><th>Distribucion</th><th>Intervalo de Confianza</th><th>Error</th><th>Tamano muestra</th></tr>
+        <tr>
+            <td><strong>Medias Muestrales</strong><br>$\bar{X} \approx N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)$</td>
+            <td>$\bar{x} = \mu$</td>
+            <td>$\left(\mu - z_{ \alpha / 2 }\frac{\sigma}{\sqrt{n}},\; \mu + z_{ \alpha / 2 }\frac{\sigma}{\sqrt{n}}\right)$</td>
+            <td>$E = z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}}$</td>
+            <td>$n \ge \left(z_{ \alpha / 2 } \cdot \frac{\sigma}{E}\right)^2$</td>
+        </tr>
+        <tr>
+            <td><strong>Proporciones</strong><br>$\hat{P} \sim N\left(p, \sqrt{\frac{pq}{n}}\right)$</td>
+            <td>$\hat{p} = p$</td>
+            <td>$\left(p - z_{ \alpha / 2 }\sqrt{\frac{pq}{n}},\; p + z_{ \alpha / 2 }\sqrt{\frac{pq}{n}}\right)$</td>
+            <td>$E = z_{ \alpha / 2 } \cdot \sqrt{\frac{pq}{n}}$</td>
+            <td>$n \ge \left(z_{ \alpha / 2 } \cdot \frac{\sqrt{pq}}{E}\right)^2$</td>
+        </tr>
+    </table>
+    <p><strong>Recuerda:</strong></p>
+    <ul>
+        <li>$(1-\alpha)$ = Nivel de confianza | $\alpha$ = Nivel de significacion</li>
+        <li>z<sub>α/2</sub> se busca en la tabla con $P(Z \le z_{ \alpha / 2 }) = 1 - \frac{\alpha}{2}$</li>
+        <li>Para Binomial $\to$ Normal: condicion $np \ge 5$ y $nq \ge 5$, aplicar correccion de Yates</li>
+        <li>Tipificacion: $Z = \frac{X - \mu}{\sigma}$ (individual) o $Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}$ (medias muestrales)</li>
+    </ul>
+</div>
+
+</div>
+
+<script>
+// Toggle solutions
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+// Progress bar
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+// Active nav highlight
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+// Mobile nav: close on link click
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+</script>
+
+</body>
+</html>
