@@ -537,9 +537,11 @@ function shuffle(arr) {
     return a;
 }
 
+var QUESTIONS_PER_TEST = 6;
+
 function getQuestions() {
     if (!shuffledQuestions[currentTema]) {
-        shuffledQuestions[currentTema] = shuffle(questions[currentTema]);
+        shuffledQuestions[currentTema] = shuffle(questions[currentTema]).slice(0, QUESTIONS_PER_TEST);
     }
     return shuffledQuestions[currentTema];
 }
