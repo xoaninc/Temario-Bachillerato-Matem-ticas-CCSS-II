@@ -17,7 +17,7 @@
         :root {
             --card: var(--surface);
             --card-hover: var(--surface-hover);
-            --accent: var(--gold);
+            --accent: var(--blue);
             --accent2: var(--violet);
             --accent3: var(--green);
             --accent4: var(--amber);
@@ -30,7 +30,7 @@
         /* Progress bar override (different class from style.css) */
         .progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 2px;
-            background: linear-gradient(90deg, var(--gold), var(--teal));
+            background: linear-gradient(90deg, var(--blue), var(--teal));
             z-index: 300; transition: width 0.15s;
         }
     </style>
@@ -101,13 +101,13 @@
     <p>Todo el temario de estadistica, organizado para que lo entiendas paso a paso.</p>
 </div>
 
-<div class="card" style="border: 2px solid var(--gold); padding: 28px;">
-    <h3 style="color: var(--gold);">La idea general</h3>
+<div class="card" style="border: 2px solid var(--blue); padding: 28px;">
+    <h3 style="color: var(--blue);">La idea general</h3>
     <p>Toda esta asignatura trata de <strong>una sola cosa</strong>: medir la incertidumbre con numeros. En la vida real no sabemos que va a pasar, pero podemos poner un <strong>numero entre 0 y 1</strong> a cada posibilidad. Eso es la probabilidad.</p>
     <p>Los 3 temas se construyen uno sobre otro:</p>
 </div>
 
-<h3 style="color: var(--gold); margin-top: 28px;">Hoja de ruta: los 3 temas en orden</h3>
+<h3 style="color: var(--blue); margin-top: 28px;">Hoja de ruta: los 3 temas en orden</h3>
 
 <a href="tema1.html" class="roadmap-step">
     <span class="roadmap-num">1</span>
@@ -134,8 +134,8 @@
 </a>
 
 <div class="card" style="border: 1px solid var(--border); padding: 24px; margin-top: 24px;">
-    <h3 style="color: var(--green);">Mapa de dependencias</h3>
-    <p><strong>No puedes entender un concepto sin dominar los que tiene debajo.</strong> Si no entiendes la condicionada (Nivel 3), no pierdas tiempo con intervalos de confianza (Nivel 10).</p>
+    <h3 style="color: var(--green);">Orden de estudio recomendado</h3>
+    <p><strong>Cada concepto se construye sobre los anteriores.</strong> Si no entiendes la condicionada (Nivel 3), no pierdas tiempo con intervalos de confianza (Nivel 10).</p>
     <table>
         <tr><th>Nivel</th><th>Concepto</th><th>Necesitas antes</th></tr>
         <tr><td>1-2</td><td><strong>Probabilidad basica + operaciones</strong></td><td>Algebra basica</td></tr>
