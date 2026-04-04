@@ -54,18 +54,21 @@
     <a href="examenes.html#patrones">Analisis de examenes</a>
 
     <h2>Tema 1 &middot; Probabilidad</h2>
-    <a href="tema1.html#conceptos-prob">1.1 Conceptos basicos</a>
+    <a href="tema1.html#experimentos">1.1 Experimentos y sucesos</a>
     <a href="tema1.html#operaciones-sucesos">1.2 Operaciones sucesos</a>
-    <a href="tema1.html#exp-compuestos">1.3 Arboles y compuestos</a>
-    <a href="tema1.html#prob-condicionada">1.4 Condicionada</a>
-    <a href="tema1.html#prob-total-bayes">1.5 Bayes</a>
-    <a href="tema1.html#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tema1.html#definicion-prob">1.3 Definicion probabilidad</a>
+    <a href="tema1.html#exp-compuestos">1.4 Compuestos y arboles</a>
+    <a href="tema1.html#prob-condicionada">1.5 Condicionada</a>
+    <a href="tema1.html#independencia">1.6 Independencia</a>
+    <a href="tema1.html#prob-total-bayes">1.7 Total y Bayes</a>
+    <a href="tema1.html#tablas-contingencia">1.8 Tablas contingencia</a>
     <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
 
     <h2>Tema 2 &middot; Binomial</h2>
     <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
-    <a href="tema2.html#parametros">2.2 Media y varianza</a>
-    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
+    <a href="tema2.html#func-prob">2.2 Funcion probabilidad</a>
+    <a href="tema2.html#parametros">2.3 Media y varianza</a>
+    <a href="tema2.html#binomial">2.4 Distribucion Binomial</a>
     <a href="tema2.html#binom-formula" class="sub">Formula</a>
     <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
     <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
@@ -86,25 +89,44 @@
     <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
     <a href="herramientas.html#calculadoras">Calculadoras</a>
 
-    <h2>Examenes resueltos</h2>
-    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
-    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
-    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#ex-estadistica">Ejercicios de examen</a>
     <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
 </nav>
 
 <div class="main">
 
 <!-- GUIA DESDE CERO -->
-<div class="tema-header" id="guia-aprender">
-    <h1>Estadistica CCSS II</h1>
-    <p>Todo el temario explicado paso a paso, con ejercicios resueltos y tests</p>
-</div>
+<h1 id="guia-aprender">Estadistica CCSS II — Guia desde cero</h1>
+<p>Todo el temario de probabilidad y estadistica de 2o Bachillerato CCSS II, explicado paso a paso con ejercicios resueltos de los examenes reales.</p>
 
 <div class="card definition" style="padding: 28px;">
-    <h3 style="margin-top: 0;">¿De que va esta asignatura?</h3>
-    <p>Toda la asignatura trata de <strong>medir la incertidumbre con numeros</strong>. En la vida real no sabemos que va a pasar (si llovera, si un producto sera defectuoso, si aprobare), pero podemos calcular la <strong>probabilidad</strong> de que algo ocurra: un numero entre 0 (imposible) y 1 (seguro).</p>
-    <p>Con esa base, aprendemos a trabajar con <strong>distribuciones</strong> (binomial y normal) que nos dicen como se reparten los resultados. Y al final, usamos todo eso para <strong>sacar conclusiones sobre poblaciones enteras</strong> mirando solo una muestra pequena.</p>
+    <h3 style="margin-top: 0;">De que va esta asignatura?</h3>
+    <p>Toda la asignatura trata de <strong>medir la incertidumbre con numeros</strong>. En la vida real no sabemos que va a pasar (si un producto sera defectuoso, si acertaremos al azar, si la media de una muestra representara a la poblacion). La estadistica nos da herramientas para cuantificar esa incertidumbre.</p>
+    <p>Se divide en <strong>3 bloques</strong> que se construyen uno sobre otro:</p>
+    <ol>
+        <li><strong>Probabilidad</strong> — las reglas basicas: calcular P(algo ocurra), combinar sucesos, Bayes.</li>
+        <li><strong>Distribuciones</strong> — modelos matematicos que describen como se reparten los resultados (binomial para "cuantos exitos en n intentos", normal para la campana de Gauss).</li>
+        <li><strong>Inferencia</strong> — sacar conclusiones sobre una poblacion entera a partir de una muestra pequena (intervalos de confianza).</li>
+    </ol>
+</div>
+
+<div class="card warning" style="padding: 28px;">
+    <h3 style="margin-top: 0;">Que cae en el examen?</h3>
+    <p>Basado en los 3 examenes reales de este curso (Probabilidad 22/10, Estadistica 19/11, Recuperacion 08/01):</p>
+    <table>
+        <tr><th>Tipo de ejercicio</th><th>Que te piden</th><th>Cae en...</th></tr>
+        <tr><td><strong>Operaciones con sucesos</strong></td><td>Te dan $P(A)$, $P(B)$ y algo mas. Piden union, condicionada, independencia.</td><td>Siempre</td></tr>
+        <tr><td><strong>Prob. Total + Bayes</strong></td><td>Contexto con 2-3 categorias. Apartado a) prob. total, b) Bayes inverso.</td><td>Siempre</td></tr>
+        <tr><td><strong>Binomial directa</strong></td><td>$B(n,p)$ con $n$ pequeno. Piden $P(X=k)$, $P(X \ge k)$, media.</td><td>Siempre</td></tr>
+        <tr><td><strong>Binomial &rarr; Normal</strong></td><td>$n$ grande (200+). Comprobar condiciones, aproximar, tipificar.</td><td>Estadistica / Recup.</td></tr>
+        <tr><td><strong>Medias muestrales</strong></td><td>$N(\mu, \sigma)$, muestra de $n$. P(media entre X e Y). Tipificar con $\sigma/\sqrt{n}$.</td><td>Estadistica / Recup.</td></tr>
+        <tr><td><strong>IC media o proporcion</strong></td><td>Calcular IC. A veces problema inverso (hallar nivel o tamano).</td><td>Estadistica / Recup.</td></tr>
+        <tr><td><strong>Muestreo estratificado</strong></td><td>Afijacion proporcional. Regla de tres por estrato.</td><td>Estadistica / Recup.</td></tr>
+        <tr><td><strong>Tabla contingencia</strong></td><td>Construir tabla, condicionadas, independencia.</td><td>Probabilidad</td></tr>
+    </table>
+    <p><strong>Importante:</strong> La profesora valora que escribas TODOS los pasos y calculos intermedios (+0,10 pts por proceso). Siempre pon una frase interpretando el resultado.</p>
 </div>
 
 <h2>Los 3 temas</h2>
@@ -113,7 +135,7 @@
     <span class="roadmap-num">1</span>
     <div class="roadmap-content">
         <h4>Probabilidad</h4>
-        <p>Las reglas del juego: que es un suceso, como combinarlos (union, interseccion, complementario), probabilidad condicionada ("sabiendo que..."), independencia, y el teorema de Bayes para invertir probabilidades. Tambien tablas de contingencia.</p>
+        <p><strong>8 secciones.</strong> Experimentos aleatorios, espacio muestral, operaciones con sucesos (union, interseccion, complementario, De Morgan), Regla de Laplace, experimentos compuestos y diagramas de arbol, probabilidad condicionada, independencia vs incompatibilidad, probabilidad total, teorema de Bayes, y tablas de contingencia. Cada seccion con explicacion + ejemplo resuelto paso a paso.</p>
     </div>
 </a>
 
@@ -121,7 +143,7 @@
     <span class="roadmap-num">2</span>
     <div class="roadmap-content">
         <h4>Distribucion Binomial</h4>
-        <p>Cuando repites un experimento $n$ veces y cada vez solo hay exito o fracaso. La formula te dice la probabilidad de obtener exactamente $k$ exitos. Tambien la media ($\\mu = np$), la varianza, y cuando usar el complementario.</p>
+        <p><strong>4 secciones.</strong> Variable aleatoria (discreta vs continua), funcion de probabilidad y de distribucion, parametros (media $\mu = np$, varianza, desviacion tipica), y la distribucion binomial: que es, sus 4 condiciones, la formula $P(X=k) = \binom{n}{k} p^k q^{n-k}$, y cuando usar el complementario. Ejemplos: monedas, test tipo examen, fabrica.</p>
     </div>
 </a>
 
@@ -129,25 +151,25 @@
     <span class="roadmap-num">3</span>
     <div class="roadmap-content">
         <h4>Normal, Muestreo e Inferencia</h4>
-        <p>La campana de Gauss, tipificacion ($Z = \\frac{X-\\mu}{\\sigma}$), aproximar binomial por normal, medias muestrales ($\\sigma/\\sqrt{n}$), y los intervalos de confianza: "la media real esta entre X e Y con un 95% de seguridad".</p>
+        <p><strong>5 secciones.</strong> Poblacion y muestra, tipos de muestreo (simple, sistematico, estratificado), distribucion normal y campana de Gauss, tipificacion $Z = \frac{X-\mu}{\sigma}$, uso de la tabla $N(0,1)$, aproximacion de Binomial a Normal (condiciones + correccion de continuidad), medias muestrales y TCL, intervalos de confianza para media y proporcion. Incluye tabla Z completa y calculadoras interactivas.</p>
     </div>
 </a>
 
-<h2>Herramientas</h2>
+<h2>Herramientas de estudio</h2>
 
 <a href="herramientas.html" class="roadmap-step">
     <span class="roadmap-num">?</span>
     <div class="roadmap-content">
         <h4>Que formula uso? + Errores tipicos</h4>
-        <p>Guia paso a paso para elegir la formula correcta en cada tipo de problema, y los 7 errores mas comunes en el examen.</p>
+        <p>Diagrama de decision paso a paso con ejemplos reales para cada tipo de problema (binomial, normal, medias muestrales, proporciones, IC). Mas los 7 errores que mas puntos cuestan en el examen y como evitarlos.</p>
     </div>
 </a>
 
 <a href="examenes.html" class="roadmap-step">
     <span class="roadmap-num">!</span>
     <div class="roadmap-content">
-        <h4>Ejercicios de examen resueltos</h4>
-        <p>Todos los ejercicios de examenes reales resueltos paso a paso, mezclados para practicar.</p>
+        <h4>Ejercicios de examen y de clase resueltos</h4>
+        <p>Los 19 ejercicios de los 3 examenes reales (Probabilidad, Estadistica, Recuperacion) + 15 ejercicios de las hojas de clase, todos resueltos paso a paso con enunciado completo. Tambien analisis de patrones: que tipo de ejercicio pone la profesora y como prepararlo.</p>
     </div>
 </a>
 
@@ -155,23 +177,28 @@
     <span class="roadmap-num">&#10003;</span>
     <div class="roadmap-content">
         <h4>Tests interactivos</h4>
-        <p>Preguntas aleatorias por tema con explicaciones detalladas. 10 preguntas por tema.</p>
+        <p>6 preguntas aleatorias por tema con explicaciones detalladas. Util para comprobar si entiendes los conceptos antes de hacer ejercicios completos.</p>
     </div>
 </a>
 
 <h2>Orden de estudio recomendado</h2>
 
 <div class="card" style="padding: 24px;">
-    <p><strong>Cada concepto se construye sobre los anteriores.</strong> No saltes temas. Si no entiendes la condicionada, no pierdas tiempo con intervalos de confianza.</p>
+    <p><strong>Cada concepto se construye sobre los anteriores.</strong> No saltes temas. Si no entiendes la condicionada, no pierdas tiempo con Bayes. Si no dominas la tipificacion, no intentes intervalos de confianza.</p>
     <table>
-        <tr><th>Nivel</th><th>Concepto</th><th>Necesitas antes</th></tr>
-        <tr><td>1-2</td><td><strong>Probabilidad basica + operaciones</strong></td><td>Algebra basica</td></tr>
-        <tr><td>3-4</td><td><strong>Condicionada + Bayes</strong></td><td>Niveles 1-2</td></tr>
-        <tr><td>5</td><td><strong>Variable aleatoria y Binomial</strong></td><td>Niveles 1-3</td></tr>
-        <tr><td>6-7</td><td><strong>Normal + Tipificacion</strong></td><td>Nivel 5</td></tr>
-        <tr><td>8</td><td><strong>Binomial &rarr; Normal</strong></td><td>Niveles 5+7</td></tr>
-        <tr><td>9-10</td><td><strong>Medias muestrales + IC</strong></td><td>Nivel 7</td></tr>
+        <tr><th>Paso</th><th>Que estudiar</th><th>Necesitas antes</th><th>Donde</th></tr>
+        <tr><td>1</td><td>Sucesos, espacio muestral, operaciones</td><td>Algebra basica</td><td><a href="tema1.html#experimentos">T1 sec. 1.1-1.2</a></td></tr>
+        <tr><td>2</td><td>Regla de Laplace y propiedades</td><td>Paso 1</td><td><a href="tema1.html#definicion-prob">T1 sec. 1.3</a></td></tr>
+        <tr><td>3</td><td>Diagramas de arbol</td><td>Paso 2</td><td><a href="tema1.html#exp-compuestos">T1 sec. 1.4</a></td></tr>
+        <tr><td>4</td><td>Condicionada e independencia</td><td>Pasos 1-3</td><td><a href="tema1.html#prob-condicionada">T1 sec. 1.5-1.6</a></td></tr>
+        <tr><td>5</td><td>Prob. Total y Bayes</td><td>Paso 4</td><td><a href="tema1.html#prob-total-bayes">T1 sec. 1.7</a></td></tr>
+        <tr><td>6</td><td>Variable aleatoria y Binomial</td><td>Pasos 1-4</td><td><a href="tema2.html#var-aleatoria">T2 completo</a></td></tr>
+        <tr><td>7</td><td>Normal + Tipificacion + Tabla Z</td><td>Paso 6</td><td><a href="tema3.html#normal">T3 sec. 3.2</a></td></tr>
+        <tr><td>8</td><td>Binomial &rarr; Normal</td><td>Pasos 6+7</td><td><a href="tema3.html#aprox-binom">T3 sec. 3.3</a></td></tr>
+        <tr><td>9</td><td>Medias muestrales + IC</td><td>Paso 7</td><td><a href="tema3.html#medias-muestrales">T3 sec. 3.4-3.5</a></td></tr>
+        <tr><td>10</td><td>Practicar con examenes reales</td><td>Todos</td><td><a href="examenes.html">Examenes</a></td></tr>
     </table>
+    <p style="margin-top: 16px;"><strong>Consejo:</strong> Despues de cada paso, haz el <a href="tests.html">test del tema</a> correspondiente. Si fallas mas de 2, vuelve a leer la teoria antes de seguir.</p>
 </div>
 
 </div><!-- end main -->

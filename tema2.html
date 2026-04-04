@@ -51,20 +51,23 @@
     <a href="examenes.html#patrones">Analisis de examenes</a>
 
     <h2>Tema 1 &middot; Probabilidad</h2>
-    <a href="#conceptos-prob">1.1 Conceptos basicos</a>
-    <a href="#operaciones-sucesos">1.2 Operaciones sucesos</a>
-    <a href="#exp-compuestos">1.3 Arboles y compuestos</a>
-    <a href="#prob-condicionada">1.4 Condicionada</a>
-    <a href="#prob-total-bayes">1.5 Bayes</a>
-    <a href="#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tema1.html#experimentos">1.1 Experimentos y sucesos</a>
+    <a href="tema1.html#operaciones-sucesos">1.2 Operaciones sucesos</a>
+    <a href="tema1.html#definicion-prob">1.3 Definicion probabilidad</a>
+    <a href="tema1.html#exp-compuestos">1.4 Compuestos y arboles</a>
+    <a href="tema1.html#prob-condicionada">1.5 Condicionada</a>
+    <a href="tema1.html#independencia">1.6 Independencia</a>
+    <a href="tema1.html#prob-total-bayes">1.7 Total y Bayes</a>
+    <a href="tema1.html#tablas-contingencia">1.8 Tablas contingencia</a>
     <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
 
     <h2>Tema 2 &middot; Binomial</h2>
-    <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
-    <a href="tema2.html#parametros">2.2 Media y varianza</a>
-    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
-    <a href="tema2.html#binom-formula" class="sub">Formula</a>
-    <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
+    <a href="#var-aleatoria">2.1 Variable aleatoria</a>
+    <a href="#func-prob">2.2 Funcion de probabilidad</a>
+    <a href="#parametros">2.3 Media y varianza</a>
+    <a href="#binomial">2.4 Distribucion Binomial</a>
+    <a href="#binom-formula" class="sub">Formula</a>
+    <a href="#binom-ejemplo" class="sub">Ejemplos</a>
     <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
 
     <h2>Tema 3 &middot; Normal e IC</h2>
@@ -83,419 +86,300 @@
     <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
     <a href="herramientas.html#calculadoras">Calculadoras</a>
 
-    <h2>Examenes resueltos</h2>
-    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
-    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
-    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#ex-estadistica">Ejercicios de examen</a>
     <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
 </nav>
 
 <div class="main">
 
-<div class="tema-header">
-    <h1>Tema 2: Distribucion Binomial</h1>
-    <p>Variable aleatoria, formula binomial, media y varianza</p>
-</div>
+<h1>Tema 2: Distribucion Binomial</h1>
+<p>Variable aleatoria, funcion de probabilidad, parametros y distribucion binomial.</p>
 
-<h2 id="var-aleatoria">2.1 Variable Aleatoria</h2>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 2.1 VARIABLE ALEATORIA                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-<div class="card definition">
-    <div class="card-label">Definicion</div>
-    <p>Sea $E$ el espacio muestral asociado a un experimento aleatorio. Se llama <strong>variable aleatoria</strong> a toda aplicacion que asocia a cada elemento del espacio muestral un numero real.</p>
-    <p>Se denotan con letras mayusculas: $X$, $Y$, $Z$, ... El conjunto de valores que toma se llama <strong>recorrido</strong>.</p>
-</div>
+<h2 id="var-aleatoria">2.1 Variable aleatoria</h2>
 
 <div class="card definition">
-    <div class="card-label">Tipos</div>
-    <ul>
-        <li><strong>Variable aleatoria discreta:</strong> toma un numero finito de valores o infinito numerable. Ejemplo: numero de caras al lanzar 3 monedas &rarr; $X \in \{0, 1, 2, 3\}$.</li>
-        <li><strong>Variable aleatoria continua:</strong> toma valores en un intervalo de la recta real (infinito no numerable). Ejemplo: el tiempo que tarda un atleta en correr 100m.</li>
-    </ul>
+    <div class="card-label">Que es una variable aleatoria</div>
+    <p>En el tema anterior trabajamos con sucesos (subconjuntos del espacio muestral). Ahora necesitamos asociar <strong>numeros</strong> a los resultados del experimento para poder operar con ellos.</p>
+    <p>Una <strong>variable aleatoria</strong> es una funcion que asigna un numero real a cada resultado del espacio muestral. Se denota con letras mayusculas: $X$, $Y$, $Z$... El conjunto de valores que puede tomar se llama <strong>recorrido</strong>.</p>
 </div>
-
-<h3 id="func-prob">Funcion de Probabilidad</h3>
 
 <div class="card definition">
-    <div class="card-label">Definicion</div>
-    <p>La <strong>funcion de probabilidad</strong> de una variable aleatoria discreta $X$ asocia a cada valor $x_i$ la probabilidad de que $X$ tome dicho valor:</p>
-    $$f(x_i) = P(X = x_i)$$
-    <p>Propiedades:</p>
-    <ul>
-        <li>$0 \le f(x_i) \le 1$ para todo $x_i$</li>
-        <li>$\displaystyle\sum_{i} f(x_i) = \sum_{i} P(X = x_i) = 1$</li>
-    </ul>
-</div>
-
-<div class="card example">
-    <div class="card-label">Ejemplo</div>
-    <p><strong>Situacion:</strong> Un arquero tira 3 flechas a una diana. Su punteria no es perfecta: solo acierta el 40% de las veces ($p = 0{,}4$). Llamamos $X$ al numero de flechas que aciertan (puede ser 0, 1, 2 o 3). Queremos construir la tabla completa de probabilidades.</p>
+    <div class="card-label">Tipos de variable aleatoria</div>
     <table>
-        <tr><th>$x_i$</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>
-        <tr><td>$P(X = x_i)$</td><td>0,216</td><td>0,432</td><td>0,288</td><td>0,064</td></tr>
+        <tr><th>Tipo</th><th>Que valores toma</th><th>Ejemplo</th></tr>
+        <tr><td><strong>Discreta</strong></td><td>Finitos o infinito numerable (valores "sueltos")</td><td>Numero de caras al lanzar 3 monedas: $X \in \{0, 1, 2, 3\}$</td></tr>
+        <tr><td><strong>Continua</strong></td><td>Un intervalo de la recta real (infinito no numerable)</td><td>Tiempo que tarda un atleta en correr 100m</td></tr>
     </table>
-    <button class="solution-toggle" onclick="toggleSolution(this)">Ver calculo detallado</button>
-    <div class="solution-content">
-        <h4>Paso 1: Identificar los datos</h4>
-        <ul>
-            <li>Numero de tiros (ensayos): $n = 3$</li>
-            <li>Probabilidad de acertar (exito): $p = 0{,}4$</li>
-            <li>Probabilidad de fallar (fracaso): $q = 1 - p = 1 - 0{,}4 = 0{,}6$</li>
-            <li>$X$ = "numero de aciertos" &rarr; puede valer 0, 1, 2 o 3</li>
-        </ul>
-        <h4>Paso 2: Calcular cada probabilidad</h4>
-        <p><strong>$P(X = 0)$</strong> &mdash; Ninguno de los 3 tiros acierta. Los 3 fallan:</p>
-        <p>$P(X=0) = q^3 = 0{,}6^3 = 0{,}6 \times 0{,}6 \times 0{,}6 = 0{,}216$</p>
-        <p>Probabilidad del 21,6%. Lo mas probable es fallar los 3 tiros.</p>
-
-        <p><strong>$P(X = 1)$</strong> &mdash; Exactamente 1 acierto y 2 fallos. Pero el acierto puede ocurrir en el tiro 1, el 2 o el 3 (hay 3 formas posibles), por eso multiplicamos por 3:</p>
-        <p>$P(X=1) = 3 \cdot 0{,}6^2 \cdot 0{,}4 = 3 \times 0{,}36 \times 0{,}4 = 3 \times 0{,}144 = 0{,}432$</p>
-        <p>Probabilidad del 43,2%. Es el resultado mas probable.</p>
-
-        <p><strong>$P(X = 2)$</strong> &mdash; 2 aciertos y 1 fallo. El fallo puede estar en cualquiera de las 3 posiciones (3 formas):</p>
-        <p>$P(X=2) = 3 \cdot 0{,}6 \cdot 0{,}4^2 = 3 \times 0{,}6 \times 0{,}16 = 3 \times 0{,}096 = 0{,}288$</p>
-
-        <p><strong>$P(X = 3)$</strong> &mdash; Los 3 tiros aciertan (solo hay 1 forma):</p>
-        <p>$P(X=3) = 0{,}4^3 = 0{,}4 \times 0{,}4 \times 0{,}4 = 0{,}064$</p>
-        <p>Solo un 6,4% de probabilidad de acertar los 3.</p>
-
-        <h4>Paso 3: Comprobacion</h4>
-        <p>La suma de todas las probabilidades <strong>siempre debe dar 1</strong> (ya que alguno de estos resultados ocurrira seguro):</p>
-        <p>$0{,}216 + 0{,}432 + 0{,}288 + 0{,}064 = 1{,}000$ &check;</p>
-    </div>
+    <p>En este tema trabajamos con variables aleatorias <strong>discretas</strong>. En el tema 3 veremos la distribucion normal, que es continua.</p>
 </div>
 
-<h3 id="func-dist">Funcion de Distribucion</h3>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 2.2 FUNCION DE PROBABILIDAD                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="func-prob">2.2 Funcion de probabilidad</h2>
 
 <div class="card definition">
-    <div class="card-label">Definicion</div>
-    <p>La <strong>funcion de distribucion</strong> $F(x)$ asigna a cada valor $x$ la probabilidad acumulada hasta ese punto:</p>
-    $$F(x) = P(X \le x)$$
-    <p><strong>Propiedades:</strong></p>
+    <div class="card-label">Que es la funcion de probabilidad <span class="exam-tag si">Suele entrar</span></div>
+    <p>Si $X$ es una variable aleatoria discreta que puede tomar los valores $x_1, x_2, \ldots, x_n$, la <strong>funcion de probabilidad</strong> asocia a cada valor la probabilidad de que $X$ lo tome:</p>
+    $$\boxed{f(x_i) = P(X = x_i)}$$
+    <p>Propiedades que siempre se cumplen:</p>
     <ul>
-        <li>Es una funcion escalonada (constante por intervalos).</li>
-        <li>Es creciente: $0 \le F(x) \le 1$.</li>
-        <li>Si $x_i < x_j$, entonces $F(x_j) - F(x_i) = P(x_i < X \le x_j)$.</li>
+        <li>Cada probabilidad esta entre 0 y 1: $0 \le f(x_i) \le 1$</li>
+        <li>La suma de todas las probabilidades es 1: $\displaystyle\sum_{i} f(x_i) = 1$</li>
     </ul>
+    <p>Se representa con una <strong>tabla de valores</strong> o con un grafico de barras.</p>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo - Funcion de distribucion de la diana</div>
-    <p>Continuamos con la diana ($n = 3$, $p = 0{,}4$). Construimos $F(x) = P(X \le x)$ paso a paso:</p>
-    <button class="solution-toggle" onclick="toggleSolution(this)">Ver construccion paso a paso</button>
+    <div class="card-label">Ejemplo - Diana con 3 flechas</div>
+    <p>Un arquero tira 3 flechas a una diana. Acierta el 40% de las veces ($p = 0{,}4$). Sea $X$ = "numero de aciertos". Construir la tabla de probabilidades.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>Idea clave</h4>
-        <p>$F(x)$ responde a la pregunta: "si elijo un numero $x$, cual es la probabilidad de obtener $x$ aciertos <strong>o menos</strong>?"</p>
+        <p>$X$ puede valer 0, 1, 2 o 3. Probabilidad de fallo: $q = 1 - 0{,}4 = 0{,}6$.</p>
 
-        <h4>Construyendo cada tramo</h4>
-        <p><strong>Si $x < 0$:</strong> No puedes tener aciertos negativos. Es imposible &rarr; $F(x) = 0$</p>
+        <p><strong>$P(X = 0)$</strong> &mdash; Los 3 fallan: $P = 0{,}6^3 = 0{,}216$</p>
 
-        <p><strong>Si $0 \le x < 1$</strong> (por ejemplo $x = 0{,}5$): Solo cuentan los valores enteros $\le x$. El unico entero que cumple es 0:</p>
-        <p>$F(0{,}5) = P(X \le 0{,}5) = P(X = 0) = 0{,}216$</p>
+        <p><strong>$P(X = 1)$</strong> &mdash; 1 acierto y 2 fallos. El acierto puede ser en cualquiera de las 3 flechas:</p>
+        <p>$P = 3 \times 0{,}4 \times 0{,}6^2 = 3 \times 0{,}144 = 0{,}432$</p>
 
-        <p><strong>Si $1 \le x < 2$</strong> (por ejemplo $x = 1{,}3$): Los enteros $\le 1{,}3$ son 0 y 1:</p>
-        <p>$F(1{,}3) = P(X = 0) + P(X = 1) = 0{,}216 + 0{,}432 = 0{,}648$</p>
+        <p><strong>$P(X = 2)$</strong> &mdash; 2 aciertos y 1 fallo. El fallo puede estar en cualquiera de las 3 posiciones:</p>
+        <p>$P = 3 \times 0{,}4^2 \times 0{,}6 = 3 \times 0{,}096 = 0{,}288$</p>
 
-        <p><strong>Si $2 \le x < 3$</strong> (por ejemplo $x = 2$): Acumulamos hasta 2:</p>
-        <p>$F(2) = P(X = 0) + P(X = 1) + P(X = 2) = 0{,}216 + 0{,}432 + 0{,}288 = 0{,}936$</p>
+        <p><strong>$P(X = 3)$</strong> &mdash; Los 3 aciertan: $P = 0{,}4^3 = 0{,}064$</p>
 
-        <p><strong>Si $x \ge 3$:</strong> Incluimos todos los valores posibles, la probabilidad total es 1:</p>
-        <p>$F(3) = 0{,}216 + 0{,}432 + 0{,}288 + 0{,}064 = 1$</p>
-
-        <h4>Resultado final</h4>
-        $$F(x) = \begin{cases} 0 & \text{si } x < 0 \\ 0{,}216 & \text{si } 0 \le x < 1 \\ 0{,}648 & \text{si } 1 \le x < 2 \\ 0{,}936 & \text{si } 2 \le x < 3 \\ 1 & \text{si } x \ge 3 \end{cases}$$
-
-        <h4>Aplicacion practica</h4>
-        <p>Con esta funcion puedes responder preguntas como:</p>
-        <ul>
-            <li>"Probabilidad de acertar como maximo 1 tiro" &rarr; $F(1) = 0{,}648 = 64{,}8\%$</li>
-            <li>"Probabilidad de acertar mas de 1 tiro" &rarr; $1 - F(1) = 1 - 0{,}648 = 0{,}352 = 35{,}2\%$</li>
-        </ul>
+        <h4>Tabla de probabilidades</h4>
+        <table>
+            <tr><th>$x_i$</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>
+            <tr><td>$P(X = x_i)$</td><td>0,216</td><td>0,432</td><td>0,288</td><td>0,064</td></tr>
+        </table>
+        <p>Comprobacion: $0{,}216 + 0{,}432 + 0{,}288 + 0{,}064 = 1$ &check;</p>
     </div>
 </div>
 
-<!-- 2.2 PARAMETROS -->
-<h2 id="parametros">2.2 Parametros de una Distribucion Discreta</h2>
-
-<h3 id="media">Media o Esperanza Matematica ($\mu$)</h3>
-
-<div class="card formula">
-    <div class="card-label">Formula</div>
-    <p>La <strong>media</strong> o <strong>esperanza matematica</strong> de una variable aleatoria discreta $X$:</p>
-    $$\mu = E[X] = \sum_{i=1}^{n} x_i \cdot p_i = x_1 p_1 + x_2 p_2 + \cdots + x_n p_n$$
-    <p>Representa el valor esperado del experimento si se repitiera muchas veces.</p>
+<div class="card definition">
+    <div class="card-label">Funcion de distribucion $F(x)$ <span class="exam-tag no">No suele entrar</span></div>
+    <p>La <strong>funcion de distribucion</strong> acumula probabilidades hasta un valor dado:</p>
+    $$F(x) = P(X \le x)$$
+    <p>Responde a la pregunta: "cual es la probabilidad de obtener $x$ <strong>o menos</strong>?"</p>
+    <p>Es una funcion <strong>escalonada</strong> (sube a saltos) y <strong>creciente</strong>: va desde 0 hasta 1.</p>
+    <p><em>Ejemplo:</em> Con la diana anterior, $F(1) = P(X \le 1) = P(X=0) + P(X=1) = 0{,}216 + 0{,}432 = 0{,}648$.</p>
+    <p>Truco util: $P(X > k) = 1 - F(k) = 1 - P(X \le k)$.</p>
 </div>
 
-<h3 id="varianza">Varianza ($\sigma^2$) y Desviacion Tipica ($\sigma$)</h3>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 2.3 PARAMETROS                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="parametros">2.3 Parametros de una distribucion discreta</h2>
+
+<div class="card definition">
+    <div class="card-label">Que son los parametros</div>
+    <p>Los parametros resumen el comportamiento de una variable aleatoria con unos pocos numeros. Los tres principales son:</p>
+    <ul>
+        <li><strong>Media ($\mu$):</strong> el valor esperado, alrededor de que valor se concentran los resultados.</li>
+        <li><strong>Varianza ($\sigma^2$):</strong> cuanto se dispersan los resultados respecto a la media.</li>
+        <li><strong>Desviacion tipica ($\sigma$):</strong> la raiz de la varianza, en las mismas unidades que $X$.</li>
+    </ul>
+</div>
 
 <div class="card formula">
-    <div class="card-label">Formulas</div>
-    <p><strong>Varianza:</strong> mide la dispersion de los datos respecto a la media.</p>
-    $$\sigma^2 = \sum_{i=1}^{n} (x_i - \mu)^2 \cdot p_i$$
-    <p><strong>Formula alternativa</strong> (mas comoda para calcular):</p>
+    <div class="card-label">Formulas <span class="exam-tag si">Suele entrar</span></div>
+    <p><strong>Media</strong> (esperanza matematica):</p>
+    $$\boxed{\mu = E[X] = \sum_{i=1}^{n} x_i \cdot p_i = x_1 p_1 + x_2 p_2 + \cdots + x_n p_n}$$
+    <p><strong>Varianza:</strong></p>
     $$\boxed{\sigma^2 = \sum_{i=1}^{n} x_i^2 \cdot p_i - \mu^2}$$
-    <p><strong>Desviacion tipica:</strong> raiz cuadrada positiva de la varianza.</p>
+    <p>(Esta es la formula alternativa, mas comoda que $\sigma^2 = \sum (x_i - \mu)^2 \cdot p_i$; da el mismo resultado.)</p>
+    <p><strong>Desviacion tipica:</strong></p>
     $$\sigma = +\sqrt{\sigma^2}$$
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo resuelto</div>
-    <p><strong>Situacion:</strong> Seguimos con el arquero que tira 3 flechas ($p = 0{,}4$). Queremos saber: en promedio, cuantas flechas acertara? Y cuanto varian los resultados respecto a ese promedio?</p>
+    <div class="card-label">Ejemplo - Parametros de la diana</div>
+    <p>Seguimos con el arquero ($n = 3$, $p = 0{,}4$). En promedio, cuantas flechas acertara? Cuanto varian los resultados?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>Paso 1: Construir la tabla auxiliar</h4>
-        <p>Necesitamos dos columnas extra: $x_i \cdot p_i$ (para la media) y $x_i^2 \cdot p_i$ (para la varianza).</p>
+        <h4>Tabla auxiliar</h4>
         <table>
-            <tr><th>$x_i$</th><th>$p_i$</th><th>$x_i \cdot p_i$</th><th>$x_i^2 \cdot p_i$</th><th>Explicacion</th></tr>
-            <tr><td>0</td><td>0,216</td><td>$0 \times 0{,}216 = 0$</td><td>$0^2 \times 0{,}216 = 0$</td><td>0 aciertos, peso nulo</td></tr>
-            <tr><td>1</td><td>0,432</td><td>$1 \times 0{,}432 = 0{,}432$</td><td>$1^2 \times 0{,}432 = 0{,}432$</td><td>1 acierto, mayor peso</td></tr>
-            <tr><td>2</td><td>0,288</td><td>$2 \times 0{,}288 = 0{,}576$</td><td>$2^2 \times 0{,}288 = 1{,}152$</td><td>2 aciertos</td></tr>
-            <tr><td>3</td><td>0,064</td><td>$3 \times 0{,}064 = 0{,}192$</td><td>$3^2 \times 0{,}064 = 0{,}576$</td><td>3 aciertos, poco probable</td></tr>
-            <tr><th>Suma</th><th>1</th><th><strong>1,2</strong></th><th><strong>2,16</strong></th><th></th></tr>
+            <tr><th>$x_i$</th><th>$p_i$</th><th>$x_i \cdot p_i$</th><th>$x_i^2 \cdot p_i$</th></tr>
+            <tr><td>0</td><td>0,216</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>0,432</td><td>0,432</td><td>0,432</td></tr>
+            <tr><td>2</td><td>0,288</td><td>0,576</td><td>1,152</td></tr>
+            <tr><td>3</td><td>0,064</td><td>0,192</td><td>0,576</td></tr>
+            <tr><th>Suma</th><th>1</th><th><strong>1,2</strong></th><th><strong>2,16</strong></th></tr>
         </table>
 
-        <h4>Paso 2: Calcular la media $\mu$</h4>
-        <p>Sumamos la columna $x_i \cdot p_i$:</p>
+        <h4>Media</h4>
         <p>$\mu = 0 + 0{,}432 + 0{,}576 + 0{,}192 = 1{,}2$</p>
-        <p><strong>Interpretacion:</strong> Si repetimos el experimento de "3 tiros a la diana" muchas veces, en promedio acertaremos <strong>1,2 tiros</strong> cada vez. Obviamente no puedes acertar "1,2 tiros" de verdad, pero es el promedio teorico.</p>
+        <p>En promedio acertara <strong>1,2 flechas</strong> de cada 3.</p>
 
-        <h4>Paso 3: Calcular la varianza $\sigma^2$</h4>
-        <p>Usamos la formula alternativa (la mas comoda): $\sigma^2 = \sum x_i^2 p_i - \mu^2$</p>
-        <p>$\sigma^2 = 2{,}16 - (1{,}2)^2 = 2{,}16 - 1{,}44 = 0{,}72$</p>
-
-        <h4>Paso 4: Calcular la desviacion tipica $\sigma$</h4>
+        <h4>Varianza y desviacion tipica</h4>
+        <p>$\sigma^2 = 2{,}16 - 1{,}2^2 = 2{,}16 - 1{,}44 = 0{,}72$</p>
         <p>$\sigma = \sqrt{0{,}72} \approx 0{,}85$</p>
-        <p><strong>Interpretacion:</strong> Los resultados se desvian de la media (1,2) aproximadamente $\pm 0{,}85$ aciertos. Es decir, la "mayoria de las veces" obtendremos entre $1{,}2 - 0{,}85 = 0{,}35$ y $1{,}2 + 0{,}85 = 2{,}05$ aciertos &rarr; normalmente 1 o 2 aciertos.</p>
+        <p>La mayoria de las veces, los aciertos caen en el intervalo $(\mu - \sigma,\; \mu + \sigma) = (0{,}35;\; 2{,}05)$, es decir, normalmente 1 o 2 aciertos.</p>
     </div>
 </div>
 
-<div class="card" style="border-left: 4px solid #475569; background: rgba(71,85,105,0.1);">
-    <div class="card-label" style="background: rgba(71,85,105,0.15); color: #94a3b8;">Formulas del Tema 2 que rara vez caen en examen</div>
-    <p>Estas formulas existen pero casi nunca te las piden directamente. Conocelas por si acaso:</p>
-    <ul>
-        <li><strong>Funcion de distribucion por tramos</strong> $F(x)$ con llaves: te pueden pedir construirla, pero normalmente solo piden probabilidades puntuales o acumuladas, no la funcion completa.</li>
-        <li><strong>Varianza con la formula larga</strong> $\sigma^2 = \sum (x_i - \mu)^2 \cdot p_i$: usa siempre la alternativa $\sigma^2 = \sum x_i^2 p_i - \mu^2$, es mas rapida y da el mismo resultado.</li>
-        <li><strong>Numero combinatorio desarrollado:</strong> $\binom{n}{k} = \frac{n!}{k!(n-k)!}$. En el examen usa directamente la calculadora o la tabla de la binomial si te la dan.</li>
-    </ul>
-    <p><strong>Lo que SI cae siempre:</strong> Formula de la binomial $P(X=k) = \binom{n}{k} p^k q^{n-k}$, parametros $\mu = np$, $\sigma = \sqrt{npq}$, y saber usar el complementario.</p>
-</div>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 2.4 DISTRIBUCION BINOMIAL                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-<!-- 2.3 BINOMIAL -->
-<h2 id="binomial">2.3 Distribucion Binomial. Parametros.</h2>
+<h2 id="binomial">2.4 Distribucion Binomial</h2>
 
 <div class="card definition">
-    <div class="card-label">Definicion</div>
-    <p>Un <strong>experimento binomial</strong> cumple estas 4 propiedades:</p>
+    <div class="card-label">Que es un experimento binomial <span class="exam-tag si">Suele entrar</span></div>
+    <p>Muchos problemas de la vida real consisten en repetir un mismo ensayo varias veces y contar cuantas veces ocurre un "exito". Esto es un <strong>experimento binomial</strong>, que cumple 4 condiciones:</p>
     <ol>
-        <li>El experimento consiste en $n$ ensayos <strong>identicos</strong>.</li>
-        <li>Cada ensayo tiene solo dos resultados: <strong>exito</strong> (probabilidad $p$) y <strong>fracaso</strong> (probabilidad $q = 1-p$).</li>
-        <li>La probabilidad de exito $p$ permanece <strong>constante</strong> en todos los ensayos.</li>
+        <li>Se realizan $n$ ensayos <strong>identicos</strong>.</li>
+        <li>Cada ensayo tiene solo dos resultados posibles: <strong>exito</strong> y <strong>fracaso</strong>.</li>
+        <li>La probabilidad de exito $p$ es <strong>constante</strong> en todos los ensayos.</li>
         <li>Los ensayos son <strong>independientes</strong> entre si.</li>
     </ol>
-    <p>Si $X$ cuenta el numero de exitos, decimos que $X$ sigue una distribucion binomial:</p>
+    <p>Si $X$ cuenta el numero de exitos, decimos que sigue una <strong>distribucion binomial</strong>:</p>
     $$X \sim B(n, p)$$
-    <div class="card warning" style="margin-top:15px; margin-bottom:0;">
-        <div class="card-label">Notacion: el simbolo $\sim$ (virgulilla)</div>
-        <p>El simbolo <strong>$\sim$</strong> se lee <strong>"sigue una distribucion"</strong> o <strong>"se distribuye como"</strong>. Es la forma abreviada de decir que una variable aleatoria se comporta segun un modelo de probabilidad concreto.</p>
-        <table>
-            <tr><th>Notacion</th><th>Se lee</th></tr>
-            <tr><td>$X \sim B(10,\; 0{,}3)$</td><td>"X sigue una Binomial con 10 ensayos y probabilidad de exito 0,3"</td></tr>
-            <tr><td>$X \sim N(5,\; 2)$</td><td>"X sigue una Normal de media 5 y desviacion tipica 2"</td></tr>
-            <tr><td>$Z \sim N(0,\; 1)$</td><td>"Z sigue una Normal estandar (media 0, desviacion tipica 1)"</td></tr>
-        </table>
-        <p>Siempre que veas $X \sim \text{algo}$, significa: "la variable X se comporta segun ese modelo".</p>
+    <p>Se lee: "$X$ sigue una Binomial de parametros $n$ y $p$".</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Es binomial?</div>
+    <p>En un pais, una proporcion $p$ de personas esta a favor de una medida. Se encuesta a 1000 personas al azar. Es un experimento binomial?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Comprobamos las 4 condiciones:</p>
+        <ul>
+            <li>1000 ensayos identicos (preguntar a cada persona) &check;</li>
+            <li>Dos resultados: a favor o en contra &check;</li>
+            <li>$p$ constante (si la poblacion es grande respecto a la muestra, aunque no se reemplace, la probabilidad apenas cambia) &check;</li>
+            <li>Cada encuesta es independiente &check;</li>
+        </ul>
+        <p><strong>Si, es un experimento binomial.</strong> $X$ = "numero de personas a favor" sigue $X \sim B(1000, p)$.</p>
     </div>
 </div>
 
 <h3 id="binom-formula">Formula de la Binomial</h3>
 
 <div class="card formula">
-    <div class="card-label">Formula clave</div>
+    <div class="card-label">Formula de probabilidad <span class="exam-tag si">Suele entrar</span></div>
     <p>La probabilidad de obtener exactamente $k$ exitos en $n$ ensayos:</p>
     $$\boxed{P(X = k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}}$$
-    <p>donde el <strong>numero combinatorio</strong> es:</p>
-    $$\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!}$$
-    <p>Y $k$ puede tomar valores $0, 1, 2, \ldots, n$.</p>
+    <p>donde:</p>
+    <ul>
+        <li>$\binom{n}{k} = \frac{n!}{k!(n-k)!}$ es el <strong>numero combinatorio</strong>: cuantas formas hay de elegir cuales $k$ ensayos son exito.</li>
+        <li>$p^k$ es la probabilidad de que los $k$ exitos ocurran.</li>
+        <li>$(1-p)^{n-k}$ es la probabilidad de que los $n-k$ restantes sean fracaso.</li>
+    </ul>
+    <p>$k$ toma valores $0, 1, 2, \ldots, n$.</p>
 </div>
 
 <div class="card formula">
-    <div class="card-label">Parametros de la Binomial</div>
-    <p>Si $X \sim B(n,p)$, sus parametros se calculan directamente:</p>
+    <div class="card-label">Parametros de la Binomial <span class="exam-tag si">Suele entrar</span></div>
+    <p>Si $X \sim B(n,p)$, no hace falta construir toda la tabla para calcular los parametros. Hay formulas directas:</p>
     <table>
-        <tr><th>Parametro</th><th>Formula</th></tr>
-        <tr><td><strong>Media</strong></td><td>$\mu = n \cdot p$</td></tr>
-        <tr><td><strong>Varianza</strong></td><td>$\sigma^2 = n \cdot p \cdot (1-p) = n \cdot p \cdot q$</td></tr>
-        <tr><td><strong>Desviacion tipica</strong></td><td>$\sigma = \sqrt{n \cdot p \cdot (1-p)}$</td></tr>
+        <tr><th>Parametro</th><th>Formula</th><th>Ejemplo: $B(6;\; 0{,}5)$</th></tr>
+        <tr><td><strong>Media</strong></td><td>$\mu = n \cdot p$</td><td>$6 \times 0{,}5 = 3$</td></tr>
+        <tr><td><strong>Varianza</strong></td><td>$\sigma^2 = n \cdot p \cdot (1-p)$</td><td>$6 \times 0{,}5 \times 0{,}5 = 1{,}5$</td></tr>
+        <tr><td><strong>Desv. tipica</strong></td><td>$\sigma = \sqrt{n \cdot p \cdot (1-p)}$</td><td>$\sqrt{1{,}5} \approx 1{,}225$</td></tr>
     </table>
+    <p>La media $\mu = np$ se interpreta como el <strong>numero esperado de exitos</strong>. Si lanzas 6 monedas, esperas 3 caras de media.</p>
 </div>
 
-<div class="card formula">
-    <div class="card-label">Funcion de distribucion acumulada</div>
-    <p>La <strong>funcion de distribucion</strong> nos da la probabilidad de obtener <strong>como maximo</strong> $x$ exitos. Se calcula sumando todas las probabilidades desde 0 hasta $h$:</p>
-    $$F(x) = P(X \le x) = \sum_{k=0}^{h} \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$$
-    <p><strong>Desglosando cada parte:</strong></p>
-    <table>
-        <tr><th>Simbolo</th><th>Significado</th></tr>
-        <tr><td>$F(x)$</td><td>Probabilidad acumulada hasta el valor $x$ (es decir, $P(X \le x)$)</td></tr>
-        <tr><td>$\displaystyle\sum_{k=0}^{h}$</td><td>Sumatorio: sumamos para cada valor de $k$ desde 0 hasta $h$</td></tr>
-        <tr><td>$h$</td><td>El mayor <strong>entero</strong> que no supera a $x$. Por ejemplo, si $x = 2{,}7$, entonces $h = 2$; si $x = 3$, entonces $h = 3$</td></tr>
-        <tr><td>$\displaystyle\binom{n}{k}$</td><td>Numero combinatorio: las formas de elegir $k$ exitos entre $n$ ensayos = $\frac{n!}{k!(n-k)!}$</td></tr>
-        <tr><td>$p^k$</td><td>Probabilidad de que los $k$ exitos ocurran (cada uno con probabilidad $p$)</td></tr>
-        <tr><td>$(1-p)^{n-k}$</td><td>Probabilidad de que los $n-k$ ensayos restantes sean fracasos</td></tr>
-    </table>
-    <p><strong>En la practica:</strong> para calcular $F(x)$, simplemente sumas $P(X=0) + P(X=1) + \cdots + P(X=h)$.</p>
-    <div class="card example" style="margin-top:15px; margin-bottom:0;">
-        <div class="card-label">Ejemplo visual completo</div>
-        <p>Lanzamos 6 monedas ($X \sim B(6,\; 0{,}5)$). Queremos calcular $F(2) = P(X \le 2)$, es decir, la probabilidad de obtener <strong>2 caras o menos</strong>.</p>
-
-        <p><strong>Desglose:</strong> "2 caras o menos" significa 0 caras, 1 cara, o 2 caras. Sumamos sus probabilidades:</p>
-
-        <p>$F(2) = P(X=0) + P(X=1) + P(X=2)$</p>
-
-        <p><strong>Calculo de cada termino:</strong></p>
-        <ul>
-            <li>$P(X=0) = \binom{6}{0} \cdot 0{,}5^0 \cdot 0{,}5^6 = 1 \times 1 \times \frac{1}{64} = \frac{1}{64}$ &larr; 6 cruces, ninguna cara</li>
-            <li>$P(X=1) = \binom{6}{1} \cdot 0{,}5^1 \cdot 0{,}5^5 = 6 \times \frac{1}{64} = \frac{6}{64}$ &larr; 1 cara y 5 cruces</li>
-            <li>$P(X=2) = \binom{6}{2} \cdot 0{,}5^2 \cdot 0{,}5^4 = 15 \times \frac{1}{64} = \frac{15}{64}$ &larr; 2 caras y 4 cruces</li>
-        </ul>
-
-        <p><strong>Resultado:</strong></p>
-        <p>$F(2) = \frac{1}{64} + \frac{6}{64} + \frac{15}{64} = \frac{22}{64} = 0{,}344$</p>
-
-        <p><strong>Interpretacion:</strong> Hay un <strong>34,4%</strong> de probabilidad de obtener 2 caras o menos al lanzar 6 monedas. Dicho de otra forma: en el 34,4% de los casos saldremos "decepcionados" si queriamos al menos 3 caras.</p>
-
-        <p><strong>Uso adicional:</strong> Si nos preguntan $P(X > 2)$ (mas de 2 caras), simplemente:</p>
-        <p>$P(X > 2) = 1 - F(2) = 1 - 0{,}344 = 0{,}656 = 65{,}6\%$</p>
-    </div>
-</div>
-
-<h3 id="binom-ejemplo">Ejemplos Resueltos</h3>
+<h3 id="binom-ejemplo">Ejemplos resueltos</h3>
 
 <div class="card example">
-    <div class="card-label">Ejemplo 1 - Moneda</div>
-    <p><strong>Situacion:</strong> Lanzamos una moneda al aire 6 veces seguidas y contamos cuantas caras salen. Como la moneda es justa, la probabilidad de cara en cada lanzamiento es $p = 0{,}5$. Llamamos $X$ = "numero de caras en 6 lanzamientos" &rarr; $X \sim B(6;\; 0{,}5)$.</p>
-    <button class="solution-toggle" onclick="toggleSolution(this)">Ver tabla de probabilidades y parametros</button>
+    <div class="card-label">Ejemplo 1 - Lanzar 6 monedas</div>
+    <p>Lanzamos una moneda 6 veces. Exito = cara ($p = 0{,}5$). $X$ = "numero de caras" &rarr; $X \sim B(6;\; 0{,}5)$.</p>
+    <p>Construir la tabla de probabilidades y calcular los parametros.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>Paso 1: Identificar que es una binomial</h4>
-        <p>Comprobamos las 4 condiciones:</p>
-        <ul>
-            <li>$n = 6$ ensayos identicos (6 lanzamientos) &check;</li>
-            <li>Dos resultados: cara (exito) o cruz (fracaso) &check;</li>
-            <li>$p = 0{,}5$ constante en cada lanzamiento &check;</li>
-            <li>Cada lanzamiento es independiente &check;</li>
-        </ul>
-        <p>Entonces $X \sim B(6;\; 0{,}5)$ donde $X$ = "numero de caras obtenidas".</p>
-
-        <h4>Paso 2: Calcular la tabla completa</h4>
-        <p>Usamos la formula $P(X=k) = \binom{6}{k} \cdot 0{,}5^k \cdot 0{,}5^{6-k}$. Como $p = q = 0{,}5$, se simplifica a $\binom{6}{k} \cdot 0{,}5^6 = \binom{6}{k} \cdot \frac{1}{64}$:</p>
+        <p>Como $p = q = 0{,}5$, la formula se simplifica: $P(X=k) = \binom{6}{k} \cdot 0{,}5^6 = \binom{6}{k} \cdot \frac{1}{64}$</p>
         <table>
-            <tr><th>$k$</th><th>$\binom{6}{k}$</th><th>Calculo</th><th>$P(X=k)$</th><th>Significado</th></tr>
-            <tr><td>0</td><td>1</td><td>$1 \cdot \frac{1}{64}$</td><td>$\frac{1}{64} \approx 0{,}016$</td><td>0 caras en 6 tiros: muy raro</td></tr>
-            <tr><td>1</td><td>6</td><td>$6 \cdot \frac{1}{64}$</td><td>$\frac{6}{64} \approx 0{,}094$</td><td>1 sola cara</td></tr>
-            <tr><td>2</td><td>15</td><td>$15 \cdot \frac{1}{64}$</td><td>$\frac{15}{64} \approx 0{,}234$</td><td>2 caras</td></tr>
-            <tr><td>3</td><td>20</td><td>$20 \cdot \frac{1}{64}$</td><td>$\frac{20}{64} \approx 0{,}313$</td><td>3 caras: lo MAS probable</td></tr>
-            <tr><td>4</td><td>15</td><td>$15 \cdot \frac{1}{64}$</td><td>$\frac{15}{64} \approx 0{,}234$</td><td>4 caras (simetrico con 2)</td></tr>
-            <tr><td>5</td><td>6</td><td>$6 \cdot \frac{1}{64}$</td><td>$\frac{6}{64} \approx 0{,}094$</td><td>5 caras (simetrico con 1)</td></tr>
-            <tr><td>6</td><td>1</td><td>$1 \cdot \frac{1}{64}$</td><td>$\frac{1}{64} \approx 0{,}016$</td><td>6 caras: muy raro</td></tr>
+            <tr><th>$k$</th><th>$\binom{6}{k}$</th><th>$P(X=k)$</th></tr>
+            <tr><td>0</td><td>1</td><td>$\frac{1}{64} \approx 0{,}016$</td></tr>
+            <tr><td>1</td><td>6</td><td>$\frac{6}{64} \approx 0{,}094$</td></tr>
+            <tr><td>2</td><td>15</td><td>$\frac{15}{64} \approx 0{,}234$</td></tr>
+            <tr><td>3</td><td>20</td><td>$\frac{20}{64} \approx 0{,}313$ &larr; lo mas probable</td></tr>
+            <tr><td>4</td><td>15</td><td>$\frac{15}{64} \approx 0{,}234$</td></tr>
+            <tr><td>5</td><td>6</td><td>$\frac{6}{64} \approx 0{,}094$</td></tr>
+            <tr><td>6</td><td>1</td><td>$\frac{1}{64} \approx 0{,}016$</td></tr>
         </table>
-        <p>Observa la simetria: $P(X=0) = P(X=6)$, $P(X=1) = P(X=5)$, etc. Esto ocurre porque $p = 0{,}5$.</p>
+        <p>Observa la <strong>simetria</strong>: $P(X=0) = P(X=6)$, $P(X=1) = P(X=5)$, etc. Esto ocurre porque $p = 0{,}5$.</p>
 
-        <h4>Paso 3: Ejemplo de calculo detallado para $k = 2$</h4>
-        <p>$P(X=2) = \binom{6}{2} \cdot 0{,}5^2 \cdot 0{,}5^4$</p>
-        <ul>
-            <li>$\binom{6}{2} = \frac{6!}{2! \cdot 4!} = \frac{6 \times 5}{2 \times 1} = 15$ &larr; hay 15 formas de elegir cuales 2 de los 6 lanzamientos salen cara</li>
-            <li>$0{,}5^2 = 0{,}25$ &larr; probabilidad de que esos 2 lanzamientos sean cara</li>
-            <li>$0{,}5^4 = 0{,}0625$ &larr; probabilidad de que los otros 4 sean cruz</li>
-            <li>$15 \times 0{,}25 \times 0{,}0625 = 15 \times 0{,}015625 = 0{,}234$</li>
-        </ul>
+        <h4>Calculo detallado de $P(X = 2)$</h4>
+        <p>$P(X=2) = \binom{6}{2} \cdot 0{,}5^2 \cdot 0{,}5^4 = \frac{6!}{2! \cdot 4!} \cdot 0{,}25 \cdot 0{,}0625 = 15 \times 0{,}015625 = 0{,}234$</p>
 
-        <h4>Paso 4: Parametros usando las formulas directas</h4>
-        <ul>
-            <li><strong>Media:</strong> $\mu = n \cdot p = 6 \times 0{,}5 = 3$ &rarr; esperamos 3 caras de media (logico, la mitad de 6)</li>
-            <li><strong>Varianza:</strong> $\sigma^2 = n \cdot p \cdot q = 6 \times 0{,}5 \times 0{,}5 = 1{,}5$</li>
-            <li><strong>Desviacion tipica:</strong> $\sigma = \sqrt{1{,}5} \approx 1{,}225$</li>
-        </ul>
-        <p><strong>Interpretacion:</strong> La mayoria de las veces, el numero de caras caera en el intervalo $(\mu - \sigma,\; \mu + \sigma) = (3 - 1{,}225,\; 3 + 1{,}225) = (1{,}775;\; 4{,}225)$. Como las caras son enteras, esto significa que normalmente saldran <strong>2, 3 o 4 caras</strong>.</p>
+        <h4>Parametros</h4>
+        <p>$\mu = np = 6 \times 0{,}5 = 3$ caras de media</p>
+        <p>$\sigma^2 = npq = 6 \times 0{,}5 \times 0{,}5 = 1{,}5$</p>
+        <p>$\sigma = \sqrt{1{,}5} \approx 1{,}225$</p>
+        <p>La mayoria de las veces saldran entre $3 - 1{,}225 = 1{,}775$ y $3 + 1{,}225 = 4{,}225$, es decir, <strong>2, 3 o 4 caras</strong>.</p>
     </div>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo 2 - Examen tipo test</div>
+    <div class="card-label">Ejemplo 2 - Examen tipo test (complementario)</div>
     <p>Un examen tiene 10 preguntas con 4 opciones cada una. Un alumno contesta al azar. Calcular la probabilidad de acertar al menos 3.</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>Paso 1: Identificar la binomial</h4>
-        <ul>
-            <li><strong>$n = 10$</strong> preguntas (ensayos identicos e independientes)</li>
-            <li>Cada pregunta tiene 4 opciones &rarr; al contestar al azar, <strong>$p = \frac{1}{4} = 0{,}25$</strong></li>
-            <li>$q = 1 - 0{,}25 = 0{,}75$ (probabilidad de fallar)</li>
-            <li>$X$ = "numero de preguntas acertadas" &rarr; $X \sim B(10;\; 0{,}25)$</li>
-        </ul>
+        <h4>Identificar la binomial</h4>
+        <p>$n = 10$, $p = \frac{1}{4} = 0{,}25$, $q = 0{,}75$. $X \sim B(10;\; 0{,}25)$.</p>
 
-        <h4>Paso 2: Plantear el problema con el complementario</h4>
-        <p>Nos piden $P(X \ge 3)$, es decir, acertar 3, 4, 5, 6, 7, 8, 9 o 10 preguntas. Calcular esos 8 valores seria muy largo. Es mucho mas facil usar el <strong>complementario</strong>:</p>
+        <h4>Usar el complementario</h4>
+        <p>Nos piden $P(X \ge 3)$. Es mas facil calcular $P(X \le 2)$ y restar:</p>
         <p>$P(X \ge 3) = 1 - P(X \le 2) = 1 - [P(X=0) + P(X=1) + P(X=2)]$</p>
-        <p>Asi solo calculamos 3 probabilidades en vez de 8.</p>
 
-        <h4>Paso 3: Calcular cada probabilidad</h4>
-        <p><strong>$P(X = 0)$</strong> &mdash; Fallar las 10:</p>
-        <p>$P(X=0) = \binom{10}{0} \cdot 0{,}25^0 \cdot 0{,}75^{10} = 1 \cdot 1 \cdot 0{,}0563 = 0{,}0563$</p>
+        <h4>Calcular cada probabilidad</h4>
+        <p>$P(X=0) = \binom{10}{0} \cdot 0{,}25^0 \cdot 0{,}75^{10} = 0{,}0563$</p>
+        <p>$P(X=1) = \binom{10}{1} \cdot 0{,}25^1 \cdot 0{,}75^{9} = 10 \times 0{,}25 \times 0{,}0751 = 0{,}1877$</p>
+        <p>$P(X=2) = \binom{10}{2} \cdot 0{,}25^2 \cdot 0{,}75^{8} = 45 \times 0{,}0625 \times 0{,}1001 = 0{,}2816$</p>
 
-        <p><strong>$P(X = 1)$</strong> &mdash; Acertar exactamente 1:</p>
-        <p>$P(X=1) = \binom{10}{1} \cdot 0{,}25^1 \cdot 0{,}75^{9} = 10 \cdot 0{,}25 \cdot 0{,}0751 = 0{,}1877$</p>
-        <p>El $\binom{10}{1} = 10$ indica que hay 10 formas de elegir cual de las 10 preguntas es la que aciertas.</p>
-
-        <p><strong>$P(X = 2)$</strong> &mdash; Acertar exactamente 2:</p>
-        <p>$P(X=2) = \binom{10}{2} \cdot 0{,}25^2 \cdot 0{,}75^{8} = 45 \cdot 0{,}0625 \cdot 0{,}1001 = 0{,}2816$</p>
-        <p>El $\binom{10}{2} = 45$ indica que hay 45 formas de elegir cuales 2 preguntas aciertas de las 10.</p>
-
-        <h4>Paso 4: Resultado final</h4>
+        <h4>Resultado</h4>
         <p>$P(X \le 2) = 0{,}0563 + 0{,}1877 + 0{,}2816 = 0{,}5256$</p>
         <p>$P(X \ge 3) = 1 - 0{,}5256 = 0{,}4744$</p>
-        <p><strong>Conclusion:</strong> Hay un <strong>47,44%</strong> de probabilidad de acertar 3 o mas preguntas contestando completamente al azar. Es decir, casi la mitad de las veces "apruebas" 3 o mas solo por suerte, algo que hay que tener en cuenta al disenar examenes tipo test.</p>
+        <p>Hay un <strong>47,4%</strong> de probabilidad de acertar 3 o mas al azar.</p>
     </div>
 </div>
 
-<div class="card formula">
-    <div class="card-label">Resumen Rapido - Todas las formulas del Tema 1</div>
-    <h4>Operaciones con sucesos</h4>
-    <table>
-        <tr><th>Operacion</th><th>Formula</th><th>En palabras</th></tr>
-        <tr><td>Union</td><td>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</td><td>A o B o ambos</td></tr>
-        <tr><td>Complementario</td><td>$P(\overline{A}) = 1 - P(A)$</td><td>No ocurre A</td></tr>
-        <tr><td>Diferencia</td><td>$P(A - B) = P(A) - P(A \cap B)$</td><td>A pero no B</td></tr>
-        <tr><td>Ni A ni B</td><td>$P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B)$</td><td>De Morgan</td></tr>
-    </table>
-    <h4>Condicionada, independencia, Bayes</h4>
-    <table>
-        <tr><th>Concepto</th><th>Formula</th></tr>
-        <tr><td>Condicionada</td><td>$P(A|B) = \frac{P(A \cap B)}{P(B)}$</td></tr>
-        <tr><td>Regla del producto</td><td>$P(A \cap B) = P(A) \cdot P(B|A)$</td></tr>
-        <tr><td>Independientes</td><td>$P(A \cap B) = P(A) \cdot P(B)$</td></tr>
-        <tr><td>Independientes (complementarios)</td><td>$P(\overline{A} \cap \overline{B}) = P(\overline{A}) \cdot P(\overline{B})$</td></tr>
-        <tr><td>Probabilidad Total</td><td>$P(B) = \sum P(A_i) \cdot P(B|A_i)$</td></tr>
-        <tr><td>Bayes</td><td>$P(A_i|B) = \frac{P(A_i) \cdot P(B|A_i)}{P(B)}$</td></tr>
-    </table>
-    <h4>Incompatibles vs Independientes (no confundir!)</h4>
-    <table>
-        <tr><th></th><th>Incompatibles</th><th>Independientes</th></tr>
-        <tr><td>Definicion</td><td>$P(A \cap B) = 0$</td><td>$P(A \cap B) = P(A) \cdot P(B)$</td></tr>
-        <tr><td>Significado</td><td>No pueden pasar a la vez</td><td>Uno no afecta al otro</td></tr>
-        <tr><td>Ejemplo</td><td>Sacar par e impar en un dado</td><td>Lanzar dado y moneda</td></tr>
-    </table>
+<div class="card warning">
+    <div class="card-label">Trucos para el examen</div>
+    <ul>
+        <li><strong>"Al menos 1":</strong> Usa el complementario. $P(X \ge 1) = 1 - P(X = 0)$. Mucho mas rapido que sumar todos los casos.</li>
+        <li><strong>"Como maximo $k$":</strong> Es $P(X \le k) = P(X=0) + P(X=1) + \cdots + P(X=k)$.</li>
+        <li><strong>"Mas de $k$":</strong> Es $P(X > k) = 1 - P(X \le k)$.</li>
+        <li><strong>Numero combinatorio:</strong> $\binom{n}{0} = 1$, $\binom{n}{1} = n$, $\binom{n}{n} = 1$. Para el resto, usa la calculadora o la formula.</li>
+    </ul>
 </div>
 
-<div class="card" style="border: 2px solid var(--accent3); text-align: center; padding: 25px;">
-    <h3 style="color: var(--green); margin: 0 0 10px;">Test Tema 1: Probabilidad</h3>
-    <p>5 preguntas para comprobar si dominas los conceptos</p>
-    <a href="tests.html?tema=1" style="display: inline-block; padding: 10px 24px; background: var(--green); color: var(--bg); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-top: 10px;">Hacer el test &rarr;</a>
+<div class="card example">
+    <div class="card-label">Ejemplo 3 - Tipo PEVAU (probabilidad de "al menos")</div>
+    <p>En una fabrica, el 10% de las piezas son defectuosas. Se eligen 5 piezas al azar. Calcular: a) P(exactamente 2 defectuosas). b) P(al menos 1 defectuosa). c) Media y desviacion tipica.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$X$ = "numero de piezas defectuosas" &rarr; $X \sim B(5;\; 0{,}1)$</p>
+
+        <h4>a) P(exactamente 2)</h4>
+        <p>$P(X=2) = \binom{5}{2} \cdot 0{,}1^2 \cdot 0{,}9^3 = 10 \times 0{,}01 \times 0{,}729 = 0{,}0729$</p>
+
+        <h4>b) P(al menos 1) = complementario de "ninguna"</h4>
+        <p>$P(X=0) = \binom{5}{0} \cdot 0{,}1^0 \cdot 0{,}9^5 = 1 \times 1 \times 0{,}5905 = 0{,}5905$</p>
+        <p>$P(X \ge 1) = 1 - 0{,}5905 = 0{,}4095$</p>
+
+        <h4>c) Parametros</h4>
+        <p>$\mu = np = 5 \times 0{,}1 = 0{,}5$ piezas defectuosas de media</p>
+        <p>$\sigma = \sqrt{npq} = \sqrt{5 \times 0{,}1 \times 0{,}9} = \sqrt{0{,}45} \approx 0{,}671$</p>
+    </div>
 </div>
 
-<div class="card" style="border: 2px solid var(--accent3); text-align: center; padding: 25px;">
-    <h3 style="color: var(--green); margin: 0 0 10px;">Test Tema 2: Binomial</h3>
-    <p>4 preguntas para comprobar si dominas los conceptos</p>
-    <a href="tests.html?tema=2" style="display: inline-block; padding: 10px 24px; background: var(--green); color: var(--bg); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-top: 10px;">Hacer el test &rarr;</a>
+<div class="card important" style="margin-top: 40px;">
+    <h3 style="color: var(--green);">Practicar este tema</h3>
+    <p>Completa el test interactivo para consolidar estos conceptos.</p>
+    <a href="tests.html?tema=2" class="btn" style="display: inline-block; padding: 12px 24px; background: var(--green); color: white; text-decoration: none; border-radius: 6px; margin-top: 12px;">Ir al Test de Tema 2</a>
 </div>
-
 
 </div><!-- end main -->
 
@@ -505,14 +389,6 @@ function toggleSolution(btn) {
     content.classList.toggle('show');
     btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
     if (window.MathJax && MathJax.typeset) MathJax.typeset();
-}
-
-function showTab(e, tabId) {
-    var parent = e.target.closest('.card') || e.target.parentElement.parentElement;
-    parent.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-    parent.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.getElementById(tabId).classList.add('active');
-    e.target.classList.add('active');
 }
 
 window.addEventListener('scroll', function() {

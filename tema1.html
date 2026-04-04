@@ -51,12 +51,14 @@
     <a href="examenes.html#patrones">Analisis de examenes</a>
 
     <h2>Tema 1 &middot; Probabilidad</h2>
-    <a href="#conceptos-prob">1.1 Conceptos basicos</a>
-    <a href="#operaciones-sucesos">1.2 Operaciones sucesos</a>
-    <a href="#exp-compuestos">1.3 Arboles y compuestos</a>
-    <a href="#prob-condicionada">1.4 Condicionada</a>
-    <a href="#prob-total-bayes">1.5 Bayes</a>
-    <a href="#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="#experimentos">1.1 Experimentos y sucesos</a>
+    <a href="#operaciones-sucesos">1.2 Operaciones con sucesos</a>
+    <a href="#definicion-prob">1.3 Definicion de probabilidad</a>
+    <a href="#exp-compuestos">1.4 Compuestos y arboles</a>
+    <a href="#prob-condicionada">1.5 Condicionada</a>
+    <a href="#independencia">1.6 Independencia</a>
+    <a href="#prob-total-bayes">1.7 Total y Bayes</a>
+    <a href="#tablas-contingencia">1.8 Tablas contingencia</a>
     <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
 
     <h2>Tema 2 &middot; Binomial</h2>
@@ -83,350 +85,605 @@
     <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
     <a href="herramientas.html#calculadoras">Calculadoras</a>
 
-    <h2>Examenes resueltos</h2>
-    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
-    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
-    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#ex-estadistica">Ejercicios de examen</a>
     <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
 </nav>
 
 <div class="main">
 
 <h1>Tema 1: Probabilidad</h1>
-<p>Sucesos, probabilidad, condicionada, Bayes, tablas de contingencia</p>
+<p>Sucesos, operaciones, probabilidad condicionada, independencia, Bayes y tablas de contingencia.</p>
 
-<h2 id="conceptos-prob">1.1 Conceptos Basicos de Probabilidad</h2>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.1 EXPERIMENTOS ALEATORIOS Y SUCESOS                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="experimentos">1.1 Experimentos aleatorios. Sucesos</h2>
 
 <div class="card definition">
-    <div class="card-label">Definiciones fundamentales</div>
+    <div class="card-label">Experimento aleatorio</div>
+    <p>Hay experimentos cuyo resultado se puede predecir (calentar agua a 100 &deg;C &rarr; hierve). Se llaman <strong>deterministas</strong>.</p>
+    <p>Pero hay otros cuyo resultado <strong>no se puede prever</strong>, aunque se repitan en las mismas condiciones. Son los <strong>experimentos aleatorios</strong>: lanzar una moneda, tirar un dado, extraer una carta de una baraja...</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Espacio muestral y suceso elemental</div>
+    <p>El <strong>espacio muestral</strong> ($E$) es el conjunto de todos los resultados posibles de un experimento aleatorio. Cada resultado individual se llama <strong>suceso elemental</strong>.</p>
     <ul>
-        <li><strong>Experimento aleatorio:</strong> aquel cuyo resultado no se puede predecir (lanzar un dado, elegir una carta...).</li>
-        <li><strong>Espacio muestral ($E$):</strong> conjunto de todos los resultados posibles. Ej: dado &rarr; $E = \{1,2,3,4,5,6\}$.</li>
-        <li><strong>Suceso:</strong> cualquier subconjunto del espacio muestral. Ej: "sacar par" = $\{2,4,6\}$.</li>
-        <li><strong>Suceso seguro:</strong> el espacio muestral completo ($P(E) = 1$).</li>
-        <li><strong>Suceso imposible:</strong> el conjunto vacio ($P(\emptyset) = 0$).</li>
+        <li>Tirar un dado: $E = \{1, 2, 3, 4, 5, 6\}$. Cada numero es un suceso elemental.</li>
+        <li>Extraer una bola de una bolsa con 3 rojas, 2 blancas y 4 verdes: $E = \{R, B, V\}$.</li>
+        <li>Lanzar dos monedas (C = cara, X = cruz): $E = \{CC, CX, XC, XX\}$.</li>
     </ul>
 </div>
 
-<div class="card formula">
-    <div class="card-label">Regla de Laplace</div>
-    <p>Si todos los resultados son equiprobables:</p>
-    $$P(A) = \frac{\text{casos favorables}}{\text{casos posibles}} = \frac{|A|}{|E|}$$
-</div>
-
-<h2 id="operaciones-sucesos">1.2 Operaciones con Sucesos</h2>
-
-<div class="card formula">
-    <div class="card-label">Formulas esenciales</div>
+<div class="card definition">
+    <div class="card-label">Sucesos</div>
+    <p>Un <strong>suceso</strong> es cualquier subconjunto del espacio muestral. Se denota con letras mayusculas ($A$, $B$, ...) y puede contener uno o varios sucesos elementales.</p>
+    <p><em>Ejemplo:</em> Al lanzar dos monedas, el suceso "sacar al menos una cruz" es $B = \{CX, XC, XX\}$. Es un subconjunto de $E = \{CC, CX, XC, XX\}$.</p>
+    <p>Hay tres sucesos especiales que aparecen siempre:</p>
     <table>
-        <tr><th>Operacion</th><th>Notacion</th><th>Significado</th><th>Formula</th></tr>
-        <tr><td><strong>Union</strong></td><td>$A \cup B$</td><td>A o B (o ambos)</td><td>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</td></tr>
-        <tr><td><strong>Interseccion</strong></td><td>$A \cap B$</td><td>A y B a la vez</td><td>$P(A \cap B) = P(A) \cdot P(B|A)$</td></tr>
-        <tr><td><strong>Complementario</strong></td><td>$\overline{A}$</td><td>No ocurre A</td><td>$P(\overline{A}) = 1 - P(A)$</td></tr>
-        <tr><td><strong>Diferencia</strong></td><td>$A - B$</td><td>A pero no B</td><td>$P(A \cap \overline{B}) = P(A) - P(A \cap B)$</td></tr>
+        <tr><th>Suceso</th><th>Que es</th><th>Notacion</th><th>Ejemplo (dado)</th></tr>
+        <tr><td><strong>Seguro</strong></td><td>Todo el espacio muestral. Ocurre siempre.</td><td>$E$</td><td>"Sacar un numero del 1 al 6"</td></tr>
+        <tr><td><strong>Imposible</strong></td><td>El conjunto vacio. No puede ocurrir.</td><td>$\emptyset$</td><td>"Sacar un 7"</td></tr>
+        <tr><td><strong>Complementario</strong></td><td>Todo lo que NO esta en A.</td><td>$\overline{A}$</td><td>Si $A = \{2,4,6\}$ (par), entonces $\overline{A} = \{1,3,5\}$ (impar)</td></tr>
     </table>
 </div>
 
-<div class="card formula">
-    <div class="card-label">Leyes de De Morgan</div>
-    <ul>
-        <li>$\overline{A \cup B} = \overline{A} \cap \overline{B}$ &rarr; "no (A o B)" = "no A y no B"</li>
-        <li>$\overline{A \cap B} = \overline{A} \cup \overline{B}$ &rarr; "no (A y B)" = "no A o no B"</li>
-    </ul>
-    <p><strong>Consecuencia util:</strong></p>
-    <ul>
-        <li>$P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B)$ &larr; "ni A ni B"</li>
-        <li>$P(\overline{A} \cup \overline{B}) = 1 - P(A \cap B)$</li>
-    </ul>
-</div>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.2 OPERACIONES CON SUCESOS                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="operaciones-sucesos">1.2 Operaciones con sucesos</h2>
 
 <div class="card definition">
-    <div class="card-label">Sucesos especiales</div>
+    <div class="card-label">Las tres operaciones basicas <span class="exam-tag si">Suele entrar</span></div>
+    <p>Con los sucesos se pueden hacer tres operaciones, igual que con conjuntos:</p>
     <table>
-        <tr><th>Tipo</th><th>Condicion</th><th>Significado</th></tr>
-        <tr><td><strong>Incompatibles</strong> (mutuamente excluyentes)</td><td>$P(A \cap B) = 0$</td><td>No pueden ocurrir a la vez. Entonces $P(A \cup B) = P(A) + P(B)$</td></tr>
-        <tr><td><strong>Independientes</strong></td><td>$P(A \cap B) = P(A) \cdot P(B)$</td><td>Uno no afecta al otro. Equivale a $P(A|B) = P(A)$</td></tr>
+        <tr><th>Operacion</th><th>Notacion</th><th>Significado</th><th>Se cumple cuando...</th></tr>
+        <tr><td><strong>Union</strong></td><td>$A \cup B$</td><td>A <em>o</em> B (o ambos)</td><td>Ocurre al menos uno de los dos</td></tr>
+        <tr><td><strong>Interseccion</strong></td><td>$A \cap B$</td><td>A <em>y</em> B</td><td>Ocurren los dos a la vez</td></tr>
+        <tr><td><strong>Diferencia</strong></td><td>$A - B$</td><td>A pero <em>no</em> B</td><td>Ocurre A sin que ocurra B</td></tr>
     </table>
-    <p><strong>Atencion:</strong> Incompatibles ≠ Independientes. Son conceptos distintos. Si dos sucesos son incompatibles y tienen probabilidad &gt; 0, NO pueden ser independientes.</p>
+    <p>La diferencia se puede escribir tambien como $A - B = A \cap \overline{B}$.</p>
 </div>
 
-<h2 id="exp-compuestos">1.3 Experimentos Compuestos y Diagramas de Arbol</h2>
+<div class="card definition">
+    <div class="card-label">Propiedades de union e interseccion <span class="exam-tag no">No suele entrar</span></div>
+    <p><strong>Union:</strong> $A \cup E = E$, $\quad A \cup \emptyset = A$, $\quad A \cup \overline{A} = E$</p>
+    <p><strong>Interseccion:</strong> $A \cap E = A$, $\quad A \cap \emptyset = \emptyset$, $\quad A \cap \overline{A} = \emptyset$</p>
+    <p>Ademas son <strong>conmutativas</strong> ($A \cup B = B \cup A$), <strong>asociativas</strong> y <strong>distributivas</strong>.</p>
+</div>
 
 <div class="card definition">
-    <div class="card-label">Experimentos compuestos</div>
-    <p>Cuando un experimento aleatorio se compone de dos o mas experimentos simples realizados a la vez o en secuencia, se llama <strong>experimento compuesto</strong>.</p>
-    <p><strong>Regla fundamental:</strong> La probabilidad de un resultado en un experimento compuesto se calcula <strong>multiplicando</strong> las probabilidades de los sucesos elementales que lo forman.</p>
-    <p><em>Ejemplo:</em> "Lanzar 3 monedas". La probabilidad de obtener 3 caras es:</p>
-    <p>$P(CCC) = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{8}$</p>
+    <div class="card-label">Sucesos incompatibles <span class="exam-tag si">Suele entrar</span></div>
+    <p>Dos sucesos son <strong>incompatibles</strong> (mutuamente excluyentes) cuando no pueden ocurrir a la vez:</p>
+    $$A \cap B = \emptyset$$
+    <p><em>Ejemplo:</em> Al lanzar un dado, "sacar par" y "sacar impar" son incompatibles.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Leyes de De Morgan <span class="exam-tag si">Suele entrar</span></div>
+    <p>Relacionan la union e interseccion con los complementarios:</p>
+    <ul>
+        <li>$\overline{A \cup B} = \overline{A} \cap \overline{B}$ &rarr; "no ocurre ni A ni B" = "no A <em>y</em> no B"</li>
+        <li>$\overline{A \cap B} = \overline{A} \cup \overline{B}$ &rarr; "no ocurren ambos" = "no A <em>o</em> no B"</li>
+    </ul>
+    <p><em>Ejemplo:</em> Sean $H$ = "ser hombre" y $C$ = "estar casado/a". El complementario de "ser hombre o estar casado/a" ($\overline{H \cup C}$) es "ser mujer <em>y</em> soltera" ($\overline{H} \cap \overline{C}$).</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Operaciones con un dado</div>
+    <p>Lanzamos un dado. Sean los sucesos $A$ = "sacar par" = $\{2, 4, 6\}$ y $B$ = "sacar multiplo de 3" = $\{3, 6\}$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Union</strong> (par <em>o</em> multiplo de 3): $A \cup B = \{2, 3, 4, 6\}$</p>
+        <p><strong>Interseccion</strong> (par <em>y</em> multiplo de 3): $A \cap B = \{6\}$</p>
+        <p><strong>Diferencia</strong> (par pero <em>no</em> multiplo de 3): $A - B = \{2, 4\}$</p>
+        <p>Observa: $A - B = A \cap \overline{B} = \{2,4,6\} \cap \{1,2,4,5\} = \{2,4\}$ &check;</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.3 DEFINICION DE PROBABILIDAD                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="definicion-prob">1.3 Definicion de probabilidad. Propiedades</h2>
+
+<div class="card definition">
+    <div class="card-label">Que es la probabilidad <span class="exam-tag si">Suele entrar</span></div>
+    <p>La probabilidad mide la <strong>incertidumbre</strong> de un suceso: es un numero entre 0 y 1 que indica las posibilidades que tiene de ocurrir al realizar el experimento.</p>
+    <p>La forma mas intuitiva de calcularla es la <strong>Regla de Laplace</strong>, que se aplica cuando todos los resultados son <strong>equiprobables</strong> (igual de probables):</p>
+    $$\boxed{P(A) = \frac{\text{casos favorables a } A}{\text{casos posibles}} = \frac{|A|}{|E|}}$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Laplace con dos dados</div>
+    <p>Lanzamos dos dados. El espacio muestral tiene $6 \times 6 = 36$ resultados equiprobables.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>$A$ = "ambas caras pares"</strong></p>
+        <p>Casos favorables: $(2,2), (2,4), (2,6), (4,2), (4,4), (4,6), (6,2), (6,4), (6,6)$ &rarr; 9 casos</p>
+        <p>$P(A) = \frac{9}{36} = \frac{1}{4}$</p>
+        <p><strong>$B$ = "la suma es 9"</strong></p>
+        <p>Casos favorables: $(3,6), (4,5), (5,4), (6,3)$ &rarr; 4 casos</p>
+        <p>$P(B) = \frac{4}{36} = \frac{1}{9}$</p>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Definicion axiomatica (3 axiomas) <span class="exam-tag no">No suele entrar</span></div>
+    <p>De manera formal, la probabilidad es una funcion $P$ que cumple:</p>
+    <ol>
+        <li>$0 \leqslant P(A) \leqslant 1$ para cualquier suceso $A$.</li>
+        <li>$P(E) = 1$ (el suceso seguro tiene probabilidad 1).</li>
+        <li>Si $A$ y $B$ son <strong>incompatibles</strong> ($A \cap B = \emptyset$), entonces $P(A \cup B) = P(A) + P(B)$.</li>
+    </ol>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Propiedades que se deducen <span class="exam-tag si">Suele entrar</span></div>
+    <table>
+        <tr><th>Propiedad</th><th>Formula</th><th>Cuando usarla</th></tr>
+        <tr><td>Complementario</td><td>$P(\overline{A}) = 1 - P(A)$</td><td>Calcular "la probabilidad de que NO ocurra"</td></tr>
+        <tr><td>Diferencia</td><td>$P(A - B) = P(A) - P(A \cap B)$</td><td>"A pero no B"</td></tr>
+        <tr><td>Union general</td><td>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</td><td>"A o B" (la mas usada)</td></tr>
+        <tr><td>Union incompatibles</td><td>$P(A \cup B) = P(A) + P(B)$</td><td>Solo si $A \cap B = \emptyset$</td></tr>
+        <tr><td>"Ni A ni B"</td><td>$P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B)$</td><td>Util con De Morgan</td></tr>
+    </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Usando las propiedades</div>
+    <p>Sean $A$ y $B$ sucesos de un experimento con $P(A) = \frac{1}{3}$, $P(B) = \frac{2}{5}$ y $P(A \cap B) = \frac{1}{15}$. Calcula:</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) P(A o B)</h4>
+        <p>$P(A \cup B) = P(A) + P(B) - P(A \cap B) = \frac{1}{3} + \frac{2}{5} - \frac{1}{15} = \frac{5+6-1}{15} = \frac{10}{15} = \frac{2}{3}$</p>
+
+        <h4>b) P(no A pero si B)</h4>
+        <p>$P(\overline{A} \cap B) = P(B) - P(A \cap B) = \frac{2}{5} - \frac{1}{15} = \frac{6-1}{15} = \frac{5}{15} = \frac{1}{3}$</p>
+
+        <h4>c) P(solo uno de los dos)</h4>
+        <p>Necesitamos $(A - B) \cup (B - A)$. Son incompatibles entre si, asi que sumamos:</p>
+        <p>$P(A - B) = P(A) - P(A \cap B) = \frac{1}{3} - \frac{1}{15} = \frac{4}{15}$</p>
+        <p>$P(B - A) = P(B) - P(A \cap B) = \frac{2}{5} - \frac{1}{15} = \frac{5}{15} = \frac{1}{3}$</p>
+        <p>$P(\text{solo uno}) = \frac{4}{15} + \frac{5}{15} = \frac{9}{15} = \frac{3}{5}$</p>
+
+        <h4>d) P(ni A ni B)</h4>
+        <p>Por De Morgan: $P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B) = 1 - \frac{2}{3} = \frac{1}{3}$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Estudiante con dos pruebas</div>
+    <p>Un estudiante hace dos pruebas el mismo dia. $P(\text{pase 1a}) = 0{,}6$, $P(\text{pase 2a}) = 0{,}8$ y $P(\text{pase ambas}) = 0{,}5$. Calcula:</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>a) P(pase al menos una)</h4>
+        <p>$P(A \cup B) = 0{,}6 + 0{,}8 - 0{,}5 = 0{,}9$</p>
+
+        <h4>b) P(no pase ninguna)</h4>
+        <p>$P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B) = 1 - 0{,}9 = 0{,}1$</p>
+
+        <h4>c) P(pase la 1a pero no la 2a)</h4>
+        <p>$P(A - B) = P(A) - P(A \cap B) = 0{,}6 - 0{,}5 = 0{,}1$</p>
+
+        <h4>d) P(pase exactamente una)</h4>
+        <p>$P(A-B) + P(B-A) = 0{,}1 + (0{,}8 - 0{,}5) = 0{,}1 + 0{,}3 = 0{,}4$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.4 EXPERIMENTOS COMPUESTOS Y DIAGRAMAS DE ARBOL               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="exp-compuestos">1.4 Experimentos compuestos. Diagramas de arbol</h2>
+
+<div class="card definition">
+    <div class="card-label">Que es un experimento compuesto</div>
+    <p>Cuando un experimento aleatorio consiste en realizar dos o mas experiencias simples (a la vez o en secuencia), se llama <strong>experimento compuesto</strong>.</p>
+    <p><em>Ejemplo:</em> Lanzar un dado y una moneda a la vez, o extraer dos bolas de una urna una tras otra.</p>
+    <p>El espacio muestral del experimento compuesto se obtiene combinando los espacios de los experimentos simples. Se llama <strong>espacio producto</strong>.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Regla fundamental <span class="exam-tag si">Suele entrar</span></div>
+    <p>La probabilidad de un suceso elemental en un experimento compuesto se calcula <strong>multiplicando</strong> las probabilidades de cada etapa:</p>
+    $$P(\text{camino completo}) = P(\text{1a rama}) \times P(\text{2a rama}) \times \cdots$$
+    <p>Si un suceso puede ocurrir por <strong>varios caminos</strong>, se <strong>suman</strong> las probabilidades de esos caminos.</p>
 </div>
 
 <div class="card definition">
     <div class="card-label">Diagrama de arbol</div>
-    <p>Un <strong>diagrama de arbol</strong> es una representacion grafica que muestra todas las posibles ramas de un experimento compuesto. Cada rama se etiqueta con su probabilidad.</p>
-    <p><strong>Como usarlo:</strong></p>
+    <p>Es una representacion grafica donde cada "rama" corresponde a un resultado posible. Se usa para no perderse en experimentos compuestos.</p>
+    <p><strong>Como construirlo:</strong></p>
     <ol>
         <li>Dibuja las ramas del primer experimento (primer nivel).</li>
-        <li>Desde cada resultado, dibuja las ramas del segundo experimento (segundo nivel).</li>
-        <li>La probabilidad de un camino completo = <strong>producto</strong> de las probabilidades de cada rama.</li>
-        <li>Si necesitas la probabilidad de un suceso que puede ocurrir por varios caminos, <strong>suma</strong> las probabilidades de esos caminos.</li>
+        <li>Desde cada resultado, dibuja las ramas del segundo experimento.</li>
+        <li><strong>Multiplicar</strong> a lo largo de cada camino completo.</li>
+        <li><strong>Sumar</strong> los caminos que llevan al suceso que te piden.</li>
     </ol>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo - Ladron y escaleras (Diagrama de arbol)</div>
-    <p><strong>Situacion:</strong> Una casa tiene dos escaleras (A y B), cada una con probabilidad 1/2 de ser elegida. La escalera A tiene 10 pisos, de los cuales 4 tienen joyas. La escalera B tiene 10 pisos, de los cuales 5 tienen joyas. Un ladron entra al azar en una escalera y luego en un piso. Cual es la probabilidad de que entre en un piso con joyas?</p>
+    <div class="card-label">Ejemplo - Tres monedas</div>
+    <p>Lanzamos tres monedas. Cual es la probabilidad de obtener tres caras?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>El experimento simple "lanzar una moneda" tiene $P(C) = \frac{1}{2}$.</p>
+        <p>El experimento compuesto "lanzar tres monedas" tiene el espacio muestral:</p>
+        <p>$E = \{CCC, CCX, CXC, XCC, CXX, XCX, XXC, XXX\}$ (8 resultados)</p>
+        <p>La probabilidad de tres caras, multiplicando por cada rama:</p>
+        <p>$P(CCC) = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{8}$</p>
+        <p>Tambien se podia ver por Laplace: 1 caso favorable de 8 posibles = $\frac{1}{8}$.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Ladron y escaleras (diagrama de arbol)</div>
+    <p>Una casa tiene dos escaleras (A y B). La escalera A tiene 10 pisos, de los cuales 4 tienen joyas. La escalera B tiene 10 pisos, de los cuales 5 tienen joyas. Un ladron entra al azar en una escalera y luego en un piso. Cual es la probabilidad de que entre en un piso con joyas?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <h4>Diagrama de arbol</h4>
-        <p>Escalera A (prob 1/2) &rarr; Joyas (4/10) o No joyas (6/10)</p>
-        <p>Escalera B (prob 1/2) &rarr; Joyas (5/10) o No joyas (5/10)</p>
-        <h4>Probabilidad total</h4>
-        <p>$P(\text{joyas}) = P(A) \cdot P(\text{joyas}|A) + P(B) \cdot P(\text{joyas}|B)$</p>
-        <p>$= \frac{1}{2} \cdot \frac{4}{10} + \frac{1}{2} \cdot \frac{5}{10} = \frac{4}{20} + \frac{5}{20} = \frac{9}{20} = 0{,}45$</p>
+        <p>Escalera A (prob $\frac{1}{2}$) &rarr; Joyas ($\frac{4}{10}$) o No joyas ($\frac{6}{10}$)</p>
+        <p>Escalera B (prob $\frac{1}{2}$) &rarr; Joyas ($\frac{5}{10}$) o No joyas ($\frac{5}{10}$)</p>
+        <h4>Caminos que llevan a "joyas"</h4>
+        <p>Camino 1: Escalera A y joyas: $\frac{1}{2} \cdot \frac{4}{10} = \frac{4}{20}$</p>
+        <p>Camino 2: Escalera B y joyas: $\frac{1}{2} \cdot \frac{5}{10} = \frac{5}{20}$</p>
+        <h4>Sumamos los caminos</h4>
+        <p>$P(\text{joyas}) = \frac{4}{20} + \frac{5}{20} = \frac{9}{20} = 0{,}45$</p>
     </div>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo - Tirador (Independencia en compuestos)</div>
-    <p><strong>Situacion:</strong> Un tirador tiene un 80% de probabilidad de dar en el blanco en cada disparo. Realiza 3 disparos independientes. Calcular: a) P(acertar con algun disparo). b) P(acertar exactamente con 2).</p>
+    <div class="card-label">Ejemplo - Juego con un dado (3 tiradas)</div>
+    <p>Dos personas juegan: tiran un dado tres veces. Si sale algun 1, gana A; si no sale ningun 1, gana B. Quien tiene mas probabilidad de ganar?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>a) P(acertar con algun disparo) = complementario de fallar los 3</h4>
-        <p>$P(\text{fallar los 3}) = P(\overline{A}) \cdot P(\overline{B}) \cdot P(\overline{C}) = 0{,}2 \times 0{,}2 \times 0{,}2 = 0{,}008$</p>
-        <p>$P(\text{acertar algun disparo}) = 1 - 0{,}008 = 0{,}992$</p>
-
-        <h4>b) P(acertar exactamente 2)</h4>
-        <p>Hay 3 caminos posibles (acierta 1o y 2o pero no 3o, acierta 1o y 3o pero no 2o, acierta 2o y 3o pero no 1o):</p>
-        <p>$P = 3 \times 0{,}8 \times 0{,}8 \times 0{,}2 = 3 \times 0{,}128 = 0{,}384$</p>
+        <p>La probabilidad de que <strong>no</strong> salga 1 en una tirada es $\frac{5}{6}$.</p>
+        <p>La probabilidad de que no salga ningun 1 en las tres tiradas:</p>
+        <p>$P(\text{gana B}) = \frac{5}{6} \cdot \frac{5}{6} \cdot \frac{5}{6} = \left(\frac{5}{6}\right)^3 = \frac{125}{216} \approx 0{,}579$</p>
+        <p>$P(\text{gana A}) = 1 - 0{,}579 = 0{,}421$</p>
+        <p><strong>B tiene mas probabilidad de ganar.</strong></p>
     </div>
 </div>
 
-<h2 id="prob-condicionada">1.4 Probabilidad Condicionada. Sucesos independientes.</h2>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.5 PROBABILIDAD CONDICIONADA                                  -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="prob-condicionada">1.5 Probabilidad condicionada</h2>
 
 <div class="card definition">
     <div class="card-label">Que es la probabilidad condicionada</div>
-    <p>La probabilidad de un suceso A puede verse alterada si la informacion de que disponemos se incrementa, reduciendo la incertidumbre del experimento aleatorio. Este incremento de informacion se traduce en una <strong>disminucion de los casos posibles</strong>, aumentando la probabilidad de A.</p>
-    <p><em>Ejemplo:</em> Lanzamos tres monedas. El espacio muestral es $E = \{CCC, CCX, CXC, XCC, CXX, XCX, XXC, XXX\}$. Consideremos el suceso $A = \{\text{sacar dos caras}\}$, cuya probabilidad es $P(A) = \frac{3}{8}$ (3 casos favorables de 8 posibles).</p>
-    <p>Ahora supongamos que sabemos que <strong>ha salido al menos una cruz</strong> (suceso B). Entonces los casos posibles se reducen a 7 (todos menos CCC). La probabilidad de A sabiendo B es:</p>
-    <p style="text-align:center;">$P(A/B) = \frac{3}{7}$</p>
-    <p>Observa que 3 son los casos comunes a A y a B (favorables a $A \cap B$), siendo $P(A \cap B) = \frac{3}{8}$. Por otra parte $P(B) = \frac{7}{8}$. Y como la probabilidad del suceso A/B es el cociente entre casos favorables y casos posibles:</p>
-    <p style="text-align:center;">$P(A/B) = \frac{3}{7} = \frac{3/8}{7/8} = \frac{P(A \cap B)}{P(B)}$</p>
+    <p>La probabilidad de un suceso $A$ puede cambiar si obtenemos <strong>informacion adicional</strong>. Al saber que ha ocurrido otro suceso $B$, los casos posibles se reducen (solo los de $B$), y la probabilidad de $A$ se recalcula sobre ese nuevo total.</p>
+    <p><em>Ejemplo:</em> Lanzamos tres monedas. $E = \{CCC, CCX, CXC, XCC, CXX, XCX, XXC, XXX\}$.</p>
+    <p>Sea $A$ = "sacar exactamente dos caras". Los casos favorables son $\{CCX, CXC, XCC\}$, asi que $P(A) = \frac{3}{8}$.</p>
+    <p>Ahora nos dicen que <strong>ha salido al menos una cruz</strong> (suceso $B$). Eso elimina el caso $CCC$, quedando 7 posibles. De esos 7, los favorables a $A$ siguen siendo 3:</p>
+    <p style="text-align:center;">$P(A|B) = \frac{3}{7}$</p>
+    <p>Observa: $P(A \cap B) = \frac{3}{8}$ y $P(B) = \frac{7}{8}$. El cociente da $\frac{3/8}{7/8} = \frac{3}{7}$.</p>
 </div>
 
 <div class="card formula">
-    <div class="card-label">Formula de la probabilidad condicionada</div>
-    <p>Se define la probabilidad condicionada de un suceso A por otro B como:</p>
+    <div class="card-label">Formula de la probabilidad condicionada <span class="exam-tag si">Suele entrar</span></div>
     $$\boxed{P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) \neq 0}$$
-    <p>Del mismo modo: $P(B|A) = \frac{P(A \cap B)}{P(A)}, \quad P(A) \neq 0$</p>
-    <p><strong>Lectura:</strong> "Probabilidad de A <em>dado</em> B" o "Probabilidad de A <em>sabiendo que</em> B".</p>
+    <p>Se lee: "probabilidad de A <em>dado</em> B" o "probabilidad de A <em>sabiendo que</em> B ha ocurrido".</p>
+    <p>Analogamente: $P(B|A) = \frac{P(A \cap B)}{P(A)}$</p>
 </div>
 
 <div class="card formula">
-    <div class="card-label">Probabilidad de la interseccion (regla del producto)</div>
-    <p>De la formula de la condicionada, despejando $P(A \cap B)$:</p>
+    <div class="card-label">Probabilidad de la interseccion (regla del producto) <span class="exam-tag si">Suele entrar</span></div>
+    <p>Despejando $P(A \cap B)$ de la formula anterior:</p>
     $$\boxed{P(A \cap B) = P(A) \cdot P(B|A) = P(B) \cdot P(A|B)}$$
-    <p>Para la interseccion de tres sucesos:</p>
-    <p>$P(A \cap B \cap C) = P(A) \cdot P(B|A) \cdot P(C|A \cap B)$</p>
+    <p>Para <strong>tres sucesos</strong>:</p>
+    $$P(A \cap B \cap C) = P(A) \cdot P(B|A) \cdot P(C|A \cap B)$$
+    <p>Cada factor se condiciona a todo lo que ya ha ocurrido antes.</p>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo del temario - Instituto de Bachillerato (tabla contingencia + condicionada)</div>
-    <p>En un Instituto hay 500 alumnos de Bachillerato distribuidos por cursos y modalidades:</p>
+    <div class="card-label">Ejemplo - Instituto de Bachillerato (condicionada con tabla)</div>
+    <p>En un Instituto hay 500 alumnos de Bachillerato distribuidos asi:</p>
     <table>
-        <tr><th></th><th>Curso 1o</th><th>Curso 2o</th><th>Total</th></tr>
+        <tr><th></th><th>1o</th><th>2o</th><th>Total</th></tr>
         <tr><td>Tecnologico</td><td>80</td><td>60</td><td>140</td></tr>
         <tr><td>CCSS</td><td>100</td><td>90</td><td>190</td></tr>
         <tr><td>CC Naturales</td><td>85</td><td>85</td><td>170</td></tr>
         <tr><td><strong>Total</strong></td><td><strong>265</strong></td><td><strong>235</strong></td><td><strong>500</strong></td></tr>
     </table>
-    <p>Llamamos T, S, N a los sucesos "cursar Tecnologico, CCSS o Naturales", y I, II a "ser de 1o o 2o curso".</p>
-    <p>Las probabilidades condicionadas de ser de 1er curso son:</p>
-    <p>$P(T|I) = \frac{80}{265}$, $P(S|I) = \frac{100}{265}$, $P(N|I) = \frac{85}{265}$</p>
-    <p>Comprobamos con la formula: $P(T|I) = \frac{P(T \cap I)}{P(I)} = \frac{80/500}{265/500} = \frac{80}{265}$ &#10003;</p>
-</div>
-
-<div class="card example">
-    <div class="card-label">Ejemplo del temario - Opositor (interseccion de 3 sucesos)</div>
-    <p>Un opositor se sabe 35 temas de los 50 que consta el temario. La prueba consiste en responder a tres temas elegidos al azar. Calcula que probabilidad tiene de superar la oposicion (contestar correctamente los tres temas).</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p>Hay que contestar los tres temas: suceso $A \cap B \cap C$.</p>
-        <p>$P(A) = \frac{35}{50}$ (contestar bien el primer tema)</p>
-        <p>$P(B|A) = \frac{34}{49}$ (contestar bien el segundo, sabiendo que el primero lo sabe)</p>
-        <p>$P(C|A \cap B) = \frac{33}{48}$ (contestar bien el tercero, sabiendo que los dos primeros los sabe)</p>
-        <p>$P(A \cap B \cap C) = \frac{35}{50} \cdot \frac{34}{49} \cdot \frac{33}{48} = \frac{39270}{117600} \approx 0{,}334$</p>
+        <p>Llamamos $T$, $S$, $N$ a cursar Tecnologico, CCSS o Naturales, y $I$, $II$ a ser de 1o o 2o.</p>
+        <h4>P(cursar Tecnologico sabiendo que es de 1o)</h4>
+        <p>De los 265 alumnos de 1o, 80 cursan Tecnologico:</p>
+        <p>$P(T|I) = \frac{80}{265}$</p>
+        <p>Comprobamos con la formula: $P(T|I) = \frac{P(T \cap I)}{P(I)} = \frac{80/500}{265/500} = \frac{80}{265}$ &check;</p>
+        <h4>P(ser de 2o sabiendo que cursa Tecnologico)</h4>
+        <p>$P(II|T) = \frac{60}{140} = \frac{3}{7}$</p>
     </div>
 </div>
 
-<h3>Independencia de sucesos</h3>
+<div class="card example">
+    <div class="card-label">Ejemplo - Opositor (interseccion de 3 sucesos)</div>
+    <p>Un opositor se sabe 35 temas de los 50 del temario. La prueba consiste en responder a 3 temas elegidos al azar. Cual es la probabilidad de aprobar (contestar bien los tres)?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sea $A$ = acertar el 1o, $B$ = acertar el 2o, $C$ = acertar el 3o.</p>
+        <p>Necesitamos $P(A \cap B \cap C) = P(A) \cdot P(B|A) \cdot P(C|A \cap B)$.</p>
+        <p>$P(A) = \frac{35}{50}$ (se sabe 35 de 50)</p>
+        <p>$P(B|A) = \frac{34}{49}$ (ya ha salido un tema que sabe, quedan 34 de 49)</p>
+        <p>$P(C|A \cap B) = \frac{33}{48}$ (quedan 33 de 48)</p>
+        <p>$P(A \cap B \cap C) = \frac{35}{50} \cdot \frac{34}{49} \cdot \frac{33}{48} = \frac{39270}{117600} \approx 0{,}334$</p>
+        <p>Tiene aproximadamente un 33,4% de probabilidad de aprobar.</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.6 INDEPENDENCIA DE SUCESOS                                   -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="independencia">1.6 Sucesos independientes</h2>
 
 <div class="card definition">
-    <div class="card-label">Definicion de independencia</div>
-    <p>La finalidad de la probabilidad condicionada es recoger la influencia que puede ejercer un suceso sobre otro. Si <strong>no existe esa influencia</strong>, se habla de <em>independencia</em> de los sucesos.</p>
-    <p>Un suceso A es <strong>independiente</strong> de otro B si $P(A|B) = P(A)$, es decir, la presencia de B no influye en la probabilidad de A.</p>
-    <p>De la formula de condicionada, $\frac{P(A \cap B)}{P(B)} = P(A)$, despejando:</p>
+    <div class="card-label">Que significa que dos sucesos sean independientes <span class="exam-tag si">Suele entrar</span></div>
+    <p>La probabilidad condicionada mide la <strong>influencia</strong> que un suceso ejerce sobre otro. Si esa influencia <strong>no existe</strong>, decimos que son <strong>independientes</strong>.</p>
+    <p>Formalmente: $A$ es independiente de $B$ si saber que $B$ ha ocurrido no cambia la probabilidad de $A$:</p>
+    $$P(A|B) = P(A)$$
+    <p>Sustituyendo en la formula de condicionada: $\frac{P(A \cap B)}{P(B)} = P(A)$, y despejando:</p>
     $$\boxed{P(A \cap B) = P(A) \cdot P(B)}$$
-    <p>Ademas, la independencia es reciproca: si A es independiente de B, entonces B es independiente de A.</p>
-    <p><strong>Teorema:</strong> La independencia se conserva en los complementarios. Si A y B son independientes:</p>
-    <p>$P(\bar{A} \cap \bar{B}) = P(\bar{A}) \cdot P(\bar{B})$</p>
+    <p>La independencia es <strong>reciproca</strong>: si $A$ es independiente de $B$, entonces $B$ es independiente de $A$.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">La independencia se conserva en los complementarios <span class="exam-tag no">No suele entrar</span></div>
+    <p>Si $A$ y $B$ son independientes, tambien lo son:</p>
+    <ul>
+        <li>$\overline{A}$ y $B$</li>
+        <li>$A$ y $\overline{B}$</li>
+        <li>$\overline{A}$ y $\overline{B}$ &rarr; $P(\overline{A} \cap \overline{B}) = P(\overline{A}) \cdot P(\overline{B})$</li>
+    </ul>
 </div>
 
 <div class="card warning">
-    <div class="card-label">Atencion: Independientes ≠ Incompatibles</div>
+    <div class="card-label">Independientes &ne; Incompatibles <span class="exam-tag si">Suele entrar</span></div>
+    <p>Son conceptos muy distintos que se confunden a menudo:</p>
     <table>
         <tr><th></th><th>Incompatibles</th><th>Independientes</th></tr>
         <tr><td><strong>Definicion</strong></td><td>$P(A \cap B) = 0$</td><td>$P(A \cap B) = P(A) \cdot P(B)$</td></tr>
-        <tr><td><strong>Significado</strong></td><td>No pueden pasar a la vez</td><td>Uno no afecta al otro</td></tr>
-        <tr><td><strong>Ejemplo</strong></td><td>Sacar par e impar en un dado</td><td>Lanzar dado y moneda</td></tr>
+        <tr><td><strong>Significado</strong></td><td>No pueden pasar a la vez</td><td>Uno no influye en el otro</td></tr>
+        <tr><td><strong>Ejemplo</strong></td><td>Par e impar (un dado)</td><td>Dado y moneda (lanzados a la vez)</td></tr>
     </table>
-    <p><strong>Si dos sucesos son incompatibles y tienen probabilidad > 0, NO pueden ser independientes</strong> (porque $P(A) \cdot P(B) > 0$ pero $P(A \cap B) = 0$).</p>
+    <p><strong>Si dos sucesos son incompatibles y ambos tienen probabilidad &gt; 0, NO pueden ser independientes.</strong></p>
+    <p>Razon: $P(A) \cdot P(B) > 0$ pero $P(A \cap B) = 0$, asi que $P(A \cap B) \neq P(A) \cdot P(B)$.</p>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo del temario - Tirador (independencia en disparos)</div>
-    <p>Un tirador tiene probabilidad 0,8 de dar en el blanco. Realiza tres disparos independientes. Calcula la probabilidad de haber hecho diana: a) con algun disparo. b) con exactamente dos disparos.</p>
+    <div class="card-label">Ejemplo - Tirador (independencia en disparos)</div>
+    <p>Un tirador tiene probabilidad 0,8 de dar en el blanco en cada disparo. Realiza 3 disparos independientes. Calcula la probabilidad de hacer diana: a) con algun disparo, b) con exactamente dos.</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p><strong>a)</strong> Fallar los tres: $P(\bar{A} \cap \bar{B} \cap \bar{C}) = P(\bar{A}) \cdot P(\bar{B}) \cdot P(\bar{C}) = (1-0{,}8)^3 = 0{,}2^3 = 0{,}008$</p>
-        <p>Acertar con algun disparo = complementario de fallar todos: $P = 1 - 0{,}008 = 0{,}992$</p>
-        <p><strong>b)</strong> Hay 3 caminos posibles (acierta 1o y 2o pero no 3o, acierta 1o y 3o pero no 2o, acierta 2o y 3o pero no 1o):</p>
-        <p>$P = 3 \times 0{,}8 \times 0{,}8 \times 0{,}2 = 3 \times 0{,}128 = 0{,}384$</p>
+        <p>Sean $A$, $B$, $C$ los sucesos "acertar el 1o, 2o y 3o disparo". Son independientes.</p>
+        <h4>a) P(acertar con algun disparo)</h4>
+        <p>Es mas facil calcular el complementario: fallar los tres.</p>
+        <p>$P(\overline{A} \cap \overline{B} \cap \overline{C}) = P(\overline{A}) \cdot P(\overline{B}) \cdot P(\overline{C}) = 0{,}2 \times 0{,}2 \times 0{,}2 = 0{,}008$</p>
+        <p>$P(\text{acertar alguno}) = 1 - 0{,}008 = 0{,}992$</p>
+
+        <h4>b) P(acertar exactamente dos)</h4>
+        <p>Hay 3 caminos posibles:</p>
+        <ul>
+            <li>Acierta 1o y 2o, falla 3o: $0{,}8 \times 0{,}8 \times 0{,}2 = 0{,}128$</li>
+            <li>Acierta 1o y 3o, falla 2o: $0{,}8 \times 0{,}2 \times 0{,}8 = 0{,}128$</li>
+            <li>Acierta 2o y 3o, falla 1o: $0{,}2 \times 0{,}8 \times 0{,}8 = 0{,}128$</li>
+        </ul>
+        <p>$P = 3 \times 0{,}128 = 0{,}384$</p>
     </div>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo - Sucesos con datos (tipo examen)</div>
-    <p>$P(A) = 0{,}5$, $P(B) = 0{,}3$, $P(A \cap B) = 0{,}1$. Calcula: a) $P(A \cup B)$, b) $P(A|B)$, c) $P(A|A \cap B)$, d) $P(A|A \cup B)$, e) ¿Son independientes?</p>
+    <div class="card-label">Ejemplo - Comprobar independencia con datos</div>
+    <p>En una muestra de 1000 personas: 300 saben ingles, 100 saben ruso y 50 saben ambos. Son independientes "saber ingles" y "saber ruso"?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>a) $P(A \cup B)$</h4>
-        <p>$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0{,}5 + 0{,}3 - 0{,}1 = 0{,}7$</p>
-        <h4>b) $P(A|B)$</h4>
-        <p>$P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{0{,}1}{0{,}3} = 0{,}333$</p>
-        <h4>c) $P(A | A \cap B)$</h4>
-        <p>$P(A | A \cap B) = \frac{P(A \cap (A \cap B))}{P(A \cap B)} = \frac{P(A \cap B)}{P(A \cap B)} = 1$ (si ya ocurrio $A \cap B$, seguro que ocurrio A)</p>
-        <h4>d) $P(A | A \cup B)$</h4>
-        <p>$P(A | A \cup B) = \frac{P(A)}{P(A \cup B)} = \frac{0{,}5}{0{,}7} = 0{,}714$</p>
-        <h4>e) ¿Independientes?</h4>
-        <p>$P(A) \cdot P(B) = 0{,}5 \times 0{,}3 = 0{,}15 \neq 0{,}1 = P(A \cap B)$ &rarr; <strong>No son independientes.</strong></p>
+        <p>$P(I) = \frac{300}{1000} = 0{,}3$, $\quad P(R) = \frac{100}{1000} = 0{,}1$, $\quad P(I \cap R) = \frac{50}{1000} = 0{,}05$</p>
+        <p>Comprobamos: $P(I) \cdot P(R) = 0{,}3 \times 0{,}1 = 0{,}03$</p>
+        <p>$0{,}03 \neq 0{,}05 = P(I \cap R)$ &rarr; <strong>No son independientes.</strong></p>
+        <p>(Saber ruso y saber ingles estan relacionados: se dan juntos mas de lo esperado.)</p>
     </div>
 </div>
 
-<h2 id="prob-total-bayes">1.5 Probabilidad Total y Teorema de Bayes</h2>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.7 PROBABILIDAD TOTAL Y TEOREMA DE BAYES                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-<div class="card formula">
-    <div class="card-label">Probabilidad Total</div>
-    <p>Si $B_1, B_2, \ldots, B_n$ forman una particion del espacio muestral (son exhaustivos y mutuamente excluyentes):</p>
-    $$\boxed{P(A) = P(B_1) \cdot P(A|B_1) + P(B_2) \cdot P(A|B_2) + \cdots + P(B_n) \cdot P(A|B_n)}$$
-    <p>Se usa cuando conocemos las probabilidades "por ramas" y queremos el total.</p>
+<h2 id="prob-total-bayes">1.7 Probabilidad total y Teorema de Bayes</h2>
+
+<div class="card definition">
+    <div class="card-label">Sistema completo de sucesos (particion)</div>
+    <p>A veces un suceso $B$ puede ocurrir a traves de varias "causas" $A_1, A_2, \ldots, A_n$ que:</p>
+    <ul>
+        <li>Son <strong>incompatibles entre si</strong>: $A_i \cap A_j = \emptyset$</li>
+        <li>Su union es el <strong>espacio muestral completo</strong>: $A_1 \cup A_2 \cup \cdots \cup A_n = E$</li>
+    </ul>
+    <p><em>Ejemplo:</em> Las 3 maquinas de una fabrica forman un sistema completo (toda pieza viene de una de ellas).</p>
 </div>
 
 <div class="card formula">
-    <div class="card-label">Teorema de Bayes</div>
-    <p>Para "invertir" una probabilidad condicionada (ir del efecto a la causa):</p>
-    $$\boxed{P(B_i | A) = \frac{P(B_i) \cdot P(A|B_i)}{P(A)}}$$
-    <p>donde $P(A)$ se calcula con la formula de probabilidad total.</p>
-    <p><strong>Cuando usarlo:</strong> Cuando te preguntan "sabiendo que ocurrio A, cual es la probabilidad de que viniera de $B_i$?"</p>
+    <div class="card-label">Probabilidad total <span class="exam-tag si">Suele entrar</span></div>
+    <p>Si $A_1, A_2, \ldots, A_n$ forman un sistema completo de sucesos, la probabilidad de cualquier suceso $B$ se calcula "sumando por ramas":</p>
+    $$\boxed{P(B) = P(A_1) \cdot P(B|A_1) + P(A_2) \cdot P(B|A_2) + \cdots + P(A_n) \cdot P(B|A_n)}$$
+    <p><strong>Cuando usarla:</strong> cuando conoces las probabilidades "por causas" (cada $A_i$ y su contribucion a $B$) y necesitas el total.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Teorema de Bayes <span class="exam-tag si">Suele entrar</span></div>
+    <p>Bayes "invierte" la condicionada: sabiendo que ha ocurrido el efecto $B$, calcula la probabilidad de cada causa $A_i$:</p>
+    $$\boxed{P(A_i | B) = \frac{P(A_i) \cdot P(B|A_i)}{P(B)}}$$
+    <p>donde $P(B)$ se calcula con la probabilidad total.</p>
+    <p><strong>Cuando usarlo:</strong> cuando te preguntan "sabiendo que ha ocurrido B, de cual de las causas vino?" (ir del efecto a la causa).</p>
+    <p>Las probabilidades $P(A_i)$ se llaman <em>a priori</em> (antes de saber $B$), y las $P(A_i|B)$ se llaman <em>a posteriori</em> (despues de saber $B$).</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Trabajadores por sector (prob. total + Bayes)</div>
+    <p>En una poblacion, el 20% trabaja en agricultura ($A$), el 25% en industria ($I$) y el 55% en servicios ($S$). Los menores de 45 anos son: el 37% en agricultura, el 62% en industria y el 56% en servicios.</p>
+    <p>a) Probabilidad de que una persona elegida al azar sea menor de 45.</p>
+    <p>b) Si es menor de 45, probabilidad de que trabaje en cada sector.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Datos</h4>
+        <p>$P(A) = 0{,}2$, $P(I) = 0{,}25$, $P(S) = 0{,}55$</p>
+        <p>$P({-}45|A) = 0{,}37$, $P({-}45|I) = 0{,}62$, $P({-}45|S) = 0{,}56$</p>
+        <h4>a) Probabilidad total</h4>
+        <p>$P({-}45) = P(A) \cdot P({-}45|A) + P(I) \cdot P({-}45|I) + P(S) \cdot P({-}45|S)$</p>
+        <p>$= 0{,}2 \times 0{,}37 + 0{,}25 \times 0{,}62 + 0{,}55 \times 0{,}56$</p>
+        <p>$= 0{,}074 + 0{,}155 + 0{,}308 = 0{,}537$</p>
+        <h4>b) Bayes</h4>
+        <p>$P(A|{-}45) = \frac{0{,}074}{0{,}537} \approx 0{,}138$ (13,8%)</p>
+        <p>$P(I|{-}45) = \frac{0{,}155}{0{,}537} \approx 0{,}289$ (28,9%)</p>
+        <p>$P(S|{-}45) = \frac{0{,}308}{0{,}537} \approx 0{,}574$ (57,4%)</p>
+        <p>Comprobacion: $0{,}138 + 0{,}289 + 0{,}574 \approx 1$ &check;</p>
+    </div>
 </div>
 
 <div class="card example">
     <div class="card-label">Ejemplo - Fabrica con 3 maquinas (Bayes clasico)</div>
-    <p><strong>Situacion:</strong> Una fabrica tiene 3 maquinas que fabrican piezas: la maquina A produce el 25% del total, la B el 35% y la C el 40%. Se ha descubierto que el 2,05% de TODAS las piezas son defectuosas. Sabemos que la maquina B solo produce un 1% de defectuosas. Las maquinas A y C tienen la misma tasa de defectos (que debemos calcular).</p>
-    <p>a) Pieza no defectuosa, P(sea de B). b) Si A y C iguales, pieza defectuosa, P(sea de A).</p>
+    <p>Tres maquinas $M_1$, $M_2$ y $M_3$ producen el 45%, 30% y 25% del total de piezas de una fabrica. Sus tasas de piezas defectuosas son del 3%, 4% y 5% respectivamente.</p>
+    <p>a) P(pieza defectuosa). b) Si una pieza es defectuosa, P(que sea de $M_2$). c) Que maquina tiene mas probabilidad de haber producido una pieza defectuosa?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <h4>Datos</h4>
-        <p>$P(A) = 0{,}25$, $P(B) = 0{,}35$, $P(C) = 0{,}40$</p>
-        <p>$P(D|B) = 0{,}01$. Total: $P(D) = 0{,}0205$</p>
-        <p>Hallamos $P(D|A) = P(D|C) = x$:</p>
-        <p>$0{,}25x + 0{,}35 \cdot 0{,}01 + 0{,}40x = 0{,}0205$</p>
-        <p>$0{,}65x + 0{,}0035 = 0{,}0205 \Rightarrow 0{,}65x = 0{,}017 \Rightarrow x = 0{,}02615$</p>
-
-        <h4>a) $P(B | \overline{D})$</h4>
-        <p>$P(\overline{D}) = 1 - 0{,}0205 = 0{,}9795$</p>
-        <p>$P(\overline{D}|B) = 1 - 0{,}01 = 0{,}99$</p>
-        <p>$P(B|\overline{D}) = \frac{0{,}35 \times 0{,}99}{0{,}9795} = \frac{0{,}3465}{0{,}9795} = 0{,}3537$</p>
-
-        <h4>b) $P(A|D)$</h4>
-        <p>$P(A|D) = \frac{P(A) \cdot P(D|A)}{P(D)} = \frac{0{,}25 \times 0{,}02615}{0{,}0205} = \frac{0{,}006538}{0{,}0205} = 0{,}3189$</p>
+        <p>$P(M_1) = 0{,}45$, $P(M_2) = 0{,}30$, $P(M_3) = 0{,}25$</p>
+        <p>$P(D|M_1) = 0{,}03$, $P(D|M_2) = 0{,}04$, $P(D|M_3) = 0{,}05$</p>
+        <h4>a) Probabilidad total</h4>
+        <p>$P(D) = 0{,}45 \times 0{,}03 + 0{,}30 \times 0{,}04 + 0{,}25 \times 0{,}05$</p>
+        <p>$= 0{,}0135 + 0{,}012 + 0{,}0125 = 0{,}038$</p>
+        <h4>b) Bayes: P($M_2$ | defectuosa)</h4>
+        <p>$P(M_2|D) = \frac{P(M_2) \cdot P(D|M_2)}{P(D)} = \frac{0{,}30 \times 0{,}04}{0{,}038} = \frac{0{,}012}{0{,}038} \approx 0{,}316$</p>
+        <h4>c) Comparamos las tres</h4>
+        <p>$P(M_1|D) = \frac{0{,}0135}{0{,}038} \approx 0{,}355$</p>
+        <p>$P(M_2|D) \approx 0{,}316$</p>
+        <p>$P(M_3|D) = \frac{0{,}0125}{0{,}038} \approx 0{,}329$</p>
+        <p><strong>La maquina $M_1$</strong> tiene la mayor probabilidad de haber producido la pieza defectuosa, a pesar de tener la menor tasa de defectos (3%), porque produce muchas mas piezas (45%).</p>
     </div>
 </div>
 
-<h2 id="tablas-contingencia">1.6 Tablas de Contingencia</h2>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 1.8 TABLAS DE CONTINGENCIA                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="tablas-contingencia">1.8 Tablas de contingencia</h2>
 
 <div class="card definition">
-    <div class="card-label">Como funcionan</div>
-    <p>Una tabla de contingencia organiza datos en filas y columnas. Para calcular probabilidades, divide cada celda entre el total.</p>
-    <p><strong>Truco:</strong> Rellena primero los totales de filas y columnas, luego las celdas que faltan por resta.</p>
+    <div class="card-label">Que es una tabla de contingencia</div>
+    <p>Una tabla de contingencia organiza datos de dos variables en filas y columnas. Para calcular probabilidades, se divide cada celda entre el total.</p>
+    <p><strong>Truco para rellenarla:</strong> Empieza por los totales de filas y columnas. Luego calcula las celdas que faltan por resta. Comprueba que todo cuadre.</p>
 </div>
 
 <div class="card example">
     <div class="card-label">Ejemplo - Clase de 24 alumnos</div>
-    <p><strong>Situacion:</strong> En una clase de 24 alumnos, todos estudian ingles y matematicas. Resultados del trimestre: la mitad (12) aprueba ingles, 16 aprueban matematicas, y 4 alumnos suspenden las dos asignaturas. Con estos datos construimos una tabla de contingencia para analizar la relacion entre ambas asignaturas.</p>
+    <p>En una clase de 24 alumnos, todos estudian ingles y matematicas. La mitad (12) aprueba ingles, 16 aprueban matematicas, y 4 suspenden las dos. Construye la tabla y analiza si son independientes.</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <h4>a) Tabla de contingencia</h4>
-        <p>Aprueban ingles: 12. Suspenden ingles: 12. Aprueban mates: 16. Suspenden mates: 8.</p>
-        <p>Suspenden ambas: 4. Entonces suspenden mates y aprueban ingles: $8 - 4 = 4$.</p>
+        <h4>Paso 1: Rellenar la tabla</h4>
+        <p>Suspenden mates: $24 - 16 = 8$. Suspenden ingles: $24 - 12 = 12$.</p>
+        <p>Suspenden ambas: 4. Suspenden mates y aprueban ingles: $8 - 4 = 4$.</p>
+        <p>Aprueban mates y suspenden ingles: $12 - 4 = 8$. Aprueban ambas: $16 - 8 = 8$.</p>
         <table>
             <tr><th></th><th>Aprueba Mates</th><th>Suspende Mates</th><th>Total</th></tr>
             <tr><td><strong>Aprueba Ingles</strong></td><td>8</td><td>4</td><td>12</td></tr>
             <tr><td><strong>Suspende Ingles</strong></td><td>8</td><td>4</td><td>12</td></tr>
             <tr><td><strong>Total</strong></td><td>16</td><td>8</td><td>24</td></tr>
         </table>
-
-        <h4>b) Independientes "aprobar ingles" y "aprobar mates"?</h4>
-        <p>$P(I) = 12/24 = 0{,}5$, $P(M) = 16/24 = 2/3$, $P(I \cap M) = 8/24 = 1/3$</p>
-        <p>$P(I) \cdot P(M) = 0{,}5 \times 2/3 = 1/3 = P(I \cap M)$ &check; <strong>Si son independientes.</strong></p>
-
-        <h4>c) P(aprueba mates y suspende ingles)</h4>
-        <p>$P(M \cap \overline{I}) = 8/24 = 1/3 \approx 0{,}333$</p>
+        <h4>Paso 2: Son independientes?</h4>
+        <p>$P(I) = \frac{12}{24} = \frac{1}{2}$, $\quad P(M) = \frac{16}{24} = \frac{2}{3}$, $\quad P(I \cap M) = \frac{8}{24} = \frac{1}{3}$</p>
+        <p>$P(I) \cdot P(M) = \frac{1}{2} \times \frac{2}{3} = \frac{1}{3} = P(I \cap M)$ &check; <strong>Si son independientes.</strong></p>
+        <h4>P(aprueba mates | suspende ingles)</h4>
+        <p>$P(M|\overline{I}) = \frac{8}{12} = \frac{2}{3} = P(M)$ &check; (confirma la independencia)</p>
     </div>
 </div>
 
-<h2 id="ejercicios-t1">Ejercicios Clave del Tema</h2>
-
 <div class="card example">
-    <div class="card-label">Ejercicio - Condicionada con tabla</div>
-    <p>En una clase, el 40% aprobo filosofia, el 50% aprobo matematicas. La probabilidad de aprobar matematicas si se ha aprobado filosofia es 0,6.</p>
+    <div class="card-label">Ejemplo - Filosofia y matematicas (condicionada con datos)</div>
+    <p>En una clase, el 40% aprobo filosofia, el 50% aprobo matematicas. La probabilidad de aprobar filosofia sabiendo que se ha aprobado matematicas es 0,6.</p>
     <p>a) Que porcentaje aprobo ambas? b) De los que aprobaron filosofia, que porcentaje aprobo mates?</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p><strong>a)</strong> $P(F) = 0{,}4$, $P(M) = 0{,}5$, $P(M|F) = 0{,}6$</p>
-        <p>$P(F \cap M) = P(F) \cdot P(M|F) = 0{,}4 \times 0{,}6 = 0{,}24$ &rarr; <strong>24% aprobo ambas</strong></p>
-        <p><strong>b)</strong> $P(M|F) = 0{,}6$ &rarr; <strong>el 60%</strong></p>
-        <p>Extra: $P(F|M) = \frac{P(F \cap M)}{P(M)} = \frac{0{,}24}{0{,}5} = 0{,}48$</p>
+        <p>$P(F) = 0{,}4$, $P(M) = 0{,}5$, $P(F|M) = 0{,}6$</p>
+        <h4>a) P(ambas)</h4>
+        <p>$P(F \cap M) = P(M) \cdot P(F|M) = 0{,}5 \times 0{,}6 = 0{,}30$ &rarr; <strong>30% aprobo ambas</strong></p>
+        <h4>b) P(mates | filosofia)</h4>
+        <p>$P(M|F) = \frac{P(F \cap M)}{P(F)} = \frac{0{,}30}{0{,}40} = 0{,}75$ &rarr; <strong>el 75%</strong></p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS TIPO EXAMEN / SELECTIVIDAD                          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="ejercicios-t1">Ejercicios tipo examen</h2>
+
+<div class="card example">
+    <div class="card-label">Ejercicio - Sucesos con datos (tipo examen)</div>
+    <p>$P(A) = 0{,}6$, $P(B) = 0{,}3$, $P(A|B) = 0{,}6$. Calcula: a) $P(A \cup B)$. b) $P(A-B) + P(B-A)$. c) $P(B|\overline{A})$. d) Son independientes? Son incompatibles?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <h4>Primero: calcular $P(A \cap B)$</h4>
+        <p>$P(A \cap B) = P(B) \cdot P(A|B) = 0{,}3 \times 0{,}6 = 0{,}18$</p>
+        <h4>a) $P(A \cup B)$</h4>
+        <p>$P(A \cup B) = 0{,}6 + 0{,}3 - 0{,}18 = 0{,}72$</p>
+        <h4>b) $P(A - B) + P(B - A)$ (exactamente uno)</h4>
+        <p>$P(A - B) = 0{,}6 - 0{,}18 = 0{,}42$</p>
+        <p>$P(B - A) = 0{,}3 - 0{,}18 = 0{,}12$</p>
+        <p>Suma: $0{,}42 + 0{,}12 = 0{,}54$</p>
+        <h4>c) $P(B|\overline{A})$</h4>
+        <p>$P(B|\overline{A}) = \frac{P(B \cap \overline{A})}{P(\overline{A})} = \frac{P(B - A)}{1 - P(A)} = \frac{0{,}12}{0{,}4} = 0{,}3$</p>
+        <h4>d) Independientes? Incompatibles?</h4>
+        <p>$P(A) \cdot P(B) = 0{,}6 \times 0{,}3 = 0{,}18 = P(A \cap B)$ &rarr; <strong>Si son independientes.</strong></p>
+        <p>$P(A \cap B) = 0{,}18 \neq 0$ &rarr; <strong>No son incompatibles.</strong></p>
     </div>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejercicio - Bayes con 3 categorias (tipo PEVAU)</div>
-    <p>En una poblacion, el 20% trabaja en agricultura (A), el 25% en industria (I) y el 55% en servicios (S). Los menores de 45: 37% en A, 62% en I, 56% en S.</p>
-    <p>a) P(menor de 45). b) Si es menor de 45, P(cada sector).</p>
+    <div class="card-label">Ejercicio Selectividad - Spam y "lottery" (CCSS II 2023, Junio C6)</div>
+    <p>El 20% de los correos son spam. La palabra "lottery" aparece en el 40% del spam y en el 0,6% del no spam.</p>
+    <p>a) P(aparezca "lottery" en un correo al azar). b) P(no aparezca "lottery"). c) Si se etiqueta como spam si aparece "lottery" y como no spam si no aparece, P(etiqueta incorrecta).</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p><strong>a)</strong> $P(-45) = 0{,}2 \times 0{,}37 + 0{,}25 \times 0{,}62 + 0{,}55 \times 0{,}56 = 0{,}074 + 0{,}155 + 0{,}308 = 0{,}537$</p>
-        <p><strong>b)</strong> $P(A|-45) = \frac{0{,}074}{0{,}537} \approx 0{,}138$, $P(I|-45) = \frac{0{,}155}{0{,}537} \approx 0{,}289$, $P(S|-45) = \frac{0{,}308}{0{,}537} \approx 0{,}574$</p>
+        <p>$P(S) = 0{,}2$, $P(\overline{S}) = 0{,}8$, $P(L|S) = 0{,}4$, $P(L|\overline{S}) = 0{,}006$</p>
+        <h4>a) Probabilidad total</h4>
+        <p>$P(L) = P(S) \cdot P(L|S) + P(\overline{S}) \cdot P(L|\overline{S})$</p>
+        <p>$= 0{,}2 \times 0{,}4 + 0{,}8 \times 0{,}006 = 0{,}08 + 0{,}0048 = 0{,}0848$</p>
+        <h4>b) Complementario</h4>
+        <p>$P(\overline{L}) = 1 - 0{,}0848 = 0{,}9152$</p>
+        <h4>c) Etiqueta incorrecta</h4>
+        <p>Errores posibles:</p>
+        <ul>
+            <li>Spam sin "lottery" (lo etiqueta no spam): $P(S \cap \overline{L}) = 0{,}2 \times 0{,}6 = 0{,}12$</li>
+            <li>No spam con "lottery" (lo etiqueta spam): $P(\overline{S} \cap L) = 0{,}8 \times 0{,}006 = 0{,}0048$</li>
+        </ul>
+        <p>$P(\text{error}) = 0{,}12 + 0{,}0048 = 0{,}1248$</p>
     </div>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejercicio - Independencia (tipo examen)</div>
-    <p>Muestra de 1000 personas: 300 saben ingles, 100 ruso, 50 ambos. ¿Son independientes?</p>
+    <div class="card-label">Ejercicio Selectividad - Encuesta tiempo libre (CCSS II 2023, R2 C5)</div>
+    <p>En un instituto, el 80% dedica el tiempo libre a enviar mensajes con el movil ($M$) o jugar a videojuegos ($V$). El 45% hace ambas cosas y el 40% no juega a videojuegos. Calcula:</p>
+    <p>a) P(mensajes y no videojuegos). b) P(videojuegos | no envia mensajes). c) P(solo una de las dos). d) P(ni una ni otra).</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p>$P(I) \cdot P(R) = 0{,}3 \times 0{,}1 = 0{,}03 \neq 0{,}05 = P(I \cap R)$ &rarr; <strong>No son independientes.</strong></p>
-    </div>
-</div>
-
-<div class="card example">
-    <div class="card-label">Ejercicio Selectividad - Spam y Bayes (CCSS II 2023)</div>
-    <p>El 20% de correos son spam. "lottery" aparece en 40% del spam y 0,6% del no spam. a) P(spam dado "lottery"). b) P(sin "lottery"). c) P(etiqueta incorrecta).</p>
-    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
-    <div class="solution-content">
-        <p><strong>a)</strong> $P(L) = 0{,}2 \times 0{,}4 + 0{,}8 \times 0{,}006 = 0{,}0848$ &rarr; $P(S|L) = \frac{0{,}08}{0{,}0848} = 0{,}943$</p>
-        <p><strong>b)</strong> $P(\bar{L}) = 1 - 0{,}0848 = 0{,}915$</p>
-        <p><strong>c)</strong> $P(\text{error}) = P(S \cap \bar{L}) + P(\bar{S} \cap L) = 0{,}12 + 0{,}0048 = 0{,}125$</p>
+        <p>$P(M \cup V) = 0{,}8$, $P(M \cap V) = 0{,}45$, $P(\overline{V}) = 0{,}4 \Rightarrow P(V) = 0{,}6$</p>
+        <p>De la union: $P(M) = P(M \cup V) - P(V) + P(M \cap V) = 0{,}8 - 0{,}6 + 0{,}45 = 0{,}65$</p>
+        <h4>a) P(M y no V)</h4>
+        <p>$P(M \cap \overline{V}) = P(M) - P(M \cap V) = 0{,}65 - 0{,}45 = 0{,}20$</p>
+        <h4>b) P(V | no M)</h4>
+        <p>$P(\overline{M}) = 1 - 0{,}65 = 0{,}35$</p>
+        <p>$P(V \cap \overline{M}) = P(V) - P(M \cap V) = 0{,}6 - 0{,}45 = 0{,}15$</p>
+        <p>$P(V|\overline{M}) = \frac{0{,}15}{0{,}35} = \frac{3}{7} \approx 0{,}429$</p>
+        <h4>c) P(solo una)</h4>
+        <p>$P(\text{solo una}) = P(M \cup V) - P(M \cap V) = 0{,}8 - 0{,}45 = 0{,}35$</p>
+        <h4>d) P(ninguna)</h4>
+        <p>$P(\overline{M} \cap \overline{V}) = 1 - P(M \cup V) = 1 - 0{,}8 = 0{,}20$</p>
     </div>
 </div>
 

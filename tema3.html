@@ -51,30 +51,33 @@
     <a href="examenes.html#patrones">Analisis de examenes</a>
 
     <h2>Tema 1 &middot; Probabilidad</h2>
-    <a href="#conceptos-prob">1.1 Conceptos basicos</a>
-    <a href="#operaciones-sucesos">1.2 Operaciones sucesos</a>
-    <a href="#exp-compuestos">1.3 Arboles y compuestos</a>
-    <a href="#prob-condicionada">1.4 Condicionada</a>
-    <a href="#prob-total-bayes">1.5 Bayes</a>
-    <a href="#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tema1.html#experimentos">1.1 Experimentos y sucesos</a>
+    <a href="tema1.html#operaciones-sucesos">1.2 Operaciones sucesos</a>
+    <a href="tema1.html#definicion-prob">1.3 Definicion probabilidad</a>
+    <a href="tema1.html#exp-compuestos">1.4 Compuestos y arboles</a>
+    <a href="tema1.html#prob-condicionada">1.5 Condicionada</a>
+    <a href="tema1.html#independencia">1.6 Independencia</a>
+    <a href="tema1.html#prob-total-bayes">1.7 Total y Bayes</a>
+    <a href="tema1.html#tablas-contingencia">1.8 Tablas contingencia</a>
     <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
 
     <h2>Tema 2 &middot; Binomial</h2>
     <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
-    <a href="tema2.html#parametros">2.2 Media y varianza</a>
-    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
+    <a href="tema2.html#func-prob">2.2 Funcion probabilidad</a>
+    <a href="tema2.html#parametros">2.3 Media y varianza</a>
+    <a href="tema2.html#binomial">2.4 Distribucion Binomial</a>
     <a href="tema2.html#binom-formula" class="sub">Formula</a>
     <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
     <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
 
     <h2>Tema 3 &middot; Normal e IC</h2>
-    <a href="tema3.html#poblacion">3.1 Muestreo</a>
-    <a href="tema3.html#normal">3.2 Normal (campana)</a>
-    <a href="tema3.html#tipificacion" class="sub">Tipificacion</a>
-    <a href="tema3.html#aprox-binom">3.3 Binomial &rarr; Normal</a>
-    <a href="tema3.html#medias-muestrales">3.4 Medias muestrales</a>
-    <a href="tema3.html#ic-media" class="sub">IC para la media</a>
-    <a href="tema3.html#proporcion">3.5 Proporciones e IC</a>
+    <a href="#poblacion">3.1 Muestreo</a>
+    <a href="#normal">3.2 Normal (campana)</a>
+    <a href="#tipificacion" class="sub">Tipificacion</a>
+    <a href="#aprox-binom">3.3 Binomial &rarr; Normal</a>
+    <a href="#medias-muestrales">3.4 Medias muestrales</a>
+    <a href="#ic-media" class="sub">IC para la media</a>
+    <a href="#proporcion">3.5 Proporciones e IC</a>
     <a href="tests.html?tema=3" class="sub test-link">Practicar Test T3</a>
 
     <h2>Herramientas</h2>
@@ -83,19 +86,16 @@
     <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
     <a href="herramientas.html#calculadoras">Calculadoras</a>
 
-    <h2>Examenes resueltos</h2>
-    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
-    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
-    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#ex-estadistica">Ejercicios de examen</a>
     <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
 </nav>
 
 <div class="main">
 
-<div class="tema-header">
-    <h1>Tema 3: Normal, Muestreo e Inferencia</h1>
-    <p>Campana de Gauss, tipificacion, intervalos de confianza, calculadoras</p>
-</div>
+<h1>Tema 3: Normal, Muestreo e Inferencia</h1>
+<p>Campana de Gauss, tipificacion, intervalos de confianza, error y tamano de muestra.</p>
 
 <h2 id="poblacion">3.1 Poblacion y Muestra</h2>
 
@@ -119,7 +119,7 @@
 </div>
 
 <div class="card formula">
-    <div class="card-label">Medidas de centralizacion y dispersion</div>
+    <div class="card-label">Medidas de centralizacion y dispersion <span class="exam-tag no">No suele entrar</span></div>
     <p><strong>Media aritmetica:</strong></p>
     $$\bar{x} = \frac{\sum_{i=1}^{n} x_i \cdot n_i}{N}$$
     <p><strong>Varianza:</strong></p>
@@ -130,7 +130,7 @@
 <h3 id="muestreo">Tipos de Muestreo</h3>
 
 <div class="card definition">
-    <div class="card-label">Metodos</div>
+    <div class="card-label">Metodos <span class="exam-tag si">Solo estratificado</span></div>
     <div class="tabs">
         <button class="tab-btn active" onclick="showTab(event, 'tab-mas')">Aleatorio Simple</button>
         <button class="tab-btn" onclick="showTab(event, 'tab-sist')">Sistematico</button>
@@ -195,7 +195,7 @@
 <h2 id="normal">3.2 Distribucion Normal. Tipificacion.</h2>
 
 <div class="card definition">
-    <div class="card-label">Definicion</div>
+    <div class="card-label">Definicion <span class="exam-tag si">Suele entrar</span></div>
     <p>La <strong>distribucion normal</strong> es la distribucion continua mas importante. Una variable $X$ sigue una distribucion normal con media $\mu$ y desviacion tipica $\sigma$ si:</p>
     $$X \sim N(\mu, \sigma)$$
     <p>Su <strong>funcion de densidad</strong> es:</p>
@@ -248,13 +248,13 @@
 <h3 id="normal-estandar">Distribucion Normal Estandar $N(0, 1)$</h3>
 
 <div class="card definition">
-    <div class="card-label">Definicion</div>
+    <div class="card-label">Definicion <span class="exam-tag si">Suele entrar</span></div>
     <p>Es la normal con $\mu = 0$ y $\sigma = 1$. Se denota $Z \sim N(0, 1)$ y es la <strong>unica que esta tabulada</strong>.</p>
     <p>La tabla proporciona $P(Z \le z)$ para valores de $z > 0$.</p>
 </div>
 
 <div class="card formula">
-    <div class="card-label">Reglas para calcular probabilidades con la tabla</div>
+    <div class="card-label">Reglas para calcular probabilidades con la tabla <span class="exam-tag si">Suele entrar</span></div>
     <p>Para $z > 0$:</p>
     <table>
         <tr><th>Caso</th><th>Formula</th></tr>
@@ -299,7 +299,7 @@
 <h3 id="tipificacion">Tipificacion: pasar de $N(\mu, \sigma)$ a $N(0, 1)$</h3>
 
 <div class="card formula">
-    <div class="card-label">Formula fundamental</div>
+    <div class="card-label">Formula fundamental <span class="exam-tag si">Suele entrar</span></div>
     <p>Para calcular probabilidades de cualquier normal $X \sim N(\mu, \sigma)$, la <strong>tipificamos</strong> mediante el cambio de variable:</p>
     $$\boxed{Z = \frac{X - \mu}{\sigma}}$$
     <p>Asi, la probabilidad se transforma:</p>
@@ -368,13 +368,13 @@
 <h3 id="tcl">Teorema Central del Limite</h3>
 
 <div class="card important">
-    <div class="card-label">Teorema</div>
+    <div class="card-label">Teorema <span class="exam-tag no">No suele entrar</span></div>
     <p>Si $X_1, X_2, \ldots, X_n$ son variables aleatorias independientes con medias $\mu_i$ y varianzas $\sigma_i^2$, entonces la variable $Y = X_1 + X_2 + \cdots + X_n$, cuando $n$ es grande, se aproxima a:</p>
     $$Y \to N\left(\mu_1 + \mu_2 + \cdots + \mu_n,\; \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2}\right)$$
 </div>
 
 <div class="card formula">
-    <div class="card-label">De la Binomial a la Normal</div>
+    <div class="card-label">De la Binomial a la Normal <span class="exam-tag si">Suele entrar</span></div>
     <p>Una $B(n, p)$ puede verse como la suma de $n$ variables Bernoulli independientes, cada una con media $p$ y varianza $p(1-p)$. Por el T.C.L.:</p>
 
     <div class="flow">
@@ -467,7 +467,7 @@
 <h3 id="correccion">Correccion por Continuidad</h3>
 
 <div class="card warning">
-    <div class="card-label">Importante</div>
+    <div class="card-label">Importante <span class="exam-tag no">No suele entrar</span></div>
     <p>Al aproximar una variable <strong>discreta</strong> (binomial) por una <strong>continua</strong> (normal), se comete un error que se corrige ajustando $\pm 0{,}5$:</p>
     <table>
         <tr><th>Binomial (discreta)</th><th>Normal (continua)</th></tr>
@@ -485,7 +485,7 @@
 <h2 id="medias-muestrales">3.4 Estimacion de las Medias Muestrales. Intervalos de Confianza.</h2>
 
 <div class="card definition">
-    <div class="card-label">Distribucion de medias muestrales</div>
+    <div class="card-label">Distribucion de medias muestrales <span class="exam-tag si">Suele entrar</span></div>
     <p>Si tomamos todas las muestras posibles de tamano $n$ de una poblacion con media $\mu$ y desviacion tipica $\sigma$, las medias muestrales $\bar{X}$ verifican:</p>
     <ol>
         <li>La media de las medias muestrales es $\mu$: $\quad \overline{X} = \mu$</li>
@@ -494,7 +494,7 @@
 </div>
 
 <div class="card important">
-    <div class="card-label">Teorema Central del Limite (para medias)</div>
+    <div class="card-label">Teorema Central del Limite (para medias) <span class="exam-tag si">Suele entrar</span></div>
     <p>Si la poblacion tiene media $\mu$ y desviacion tipica $\sigma$, y tomamos muestras de tamano $n$ ($n \ge 30$, o cualquier $n$ si la poblacion es normal), entonces:</p>
     $$\boxed{\bar{X} \to N\left(\mu,\; \frac{\sigma}{\sqrt{n}}\right)}$$
     <p>Para tipificar la media muestral:</p>
@@ -559,7 +559,7 @@
 <h3 id="ic-media">Intervalo de Confianza para la Media</h3>
 
 <div class="card formula">
-    <div class="card-label">Formula del Intervalo de Confianza</div>
+    <div class="card-label">Formula del Intervalo de Confianza <span class="exam-tag si">Suele entrar</span></div>
     <p>El intervalo que contiene a la media poblacional $\mu$ con un nivel de confianza $1 - \alpha$:</p>
     $$\boxed{IC = \left(\bar{x} - z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}},\quad \bar{x} + z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}}\right)}$$
     <p>donde:</p>
@@ -573,7 +573,7 @@
 </div>
 
 <div class="card important">
-    <div class="card-label">Que es z<sub>α/2</sub> y como se calcula</div>
+    <div class="card-label">Que es z<sub>α/2</sub> y como se calcula <span class="exam-tag si">Suele entrar</span></div>
     <p>z<sub>α/2</sub> es el <strong>valor critico</strong> de la normal estandar. Es el numero que "corta" la campana dejando un area de $\alpha/2$ en cada cola.</p>
 
     <h4>Paso a paso para calcularlo</h4>
@@ -711,7 +711,7 @@
 <h2 id="proporcion">3.5 Estimacion de la Proporcion. Intervalos de Confianza.</h2>
 
 <div class="card definition">
-    <div class="card-label">Distribucion muestral de proporciones</div>
+    <div class="card-label">Distribucion muestral de proporciones <span class="exam-tag si">Suele entrar</span></div>
     <p>Si la probabilidad de exito en la poblacion es $p$ (con $q = 1 - p$), y tomamos muestras de tamano $n$ ($n \ge 30$), la proporcion muestral $\hat{p}$ sigue:</p>
     $$\boxed{\hat{P} \to N\left(p,\; \sqrt{\frac{p \cdot q}{n}}\right)}$$
     <p><strong>Relacion con la binomial:</strong></p>
@@ -724,7 +724,7 @@
 <h3 id="ic-proporcion">Intervalo de Confianza para la Proporcion</h3>
 
 <div class="card formula">
-    <div class="card-label">Formula</div>
+    <div class="card-label">Formula <span class="exam-tag si">Suele entrar</span></div>
     <p>El intervalo de confianza para la proporcion poblacional $p$ con nivel $1 - \alpha$:</p>
     $$\boxed{IC = \left(\hat{p} - z_{ \alpha / 2 } \cdot \sqrt{\frac{\hat{p} \cdot \hat{q}}{n}},\quad \hat{p} + z_{ \alpha / 2 } \cdot \sqrt{\frac{\hat{p} \cdot \hat{q}}{n}}\right)}$$
     <p>donde $\hat{p}$ es la proporcion observada en la muestra y $\hat{q} = 1 - \hat{p}$.</p>
@@ -1042,22 +1042,6 @@ function showTab(e, tabId) {
     e.target.classList.add('active');
 }
 
-function toggleSolution(btn) {
-    var content = btn.nextElementSibling;
-    content.classList.toggle('show');
-    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
-    if (window.MathJax && MathJax.typeset) MathJax.typeset();
-}
-
-// Tabs
-function showTab(e, tabId) {
-    var parent = e.target.closest('.card') || e.target.parentElement.parentElement;
-    parent.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-    parent.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.getElementById(tabId).classList.add('active');
-    e.target.classList.add('active');
-}
-
 // Progress bar
 window.addEventListener('scroll', function() {
     var h = document.documentElement;
@@ -1116,12 +1100,6 @@ function calcTamano() {
         '<strong>n &ge; ' + Math.ceil(n) + '</strong> (valor exacto: ' + n.toFixed(2) + ')';
 }
 
-
-window.addEventListener('scroll', function() {
-    var h = document.documentElement;
-    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-    document.getElementById('progress').style.width = pct + '%';
-});
 
 var navSections = document.querySelectorAll('h2[id], h3[id]');
 var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');

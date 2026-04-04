@@ -165,6 +165,15 @@ li { margin: 4px 0; }
 .card.warning .card-label { background: var(--amber-dim); color: var(--amber); }
 .card.important .card-label { background: var(--red-dim); color: var(--red); }
 
+.exam-tag {
+    float: right; font-size: 0.6rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 3px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    font-family: var(--font-body);
+}
+.exam-tag.si { background: var(--green-dim); color: var(--green); }
+.exam-tag.no { background: var(--red-dim); color: var(--red); }
+
 /* TABLES */
 table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
 th {

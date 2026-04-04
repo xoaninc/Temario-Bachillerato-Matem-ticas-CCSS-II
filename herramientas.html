@@ -51,18 +51,21 @@
     <a href="examenes.html#patrones">Analisis de examenes</a>
 
     <h2>Tema 1 &middot; Probabilidad</h2>
-    <a href="tema1.html#conceptos-prob">1.1 Conceptos basicos</a>
+    <a href="tema1.html#experimentos">1.1 Experimentos y sucesos</a>
     <a href="tema1.html#operaciones-sucesos">1.2 Operaciones sucesos</a>
-    <a href="tema1.html#exp-compuestos">1.3 Arboles y compuestos</a>
-    <a href="tema1.html#prob-condicionada">1.4 Condicionada</a>
-    <a href="tema1.html#prob-total-bayes">1.5 Bayes</a>
-    <a href="tema1.html#tablas-contingencia">1.6 Tablas contingencia</a>
+    <a href="tema1.html#definicion-prob">1.3 Definicion probabilidad</a>
+    <a href="tema1.html#exp-compuestos">1.4 Compuestos y arboles</a>
+    <a href="tema1.html#prob-condicionada">1.5 Condicionada</a>
+    <a href="tema1.html#independencia">1.6 Independencia</a>
+    <a href="tema1.html#prob-total-bayes">1.7 Total y Bayes</a>
+    <a href="tema1.html#tablas-contingencia">1.8 Tablas contingencia</a>
     <a href="tests.html?tema=1" class="sub test-link">Practicar Test T1</a>
 
     <h2>Tema 2 &middot; Binomial</h2>
     <a href="tema2.html#var-aleatoria">2.1 Variable aleatoria</a>
-    <a href="tema2.html#parametros">2.2 Media y varianza</a>
-    <a href="tema2.html#binomial">2.3 Distribucion Binomial</a>
+    <a href="tema2.html#func-prob">2.2 Funcion probabilidad</a>
+    <a href="tema2.html#parametros">2.3 Media y varianza</a>
+    <a href="tema2.html#binomial">2.4 Distribucion Binomial</a>
     <a href="tema2.html#binom-formula" class="sub">Formula</a>
     <a href="tema2.html#binom-ejemplo" class="sub">Ejemplos</a>
     <a href="tests.html?tema=2" class="sub test-link">Practicar Test T2</a>
@@ -83,11 +86,10 @@
     <a href="herramientas.html#tabla-z">Tabla N(0,1)</a>
     <a href="herramientas.html#calculadoras">Calculadoras</a>
 
-    <h2>Examenes resueltos</h2>
-    <a href="examenes.html#ex-estadistica">Examen Estadistica</a>
-    <a href="examenes.html#ex-probabilidad">Examen Probabilidad</a>
-    <a href="examenes.html#ex-recuperacion">Recuperacion</a>
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#ex-estadistica">Ejercicios de examen</a>
     <a href="examenes.html#ex-clase">Ejercicios de clase</a>
+    <a href="examenes.html#patrones">Analisis de examenes</a>
 </nav>
 
 <div class="main">
@@ -110,30 +112,94 @@
         <tr><td>"media muestral", "muestra de tamano n", "medias de las muestras"</td><td><strong>MEDIAS MUESTRALES</strong></td></tr>
         <tr><td>"proporcion", "porcentaje de la muestra", "$\hat{p}$"</td><td><strong>PROPORCIONES</strong></td></tr>
         <tr><td>"intervalo de confianza", "nivel de confianza"</td><td><strong>IC</strong> (mira si es para media o proporcion)</td></tr>
-        <tr><td>"error maximo", "tamano minimo de muestra"</td><td><strong>ERROR / TAMANO</strong></td></tr>
     </table>
+</div>
 
-    <h4>Paso 2: Binomial - Puedo aproximar por Normal?</h4>
+<div class="card example">
+    <div class="card-label">Ejemplo real - Identificar BINOMIAL</div>
+    <p><em>"Un examen tiene 10 preguntas con 4 opciones. Un alumno contesta al azar. Probabilidad de acertar al menos 3."</em></p>
+    <p><strong>Pistas:</strong> 10 ensayos identicos, dos resultados (acierta/falla), $p = 1/4$ constante, independientes.</p>
+    <p><strong>Resultado:</strong> $X \sim B(10;\; 0{,}25)$. Piden $P(X \ge 3) = 1 - P(X \le 2)$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo real - Identificar NORMAL (individuo)</div>
+    <p><em>"Las estaturas de un grupo de soldados se distribuyen segun $N(173, 6)$. Probabilidad de que un soldado al azar mida menos de 175 cm."</em></p>
+    <p><strong>Pistas:</strong> dice "se distribuye normalmente", dan $\mu$ y $\sigma$, preguntan por UN individuo.</p>
+    <p><strong>Resultado:</strong> Tipificar con $\sigma$: $Z = \frac{175 - 173}{6} = 0{,}33$ &rarr; $P(Z < 0{,}33) = 0{,}6293$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo real - Identificar MEDIAS MUESTRALES</div>
+    <p><em>"Bolsas de azucar: $\mu = 500$g, $\sigma = 35$g. Se empaquetan en cajas de 100. P(peso medio de la caja < 495g)."</em></p>
+    <p><strong>Pistas:</strong> dicen "peso medio", "caja de 100" (= muestra de $n = 100$). NO preguntan por una bolsa individual.</p>
+    <p><strong>Resultado:</strong> $\bar{X} \to N(500,\; 35/\sqrt{100}) = N(500;\; 3{,}5)$. Tipificar con $\sigma/\sqrt{n}$: $Z = \frac{495 - 500}{3{,}5} = -1{,}43$ &rarr; $P = 0{,}0764$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo real - Identificar PROPORCIONES</div>
+    <p><em>"En una fabrica, el 56% esta a favor de horas extra. Muestra de 100 trabajadores. Error maximo al 95%."</em></p>
+    <p><strong>Pistas:</strong> dicen "porcentaje", "proporcion", dan $\hat{p}$ y $n$.</p>
+    <p><strong>Resultado:</strong> $\hat{p} = 0{,}56$, $\hat{q} = 0{,}44$, $n = 100$. $E = 1{,}96 \cdot \sqrt{\frac{0{,}56 \times 0{,}44}{100}} = 0{,}097$ (9,7%).</p>
+</div>
+
+<div class="card important">
+    <div class="card-label">Paso 2: Binomial - Puedo aproximar por Normal?</div>
     <table>
         <tr><th>Situacion</th><th>Que hacer</th></tr>
         <tr><td>$n$ pequeno (hasta ~20)</td><td>Calcular con la formula binomial directamente</td></tr>
         <tr><td>$n$ grande Y $np \ge 5$ Y $nq \ge 5$</td><td>Aproximar: $B(n,p) \approx N(np, \sqrt{npq})$. Aplicar correccion de continuidad</td></tr>
     </table>
+</div>
 
-    <h4>Paso 3: Normal - Que formula de tipificacion?</h4>
+<div class="card example">
+    <div class="card-label">Ejemplo - Binomial pequena (formula directa)</div>
+    <p><em>"Lanzo un dado 5 veces. P(exactamente dos 6)."</em></p>
+    <p>$n = 5$, $p = 1/6$ &rarr; $n$ pequeno, uso la formula directa:</p>
+    <p>$P(X = 2) = \binom{5}{2} \cdot \left(\frac{1}{6}\right)^2 \cdot \left(\frac{5}{6}\right)^3 = 10 \times \frac{1}{36} \times \frac{125}{216} \approx 0{,}161$</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Binomial grande (aproximar por Normal)</div>
+    <p><em>"El 75% del voluntariado son mujeres. De 1000, P(al menos 260 hombres)."</em></p>
+    <p>$X \sim B(1000;\; 0{,}25)$. Comprobamos: $np = 250 \ge 5$, $nq = 750 \ge 5$ &check;</p>
+    <p>Aproximamos: $X \approx N(250;\; \sqrt{1000 \times 0{,}25 \times 0{,}75}) = N(250;\; 13{,}7)$</p>
+    <p>$P(X \ge 260) = P\left(Z \ge \frac{260 - 250}{13{,}7}\right) = P(Z \ge 0{,}73) = 1 - 0{,}7673 = 0{,}233$</p>
+</div>
+
+<div class="card important">
+    <div class="card-label">Paso 3: Normal - Que formula de tipificacion?</div>
     <table>
-        <tr><th>Que me piden</th><th>Formula</th></tr>
-        <tr><td>Probabilidad de <strong>un individuo</strong></td><td>$Z = \frac{X - \mu}{\sigma}$</td></tr>
-        <tr><td>Probabilidad de la <strong>media de una muestra</strong></td><td>$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$</td></tr>
-        <tr><td>Probabilidad de una <strong>proporcion muestral</strong></td><td>$Z = \frac{\hat{p} - p}{\sqrt{pq/n}}$</td></tr>
+        <tr><th>Que me piden</th><th>Formula</th><th>Ejemplo rapido</th></tr>
+        <tr><td>Prob. de <strong>un individuo</strong></td><td>$Z = \frac{X - \mu}{\sigma}$</td><td>"Soldado mide < 175" &rarr; $Z = \frac{175-173}{6}$</td></tr>
+        <tr><td>Prob. de la <strong>media de muestra</strong></td><td>$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$</td><td>"Media de 12 soldados > 176" &rarr; $Z = \frac{176-173}{6/\sqrt{12}}$</td></tr>
+        <tr><td>Prob. de una <strong>proporcion</strong></td><td>$Z = \frac{\hat{p} - p}{\sqrt{pq/n}}$</td><td>"Proporcion muestral $\ge$ 0,5" &rarr; $Z = \frac{0{,}5-0{,}4}{\sqrt{0{,}24/30}}$</td></tr>
     </table>
+    <p><strong>Clave:</strong> Si preguntan por UN individuo, divide entre $\sigma$. Si preguntan por la MEDIA de una muestra, divide entre $\sigma/\sqrt{n}$.</p>
+</div>
 
-    <h4>Paso 4: Intervalo de confianza - Para que?</h4>
+<div class="card important">
+    <div class="card-label">Paso 4: Intervalo de confianza - Para que?</div>
     <table>
         <tr><th>Si busco estimar...</th><th>Formula del IC</th></tr>
         <tr><td>La <strong>media</strong> poblacional $\mu$</td><td>$\bar{x} \pm z_{ \alpha / 2 } \cdot \frac{\sigma}{\sqrt{n}}$</td></tr>
         <tr><td>La <strong>proporcion</strong> poblacional $p$</td><td>$\hat{p} \pm z_{ \alpha / 2 } \cdot \sqrt{\frac{\hat{p}\hat{q}}{n}}$</td></tr>
     </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - IC para la media</div>
+    <p><em>"100 afectados, media de calcio 900 mg, $\sigma = 150$. IC al 99%."</em></p>
+    <p><strong>Pistas:</strong> dan $\bar{x}$, $\sigma$ y $n$, piden IC &rarr; es IC para la <strong>media</strong>.</p>
+    <p>$z_{\alpha/2} = 2{,}575$ (para 99%). $IC = 900 \pm 2{,}575 \cdot \frac{150}{\sqrt{100}} = 900 \pm 38{,}6 = (861{,}4;\; 938{,}6)$</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - IC para la proporcion</div>
+    <p><em>"Se pregunta a 500 alumnos si tienen ordenador. 200 dicen que si. IC al 95%."</em></p>
+    <p><strong>Pistas:</strong> dan numero de exitos y total (= $\hat{p}$), piden IC &rarr; es IC para la <strong>proporcion</strong>.</p>
+    <p>$\hat{p} = 200/500 = 0{,}4$, $\hat{q} = 0{,}6$, $z_{\alpha/2} = 1{,}96$.</p>
+    <p>$IC = 0{,}4 \pm 1{,}96 \cdot \sqrt{\frac{0{,}4 \times 0{,}6}{500}} = 0{,}4 \pm 0{,}043 = (0{,}357;\; 0{,}443)$</p>
 </div>
 
 <h2 id="errores-tipicos">Errores Tipicos en el Examen (Evitalos!)</h2>
