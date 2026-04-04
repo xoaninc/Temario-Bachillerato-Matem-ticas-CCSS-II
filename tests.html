@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tests Interactivos - Estadistica</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' },
+            startup: { typeset: false }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { padding: 0; }
+
+        .test-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px 60px;
+            min-height: 100vh;
+        }
+
+        .back-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .back-bar a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gold);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theory-link {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            padding: 5px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all 0.15s;
+        }
+        .theory-link:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .test-header h1 {
+            color: var(--gold);
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            margin-bottom: 6px;
+        }
+
+        .test-header p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        /* Tabs */
+        .tema-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tema-tab {
+            flex: 1;
+            padding: 12px 8px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .tema-tab:hover { color: var(--gold); }
+
+        .tema-tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .tema-tab .tab-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .tema-tab.active .tab-label { color: var(--gold-bright); opacity: 0.7; }
+
+        /* Progress */
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .quiz-progress-text {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            min-width: 100px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .quiz-progress-bar {
+            flex: 1;
+            height: 3px;
+            background: var(--surface-2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* Question Card */
+        .q-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            margin-bottom: 24px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .q-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-family: var(--font-body);
+        }
+
+        .q-text {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--text-bright);
+            margin-bottom: 28px;
+        }
+
+        .q-answer-section { margin-top: auto; }
+
+        .reveal-btn {
+            padding: 10px 24px;
+            background: var(--gold);
+            border: 2px solid var(--gold);
+            color: var(--bg);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .reveal-btn:hover {
+            background: var(--gold-bright);
+            border-color: var(--gold-bright);
+        }
+
+        .reveal-btn.open {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .q-answer {
+            background: var(--gold-glow);
+            border-left: 3px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            line-height: 1.9;
+            color: var(--text);
+            display: none;
+        }
+
+        .q-answer.visible {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation */
+        .q-nav {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .q-nav-btn {
+            padding: 10px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: var(--font-body);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .q-nav-btn:hover:not(:disabled) {
+            background: var(--surface-2);
+            border-color: var(--gold);
+        }
+
+        .q-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Completion */
+        .done-screen {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px 32px;
+            text-align: center;
+            display: none;
+        }
+
+        .done-screen.visible {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .done-screen h2 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .done-screen p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .done-score {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--green);
+            margin: 20px 0;
+        }
+
+        .done-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .done-links a {
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .done-links .btn-primary {
+            background: var(--gold);
+            color: var(--bg);
+        }
+        .done-links .btn-primary:hover { background: var(--gold-bright); }
+
+        .done-links .btn-secondary {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .done-links .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+        @media (max-width: 600px) {
+            .test-page { padding: 20px 14px 40px; }
+            .q-card { padding: 24px 18px; }
+            .q-text { font-size: 1.1rem; }
+            .q-nav { flex-direction: column; }
+            .q-nav-btn { width: 100%; }
+            .done-links { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="test-page">
+
+    <div class="back-bar">
+        <a href="index.html">&#8592; Volver a la teoria</a>
+        <a href="#" class="theory-link" id="theory-link">Repasar teoria del tema &#8594;</a>
+    </div>
+
+    <div class="test-header">
+        <h1>Tests Interactivos</h1>
+        <p>Comprueba si dominas cada tema antes del examen</p>
+    </div>
+
+    <div class="tema-tabs">
+        <button class="tema-tab active" data-tema="1">
+            Tema 1
+            <span class="tab-label">Probabilidad</span>
+        </button>
+        <button class="tema-tab" data-tema="2">
+            Tema 2
+            <span class="tab-label">Binomial</span>
+        </button>
+        <button class="tema-tab" data-tema="3">
+            Tema 3
+            <span class="tab-label">Normal e IC</span>
+        </button>
+    </div>
+
+    <div class="quiz-progress">
+        <span class="quiz-progress-text" id="progress-text">Pregunta 1 / 5</span>
+        <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <div id="quiz-content">
+        <div class="q-card">
+            <div>
+                <div class="q-number" id="q-number">Pregunta 1</div>
+                <div class="q-text" id="q-text"></div>
+            </div>
+            <div class="q-answer-section">
+                <button class="reveal-btn" id="reveal-btn" onclick="toggleAnswer()">
+                    Mostrar respuesta
+                </button>
+                <div class="q-answer" id="q-answer"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="done-screen" id="done-screen">
+        <h2>Test completado</h2>
+        <p>Has repasado todas las preguntas de este tema.</p>
+        <div class="done-score" id="done-score"></div>
+        <div class="done-links">
+            <a href="#" class="btn-secondary" id="done-theory">Repasar teoria</a>
+            <a href="index.html" class="btn-primary">Volver al temario</a>
+        </div>
+    </div>
+
+    <div class="q-nav" id="q-nav">
+        <button class="q-nav-btn" id="prev-btn" onclick="prevQuestion()">&#8592; Anterior</button>
+        <button class="q-nav-btn" id="next-btn" onclick="nextQuestion()">Siguiente &#8594;</button>
+    </div>
+
+</div>
+
+<script>
+const questions = {
+    1: [
+        {
+            question: "Si $P(A)=0{,}4$ y $P(B)=0{,}3$ y son independientes, ¿cuanto vale $P(A \\cap B)$?",
+            answer: "$P(A \\cap B) = P(A) \\cdot P(B) = 0{,}4 \\times 0{,}3 = 0{,}12$"
+        },
+        {
+            question: "$P(A)=0{,}5$, $P(B)=0{,}6$, $P(A \\cap B)=0{,}2$. Calcula $P(A \\cup B)$.",
+            answer: "$P(A \\cup B) = P(A)+P(B)-P(A \\cap B) = 0{,}5+0{,}6-0{,}2 = 0{,}9$"
+        },
+        {
+            question: "$P(A \\cup B)=0{,}8$. ¿Cuanto vale $P(\\bar{A} \\cap \\bar{B})$? (ni A ni B)",
+            answer: "Por De Morgan: $P(\\bar{A} \\cap \\bar{B}) = 1 - P(A \\cup B) = 1 - 0{,}8 = 0{,}2$"
+        },
+        {
+            question: "$P(A)=0{,}3$, $P(A \\cap B)=0{,}15$, $P(B)=0{,}5$. Calcula $P(A|B)$. ¿Son independientes?",
+            answer: "$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{0{,}15}{0{,}5} = 0{,}3$.<br><br>Independencia: $P(A) \\cdot P(B) = 0{,}3 \\times 0{,}5 = 0{,}15 = P(A \\cap B)$ &#10003; Son independientes."
+        },
+        {
+            question: "El 60% compra online y el 40% en tienda. Online devuelve el 10%, tienda el 5%. Un cliente devuelve. ¿$P(\\text{compro online})$?",
+            answer: "Prob. total: $P(D) = 0{,}6 \\times 0{,}10 + 0{,}4 \\times 0{,}05 = 0{,}06+0{,}02 = 0{,}08$<br><br>Bayes: $P(\\text{Online}|D) = \\frac{0{,}6 \\times 0{,}10}{0{,}08} = \\frac{0{,}06}{0{,}08} = 0{,}75$"
+        }
+    ],
+    2: [
+        {
+            question: "$X \\sim B(8,\\; 0{,}3)$. Calcula la media y la desviacion tipica.",
+            answer: "$\\mu = np = 8 \\times 0{,}3 = 2{,}4$<br><br>$\\sigma = \\sqrt{npq} = \\sqrt{8 \\times 0{,}3 \\times 0{,}7} = \\sqrt{1{,}68} \\approx 1{,}30$"
+        },
+        {
+            question: "Lanzo un dado 5 veces. Exito = sacar 6. Calcula $P(\\text{exactamente dos 6})$.",
+            answer: "$X \\sim B(5,\\; 1/6)$<br><br>$P(X=2) = \\binom{5}{2} \\cdot \\left(\\frac{1}{6}\\right)^2 \\cdot \\left(\\frac{5}{6}\\right)^3 = 10 \\times \\frac{1}{36} \\times \\frac{125}{216} \\approx 0{,}1608$"
+        },
+        {
+            question: "$X \\sim B(10,\\; 0{,}2)$. Calcula $P(X \\geq 1)$.",
+            answer: "Complementario: $P(X \\geq 1) = 1 - P(X=0) = 1 - 0{,}8^{10} = 1 - 0{,}1074 = 0{,}8926$"
+        },
+        {
+            question: "El 40% aprueba. Se eligen 20 estudiantes. ¿Cuantos se espera que aprueben? ¿Que $n$ para esperar 30 aprobados?",
+            answer: "$\\mu = 20 \\times 0{,}4 = 8$ aprobados.<br><br>Para $\\mu \\geq 30$: $n \\times 0{,}4 \\geq 30 \\Rightarrow n \\geq 75$ alumnos."
+        }
+    ],
+    3: [
+        {
+            question: "$X \\sim N(100,\\; 15)$. Tipifica el valor $x=130$.",
+            answer: "$Z = \\frac{130-100}{15} = \\frac{30}{15} = 2$<br><br>El valor 130 esta a 2 desviaciones tipicas por encima de la media."
+        },
+        {
+            question: "Si $P(Z \\leq 1{,}96)=0{,}975$, calcula $P(Z \\geq 1{,}96)$ y $P(Z \\leq -1{,}96)$.",
+            answer: "$P(Z \\geq 1{,}96) = 1-0{,}975 = 0{,}025$<br><br>$P(Z \\leq -1{,}96) = 1-P(Z \\leq 1{,}96) = 0{,}025$ (por simetria de la normal)."
+        },
+        {
+            question: "$X \\sim B(200,\\; 0{,}3)$. ¿Se puede aproximar por normal? ¿Con que parametros?",
+            answer: "$np=60 \\geq 5$ &#10003; y $nq=140 \\geq 5$ &#10003;<br><br>$X \\approx N(60,\\; \\sqrt{42}) = N(60;\\; 6{,}48)$"
+        },
+        {
+            question: "Poblacion con $\\mu=50$, $\\sigma=10$. Muestra de $n=100$. ¿Distribucion de $\\bar{X}$?",
+            answer: "$\\bar{X} \\sim N\\left(50,\\; \\frac{10}{\\sqrt{100}}\\right) = N(50;\\; 1)$<br><br>La desviacion tipica se divide entre $\\sqrt{n}$, quedando 10 veces menor."
+        },
+        {
+            question: "$\\bar{x}=75$, $\\sigma=12$, $n=36$. Intervalo de confianza al 95% ($z_{\\alpha/2}=1{,}96$).",
+            answer: "$E = 1{,}96 \\times \\frac{12}{\\sqrt{36}} = 1{,}96 \\times 2 = 3{,}92$<br><br>$IC = (75-3{,}92;\\; 75+3{,}92) = (71{,}08;\\; 78{,}92)$"
+        },
+        {
+            question: "De 400 encuestados, 120 responden si. Calcula $\\hat{p}$ y el IC al 95%.",
+            answer: "$\\hat{p}=\\frac{120}{400}=0{,}3$, $\\hat{q}=0{,}7$<br><br>$E=1{,}96 \\times \\sqrt{\\frac{0{,}3 \\times 0{,}7}{400}}=1{,}96 \\times 0{,}0229=0{,}045$<br><br>$IC=(0{,}255;\\; 0{,}345)$"
+        }
+    ]
+};
+
+const temaTheoryLinks = {
+    1: 'index.html#tema1',
+    2: 'index.html#tema2',
+    3: 'index.html#tema3'
+};
+
+const temaNames = {
+    1: 'Probabilidad',
+    2: 'Binomial',
+    3: 'Normal e IC'
+};
+
+let currentTema = 1;
+let currentQ = 0;
+let revealed = false;
+
+function renderMath() {
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetClear([
+            document.getElementById('q-text'),
+            document.getElementById('q-answer')
+        ]);
+        MathJax.typesetPromise([
+            document.getElementById('q-text'),
+            document.getElementById('q-answer')
+        ]).catch(function(err) { console.warn('MathJax:', err); });
+    }
+}
+
+function loadQuestion() {
+    var qs = questions[currentTema];
+    var q = qs[currentQ];
+
+    document.getElementById('q-number').textContent = 'Pregunta ' + (currentQ + 1);
+    document.getElementById('q-text').innerHTML = q.question;
+    document.getElementById('q-answer').innerHTML = q.answer;
+    document.getElementById('q-answer').classList.remove('visible');
+
+    var btn = document.getElementById('reveal-btn');
+    btn.textContent = 'Mostrar respuesta';
+    btn.classList.remove('open');
+    revealed = false;
+
+    updateProgress();
+    updateNav();
+    updateTheoryLink();
+    renderMath();
+}
+
+function updateProgress() {
+    var total = questions[currentTema].length;
+    document.getElementById('progress-text').textContent = 'Pregunta ' + (currentQ + 1) + ' / ' + total;
+    document.getElementById('progress-fill').style.width = ((currentQ + 1) / total * 100) + '%';
+}
+
+function updateNav() {
+    var total = questions[currentTema].length;
+    document.getElementById('prev-btn').disabled = currentQ === 0;
+
+    var nextBtn = document.getElementById('next-btn');
+    nextBtn.disabled = false;
+    nextBtn.textContent = currentQ === total - 1 ? 'Finalizar \u2192' : 'Siguiente \u2192';
+}
+
+function updateTheoryLink() {
+    document.getElementById('theory-link').href = temaTheoryLinks[currentTema];
+    document.getElementById('theory-link').textContent = 'Repasar ' + temaNames[currentTema] + ' \u2192';
+    document.getElementById('done-theory').href = temaTheoryLinks[currentTema];
+}
+
+function toggleAnswer() {
+    revealed = !revealed;
+    var ans = document.getElementById('q-answer');
+    var btn = document.getElementById('reveal-btn');
+
+    if (revealed) {
+        ans.classList.add('visible');
+        btn.textContent = 'Ocultar respuesta';
+        btn.classList.add('open');
+        renderMath();
+    } else {
+        ans.classList.remove('visible');
+        btn.textContent = 'Mostrar respuesta';
+        btn.classList.remove('open');
+    }
+}
+
+function nextQuestion() {
+    var total = questions[currentTema].length;
+    if (currentQ === total - 1) {
+        showDone();
+    } else {
+        currentQ++;
+        loadQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (currentQ > 0) {
+        currentQ--;
+        loadQuestion();
+    }
+}
+
+function showDone() {
+    var total = questions[currentTema].length;
+    document.getElementById('quiz-content').style.display = 'none';
+    document.getElementById('q-nav').style.display = 'none';
+    document.querySelector('.quiz-progress').style.display = 'none';
+    document.getElementById('done-screen').classList.add('visible');
+    document.getElementById('done-score').textContent = total + '/' + total + ' preguntas';
+}
+
+function switchTema(tema) {
+    currentTema = parseInt(tema);
+    currentQ = 0;
+    revealed = false;
+
+    document.getElementById('quiz-content').style.display = 'block';
+    document.getElementById('q-nav').style.display = 'flex';
+    document.querySelector('.quiz-progress').style.display = 'flex';
+    document.getElementById('done-screen').classList.remove('visible');
+
+    document.querySelectorAll('.tema-tab').forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+    document.querySelector('[data-tema="' + tema + '"]').classList.add('active');
+
+    loadQuestion();
+}
+
+// Tab click handlers
+document.querySelectorAll('.tema-tab').forEach(function(button) {
+    button.addEventListener('click', function() {
+        switchTema(this.dataset.tema);
+    });
+});
+
+// Deep linking: read ?tema= from URL
+var params = new URLSearchParams(window.location.search);
+var temaParam = params.get('tema');
+if (temaParam && questions[parseInt(temaParam)]) {
+    currentTema = parseInt(temaParam);
+}
+
+// Initialize
+switchTema(currentTema);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Images and media
+*.HEIC
+*.heic
+*.pdf
+jpg/
+
+# System files
+.DS_Store
+*.swp
+*~
+
+# Claude config
+.claude/
