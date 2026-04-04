@@ -474,6 +474,23 @@ const temaNames = {
 let currentTema = 1;
 let currentQ = 0;
 let revealed = false;
+let shuffledQuestions = {};
+
+function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+}
+
+function getQuestions() {
+    if (!shuffledQuestions[currentTema]) {
+        shuffledQuestions[currentTema] = shuffle(questions[currentTema]);
+    }
+    return shuffledQuestions[currentTema];
+}
 
 function renderMath() {
     if (window.MathJax && MathJax.typesetPromise) {
@@ -489,7 +506,7 @@ function renderMath() {
 }
 
 function loadQuestion() {
-    var qs = questions[currentTema];
+    var qs = getQuestions();
     var q = qs[currentQ];
 
     document.getElementById('q-number').textContent = 'Pregunta ' + (currentQ + 1);
@@ -509,13 +526,13 @@ function loadQuestion() {
 }
 
 function updateProgress() {
-    var total = questions[currentTema].length;
+    var total = getQuestions().length;
     document.getElementById('progress-text').textContent = 'Pregunta ' + (currentQ + 1) + ' / ' + total;
     document.getElementById('progress-fill').style.width = ((currentQ + 1) / total * 100) + '%';
 }
 
 function updateNav() {
-    var total = questions[currentTema].length;
+    var total = getQuestions().length;
     document.getElementById('prev-btn').disabled = currentQ === 0;
 
     var nextBtn = document.getElementById('next-btn');
@@ -547,7 +564,7 @@ function toggleAnswer() {
 }
 
 function nextQuestion() {
-    var total = questions[currentTema].length;
+    var total = getQuestions().length;
     if (currentQ === total - 1) {
         showDone();
     } else {
@@ -564,7 +581,7 @@ function prevQuestion() {
 }
 
 function showDone() {
-    var total = questions[currentTema].length;
+    var total = getQuestions().length;
     document.getElementById('quiz-content').style.display = 'none';
     document.getElementById('q-nav').style.display = 'none';
     document.querySelector('.quiz-progress').style.display = 'none';
@@ -576,6 +593,7 @@ function switchTema(tema) {
     currentTema = parseInt(tema);
     currentQ = 0;
     revealed = false;
+    shuffledQuestions[currentTema] = shuffle(questions[currentTema]);
 
     document.getElementById('quiz-content').style.display = 'block';
     document.getElementById('q-nav').style.display = 'flex';

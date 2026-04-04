@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;600;700&display=swap');
 
 :root {
-    --bg: #1e1e2e;
-    --bg-warm: #1a1a2a;
-    --surface: #282840;
-    --surface-2: #31314a;
-    --surface-hover: #3a3a55;
-    --border: #3e3e58;
-    --border-light: #50506a;
+    --bg: #161622;
+    --bg-warm: #131320;
+    --surface: #1e1e30;
+    --surface-2: #262640;
+    --surface-hover: #2e2e4a;
+    --border: #333350;
+    --border-light: #444465;
 
     --blue: #7aa2f7;
     --blue-bright: #9ab8ff;
