@@ -89,9 +89,16 @@
     <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
 
     <h2>Herramientas</h2>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
     <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
     <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
-    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+    <a href="herramientas.html#calculadora">Calculadora funciones</a>
+
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#modelo-ponencia">Modelo ponencia 2025-2026</a>
+    <a href="examenes.html#selectividad">Selectividad 2022-2023</a>
+    <a href="examenes.html#ponencia-analisis">Ponencia analisis 24/25</a>
+    <a href="examenes.html#ejercicios-clase">Ejercicios de clase</a>
 </nav>
 
 <div class="main">
@@ -110,7 +117,14 @@
 <h2 id="derivada">7.1 Concepto de derivada <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card definition">
-    <div class="card-label">Tasa de variacion media (TVM)</div>
+    <div class="card-label">Que es la derivada (en cristiano)</div>
+    <p>La derivada mide <strong>como de rapido cambia</strong> una funcion. Es la "velocidad" de la funcion.</p>
+    <p>Piensa en un coche: la funcion $f(t)$ es la posicion del coche en el instante $t$. La derivada $f'(t)$ es la <strong>velocidad</strong> del coche en ese instante. Si $f'(t) > 0$, avanza. Si $f'(t) < 0$, retrocede. Si $f'(t) = 0$, esta parado (en ese instante).</p>
+    <p>En una grafica, la derivada es <strong>la pendiente de la tangente</strong>: cuanto mas empinada sube la curva, mayor es $f'(x)$.</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Tasa de variacion media (TVM) <span class="exam-tag si">Suele entrar</span></div>
     <p>La <strong>TVM</strong> de $f$ en el intervalo $[a,b]$ es la pendiente de la recta que une los puntos $A(a, f(a))$ y $B(b, f(b))$:</p>
     $$\text{TVM}[a,b] = \frac{f(b) - f(a)}{b - a}$$
     <ul>
@@ -139,6 +153,18 @@
         $$f'(2) = \lim_{x \to 2} \frac{f(x) - f(2)}{x - 2} = \lim_{x \to 2} \frac{3x^2 - 12}{x - 2} = \frac{0}{0}$$
         <p>Factorizamos: $3x^2 - 12 = 3(x^2 - 4) = 3(x-2)(x+2)$</p>
         $$\lim_{x \to 2} \frac{3(x-2)(x+2)}{x-2} = \lim_{x \to 2} 3(x+2) = 3 \cdot 4 = 12$$
+        <p><strong>Comprobacion:</strong> Con las reglas rapidas: $f'(x) = 6x$, asi que $f'(2) = 12$ &#10003;. La definicion y las reglas dan lo mismo.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - TVM en contexto real</div>
+    <p>La temperatura de un horno (en &deg;C) viene dada por $T(t) = 200 - 180e^{-0{,}1t}$, con $t$ en minutos. Calcula la TVM en $[0, 10]$ y explica que significa.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$T(0) = 200 - 180 = 20$ &deg;C &emsp; $T(10) = 200 - 180e^{-1} \approx 200 - 66{,}2 = 133{,}8$ &deg;C</p>
+        <p>$\text{TVM}[0,10] = \dfrac{133{,}8 - 20}{10 - 0} = \dfrac{113{,}8}{10} = 11{,}38$ &deg;C/min</p>
+        <p><strong>Significado:</strong> En los primeros 10 minutos, el horno sube en promedio 11,38 grados por minuto.</p>
     </div>
 </div>
 
@@ -201,6 +227,18 @@
     </table>
 </div>
 
+<div class="card warning">
+    <div class="card-label">Cuando usar cada regla</div>
+    <table>
+        <tr><th>Ves esto...</th><th>Usa...</th><th>Ejemplo</th></tr>
+        <tr><td>Suma o resta de cosas</td><td>Derivas cada trozo por separado</td><td>$(x^2 + 3x)' = 2x + 3$</td></tr>
+        <tr><td>Dos funciones multiplicadas</td><td>Regla del <strong>producto</strong></td><td>$(x^2 \cdot e^x)' = 2x \cdot e^x + x^2 \cdot e^x$</td></tr>
+        <tr><td>Una funcion dividida por otra</td><td>Regla del <strong>cociente</strong></td><td>$\left(\frac{x}{e^x}\right)' = \frac{e^x - xe^x}{e^{2x}}$</td></tr>
+        <tr><td>Una funcion "dentro" de otra</td><td>Regla de la <strong>cadena</strong></td><td>$(\sqrt{3x+1})' = \frac{3}{2\sqrt{3x+1}}$</td></tr>
+    </table>
+    <p><strong>Truco para la cadena:</strong> Si hay algo "dentro" (como $3x+1$ dentro de $\sqrt{\ }$, o $x^2$ dentro de $e^{\ }$, o $2x-5$ dentro de $\ln$), necesitas la cadena. Derivas "la de fuera" y multiplicas por la derivada "de dentro".</p>
+</div>
+
 <h3 id="tabla-derivadas">Tabla de derivadas</h3>
 
 <div class="card formula">
@@ -236,10 +274,16 @@
 <!-- 7.3 RECTA TANGENTE                                              -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 
-<h2 id="tangente">7.3 Recta tangente y normal</h2>
+<h2 id="tangente">7.3 Recta tangente y normal <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Que es la recta tangente</div>
+    <p>La recta tangente es la recta que "toca" la curva en un punto y sigue la misma direccion que la curva en ese punto. Es como si pegaras una regla a la curva: la regla es la tangente.</p>
+    <p>Su pendiente es exactamente $f'(a)$ (la derivada en ese punto). Por eso la derivada tiene significado geometrico: te da la inclinacion de la curva.</p>
+</div>
 
 <div class="card formula">
-    <div class="card-label">Ecuacion de la recta tangente <span class="exam-tag si">Siempre entra</span> <span class="sel-tag si">Selectividad</span></div>
+    <div class="card-label">Ecuacion de la recta tangente <span class="exam-tag si">Siempre entra</span></div>
     <p>La recta tangente a $f$ en el punto $(a, f(a))$ tiene pendiente $m = f'(a)$:</p>
     $$\boxed{y - f(a) = f'(a) \cdot (x - a)}$$
 </div>
@@ -263,11 +307,40 @@
     </div>
 </div>
 
+<div class="card example">
+    <div class="card-label">Ejemplo - Tangente y normal en un punto</div>
+    <p>Halla las ecuaciones de la tangente y la normal a $f(x) = \ln(x)$ en $x = 1$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Paso 1:</strong> Punto de tangencia: $f(1) = \ln(1) = 0$. Punto: $(1, 0)$.</p>
+        <p><strong>Paso 2:</strong> Pendiente: $f'(x) = \frac{1}{x}$, asi que $f'(1) = 1$.</p>
+        <p><strong>Tangente:</strong> $y - 0 = 1 \cdot (x - 1) \Rightarrow \boxed{y = x - 1}$</p>
+        <p><strong>Normal:</strong> Pendiente $= -\frac{1}{f'(1)} = -1$. &emsp; $y - 0 = -1(x - 1) \Rightarrow \boxed{y = -x + 1}$</p>
+    </div>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Resumen de pasos para la tangente</div>
+    <ol>
+        <li>Te dan un punto $x = a$ (o una condicion para encontrarlo).</li>
+        <li>Calculas $f(a)$ para tener el punto $(a, f(a))$.</li>
+        <li>Calculas $f'(a)$ para tener la pendiente $m$.</li>
+        <li>Sustituyes en $y - f(a) = f'(a)(x - a)$.</li>
+    </ol>
+    <p><strong>Atencion:</strong> Si te piden la tangente "paralela a una recta", primero sacas la pendiente de esa recta y luego resuelves $f'(a) = m$ para encontrar el $a$.</p>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- 7.4 MONOTONIA Y EXTREMOS                                        -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 
 <h2 id="monotonia">7.4 Monotonia, crecimiento y extremos <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">La idea clave</div>
+    <p>La derivada te dice si la funcion <strong>sube o baja</strong>. Si $f'(x) > 0$, la funcion esta subiendo (creciendo). Si $f'(x) < 0$, esta bajando (decreciendo). Si $f'(x) = 0$, la pendiente es horizontal: posible maximo, minimo o punto de inflexion.</p>
+    <p>Los puntos donde $f'(x) = 0$ se llaman <strong>puntos criticos</strong>. Son los candidatos a ser maximos o minimos.</p>
+</div>
 
 <div class="card formula">
     <div class="card-label">Crecimiento y decrecimiento <span class="exam-tag si">Siempre entra</span></div>
@@ -321,6 +394,8 @@
         <tr><td>$f'(a) = 0$ y $f''(a) < 0$</td><td><strong>Maximo relativo</strong> en $(a, f(a))$</td></tr>
         <tr><td>$f'(a) = 0$ y $f''(a) > 0$</td><td><strong>Minimo relativo</strong> en $(a, f(a))$</td></tr>
     </table>
+    <p><strong>Truco para recordar:</strong> $f'' < 0$ es concava ($\cap$, "montana") $\Rightarrow$ arriba hay un maximo. $f'' > 0$ es convexa ($\cup$, "valle") $\Rightarrow$ abajo hay un minimo.</p>
+    <p><strong>Metodo alternativo:</strong> Si no quieres usar $f''$, mira la tabla de signos de $f'$. Si pasa de $+$ a $-$ es maximo (sube y luego baja). Si pasa de $-$ a $+$ es minimo (baja y luego sube).</p>
 </div>
 
 <div class="card example">
@@ -341,8 +416,14 @@
 
 <h2 id="curvatura">7.5 Curvatura y puntos de inflexion <span class="sel-tag si">Selectividad</span></h2>
 
+<div class="card definition">
+    <div class="card-label">Que es la curvatura</div>
+    <p>Si la derivada primera $f'(x)$ te dice si la funcion sube o baja, la segunda derivada $f''(x)$ te dice <strong>como curva</strong>.</p>
+    <p>Piensa en una carretera: puedes ir cuesta arriba (creciente) pero girando a la izquierda (concava) o a la derecha (convexa). La segunda derivada captura ese "giro".</p>
+</div>
+
 <div class="card formula">
-    <div class="card-label">Concavidad y convexidad</div>
+    <div class="card-label">Concavidad y convexidad <span class="exam-tag si">Suele entrar</span></div>
     <p>La <strong>segunda derivada</strong> nos dice la curvatura:</p>
     <ul>
         <li>$f''(x) > 0$ en $(a,b)$ $\Rightarrow$ $f$ es <strong>convexa</strong> en $(a,b)$ (forma de valle $\cup$).</li>
@@ -394,6 +475,12 @@
 
 <h2 id="optimizacion">7.6 Problemas de optimizacion <span class="sel-tag si">Selectividad</span></h2>
 
+<div class="card definition">
+    <div class="card-label">Que son los problemas de optimizacion</div>
+    <p>Son problemas del mundo real donde hay que encontrar el <strong>valor maximo o minimo</strong> de algo: el beneficio maximo, el coste minimo, las dimensiones optimas de un envase, etc.</p>
+    <p>La clave siempre es la misma: montar la funcion, derivar, igualar a cero, y comprobar si es maximo o minimo.</p>
+</div>
+
 <div class="card formula">
     <div class="card-label">Metodo para problemas de optimizacion <span class="exam-tag si">Suele entrar</span></div>
     <p>Pasos:</p>
@@ -415,6 +502,20 @@
         <p>$f''(t) = -8 < 0 \Rightarrow$ es un <strong>maximo</strong>.</p>
         <p>$f(7{,}5) = -4(56{,}25) + 60(7{,}5) - 15 = -225 + 450 - 15 = 210$ miles de euros.</p>
         <p><strong>El maximo de existencias es de 210.000 euros, a los 7,5 anos.</strong></p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Optimizacion geometrica</div>
+    <p>Se quiere cercar un terreno rectangular de 200 m$^2$ de area. Un lado del rectangulo es una pared que no necesita valla. Halla las dimensiones que minimizan la cantidad de valla necesaria.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Paso 1:</strong> Sea $x$ el lado paralelo a la pared e $y$ el lado perpendicular. Area: $xy = 200 \Rightarrow y = \frac{200}{x}$.</p>
+        <p><strong>Paso 2:</strong> Valla = 3 lados (no el de la pared): $V(x) = x + 2y = x + \frac{400}{x}$.</p>
+        <p><strong>Paso 3:</strong> $V'(x) = 1 - \frac{400}{x^2} = 0 \Rightarrow x^2 = 400 \Rightarrow x = 20$ m.</p>
+        <p><strong>Paso 4:</strong> $V''(x) = \frac{800}{x^3}$. $V''(20) = \frac{800}{8000} > 0 \Rightarrow$ es un <strong>minimo</strong>.</p>
+        <p><strong>Paso 5:</strong> $y = \frac{200}{20} = 10$ m. Valla minima: $20 + 2 \cdot 10 = 40$ m.</p>
+        <p><strong>Dimensiones:</strong> 20 m (paralelo a la pared) $\times$ 10 m (perpendicular).</p>
     </div>
 </div>
 
@@ -460,6 +561,19 @@
         </ul>
         <p>No hay punto de inflexion ($f''$ no se anula, solo cambia de signo en $x = -2$ que no esta en el dominio).</p>
     </div>
+</div>
+
+<div class="card" style="border-left: 3px solid var(--violet); margin-top: 32px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Recursos externos para practicar (curso 2025-2026)</div>
+    <p>Ejercicios de selectividad Andalucia CCSS II &mdash; derivadas, tangente, monotonia, optimizacion:</p>
+    <ul>
+        <li><a href="https://blogsaverroes.juntadeandalucia.es/rafaelnunezmat/selectividad" target="_blank" rel="noopener">Rafael Nunez &mdash; Junta de Andalucia</a> &mdash; Todos los ejercicios de analisis de selectividad Andalucia (1995&ndash;2025), resueltos</li>
+        <li><a href="https://www.emestrada.org/" target="_blank" rel="noopener">Emestrada</a> &mdash; Examenes PEvAU de Andalucia resueltos por anos (incluye 2025)</li>
+        <li><a href="https://www.ebaumatematicas.com/matematicas-ccss-ii/" target="_blank" rel="noopener">EbauMatematicas</a> &mdash; +500 ejercicios de selectividad CCSS II (2017&ndash;2025) organizados por bloque</li>
+        <li><a href="https://picastro.es/resueltos-pevau-2025-matematicas-cc-ss-ii/" target="_blank" rel="noopener">PiCastro</a> &mdash; PEvAU julio 2025 CCSS II resuelto paso a paso</li>
+        <li><a href="https://www.examenesdepau.com/examenes/andalucia/matematicas-aplicadas/" target="_blank" rel="noopener">ExamenesdePAU</a> &mdash; Todos los examenes de Andalucia desde 1995, descargables</li>
+    </ul>
+    <p style="font-size: 0.8rem; color: var(--text-dim);"><strong>Ponencia vigente:</strong> <a href="https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/examanes_anios_anteriores/selectividad/sel_2025-2026-Orientaciones_matematicas_aplicadas.pdf" target="_blank" rel="noopener">Directrices y Orientaciones CCSS II 2025-2026, Junta de Andalucia</a>. Todo el contenido de este tema (TVM, derivadas, regla de la cadena, tangente, normal, monotonia, extremos, curvatura, inflexion, optimizacion) entra en la PEvAU.</p>
 </div>
 
 </div><!-- end main -->

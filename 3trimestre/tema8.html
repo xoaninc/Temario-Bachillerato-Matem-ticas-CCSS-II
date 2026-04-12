@@ -91,9 +91,16 @@
     <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
 
     <h2>Herramientas</h2>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
     <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
     <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
-    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+    <a href="herramientas.html#calculadora">Calculadora funciones</a>
+
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#modelo-ponencia">Modelo ponencia 2025-2026</a>
+    <a href="examenes.html#selectividad">Selectividad 2022-2023</a>
+    <a href="examenes.html#ponencia-analisis">Ponencia analisis 24/25</a>
+    <a href="examenes.html#ejercicios-clase">Ejercicios de clase</a>
 </nav>
 
 <div class="main">
@@ -112,11 +119,33 @@
 <h2 id="primitiva">8.1 Primitiva e integral indefinida <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card definition">
-    <div class="card-label">Que es una primitiva</div>
-    <p>Integrar es el proceso <strong>inverso de derivar</strong>. Dada una funcion $f(x)$, buscamos una funcion $F(x)$ tal que:</p>
-    $$F'(x) = f(x)$$
-    <p>A $F(x)$ la llamamos <strong>primitiva</strong> (o antiderivada) de $f(x)$.</p>
-    <p><em>Ejemplo:</em> Si $f(x) = 3x^2$, una primitiva es $F(x) = x^3$ porque $(x^3)' = 3x^2$. Pero $x^3 + 5$ tambien es primitiva, y $x^3 - 13$ tambien. Hay <strong>infinitas primitivas</strong>, todas difieren en una constante.</p>
+    <div class="card-label">La idea clave: integrar es "des-derivar"</div>
+    <p>En el tema 7 aprendiste a <strong>derivar</strong>: dada una funcion, calcular su derivada. Ahora vamos al reves: dada la derivada, <strong>encontrar la funcion original</strong>.</p>
+    <p>Es como saber que la velocidad de un coche es $v(t) = 6t$ y preguntarte: cual era su posicion $s(t)$? La respuesta es $s(t) = 3t^2 + C$, porque $(3t^2)' = 6t$.</p>
+    <table>
+        <tr><th>Operacion</th><th>Pregunta</th><th>Ejemplo</th></tr>
+        <tr><td><strong>Derivar</strong></td><td>Tengo $F(x)$, cual es $F'(x)$?</td><td>$F(x) = x^3 \Rightarrow F'(x) = 3x^2$</td></tr>
+        <tr><td><strong>Integrar</strong></td><td>Tengo $f(x)$, cual es la $F(x)$ que al derivar da $f(x)$?</td><td>$f(x) = 3x^2 \Rightarrow F(x) = x^3 + C$</td></tr>
+    </table>
+</div>
+
+<div class="card warning">
+    <div class="card-label">El simbolo $\int$ y como se lee</div>
+    <table>
+        <tr><th>Escritura</th><th>Se lee</th><th>Que significa</th></tr>
+        <tr><td>$\int$</td><td>"integral de"</td><td>El simbolo de integracion (una S alargada, de "suma")</td></tr>
+        <tr><td>$\int f(x)\,dx$</td><td>"integral de $f(x)$ de equis"</td><td>Buscar la primitiva de $f(x)$</td></tr>
+        <tr><td>$dx$</td><td>"de equis"</td><td>Indica que integramos respecto a $x$ (cierra la integral)</td></tr>
+        <tr><td>$+ C$</td><td>"mas constante"</td><td>Hay infinitas primitivas, todas difieren en una constante</td></tr>
+        <tr><td>$\int_a^b f(x)\,dx$</td><td>"integral de $a$ a $b$"</td><td>Integral definida: da un numero (no una funcion)</td></tr>
+    </table>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Primitiva (definicion formal)</div>
+    <p>Dada una funcion $f(x)$, una <strong>primitiva</strong> es cualquier funcion $F(x)$ que cumple $F'(x) = f(x)$.</p>
+    <p><em>Ejemplo:</em> Si $f(x) = 3x^2$, entonces $x^3$, $x^3 + 5$ y $x^3 - 13$ son todas primitivas de $f$. Hay <strong>infinitas</strong>, todas difieren en una constante.</p>
+    <p><strong>Comprobacion:</strong> siempre puedes verificar tu resultado derivando. Si al derivar obtienes la funcion original, esta bien hecho.</p>
 </div>
 
 <div class="card definition">
@@ -140,6 +169,12 @@
 <!-- ═══════════════════════════════════════════════════════════════ -->
 
 <h2 id="inmediatas">8.2 Integrales inmediatas <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Como funcionan las integrales inmediatas</div>
+    <p>Las integrales inmediatas son las que se resuelven <strong>directamente con la tabla</strong>, sin necesidad de tecnicas especiales. Son las que salen en la mayoria de ejercicios de selectividad.</p>
+    <p>La idea es simple: reconoces el patron de la tabla, lo aplicas, y ya esta. El unico "truco" es que a veces la funcion de dentro no lleva exactamente su derivada delante, y hay que <strong>ajustar multiplicando por una constante</strong>.</p>
+</div>
 
 <h3 id="tabla-integrales">Tabla de integrales inmediatas</h3>
 
@@ -225,6 +260,27 @@
     </div>
 </div>
 
+<div class="card example">
+    <div class="card-label">Ejemplo - Barrow con exponencial</div>
+    <p>Calcula $\displaystyle\int_0^2 3e^{-x}\,dx$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Primitiva: $\int 3e^{-x}\,dx = 3 \cdot \frac{e^{-x}}{-1} = -3e^{-x}$</p>
+        <p>Aplicamos Barrow:</p>
+        $$\Big[-3e^{-x}\Big]_0^2 = -3e^{-2} - (-3e^{0}) = -3e^{-2} + 3 = 3 - \frac{3}{e^2} \approx 3 - 0{,}406 = 2{,}594$$
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Barrow con logaritmo</div>
+    <p>Calcula $\displaystyle\int_1^e \frac{2}{x}\,dx$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$\displaystyle\int_1^e \frac{2}{x}\,dx = \Big[2\ln|x|\Big]_1^e = 2\ln(e) - 2\ln(1) = 2 \cdot 1 - 2 \cdot 0 = 2$</p>
+        <p><strong>Recuerda:</strong> $\ln(e) = 1$ y $\ln(1) = 0$. Estos dos valores salen mucho.</p>
+    </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- 8.5 CALCULO DE AREAS                                            -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -232,9 +288,18 @@
 <h2 id="areas">8.5 Calculo de areas <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card important">
-    <div class="card-label">Atencion: area vs integral</div>
+    <div class="card-label">Atencion: area vs integral <span class="exam-tag si">Clave del examen</span></div>
     <p>La integral definida puede dar valores <strong>negativos</strong> (cuando la funcion esta por debajo del eje X), pero el area siempre es <strong>positiva</strong>.</p>
-    <p>Por eso hay que tener cuidado: no siempre el area coincide con la integral directa. Depende del signo de la funcion.</p>
+    <p>Por eso <strong>no puedes hacer la integral directa y ya esta</strong>. Si la funcion cruza el eje X, la integral te "descuenta" la parte negativa y el resultado es incorrecto como area.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Los 3 errores tipicos en areas (evitalos y apruebas)</div>
+    <ol>
+        <li><strong>Olvidar el valor absoluto:</strong> Si la funcion esta por debajo del eje X, la integral da negativo. El area es el valor absoluto. Si no lo pones, te descuentan.</li>
+        <li><strong>No partir la integral cuando la funcion cambia de signo:</strong> Si cruza el eje X, la parte positiva y la negativa se cancelan parcialmente. Hay que calcular cada trozo por separado y sumar los valores absolutos.</li>
+        <li><strong>En area entre dos curvas, restar al reves:</strong> Siempre es la de arriba menos la de abajo. Si las restas al reves, te sale negativo. Sustituye un punto intermedio para saber quien esta arriba.</li>
+    </ol>
 </div>
 
 <!-- Graficos de los 4 casos de area -->
@@ -353,6 +418,19 @@
         <tr><td>$f$ cambia de signo</td><td>Partir en trozos + sumar valores absolutos</td></tr>
         <tr><td>Area entre $f$ y $g$</td><td>$A = \int_a^b |f(x)-g(x)|\,dx$ (arriba $-$ abajo)</td></tr>
     </table>
+</div>
+
+<div class="card" style="border-left: 3px solid var(--violet); margin-top: 32px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Recursos externos para practicar (curso 2025-2026)</div>
+    <p>Ejercicios de selectividad Andalucia CCSS II &mdash; integrales, Barrow, areas:</p>
+    <ul>
+        <li><a href="https://blogsaverroes.juntadeandalucia.es/rafaelnunezmat/selectividad" target="_blank" rel="noopener">Rafael Nunez &mdash; Junta de Andalucia</a> &mdash; Todos los ejercicios de analisis de selectividad Andalucia (1995&ndash;2025), resueltos</li>
+        <li><a href="https://www.emestrada.org/" target="_blank" rel="noopener">Emestrada</a> &mdash; Examenes PEvAU de Andalucia resueltos por anos (incluye 2025)</li>
+        <li><a href="https://www.ebaumatematicas.com/matematicas-ccss-ii/" target="_blank" rel="noopener">EbauMatematicas</a> &mdash; +500 ejercicios de selectividad CCSS II (2017&ndash;2025) organizados por bloque</li>
+        <li><a href="https://picastro.es/resueltos-pevau-2025-matematicas-cc-ss-ii/" target="_blank" rel="noopener">PiCastro</a> &mdash; PEvAU julio 2025 CCSS II resuelto paso a paso</li>
+        <li><a href="https://ekuatio.com/como-calcular-la-integral-definida-la-regla-de-barrow-ejercicios-resueltos/" target="_blank" rel="noopener">Ekuatio</a> &mdash; Integral definida y Barrow, ejercicios resueltos paso a paso</li>
+    </ul>
+    <p style="font-size: 0.8rem; color: var(--text-dim);"><strong>Ponencia vigente:</strong> <a href="https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/examanes_anios_anteriores/selectividad/sel_2025-2026-Orientaciones_matematicas_aplicadas.pdf" target="_blank" rel="noopener">Directrices y Orientaciones CCSS II 2025-2026, Junta de Andalucia</a>. Todo el contenido de este tema (primitiva, integral indefinida, inmediatas, definida, Barrow, areas entre curvas) entra en la PEvAU.</p>
 </div>
 
 </div><!-- end main -->

@@ -92,9 +92,16 @@
     <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
 
     <h2>Herramientas</h2>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
     <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
     <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
-    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+    <a href="herramientas.html#calculadora">Calculadora funciones</a>
+
+    <h2>Examenes y ejercicios</h2>
+    <a href="examenes.html#modelo-ponencia">Modelo ponencia 2025-2026</a>
+    <a href="examenes.html#selectividad">Selectividad 2022-2023</a>
+    <a href="examenes.html#ponencia-analisis">Ponencia analisis 24/25</a>
+    <a href="examenes.html#ejercicios-clase">Ejercicios de clase</a>
 </nav>
 
 <div class="main">
@@ -113,10 +120,36 @@
 <h2 id="funciones">6.1 Concepto de funcion <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card definition">
-    <div class="card-label">Funcion real de variable real</div>
+    <div class="card-label">Que es una funcion (en cristiano)</div>
+    <p>Imagina una <strong>maquina</strong>: le metes un numero ($x$), hace algo con el, y te devuelve otro numero ($y$). Eso es una funcion. Le das un valor de entrada, y te da uno de salida.</p>
+    <p>La escribimos como $f(x)$ y se lee "efe de equis". La $f$ es el nombre de la maquina, y la $x$ es lo que le metes. El resultado es $y = f(x)$.</p>
+    <p><em>Ejemplo:</em> Si $f(x) = 2x + 1$, quiere decir "multiplica por 2 y sumale 1". Asi: $f(3) = 2 \cdot 3 + 1 = 7$, $f(0) = 1$, $f(-2) = -3$.</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Notacion formal</div>
     <p>Una <strong>funcion</strong> es una correspondencia que a cada valor $x$ de un subconjunto de $\mathbb{R}$ (llamado <strong>dominio</strong>) le asigna un unico valor $y = f(x)$.</p>
     $$f: D \subseteq \mathbb{R} \to \mathbb{R}, \quad x \to y = f(x)$$
     <p>El valor $x$ se llama <strong>variable independiente</strong> y el valor $y = f(x)$ se llama <strong>variable dependiente</strong> o <strong>imagen</strong> de $x$.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Simbolos que vas a ver en este tema</div>
+    <p>Antes de empezar, necesitas saber leer esta notacion:</p>
+    <table>
+        <tr><th>Simbolo</th><th>Se lee</th><th>Que significa</th></tr>
+        <tr><td>$\mathbb{R}$</td><td>"los reales"</td><td>El conjunto de todos los numeros (enteros, decimales, fracciones, raices...)</td></tr>
+        <tr><td>$\setminus$</td><td>"menos" o "excepto"</td><td>Quitar elementos. $\mathbb{R} \setminus \{2\}$ = todos los reales excepto el 2</td></tr>
+        <tr><td>$f(x)$</td><td>"efe de equis"</td><td>El valor que devuelve la funcion $f$ cuando le metes $x$</td></tr>
+        <tr><td>$\text{Dom}(f)$</td><td>"dominio de efe"</td><td>Los valores de $x$ que puedes meter en la funcion</td></tr>
+        <tr><td>$\lim$</td><td>"limite"</td><td>A que valor se acerca $f(x)$ cuando $x$ se acerca a algo</td></tr>
+        <tr><td>$\to$</td><td>"tiende a"</td><td>Se acerca cada vez mas (sin llegar necesariamente)</td></tr>
+        <tr><td>$\infty$</td><td>"infinito"</td><td>Crece sin parar, sin techo</td></tr>
+        <tr><td>$\exists$</td><td>"existe"</td><td>Hay al menos un valor que cumple esto</td></tr>
+        <tr><td>$\nexists$</td><td>"no existe"</td><td>No hay ningun valor que lo cumpla</td></tr>
+        <tr><td>$\geq$ / $\leq$</td><td>"mayor o igual" / "menor o igual"</td><td>Incluye el valor (vs. $>$ / $<$ que no lo incluyen)</td></tr>
+        <tr><td>$\in$</td><td>"pertenece a"</td><td>$x \in \mathbb{R}$ = "$x$ es un numero real"</td></tr>
+    </table>
 </div>
 
 <div class="card definition">
@@ -199,6 +232,19 @@
         <p>Resolvemos $x^2 - 5x + 6 = 0$:</p>
         $$x = \frac{5 \pm \sqrt{25 - 24}}{2} = \frac{5 \pm 1}{2} \Rightarrow x = 3 \text{ o } x = 2$$
         <p>$\text{Dom}(f) = \mathbb{R} \setminus \{2, 3\}$</p>
+        <p><strong>Truco:</strong> Lee el resultado en voz alta: "todos los reales menos el 2 y el 3". Es decir, la funcion funciona con cualquier numero excepto esos dos.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Dominio racional (denominador sin solucion real)</div>
+    <p>Halla el dominio de $f(x) = \dfrac{x+1}{x^2 + 1}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Resolvemos $x^2 + 1 = 0 \Rightarrow x^2 = -1$. No tiene solucion real (ningun numero al cuadrado da negativo).</p>
+        <p>El denominador <strong>nunca se anula</strong>, asi que:</p>
+        <p>$\text{Dom}(f) = \mathbb{R}$</p>
+        <p><strong>Atencion:</strong> No todas las racionales tienen "agujeros" en el dominio. Si la ecuacion del denominador no tiene solucion, el dominio es todo $\mathbb{R}$.</p>
     </div>
 </div>
 
@@ -272,10 +318,27 @@
 <h2 id="limites">6.3 Limites de funciones <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card definition">
-    <div class="card-label">Idea intuitiva de limite</div>
-    <p>El <strong>limite</strong> de $f(x)$ cuando $x$ tiende a $x_0$ es el valor al que se <strong>acercan</strong> las imagenes ($y$) cuando las $x$ se acercan a $x_0$.</p>
-    <p>No importa lo que valga $f(x_0)$ ni si existe: solo importa a que valor se aproxima la funcion <strong>alrededor</strong> de $x_0$.</p>
-    <p><em>Ejemplo:</em> $f(x) = x^2$, $\lim_{x \to 2} x^2 = 4$. Si $x$ se acerca a 2 (por ejemplo: $1{,}9 \to 3{,}61$; $1{,}99 \to 3{,}96$; $2{,}01 \to 4{,}04$...), $f(x)$ se acerca a 4.</p>
+    <div class="card-label">Que es un limite (en cristiano)</div>
+    <p>El limite responde a una pregunta simple: <strong>a donde se acerca la funcion?</strong></p>
+    <p>Imagina que caminas por el eje X hacia un punto $x_0$. El limite te dice a que altura ($y$) te vas acercando. No importa si llegas o no a $x_0$, ni lo que haya ahi. Solo importa <strong>hacia donde apunta</strong> la funcion al acercarte.</p>
+    <p><em>Ejemplo:</em> $f(x) = x^2$. Si nos acercamos a $x = 2$:</p>
+    <table>
+        <tr><th>$x$</th><td>$1{,}9$</td><td>$1{,}99$</td><td>$1{,}999$</td><td>$\to 2 \leftarrow$</td><td>$2{,}001$</td><td>$2{,}01$</td><td>$2{,}1$</td></tr>
+        <tr><th>$f(x)$</th><td>$3{,}61$</td><td>$3{,}96$</td><td>$3{,}996$</td><td>$\to\; ?$</td><td>$4{,}004$</td><td>$4{,}04$</td><td>$4{,}41$</td></tr>
+    </table>
+    <p>Se acerca a 4 por los dos lados. Asi que $\lim_{x \to 2} x^2 = 4$.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Notacion de limites</div>
+    <table>
+        <tr><th>Escritura</th><th>Se lee</th><th>Que significa</th></tr>
+        <tr><td>$\displaystyle\lim_{x \to 2} f(x)$</td><td>"limite de $f(x)$ cuando $x$ tiende a 2"</td><td>A que valor se acerca $f(x)$ al acercarnos a $x = 2$</td></tr>
+        <tr><td>$\displaystyle\lim_{x \to 2^+}$</td><td>"por la derecha"</td><td>Nos acercamos a 2 desde valores mayores (2,1... 2,01... 2,001...)</td></tr>
+        <tr><td>$\displaystyle\lim_{x \to 2^-}$</td><td>"por la izquierda"</td><td>Nos acercamos a 2 desde valores menores (1,9... 1,99... 1,999...)</td></tr>
+        <tr><td>$\displaystyle\lim_{x \to +\infty}$</td><td>"cuando $x$ tiende a mas infinito"</td><td>Que pasa con $f(x)$ cuando $x$ crece sin parar</td></tr>
+        <tr><td>$\displaystyle\lim_{x \to -\infty}$</td><td>"cuando $x$ tiende a menos infinito"</td><td>Que pasa con $f(x)$ cuando $x$ decrece sin parar</td></tr>
+    </table>
 </div>
 
 <h3 id="limites-laterales">Limites laterales</h3>
@@ -332,8 +395,22 @@
 
 <div class="card important">
     <div class="card-label">Las 4 indeterminaciones de la asignatura <span class="exam-tag si">Siempre entra</span></div>
-    <p>Cuando al sustituir obtenemos una de estas formas, hay que <strong>operar</strong> para resolver:</p>
+    <p>Cuando al sustituir obtenemos una de estas formas, el resultado <strong>no esta decidido</strong>: puede ser un numero, infinito, o no existir. Hay que operar para averiguarlo.</p>
     $$\frac{0}{0}, \quad \frac{\infty}{\infty}, \quad \infty - \infty, \quad 0 \cdot \infty$$
+    <p><strong>Clave:</strong> Si al sustituir NO te sale ninguna de estas 4 formas, el limite ya esta resuelto. Solo cuando sale una de estas hay que hacer algo mas.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Que hago cuando me sale...? (tabla de decision) <span class="exam-tag si">Muy util</span></div>
+    <table>
+        <tr><th>Te sale</th><th>Que hacer</th><th>Ejemplo tipico</th></tr>
+        <tr><td>$\dfrac{0}{0}$ con polinomios</td><td><strong>Factorizar</strong> numerador y denominador (Ruffini). Simplificar.</td><td>$\frac{x^2-1}{x-1}$, $x \to 1$</td></tr>
+        <tr><td>$\dfrac{0}{0}$ con radicales</td><td>Multiplicar por el <strong>conjugado</strong>.</td><td>$\frac{x}{1-\sqrt{1-x}}$, $x \to 0$</td></tr>
+        <tr><td>$\dfrac{\infty}{\infty}$ con polinomios</td><td>Quedarte con el <strong>monomio de mayor grado</strong> arriba y abajo.</td><td>$\frac{3x^2+1}{2x^2-x}$, $x \to \infty$</td></tr>
+        <tr><td>$\infty - \infty$ con fracciones</td><td>Poner a <strong>comun denominador</strong>. Sale $\frac{0}{0}$.</td><td>$\frac{1}{x-2} - \frac{2x}{x^2-4}$</td></tr>
+        <tr><td>$\infty - \infty$ con raices</td><td>Multiplicar por el <strong>conjugado</strong>. Sale $\frac{\infty}{\infty}$.</td><td>$\sqrt{3x+2} - \sqrt{3x-1}$</td></tr>
+        <tr><td>$0 \cdot \infty$</td><td><strong>Reescribir</strong> como cociente $\frac{0}{0}$ o $\frac{\infty}{\infty}$.</td><td>$\frac{1}{x} \cdot \sqrt{x^2+3x}$</td></tr>
+    </table>
 </div>
 
 <div class="card formula">
@@ -495,8 +572,30 @@
 <h2 id="asintotas">6.4 Asintotas <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card definition">
-    <div class="card-label">Que son las asintotas</div>
-    <p>Las <strong>asintotas</strong> son rectas a las que la funcion se va acercando indefinidamente. Hay tres tipos:</p>
+    <div class="card-label">Que son las asintotas (en cristiano)</div>
+    <p>Las <strong>asintotas</strong> son rectas a las que la grafica de la funcion se va <strong>acercando cada vez mas</strong>, pero sin llegar a tocarlas (o tocandolas y alejandose).</p>
+    <p>Piensa en una asintota como una <strong>barrera invisible</strong>: la curva se acerca mas y mas pero nunca la cruza del todo (o la toca y se aleja). Son clave para dibujar la grafica porque te dicen como se comporta la funcion "en los extremos".</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Significado geometrico de cada tipo</div>
+    <table>
+        <tr><th>Tipo</th><th>Que ves en la grafica</th><th>Cuando aparece</th></tr>
+        <tr><td><strong>Vertical</strong> ($x = a$)</td><td>La curva "se dispara" hacia arriba o abajo al acercarse a $x = a$. La grafica se pega a esa linea vertical.</td><td>Donde el denominador se anula (divisiones por cero)</td></tr>
+        <tr><td><strong>Horizontal</strong> ($y = b$)</td><td>Cuando $x$ se hace muy grande (o muy negativo), la curva se aplana y se acerca a la altura $y = b$.</td><td>Grado del numerador $\leq$ grado del denominador</td></tr>
+        <tr><td><strong>Oblicua</strong> ($y = mx + n$)</td><td>Cuando $x$ se hace muy grande, la curva se acerca a una recta inclinada.</td><td>Grado del numerador = grado del denominador + 1</td></tr>
+    </table>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Metodo para hallar TODAS las asintotas <span class="exam-tag si">Paso a paso del examen</span></div>
+    <p>Sigue siempre este orden:</p>
+    <ol>
+        <li><strong>A.V.:</strong> Igualar denominador a 0. Los valores que lo anulan son candidatos a A.V. Confirmar que $\lim_{x \to a} f(x) = \pm\infty$.</li>
+        <li><strong>A.H.:</strong> Calcular $\lim_{x \to +\infty} f(x)$ y $\lim_{x \to -\infty} f(x)$. Si alguno da un numero $b$, la recta $y = b$ es A.H.</li>
+        <li><strong>A.O.:</strong> Solo si NO hay A.H. en esa direccion. Calcular $m$ y $n$.</li>
+    </ol>
+    <p><strong>Truco:</strong> En funciones racionales, si el grado del numerador es $\leq$ al del denominador, siempre hay A.H. y nunca A.O. Si el grado del numerador es exactamente 1 mas que el del denominador, hay A.O. y no A.H.</p>
 </div>
 
 <div class="card" style="padding: 20px;">
@@ -542,6 +641,22 @@
     </div>
 </div>
 
+<div class="card example">
+    <div class="card-label">Ejemplo - Solo A.V. y A.H. (tipo selectividad) <span class="exam-tag si">Suele entrar</span></div>
+    <p>Halla las asintotas de $f(x) = \dfrac{2x + 1}{x - 3}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>A.V.:</strong> Denominador $= 0$: $x - 3 = 0 \Rightarrow x = 3$.</p>
+        <p>$\lim_{x \to 3^+} \frac{2x+1}{x-3} = \frac{7}{0^+} = +\infty$ &emsp; $\lim_{x \to 3^-} \frac{2x+1}{x-3} = \frac{7}{0^-} = -\infty$</p>
+        <p>A.V.: $x = 3$ &#10003;</p>
+        <p><strong>A.H.:</strong> Mismo grado arriba y abajo (grado 1 ambos).</p>
+        <p>$\lim_{x \to +\infty} \frac{2x+1}{x-3} = \frac{2x}{x} = 2$ &emsp; $\lim_{x \to -\infty} \frac{2x+1}{x-3} = 2$</p>
+        <p>A.H.: $y = 2$ &#10003;</p>
+        <p><strong>A.O.:</strong> Ya hay A.H. $\Rightarrow$ no hay A.O.</p>
+        <p><strong>Resumen:</strong> A.V. en $x = 3$, A.H. en $y = 2$. La funcion se dispara en $x = 3$ y se aplana en $y = 2$ cuando $x \to \pm\infty$.</p>
+    </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- 6.5 CONTINUIDAD                                                 -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -549,26 +664,31 @@
 <h2 id="continuidad">6.5 Continuidad <span class="sel-tag si">Selectividad</span></h2>
 
 <div class="card definition">
-    <div class="card-label">Continuidad en un punto <span class="exam-tag si">Siempre entra</span></div>
-    <p>Una funcion $f(x)$ es <strong>continua en $x = a$</strong> si se cumplen las 3 condiciones:</p>
-    <table>
-        <tr><th>#</th><th>Condicion</th><th>Significado</th></tr>
-        <tr><td>1</td><td>$\exists\, f(a)$</td><td>La funcion tiene imagen en $a$ ($a$ esta en el dominio)</td></tr>
-        <tr><td>2</td><td>$\exists\, \lim_{x \to a} f(x)$</td><td>El limite existe (los laterales coinciden)</td></tr>
-        <tr><td>3</td><td>$\lim_{x \to a} f(x) = f(a)$</td><td>El limite coincide con el valor de la funcion</td></tr>
-    </table>
-    <p><strong>Importante:</strong> En el examen hay que escribir las 3 condiciones y comprobar cada una. Es la <em>definicion</em> de continuidad en un punto.</p>
+    <div class="card-label">Que significa ser continua (en cristiano)</div>
+    <p>Una funcion es <strong>continua</strong> en un punto si puedes dibujar su grafica <strong>sin levantar el lapiz</strong>. No hay saltos, no hay agujeros, no se dispara al infinito.</p>
+    <p>Si en algun punto tienes que levantar el lapiz, ahi hay una <strong>discontinuidad</strong>.</p>
 </div>
 
-<div class="card formula">
-    <div class="card-label">Funciones continuas en su dominio</div>
-    <p>Las funciones elementales son <strong>continuas en todos los puntos de su dominio</strong>:</p>
+<div class="card important">
+    <div class="card-label">Metodo I, II, III para el examen <span class="exam-tag si">Siempre entra</span></div>
+    <p>En el examen <strong>siempre</strong> tienes que escribir estas 3 condiciones y comprobar cada una en orden. Si una falla, la funcion NO es continua y puedes parar ahi.</p>
+    <table>
+        <tr><th>Paso</th><th>Condicion</th><th>Que haces</th><th>Si falla...</th></tr>
+        <tr><td><strong>I.</strong></td><td>$\exists\, f(a)$</td><td>Sustituir $x = a$ en el trozo que le corresponde</td><td>Discont. evitable (si el limite existe)</td></tr>
+        <tr><td><strong>II.</strong></td><td>$\exists\, \lim_{x \to a} f(x)$</td><td>Calcular limite por la izquierda y por la derecha. Deben coincidir.</td><td>Discont. de salto (si no coinciden)</td></tr>
+        <tr><td><strong>III.</strong></td><td>$\lim_{x \to a} f(x) = f(a)$</td><td>Comprobar que el resultado de II. es igual al de I.</td><td>Discont. evitable</td></tr>
+    </table>
+    <p><strong>Atencion:</strong> No te saltes ningun paso. Aunque "se vea" que es continua, hay que escribir los tres. Es la definicion.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Donde estudiar la continuidad</div>
+    <p>Las funciones elementales (polinomicas, exponenciales, etc.) son continuas en todo su dominio. <strong>Solo necesitas estudiar continuidad manualmente</strong> en:</p>
     <ul>
-        <li>Polinomicas: continuas en todo $\mathbb{R}$.</li>
-        <li>Racionales: continuas en $\mathbb{R}$ excepto donde se anula el denominador.</li>
-        <li>Irracionales, exponenciales, logaritmicas: continuas en su dominio.</li>
+        <li><strong>Funciones a trozos:</strong> en los puntos donde cambia la formula (los "empalmes").</li>
+        <li><strong>Funciones racionales:</strong> donde se anula el denominador (pero ahi ya no estan en el dominio).</li>
     </ul>
-    <p>Solo hay que estudiar la continuidad manualmente en las <strong>funciones a trozos</strong>, en los puntos donde cambia la definicion.</p>
+    <p><strong>Truco examen:</strong> Si te dan una funcion a trozos con 2 trozos, estudias 1 punto. Si tiene 3 trozos, estudias 2 puntos. Siempre los puntos de union.</p>
 </div>
 
 <div class="card example">
@@ -576,12 +696,13 @@
     <p>Estudia la continuidad de $f(x) = \begin{cases} x^2 & \text{si } x < 2 \\ 4 & \text{si } x \geq 2 \end{cases}$ en $x = 2$.</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p><strong>1.</strong> $f(2) = 4$ &#10003; (existe, porque $x = 2$ esta en el trozo $x \geq 2$)</p>
-        <p><strong>2.</strong> $\lim_{x \to 2^+} f(x) = \lim_{x \to 2^+} 4 = 4$</p>
+        <p><strong>I.</strong> $f(2) = 4$ &#10003; (existe, porque $x = 2$ esta en el trozo $x \geq 2$)</p>
+        <p><strong>II.</strong> Calculamos limites laterales:</p>
         <p>$\quad\;\; \lim_{x \to 2^-} f(x) = \lim_{x \to 2^-} x^2 = 4$</p>
+        <p>$\quad\;\; \lim_{x \to 2^+} f(x) = \lim_{x \to 2^+} 4 = 4$</p>
         <p>$\quad\;\;$ Coinciden $\Rightarrow \lim_{x \to 2} f(x) = 4$ &#10003;</p>
-        <p><strong>3.</strong> $\lim_{x \to 2} f(x) = 4 = f(2)$ &#10003;</p>
-        <p>Se cumplen las 3 condiciones $\Rightarrow$ $f$ es <strong>continua en $x = 2$</strong>.</p>
+        <p><strong>III.</strong> $\lim_{x \to 2} f(x) = 4 = f(2)$ &#10003;</p>
+        <p>Se cumplen I, II y III $\Rightarrow$ $f$ es <strong>continua en $x = 2$</strong>.</p>
     </div>
 </div>
 
@@ -612,26 +733,43 @@
     <p>$f(x) = \begin{cases} x^2 & \text{si } x < 2 \\ 4 & \text{si } x > 2 \end{cases}$ (no definida en $x = 2$).</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p><strong>1.</strong> $f(2)$ no existe &#10007; $\Rightarrow$ ya es discontinua.</p>
-        <p>Pero $\lim_{x \to 2^-} x^2 = 4 = \lim_{x \to 2^+} 4$, asi que el limite si existe y vale 4.</p>
-        <p>Es una <strong>discontinuidad evitable</strong>: si definieramos $f(2) = 4$, seria continua.</p>
+        <p><strong>I.</strong> $f(2)$ no existe &#10007; (no esta definida en $x = 2$) $\Rightarrow$ ya es discontinua.</p>
+        <p>Pero veamos que tipo de discontinuidad es:</p>
+        <p><strong>II.</strong> $\lim_{x \to 2^-} x^2 = 4$ &emsp; $\lim_{x \to 2^+} 4 = 4$ &emsp; Coinciden $\Rightarrow$ el limite existe y vale 4.</p>
+        <p>Falla I pero no II $\Rightarrow$ es una <strong>discontinuidad evitable</strong>: si definieramos $f(2) = 4$, seria continua. Es como un "agujero" en la grafica.</p>
     </div>
 </div>
 
 <div class="card example">
-    <div class="card-label">Ejemplo - Hallar parametros para continuidad</div>
+    <div class="card-label">Ejemplo - Hallar parametros para continuidad <span class="exam-tag si">Clasico de examen</span></div>
     <p>Halla $a$ y $b$ para que $f(x) = \begin{cases} x+3 & \text{si } x < 0 \\ ax+b & \text{si } 0 \leq x \leq 2 \\ 0{,}5x+1 & \text{si } x > 2 \end{cases}$ sea continua en $\mathbb{R}$.</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p>Cada trozo es polinomico, asi que solo estudiamos los puntos de union: $x = 0$ y $x = 2$.</p>
-        <p><strong>En $x = 0$:</strong> Continuidad $\Rightarrow$ limites laterales iguales y $= f(0)$.</p>
-        <p>$\lim_{x \to 0^-}(x+3) = 3$ &emsp; $f(0) = a \cdot 0 + b = b$</p>
-        <p>$\Rightarrow b = 3$</p>
+        <p>3 trozos $\Rightarrow$ 2 puntos de union: $x = 0$ y $x = 2$. Cada trozo es polinomico (continuo en su intervalo), asi que solo estudiamos los empalmes.</p>
+        <p><strong>En $x = 0$:</strong></p>
+        <p><strong>I.</strong> $f(0) = a \cdot 0 + b = b$ (usamos el trozo del medio, que incluye $x = 0$)</p>
+        <p><strong>II.</strong> $\lim_{x \to 0^-}(x+3) = 3$ &emsp; $\lim_{x \to 0^+}(ax+b) = b$</p>
+        <p><strong>III.</strong> Para que sea continua: $b = 3$ y los laterales deben coincidir $\Rightarrow b = 3$ &#10003;</p>
         <p><strong>En $x = 2$:</strong></p>
-        <p>$f(2) = 2a + b = 2a + 3$ &emsp; $\lim_{x \to 2^+}(0{,}5x+1) = 2$</p>
-        <p>$\Rightarrow 2a + 3 = 2 \Rightarrow a = -\frac{1}{2}$</p>
+        <p><strong>I.</strong> $f(2) = 2a + b = 2a + 3$</p>
+        <p><strong>II.</strong> $\lim_{x \to 2^-}(ax+b) = 2a + 3$ &emsp; $\lim_{x \to 2^+}(0{,}5x+1) = 2$</p>
+        <p><strong>III.</strong> Para que sea continua: $2a + 3 = 2 \Rightarrow a = -\frac{1}{2}$</p>
         <p><strong>Solucion:</strong> $a = -1/2$, $b = 3$.</p>
+        <p><strong>Truco:</strong> En este tipo de ejercicio, la idea es que para ser continua los trozos tienen que "empalmarse" sin saltos. Cada punto de union te da una ecuacion.</p>
     </div>
+</div>
+
+<div class="card" style="border-left: 3px solid var(--violet); margin-top: 32px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Recursos externos para practicar (curso 2025-2026)</div>
+    <p>Ejercicios de selectividad Andalucia CCSS II &mdash; limites, dominio, continuidad:</p>
+    <ul>
+        <li><a href="https://blogsaverroes.juntadeandalucia.es/rafaelnunezmat/selectividad" target="_blank" rel="noopener">Rafael Nunez &mdash; Junta de Andalucia</a> &mdash; Todos los ejercicios de analisis de selectividad Andalucia (1995&ndash;2025), resueltos en Word/PDF</li>
+        <li><a href="https://www.emestrada.org/" target="_blank" rel="noopener">Emestrada</a> &mdash; Examenes PEvAU de Andalucia resueltos por anos (incluye 2025)</li>
+        <li><a href="https://www.ebaumatematicas.com/matematicas-ccss-ii/" target="_blank" rel="noopener">EbauMatematicas</a> &mdash; +500 ejercicios de selectividad CCSS II (2017&ndash;2025) organizados por bloque</li>
+        <li><a href="https://picastro.es/resueltos-pevau-2025-matematicas-cc-ss-ii/" target="_blank" rel="noopener">PiCastro</a> &mdash; PEvAU julio 2025 CCSS II resuelto paso a paso</li>
+        <li><a href="https://www.examenesdepau.com/examenes/andalucia/matematicas-aplicadas/" target="_blank" rel="noopener">ExamenesdePAU</a> &mdash; Todos los examenes de Andalucia desde 1995, descargables</li>
+    </ul>
+    <p style="font-size: 0.8rem; color: var(--text-dim);"><strong>Ponencia vigente:</strong> <a href="https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/examanes_anios_anteriores/selectividad/sel_2025-2026-Orientaciones_matematicas_aplicadas.pdf" target="_blank" rel="noopener">Directrices y Orientaciones CCSS II 2025-2026, Junta de Andalucia</a>. Segun esta ponencia, las 4 indeterminaciones que entran son $\frac{0}{0}$, $\frac{\infty}{\infty}$, $\infty - \infty$ y $0 \cdot \infty$. La indeterminacion $1^\infty$ NO entra en CCSS II.</p>
 </div>
 
 </div><!-- end main -->
