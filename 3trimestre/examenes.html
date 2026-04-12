@@ -12,12 +12,17 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
     <link rel="stylesheet" href="style.css">
+    <script src="graphs.js" defer></script>
     <style>
         :root { --card: var(--surface); --accent: var(--blue); --success: var(--green); --warning: var(--amber); --danger: var(--red); }
         html { scroll-behavior: smooth; }
         .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, var(--blue), var(--teal)); z-index: 300; transition: width 0.15s; }
         .source-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgba(187,154,247,0.12); color: #bb9af7; margin-bottom: 10px; font-family: var(--font-body); }
         .pts-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: rgba(224,175,104,0.12); color: #e0af68; margin-left: 6px; }
+        .graph-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; }
+        .graph-tag.pide { background: rgba(158,206,106,0.12); color: #9ece6a; }
+        .graph-tag.visual { background: rgba(115,218,202,0.1); color: #73daca; }
+        .graph-canvas { width: 100%; border-radius: 8px; margin: 12px 0; }
     </style>
 </head>
 <body>
@@ -128,6 +133,8 @@
         <p><strong>iii) Beneficio:</strong></p>
         <p>Ingreso: $\frac{32}{3} \times 300 = 3200$ euros.</p>
         <p>Beneficio: $3200 - 2400 = \boxed{800 \text{ euros}}$</p>
+        <canvas class="graph-canvas" id="g-ponencia-2b" style="height:260px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> Region acotada entre $f(x)=(x-1)^2$ y $g(x)=5-2x$.</p>
     </div>
 </div>
 
@@ -168,6 +175,8 @@
         <p>$\int_0^1 = F(1) - F(0) = \frac{1}{4} - 1 + 1 = \frac{1}{4}$</p>
         <p>$\int_1^2 = F(2) - F(1) = (4 - 8 + 4) - \frac{1}{4} = -\frac{1}{4}$</p>
         <p>$A = \frac{1}{4} + \frac{1}{4} = \boxed{\frac{1}{2} \text{ u}^2}$</p>
+        <canvas class="graph-canvas" id="g-sel-ej1" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> $f(x) = x^3-3x^2+2x$ con max, min, inflexion y areas sombreadas.</p>
     </div>
 </div>
 
@@ -181,12 +190,18 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>a) Continuidad:</strong></p>
-        <p>Cada trozo es continuo en su dominio (polinomica y racional). Solo estudiamos $x = 1$ y $x = 2$ (donde el 2o trozo no esta definido).</p>
+        <p>Cada trozo es continuo en su dominio (polinomica y racional). Solo estudiamos $x = 1$ y $x = 2$.</p>
         <p><em>En $x = 1$:</em></p>
-        <p>$f(1) = 1 + 2 - 3 = 0$ &emsp; $\lim_{x \to 1^-}(x^3+2x^2-3) = 0$ &emsp; $\lim_{x \to 1^+}(1 + \frac{1}{x-2}) = 1 - 1 = 0$</p>
+        <p><strong>I.</strong> $\exists\, f(1) = 1 + 2 - 3 = 0$ &#10003;</p>
+        <p><strong>II.</strong> $\exists\, \lim_{x \to 1} f(x)$: &emsp; $\lim_{x \to 1^-}(x^3+2x^2-3) = 0$ &emsp; $\lim_{x \to 1^+}(1 + \frac{1}{x-2}) = 0$ &emsp; Coinciden $\Rightarrow \lim = 0$ &#10003;</p>
+        <p><strong>III.</strong> $f(1) = \lim_{x \to 1} f(x) = 0$ &#10003; &larr; <em>esto es imprescindible</em></p>
         <p>Las 3 condiciones se cumplen $\Rightarrow$ <strong>continua en $x = 1$</strong>.</p>
-        <p><em>En $x = 2$:</em> $f(2)$ no existe ($\frac{1}{0}$). $\lim_{x \to 2^+} = +\infty$, $\lim_{x \to 2^-} = -\infty$.</p>
+        <p><em>En $x = 2$:</em></p>
+        <p><strong>I.</strong> $f(2)$ no existe ($\frac{1}{0}$) &#10007; &mdash; ya es discontinua.</p>
+        <p>Ademas: $\lim_{x \to 2^+} = +\infty$, $\lim_{x \to 2^-} = -\infty$.</p>
         <p><strong>Discontinuidad esencial (de salto infinito) en $x = 2$.</strong></p>
+        <canvas class="graph-canvas" id="g-ej4-sel" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag visual">Visual de apoyo</span> Se ve el salto infinito en $x=2$ y la continuidad en $x=1$.</p>
 
         <p><strong>b) Derivabilidad:</strong></p>
         <p>En $x = 1$ (es continua, estudiamos derivadas laterales):</p>
@@ -312,10 +327,14 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>Continuidad en $x = -1$:</strong></p>
-        <p>$\lim_{x \to -1^-}(-4x-3) = 4-3 = 1$ &emsp; $\lim_{x \to -1^+}(2x^2-1) = 2-1 = 1$ &emsp; &#10003; continua.</p>
+        <p><strong>I.</strong> $\exists\, f(-1) = -4(-1)-3 = 1$ &#10003;</p>
+        <p><strong>II.</strong> $\lim_{x \to -1^-}(-4x-3) = 1$ &emsp; $\lim_{x \to -1^+}(2x^2-1) = 1$ &emsp; Coinciden &#10003;</p>
+        <p><strong>III.</strong> $f(-1) = 1 = \lim$ &#10003; &larr; <em>imprescindible</em></p>
+        <p>Continua en $x = -1$ &#10003;</p>
         <p><strong>Continuidad en $x = 1$:</strong></p>
-        <p>$\lim_{x \to 1^-}(2x^2-1) = 1$ &emsp; $f(1) = k+2$</p>
-        <p>$k + 2 = 1 \Rightarrow \boxed{k = -1}$</p>
+        <p><strong>I.</strong> $\exists\, f(1) = k+2$</p>
+        <p><strong>II.</strong> $\lim_{x \to 1^-}(2x^2-1) = 1$ &emsp; $\lim_{x \to 1^+}\frac{k+2}{x} = k+2$ &emsp; Coinciden si $k+2 = 1$</p>
+        <p><strong>III.</strong> $f(1) = k+2 = \lim = 1$ $\Rightarrow k + 2 = 1 \Rightarrow \boxed{k = -1}$</p>
         <p><strong>Derivabilidad en $x = -1$:</strong></p>
         <p>$f'(x) = -4$ para $x \leq -1$ $\Rightarrow f'(-1^-) = -4$</p>
         <p>$f'(x) = 4x$ para $-1 < x < 1$ $\Rightarrow f'(-1^+) = -4$ &emsp; Coinciden &#10003; <strong>derivable</strong>.</p>
@@ -383,8 +402,9 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>a) Continuidad en $x = 1$:</strong></p>
-        <p>$f(1) = 6-3 = 3$ &emsp; $\lim_{x \to 1^+}(a+b+2) = a+b+2$</p>
-        <p>$a + b + 2 = 3 \Rightarrow a + b = 1$ &emsp; (1)</p>
+        <p><strong>I.</strong> $\exists\, f(1) = 6-3 = 3$</p>
+        <p><strong>II.</strong> $\lim_{x \to 1^-}(6x-3) = 3$ &emsp; $\lim_{x \to 1^+}(a+b+2) = a+b+2$ &emsp; Coinciden si $a+b+2 = 3$</p>
+        <p><strong>III.</strong> $f(1) = 3 = \lim$ &#10003; $\Rightarrow a + b = 1$ &emsp; (1)</p>
         <p><strong>Derivabilidad en $x = 1$:</strong></p>
         <p>$f'(x) = 6$ para $x \leq 1$ &emsp; $f'(x) = 2ax+b$ para $x > 1$</p>
         <p>$f'(1^-) = 6 = f'(1^+) = 2a + b$ &emsp; (2)</p>
@@ -419,8 +439,9 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>i) Continuidad en $x = 1$:</strong></p>
-        <p>$f(1) = a - \ln 1 = a$</p>
-        <p>$\lim_{x \to 1^-}(a - \ln x) = a$ &emsp; $\lim_{x \to 1^+}(-x^2+x+b) = -1+1+b = b$</p>
+        <p><strong>I.</strong> $\exists\, f(1) = a - \ln 1 = a$</p>
+        <p><strong>II.</strong> $\lim_{x \to 1^-}(a - \ln x) = a$ &emsp; $\lim_{x \to 1^+}(-x^2+x+b) = b$ &emsp; Coinciden si $a = b$ &#10003;</p>
+        <p><strong>III.</strong> $f(1) = a = \lim = b$ $\Rightarrow$ se cumple si $a = b$ &#10003; &larr; <em>imprescindible</em></p>
         <p>Continuidad $\Rightarrow a = b$</p>
         <p><strong>Derivabilidad en $x = 1$:</strong></p>
         <p>$f'(x) = -\frac{1}{x}$ si $0 < x \leq 1$ $\Rightarrow f'(1^-) = -1$</p>
@@ -435,6 +456,8 @@
         <p><strong>b) Cortes:</strong></p>
         <p>Eje Y: $x = 0 \notin \text{Dom}(f)$, no hay corte.</p>
         <p>Eje X: $1 - \ln x = 0 \Rightarrow \ln x = 1 \Rightarrow x = e \notin (0,1]$. $-x^2+x+1 = 0 \Rightarrow x = \frac{1+\sqrt{5}}{2} \approx 1{,}61$. Corte en $\left(\frac{1+\sqrt{5}}{2}, 0\right)$.</p>
+        <canvas class="graph-canvas" id="g-pon-ej7" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span></p>
     </div>
 </div>
 
@@ -448,8 +471,9 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>i) Continuidad en $x = -6$:</strong></p>
-        <p>$f(-6) = 2^{6/2} = 2^3 = 8$</p>
-        <p>$\lim_{x \to -6^-}((-6)^2 + a(-6) + b) = 36 - 6a + b$ &emsp; $\Rightarrow 36 - 6a + b = 8$</p>
+        <p><strong>I.</strong> $\exists\, f(-6) = 2^{6/2} = 2^3 = 8$</p>
+        <p><strong>II.</strong> $\lim_{x \to -6^-}(x^2 + ax + b) = 36 - 6a + b$ &emsp; $\lim_{x \to -6^+} 2^{-x/2} = 2^3 = 8$</p>
+        <p><strong>III.</strong> $f(-6) = 8 = \lim$ $\Rightarrow 36 - 6a + b = 8$ &larr; <em>imprescindible</em></p>
         <p><strong>Derivabilidad en $x = -6$:</strong></p>
         <p>$f'(x) = 2x + a$ si $x < -6$ $\Rightarrow f'(-6^-) = -12 + a$</p>
         <p>$f'(x) = 2^{-x/2} \cdot (-\frac{1}{2}) \ln 2$ si $x \geq -6$ $\Rightarrow f'(-6^+) = 2^3 \cdot (-\frac{1}{2})\ln 2 = -4\ln 2$</p>
@@ -491,6 +515,8 @@
         <p><strong>Curvatura:</strong> $f''(t) = 0{,}25 \cdot e^{0{,}05t} > 0$ siempre $\Rightarrow$ <strong>convexa ($\cup$) en todo $\mathbb{R}$</strong>.</p>
         <p><strong>c) Llegar a 4700:</strong></p>
         <p>$100e^{0{,}05t} = 4700 \Rightarrow e^{0{,}05t} = 47 \Rightarrow 0{,}05t = \ln 47 \Rightarrow t = \frac{\ln 47}{0{,}05} \approx 77$ minutos.</p>
+        <canvas class="graph-canvas" id="g-pon-ej9" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> Crecimiento exponencial $f(t) = 100e^{0{,}05t}$.</p>
     </div>
 </div>
 
@@ -517,6 +543,8 @@
 
         <p><strong>c) Monotonia:</strong></p>
         <p>$F'(t) = -\frac{100 \ln 2}{3} \cdot 2^{-t/3} < 0$ siempre $\Rightarrow$ <strong>decreciente en $(0, +\infty)$</strong>. No hay extremos.</p>
+        <canvas class="graph-canvas" id="g-pon-ej10" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> Desintegracion $F(t) = 100 \cdot 2^{-t/3}$, A.H. $y=0$.</p>
     </div>
 </div>
 
@@ -540,6 +568,8 @@
         <p><strong>iii) Datos para la grafica:</strong></p>
         <p>Corte eje X: $1-e^x = 0 \Rightarrow e^x = 1 \Rightarrow x = 0$. Punto $(0, 0)$.</p>
         <p>Corte eje Y: $f(0) = 0$. La funcion pasa por el origen, decrece, se acerca a $y = 1$ por la izquierda y a $-\infty$ por la derecha.</p>
+        <canvas class="graph-canvas" id="g-pon-ej11" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> $f(x)=1-e^x$, A.H. $y=1$ cuando $x \to -\infty$.</p>
     </div>
 </div>
 
@@ -562,6 +592,8 @@
         <p><strong>iii) Grafica:</strong></p>
         <p>A.H.: $\lim_{x \to -\infty}(e^{2x-1}-1) = 0 - 1 = -1$ $\Rightarrow$ A.H. $y = -1$ cuando $x \to -\infty$.</p>
         <p>Corte eje X: $e^{2x-1} = 1 \Rightarrow 2x-1 = 0 \Rightarrow x = \frac{1}{2}$. Corte eje Y: $f(0) = e^{-1}-1 \approx -0{,}63$.</p>
+        <canvas class="graph-canvas" id="g-pon-ej12" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> $f(x)=e^{2x-1}-1$, A.H. $y=-1$, tangente en $x=1$.</p>
     </div>
 </div>
 
@@ -590,6 +622,8 @@
         <p>Signo de $f''$: negativo en $(-\infty, -1)$, positivo en $(-1, 1)$, negativo en $(1, +\infty)$.</p>
         <p>Concava, convexa, concava.</p>
         <p>$f(1) = \ln 2$, $f(-1) = \ln 2$. <strong>Puntos de inflexion: $(-1, \ln 2)$ y $(1, \ln 2)$.</strong></p>
+        <canvas class="graph-canvas" id="g-pon-ej13" style="height:240px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> $f(x)=\ln(x^2+1)$, min en $(0,0)$, inflexion en $(\pm 1, \ln 2)$.</p>
     </div>
 </div>
 
@@ -617,6 +651,8 @@
         $$\int_{-1}^{0} = -\frac{1}{2}\left[e^{1-x^2}\right]_{-1}^{0} = -\frac{1}{2}(e^1 - e^0) = -\frac{1}{2}(e-1)$$
         $$\int_0^1 = -\frac{1}{2}\left[e^{1-x^2}\right]_0^1 = -\frac{1}{2}(e^0 - e^1) = \frac{1}{2}(e-1)$$
         $$A = \frac{e-1}{2} + \frac{e-1}{2} = \boxed{e - 1 \approx 1{,}72 \text{ u}^2}$$
+        <canvas class="graph-canvas" id="g-pon-ej14" style="height:260px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> $f(x) = x \cdot e^{1-x^2}$ con area sombreada entre $x=-1$ y $x=1$.</p>
     </div>
 </div>
 
@@ -638,10 +674,14 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>Continuidad en $x = 0$:</strong></p>
-        <p>1. $f(0) = \frac{5}{9}(0)+3 = 3$ &#10003;</p>
-        <p>2. $\lim_{x \to 0^-}\left(\frac{5}{9}x+3\right) = 3$ &emsp; $\lim_{x \to 0^+}\sqrt[3]{x} \cdot e^x = 0 \cdot 1 = 0$</p>
-        <p>$3 \neq 0$ $\Rightarrow$ <strong>No existe el limite</strong>.</p>
-        <p><strong>Discontinuidad de salto</strong> (salto de valor $|3-0| = 3$).</p>
+        <p><strong>I.</strong> $\exists\, f(0) = \frac{5}{9}(0)+3 = 3$ &#10003;</p>
+        <p><strong>II.</strong> $\exists\, \lim_{x \to 0} f(x)$?</p>
+        <p>&emsp; $\lim_{x \to 0^-}\left(\frac{5}{9}x+3\right) = 3$ &emsp; $\lim_{x \to 0^+}\sqrt[3]{x} \cdot e^x = 0 \cdot 1 = 0$</p>
+        <p>&emsp; $3 \neq 0$ $\Rightarrow$ <strong>No existe el limite</strong> &#10007; &mdash; ya falla la condicion II.</p>
+        <p><strong>III.</strong> No procede (falla II).</p>
+        <p><strong>Discontinuidad de salto finito</strong> (salto de valor $|3-0| = 3$).</p>
+        <canvas class="graph-canvas" id="g-clase16-1" style="height:220px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag visual">Visual de apoyo</span></p>
     </div>
 </div>
 
@@ -652,10 +692,13 @@
     <p>Estudia la continuidad de $f(x) = \begin{cases} 3x+4 & \text{si } x < -1 \\ 4-7x & \text{si } x > -1 \end{cases}$ en $x = -1$.</p>
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
-        <p>1. $f(-1)$ no existe (no esta definida en $x = -1$) &#10007;</p>
-        <p>2. $\lim_{x \to -1^-}(3x+4) = 1$ &emsp; $\lim_{x \to -1^+}(4-7x) = 4-(-7) = 11$</p>
-        <p>$1 \neq 11$ $\Rightarrow$ el limite no existe.</p>
-        <p><strong>Discontinuidad de salto finito</strong> (salto $= 10$).</p>
+        <p><strong>I.</strong> $f(-1)$ no existe (no esta definida en $x = -1$) &#10007; &mdash; ya es discontinua.</p>
+        <p><strong>II.</strong> $\lim_{x \to -1^-}(3x+4) = 1$ &emsp; $\lim_{x \to -1^+}(4-7x) = 4+7 = 11$</p>
+        <p>&emsp; $1 \neq 11$ $\Rightarrow$ el limite tampoco existe &#10007;</p>
+        <p><strong>III.</strong> No procede.</p>
+        <p><strong>Discontinuidad de salto finito</strong> (salto $= |11-1| = 10$).</p>
+        <canvas class="graph-canvas" id="g-clase16-2" style="height:220px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag visual">Visual de apoyo</span> Se ven los dos trozos sin conectar en $x=-1$: &#9679; y &#9675;.</p>
     </div>
 </div>
 
@@ -672,6 +715,8 @@
         <p><strong>Corte eje Y:</strong> $f(0) = \frac{-24}{3} = -8$. Punto $(0, -8)$.</p>
         <p><strong>Corte eje X:</strong> $12t-24 = 0 \Rightarrow t = 2$. Punto $(2, 0)$.</p>
         <p><strong>Posicion respecto a A.H.:</strong> $\frac{12t-24}{t+3} = 12 - \frac{60}{t+3}$. Como $\frac{60}{t+3} > 0$ para $t > 0$, la curva esta siempre <strong>por debajo</strong> de $y = 12$.</p>
+        <canvas class="graph-canvas" id="g-clase17" style="height:260px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag pide">Lo pide el ejercicio</span> Representacion grafica con A.H. $y=12$.</p>
     </div>
 </div>
 
@@ -683,8 +728,9 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>Continuidad en $x = 1$:</strong></p>
-        <p>$f(1) = a+b-3$ &emsp; $\lim_{x \to 1^+}(2b-4) = 2b-4$</p>
-        <p>$a+b-3 = 2b-4 \Rightarrow a-b = -1$ &emsp; (1)</p>
+        <p><strong>I.</strong> $\exists\, f(1) = a+b-3$</p>
+        <p><strong>II.</strong> $\lim_{x \to 1^-}(ax^2+bx-3) = a+b-3$ &emsp; $\lim_{x \to 1^+}(2bx-4) = 2b-4$ &emsp; Coinciden si $a+b-3 = 2b-4$</p>
+        <p><strong>III.</strong> $f(1) = \lim$ $\Rightarrow a - b = -1$ &emsp; (1)</p>
         <p><strong>Derivabilidad en $x = 1$:</strong></p>
         <p>$f'(x) = 2ax+b \Rightarrow f'(1^-) = 2a+b$</p>
         <p>$f'(x) = 2b \Rightarrow f'(1^+) = 2b$</p>
@@ -745,6 +791,8 @@
         <p><strong>Curvatura:</strong> $f''(x) = 0 \Rightarrow 6x-12 = 0 \Rightarrow x = 2$</p>
         <p>Concava en $(-\infty, 2)$, convexa en $(2, +\infty)$.</p>
         <p>$f(2) = 8-24+11 = -5$. <strong>Punto de inflexion: $(2, -5)$.</strong></p>
+        <canvas class="graph-canvas" id="g-clase06-10a" style="height:260px;"></canvas>
+        <p style="font-size:0.78rem;color:var(--text-dim);"><span class="graph-tag visual">Visual de apoyo</span> $f(x)=x^3-6x^2+11$ con max, min e inflexion marcados.</p>
     </div>
 </div>
 
@@ -772,6 +820,173 @@ window.addEventListener('scroll', function() {
 });
 document.querySelectorAll('.sidebar a').forEach(function(a) {
     a.addEventListener('click', function() { if (window.innerWidth <= 900) document.querySelector('.sidebar').classList.remove('show'); });
+});
+
+// === GRAFICOS DE EJERCICIOS ===
+window.addEventListener('load', function() {
+    var zero = function() { return 0; };
+
+    // Ponencia 2025-2026 Ej 2b: area entre (x-1)^2 y 5-2x
+    var p2b_f = function(x) { return (x-1)*(x-1); };
+    var p2b_g = function(x) { return 5-2*x; };
+    plotGraph('g-ponencia-2b', {
+        height: 260, title: 'f(x)=(x-1)² y g(x)=5-2x',
+        functions: [{fn: p2b_f, color:'#7aa2f7'}, {fn: p2b_g, color:'#9ece6a'}],
+        xMin: -3, xMax: 4, yMin: -2, yMax: 12,
+        fillBetween: [{f1: p2b_g, f2: p2b_f, from: -2, to: 2, color:'rgba(158,206,106,0.15)'}],
+        points: [{x:-2,y:9,color:'#e0af68',label:'(-2,9)',r:4},{x:2,y:1,color:'#e0af68',label:'(2,1)',r:4}]
+    });
+
+    // Selectividad 2023 Junio B3: f(x) = x^3 - 3x^2 + 2x
+    var s1 = function(x) { return x*x*x - 3*x*x + 2*x; };
+    plotGraph('g-sel-ej1', {
+        height: 240, title: 'f(x) = x³ - 3x² + 2x',
+        functions: [s1], xMin: -0.5, xMax: 2.5, yMin: -0.6, yMax: 0.6,
+        fillBetween: [
+            {f1: s1, f2: zero, from: 0, to: 1, color:'rgba(122,162,247,0.2)'},
+            {f1: zero, f2: s1, from: 1, to: 2, color:'rgba(247,118,142,0.2)'}
+        ],
+        points: [{x:0.42,y:0.38,color:'#f7768e',label:'Max',r:4},{x:1.58,y:-0.38,color:'#9ece6a',label:'Min',r:4},{x:1,y:0,color:'#e0af68',label:'Infl',r:4}]
+    });
+
+    // Selectividad Reserva 1 B4: funcion a trozos con asintota
+    plotGraph('g-ej4-sel', {
+        height: 240, title: 'f(x) = {x³+2x²-3, 1+1/(x-2)}',
+        functions: [
+            function(x) { return x <= 1 ? x*x*x+2*x*x-3 : NaN; },
+            function(x) { return x > 1 ? 1+1/(x-2) : NaN; }
+        ],
+        xMin: -3, xMax: 6, yMin: -5, yMax: 5,
+        asymptotes: [{type:'v',val:2,label:'x=2',color:'#f7768e'},{type:'h',val:1,label:'y=1',color:'#e0af68'}],
+        points: [{x:1,y:0,color:'#9ece6a',label:'continua',r:4}]
+    });
+
+    // Ponencia 24/25 Ej 7: a-ln(x) y -x²+x+b
+    plotGraph('g-pon-ej7', {
+        height: 240, title: 'f(x) = {1-ln(x), -x²+x+1}',
+        functions: [
+            function(x) { return (x > 0 && x <= 1) ? 1-Math.log(x) : NaN; },
+            function(x) { return x > 1 ? -x*x+x+1 : NaN; }
+        ],
+        xMin: -0.5, xMax: 3, yMin: -2, yMax: 4,
+        points: [{x:1,y:1,color:'#9ece6a',label:'(1,1)',r:4},{x:1.618,y:0,color:'#e0af68',label:'corte X',r:3}]
+    });
+
+    // Ej 9: bacterias f(t) = 100*e^(0.05t)
+    plotGraph('g-pon-ej9', {
+        height: 240, title: 'f(t) = 100·e^(0.05t)',
+        functions: [function(x) { return 100*Math.exp(0.05*x); }],
+        xMin: -10, xMax: 80, yMin: -50, yMax: 500,
+        points: [{x:0,y:100,color:'#9ece6a',label:'100',r:4},{x:30,y:449,color:'#e0af68',label:'449',r:4},{x:77,y:4700,color:'#f7768e',label:'4700',r:4}],
+        asymptotes: [{type:'h',val:0,label:'y=0',color:'#787c9e'}]
+    });
+
+    // Ej 10: desintegracion F(t) = 100*2^(-t/3)
+    plotGraph('g-pon-ej10', {
+        height: 240, title: 'F(t) = 100·2^(-t/3)',
+        functions: [function(x) { return x >= 0 ? 100*Math.pow(2,-x/3) : NaN; }],
+        xMin: -2, xMax: 18, yMin: -10, yMax: 110,
+        points: [{x:0,y:100,color:'#9ece6a',label:'100g',r:4},{x:3,y:50,color:'#e0af68',label:'50g',r:4},{x:6,y:25,color:'#f7768e',label:'25g',r:4}],
+        asymptotes: [{type:'h',val:0,label:'y=0',color:'#e0af68'}]
+    });
+
+    // Ej 11: f(x) = 1 - e^x
+    plotGraph('g-pon-ej11', {
+        height: 240, title: 'f(x) = 1 - eˣ',
+        functions: [function(x) { return 1-Math.exp(x); }],
+        xMin: -5, xMax: 3, yMin: -8, yMax: 3,
+        asymptotes: [{type:'h',val:1,label:'y=1',color:'#e0af68'}],
+        points: [{x:0,y:0,color:'#9ece6a',label:'(0,0)',r:4}]
+    });
+
+    // Ej 12: f(x) = e^(2x-1) - 1, tangente en x=1
+    plotGraph('g-pon-ej12', {
+        height: 240, title: 'f(x) = e^(2x-1) - 1',
+        functions: [
+            function(x) { return Math.exp(2*x-1)-1; },
+            {fn: function(x) { return 2*Math.E*x - Math.E - 1; }, color:'#9ece6a', lineWidth:1.5, dashed:true}
+        ],
+        xMin: -3, xMax: 2.5, yMin: -3, yMax: 8,
+        asymptotes: [{type:'h',val:-1,label:'y=-1',color:'#e0af68'}],
+        points: [{x:1,y:Math.E-1,color:'#f7768e',label:'(1,e-1)',r:4},{x:0.5,y:0,color:'#e0af68',label:'(½,0)',r:3}]
+    });
+
+    // Ej 13: f(x) = ln(x²+1)
+    plotGraph('g-pon-ej13', {
+        height: 240, title: 'f(x) = ln(x²+1)',
+        functions: [function(x) { return Math.log(x*x+1); }],
+        xMin: -4, xMax: 4, yMin: -1, yMax: 3.5,
+        points: [
+            {x:0,y:0,color:'#9ece6a',label:'Min (0,0)',r:5},
+            {x:-1,y:Math.log(2),color:'#e0af68',label:'Infl',r:4},
+            {x:1,y:Math.log(2),color:'#e0af68',label:'Infl',r:4}
+        ]
+    });
+
+    // Ej 14: f(x) = x*e^(1-x²) con area
+    var ej14 = function(x) { return x*Math.exp(1-x*x); };
+    plotGraph('g-pon-ej14', {
+        height: 260, title: 'f(x) = x·e^(1-x²)',
+        functions: [ej14], xMin: -3, xMax: 3, yMin: -1.5, yMax: 1.5,
+        fillBetween: [
+            {f1: zero, f2: ej14, from: -1, to: 0, color:'rgba(247,118,142,0.2)'},
+            {f1: ej14, f2: zero, from: 0, to: 1, color:'rgba(122,162,247,0.2)'}
+        ],
+        asymptotes: [{type:'h',val:0,label:'y=0',color:'#787c9e'}],
+        points: [
+            {x:0.707,y:0.707*Math.exp(1-0.5),color:'#f7768e',label:'Max',r:4},
+            {x:-0.707,y:-0.707*Math.exp(1-0.5),color:'#9ece6a',label:'Min',r:4}
+        ]
+    });
+
+    // Clase 16 mar: discontinuidad de salto
+    plotGraph('g-clase16-1', {
+        height: 220, title: 'Discont. salto en x=0',
+        functions: [
+            function(x) { return (x >= -1 && x <= 0) ? 5/9*x+3 : NaN; },
+            function(x) { return x > 0 ? Math.cbrt(x)*Math.exp(x) : NaN; }
+        ],
+        xMin: -2, xMax: 3, yMin: -1, yMax: 5,
+        points: [
+            {x:0, y:3, color:'#9ece6a', label:'f(0)=3', r:5},
+            {x:0, y:0, color:'#f7768e', label:'lim+=0', r:5, open:true}
+        ]
+    });
+
+    // Clase 16 mar: discontinuidad de salto finito
+    plotGraph('g-clase16-2', {
+        height: 220, title: 'Discont. salto en x=-1',
+        functions: [
+            function(x) { return x < -1 ? 3*x+4 : NaN; },
+            function(x) { return x > -1 ? 4-7*x : NaN; }
+        ],
+        xMin: -3, xMax: 2, yMin: -6, yMax: 12,
+        points: [
+            {x:-1, y:1, color:'#7aa2f7', label:'lim-=1', r:5, open:true},
+            {x:-1, y:11, color:'#f7768e', label:'lim+=11', r:5, open:true}
+        ]
+    });
+
+    // Clase 17 mar: f(t) = (12t-24)/(t+3)
+    plotGraph('g-clase17', {
+        height: 260, title: 'f(t) = (12t-24)/(t+3),  t≥0',
+        functions: [function(x) { return x >= 0 ? (12*x-24)/(x+3) : NaN; }],
+        xMin: -1, xMax: 25, yMin: -10, yMax: 14,
+        asymptotes: [{type:'h',val:12,label:'y=12',color:'#e0af68'}],
+        points: [{x:0,y:-8,color:'#7aa2f7',label:'(0,-8)',r:4},{x:2,y:0,color:'#9ece6a',label:'(2,0)',r:4}]
+    });
+
+    // Clase 6 abr: f(x)=x³-6x²+11
+    plotGraph('g-clase06-10a', {
+        height: 260, title: 'f(x) = x³ - 6x² + 11',
+        functions: [function(x) { return x*x*x-6*x*x+11; }],
+        xMin: -2, xMax: 6, yMin: -25, yMax: 15,
+        points: [
+            {x:0,y:11,color:'#f7768e',label:'Max (0,11)',r:5},
+            {x:4,y:-21,color:'#9ece6a',label:'Min (4,-21)',r:5},
+            {x:2,y:-5,color:'#e0af68',label:'Infl (2,-5)',r:5}
+        ]
+    });
 });
 </script>
 
