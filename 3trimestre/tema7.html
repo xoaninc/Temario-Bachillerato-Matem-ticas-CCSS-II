@@ -177,14 +177,17 @@
     <p>Consecuencia practica: para estudiar derivabilidad, <strong>primero</strong> comprobamos continuidad. Si no es continua, directamente no es derivable.</p>
 </div>
 
-<div class="card definition">
-    <div class="card-label">Derivadas laterales</div>
-    <p>En funciones a trozos, $f$ es derivable en el punto de union $x = a$ si:</p>
-    <ol>
-        <li>$f$ es continua en $x = a$.</li>
-        <li>Las derivadas laterales coinciden: $f'(a^-) = f'(a^+)$.</li>
-    </ol>
-    <p>Se calculan derivando cada trozo y sustituyendo $x = a$.</p>
+<div class="card important">
+    <div class="card-label">Metodo para estudiar continuidad y derivabilidad <span class="exam-tag si">Siempre entra</span></div>
+    <p>En funciones a trozos, en el punto de union $x = a$ seguimos <strong>siempre</strong> estos pasos en orden:</p>
+    <table>
+        <tr><th>Paso</th><th>Que comprobamos</th><th>Que haces</th><th>Si falla...</th></tr>
+        <tr><td><strong>I.</strong></td><td>$\exists\, f(a)$</td><td>Sustituir $x = a$ en el trozo que le corresponde</td><td>No continua $\Rightarrow$ no derivable</td></tr>
+        <tr><td><strong>II.</strong></td><td>$\exists\, \lim_{x \to a} f(x)$</td><td>Calcular limite por la izquierda y por la derecha. Deben coincidir.</td><td>No continua $\Rightarrow$ no derivable</td></tr>
+        <tr><td><strong>III.</strong></td><td>$\lim_{x \to a} f(x) = f(a)$</td><td>Comprobar que el resultado de II. es igual al de I.</td><td>No continua $\Rightarrow$ no derivable</td></tr>
+        <tr><td><strong>Deriv.</strong></td><td>$f'(a^-) = f'(a^+)$</td><td>Derivar cada trozo y sustituir $x = a$. Las derivadas laterales deben coincidir.</td><td>Continua pero no derivable (punto anguloso)</td></tr>
+    </table>
+    <p><strong>Atencion:</strong> No te saltes ningun paso. Aunque "se vea" que es continua, hay que escribir I, II, III. Solo si pasa los tres, pasamos a derivabilidad.</p>
 </div>
 
 <div class="card example">
@@ -193,12 +196,14 @@
     <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
     <div class="solution-content">
         <p><strong>Continuidad en $x = 3$:</strong></p>
-        <p>$f(3) = 9 - 9 = 0$ &emsp; $\lim_{x \to 3^-}(9-x^2) = 0$ &emsp; $\lim_{x \to 3^+}(-2 \cdot 9 + 48 - 30) = 0$</p>
-        <p>Las 3 condiciones se cumplen $\Rightarrow$ <strong>continua</strong> &#10003;</p>
+        <p><strong>I.</strong> $f(3) = 9 - 9 = 0$ &ensp; &#10003; (existe)</p>
+        <p><strong>II.</strong> $\lim_{x \to 3^-}(9-x^2) = 0$ &ensp; $\lim_{x \to 3^+}(-2 \cdot 9 + 48 - 30) = 0$ &ensp; Coinciden $\Rightarrow$ $\lim_{x \to 3} f(x) = 0$ &ensp; &#10003;</p>
+        <p><strong>III.</strong> $\lim_{x \to 3} f(x) = 0 = f(3)$ &ensp; &#10003;</p>
+        <p>Las 3 condiciones se cumplen $\Rightarrow$ <strong>continua en $x = 3$</strong> &#10003;</p>
         <p><strong>Derivabilidad en $x = 3$:</strong></p>
         <p>$f'(x) = -2x$ para $x \leq 3$ $\Rightarrow$ $f'(3^-) = -6$</p>
         <p>$f'(x) = -4x + 16$ para $x > 3$ $\Rightarrow$ $f'(3^+) = -12 + 16 = 4$</p>
-        <p>$-6 \neq 4$ $\Rightarrow$ <strong>no es derivable</strong> en $x = 3$ (punto anguloso).</p>
+        <p>$f'(3^-) = -6 \neq 4 = f'(3^+)$ $\Rightarrow$ <strong>no es derivable</strong> en $x = 3$ (punto anguloso).</p>
     </div>
 </div>
 
