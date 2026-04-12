@@ -300,7 +300,19 @@
         <tr><td>$\infty - \infty$</td><td>Reescribir como cociente primero</td></tr>
         <tr><td>$\dfrac{3}{0}$, $\dfrac{5}{2}$, etc.</td><td><strong>No</strong> &mdash; no es indeterminacion</td></tr>
     </table>
-    <p><strong>Truco:</strong> Si al aplicar L'Hopital sigue saliendo $\frac{0}{0}$ o $\frac{\infty}{\infty}$, puedes aplicarlo <strong>otra vez</strong>.</p>
+    <p><strong>Importante:</strong> Si al aplicar L'Hopital sigue saliendo $\frac{0}{0}$ o $\frac{\infty}{\infty}$, puedes aplicarlo <strong>otra vez</strong> (segunda derivada, tercera... las veces que haga falta).</p>
+</div>
+
+<div class="card important">
+    <div class="card-label">Por que usar L'Hopital para todo <span class="exam-tag si">Clave examen</span></div>
+    <p>Muchos ejercicios de limites que en el tema 6 se resuelven con Ruffini, conjugados o comun denominador, se resuelven <strong>mucho mas rapido</strong> con L'Hopital. Una vez que sabes derivar, L'Hopital es tu herramienta principal:</p>
+    <ul>
+        <li><strong>$\frac{0}{0}$ con polinomios:</strong> en vez de factorizar con Ruffini, derivas arriba y abajo y listo.</li>
+        <li><strong>$\frac{0}{0}$ con radicales:</strong> en vez de multiplicar por el conjugado, derivas y sale directo.</li>
+        <li><strong>$\frac{\infty}{\infty}$:</strong> en vez de comparar grados, derivas hasta que desaparezca la indeterminacion.</li>
+        <li><strong>Con exponenciales y logaritmos:</strong> donde Ruffini no sirve, L'Hopital es el unico camino rapido.</li>
+    </ul>
+    <p><strong>En el examen:</strong> si ves un limite con $\frac{0}{0}$ o $\frac{\infty}{\infty}$, usa L'Hopital directamente. Es mas rapido y hay menos riesgo de error.</p>
 </div>
 
 <div class="card example">
@@ -345,7 +357,43 @@
     <div class="solution-content">
         <p>Sustituyendo: $\dfrac{0}{0}$. L'Hopital:</p>
         $$\lim_{x \to 1} \frac{2x - 2}{2x} = \frac{0}{2} = 0$$
-        <p><strong>Nota:</strong> Este limite tambien se puede resolver factorizando (tema 6). L'Hopital es un metodo alternativo mas rapido.</p>
+        <p><strong>Nota:</strong> Este limite tambien se puede resolver factorizando (tema 6), pero con L'Hopital sale en un solo paso.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con radicales (en vez de conjugado)</div>
+    <p>$\displaystyle\lim_{x \to 0} \frac{x}{1 - \sqrt{1-x}}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{0}{0}$. Con conjugado es largo. Con L'Hopital:</p>
+        $$\lim_{x \to 0} \frac{(x)'}{(1-\sqrt{1-x})'} = \lim_{x \to 0} \frac{1}{\dfrac{1}{2\sqrt{1-x}}} = \lim_{x \to 0} 2\sqrt{1-x} = 2$$
+        <p>Mismo resultado que con conjugado, pero en un paso.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con radicales y polinomio (examen)</div>
+    <p>$\displaystyle\lim_{x \to 2} \frac{\sqrt{x+7} - 3}{x^2 - 5x + 6}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{\sqrt{9}-3}{4-10+6} = \dfrac{0}{0}$. L'Hopital:</p>
+        $$\lim_{x \to 2} \frac{\dfrac{1}{2\sqrt{x+7}}}{2x - 5} = \frac{\dfrac{1}{2\sqrt{9}}}{4-5} = \frac{\dfrac{1}{6}}{-1} = -\frac{1}{6}$$
+        <p>Sin conjugados, sin factorizar. Derivas arriba y abajo y sustituyes.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con segunda derivada</div>
+    <p>$\displaystyle\lim_{x \to 0} \frac{x - \sin x}{x^3}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{0}{0}$. L'Hopital (1&ordf; vez):</p>
+        $$\lim_{x \to 0} \frac{1 - \cos x}{3x^2} = \frac{0}{0} \text{ otra vez}$$
+        <p>L'Hopital (2&ordf; vez &mdash; segunda derivada):</p>
+        $$\lim_{x \to 0} \frac{\sin x}{6x} = \frac{0}{0} \text{ otra vez!}$$
+        <p>L'Hopital (3&ordf; vez &mdash; tercera derivada):</p>
+        $$\lim_{x \to 0} \frac{\cos x}{6} = \frac{1}{6}$$
     </div>
 </div>
 
