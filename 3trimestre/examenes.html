@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Examen - Analisis CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --card: var(--surface); --accent: var(--blue); --success: var(--green); --warning: var(--amber); --danger: var(--red); }
+        html { scroll-behavior: smooth; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, var(--blue), var(--teal)); z-index: 300; transition: width 0.15s; }
+        .source-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: rgba(187,154,247,0.12); color: #bb9af7; margin-bottom: 10px; font-family: var(--font-body); }
+        .pts-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: rgba(224,175,104,0.12); color: #e0af68; margin-left: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><h1>Analisis</h1><span>Matematicas CCSS II</span></div>
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <h2>Examenes y ejercicios</h2>
+    <a href="#modelo-ponencia">Modelo ponencia 2025-2026</a>
+    <a href="#selectividad">Ejercicios selectividad</a>
+    <a href="#ejercicios-tema6">Ejercicios Tema 6</a>
+    <a href="#ejercicios-tema7">Ejercicios Tema 7</a>
+    <a href="#ejercicios-tema8">Ejercicios Tema 8</a>
+    <h2>Temas</h2>
+    <a href="tema6.html">Tema 6 - Funciones y Limites</a>
+    <a href="tema7.html">Tema 7 - Derivadas</a>
+    <a href="tema8.html">Tema 8 - Integrales</a>
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
+    <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
+</nav>
+
+<div class="main">
+
+<h1>Ejercicios de Examen</h1>
+<p>Modelo de la ponencia 2025-2026 y ejercicios de selectividad resueltos paso a paso, con referencia a la fuente original.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- MODELO PONENCIA                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="modelo-ponencia">Modelo de prueba &mdash; Ponencia 2025-2026</h2>
+
+<div class="card warning" style="padding: 20px;">
+    <p><strong>Estructura del examen:</strong> 4 ejercicios. Ej. 1 y 2 valen 3 pts cada uno (con opcionalidad a/b). Ej. 3 y 4 valen 2 pts cada uno. Duracion: 1h 30min.</p>
+    <p>Los ejercicios 2a y 2b del modelo son los de <strong>analisis</strong> (derivadas + integrales). Aqui los resolvemos completos.</p>
+</div>
+
+<!-- EJERCICIO 2a -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Ponencia 2025-2026, pag 9 &mdash; Ejercicio 2a</div>
+    <div class="card-label">Ejercicio 2a: Cotizacion en bolsa <span class="pts-tag">3 puntos</span></div>
+    <p>La cotizacion en bolsa de una empresa en un dia viene expresada, en euros, por la funcion $c(t)$, con $t \in [0, 24]$, medido en horas. La variacion instantanea es la derivada de $c$, que viene dada por $c'(t) = 0{,}03t^2 - 0{,}9t + 6$, con $t \in (0, 24)$.</p>
+    <p>i) (1 pto) Estudie los intervalos en los que $c(t)$ es creciente.</p>
+    <p>ii) (0,75 pts) Analice los puntos criticos de la funcion de cotizacion, indicando en que horas se alcanzan el maximo y el minimo relativos.</p>
+    <p>iii) (0,75 pts) Halle la expresion analitica de $c$, sabiendo que la cotizacion en bolsa de la empresa era de 50 euros en el instante inicial.</p>
+    <p>iv) (0,5 pts) Halle el valor con que se inicia la cotizacion el dia siguiente.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Intervalos de crecimiento:</strong></p>
+        <p>$c(t)$ es creciente donde $c'(t) > 0$. Resolvemos $c'(t) = 0$:</p>
+        $$0{,}03t^2 - 0{,}9t + 6 = 0 \Rightarrow t = \frac{0{,}9 \pm \sqrt{0{,}81 - 0{,}72}}{0{,}06} = \frac{0{,}9 \pm 0{,}3}{0{,}06}$$
+        <p>$t_1 = \frac{0{,}6}{0{,}06} = 10$ &emsp; $t_2 = \frac{1{,}2}{0{,}06} = 20$</p>
+        <p>Como $c'(t)$ es una parabola que abre hacia arriba ($a = 0{,}03 > 0$):</p>
+        <ul>
+            <li>$c'(t) > 0$ en $(0, 10) \cup (20, 24)$ $\Rightarrow$ <strong>creciente</strong></li>
+            <li>$c'(t) < 0$ en $(10, 20)$ $\Rightarrow$ decreciente</li>
+        </ul>
+
+        <p><strong>ii) Puntos criticos:</strong></p>
+        <p>$c'(t) = 0$ en $t = 10$ y $t = 20$.</p>
+        <p>$c''(t) = 0{,}06t - 0{,}9$</p>
+        <ul>
+            <li>$c''(10) = 0{,}6 - 0{,}9 = -0{,}3 < 0$ $\Rightarrow$ <strong>Maximo relativo en $t = 10$ (a las 10h)</strong></li>
+            <li>$c''(20) = 1{,}2 - 0{,}9 = 0{,}3 > 0$ $\Rightarrow$ <strong>Minimo relativo en $t = 20$ (a las 20h)</strong></li>
+        </ul>
+
+        <p><strong>iii) Hallar $c(t)$:</strong></p>
+        <p>Integramos $c'(t)$:</p>
+        $$c(t) = \int (0{,}03t^2 - 0{,}9t + 6)\,dt = 0{,}01t^3 - 0{,}45t^2 + 6t + C$$
+        <p>Condicion: $c(0) = 50 \Rightarrow C = 50$.</p>
+        $$\boxed{c(t) = 0{,}01t^3 - 0{,}45t^2 + 6t + 50}$$
+
+        <p><strong>iv) Cotizacion al inicio del dia siguiente:</strong></p>
+        $$c(24) = 0{,}01(13824) - 0{,}45(576) + 6(24) + 50 = 138{,}24 - 259{,}2 + 144 + 50 = 73{,}04 \text{ euros}$$
+    </div>
+</div>
+
+<!-- EJERCICIO 2b -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Ponencia 2025-2026, pag 9-10 &mdash; Ejercicio 2b</div>
+    <div class="card-label">Ejercicio 2b: Area entre dos curvas <span class="pts-tag">3 puntos</span></div>
+    <p>La region que se quiere sembrar con una verdura coincide con el area de la region acotada delimitada por las graficas de $f(x) = (x-1)^2$ e $g(x) = 5 - 2x$, donde $x$ esta en hectometros.</p>
+    <p>i) (1 pto) Represente graficamente la region acotada delimitada por las graficas de $f(x)$ y $g(x)$.</p>
+    <p>ii) (1,5 pts) Para realizar dicha siembra se ha de utilizar simiente cuyo coste es de 150 euros por hectometro cuadrado. Si en la siembra se desperdicia la tercera parte de la simiente comprada, cuanto costara la simiente?</p>
+    <p>iii) (0,5 pts) Si la venta de la verdura supone un ingreso de 300 euros por hectometro cuadrado, halle el beneficio obtenido con la venta de la cosecha.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Representacion grafica:</strong></p>
+        <p>Puntos de corte entre $f$ y $g$: $(x-1)^2 = 5-2x$</p>
+        $$x^2 - 2x + 1 = 5 - 2x \Rightarrow x^2 = 4 \Rightarrow x = -2, \; x = 2$$
+        <p>$f(-2) = 9$, $g(-2) = 9$ &#10003; &emsp; $f(2) = 1$, $g(2) = 1$ &#10003;</p>
+        <p>Quien esta arriba? En $x = 0$: $f(0) = 1$, $g(0) = 5$. La recta $g$ esta por encima.</p>
+
+        <p><strong>ii) Coste de la simiente:</strong></p>
+        <p>Calculamos el area:</p>
+        $$A = \int_{-2}^{2} [g(x) - f(x)]\,dx = \int_{-2}^{2} [(5-2x) - (x-1)^2]\,dx = \int_{-2}^{2} (4 - x^2)\,dx$$
+        $$= \left[4x - \frac{x^3}{3}\right]_{-2}^{2} = \left(8 - \frac{8}{3}\right) - \left(-8 + \frac{8}{3}\right) = \frac{16}{3} + \frac{16}{3} = \frac{32}{3} \text{ hm}^2$$
+        <p>Como se desperdicia $\frac{1}{3}$ de la simiente, necesitamos comprar para $\frac{3}{2}$ del area (para que quede $\frac{2}{3}$ cubran el area):</p>
+        <p>Simiente necesaria: $\frac{32}{3} \times \frac{3}{2} = 16$ hm$^2$ de simiente.</p>
+        <p>Coste: $16 \times 150 = \boxed{2400 \text{ euros}}$</p>
+
+        <p><strong>iii) Beneficio:</strong></p>
+        <p>Ingreso: $\frac{32}{3} \times 300 = 3200$ euros.</p>
+        <p>Beneficio: $3200 - 2400 = \boxed{800 \text{ euros}}$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS DE SELECTIVIDAD                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="selectividad">Ejercicios de Selectividad (2022-2023)</h2>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 8, pag 18 &mdash; Ej 1 (SOCIALES II 2023 Junio B3)</div>
+    <div class="card-label">Estudio completo + area</div>
+    <p>Se considera la funcion $f(x) = x^3 - 3x^2 + 2x$.</p>
+    <p>a) Halle los puntos de corte con los ejes, los intervalos de crecimiento y decrecimiento, los extremos relativos de $f$ y su curvatura.</p>
+    <p>b) Represente graficamente la funcion $f$.</p>
+    <p>c) Calcule el area del recinto acotado, limitado por la grafica de $f$ y el eje de abscisas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Estudio de la funcion:</strong></p>
+        <p><em>Cortes eje X:</em> $x^3 - 3x^2 + 2x = x(x^2 - 3x + 2) = x(x-1)(x-2) = 0 \Rightarrow x = 0, 1, 2$</p>
+        <p><em>Corte eje Y:</em> $f(0) = 0$</p>
+        <p><em>Monotonia:</em> $f'(x) = 3x^2 - 6x + 2$</p>
+        $$f'(x) = 0 \Rightarrow x = \frac{6 \pm \sqrt{36-24}}{6} = \frac{6 \pm 2\sqrt{3}}{6} = 1 \pm \frac{\sqrt{3}}{3}$$
+        <p>$x_1 \approx 0{,}42$, $x_2 \approx 1{,}58$</p>
+        <p>$f'(x) > 0$ en $(-\infty, 0{,}42) \cup (1{,}58, +\infty)$ $\Rightarrow$ creciente. $f'(x) < 0$ en $(0{,}42, 1{,}58)$ $\Rightarrow$ decreciente.</p>
+        <p><em>Extremos:</em> $f''(x) = 6x - 6$</p>
+        <ul>
+            <li>$f''(0{,}42) = -3{,}46 < 0$ $\Rightarrow$ Maximo en $(0{,}42;\; 0{,}38)$</li>
+            <li>$f''(1{,}58) = 3{,}46 > 0$ $\Rightarrow$ Minimo en $(1{,}58;\; -0{,}38)$</li>
+        </ul>
+        <p><em>Curvatura:</em> $f''(x) = 0 \Rightarrow x = 1$. Inflexion en $(1, 0)$.</p>
+        <p>Concava en $(-\infty, 1)$, convexa en $(1, +\infty)$.</p>
+
+        <p><strong>c) Area:</strong></p>
+        <p>$f$ cambia de signo: positiva en $(0, 1)$, negativa en $(1, 2)$.</p>
+        $$A = \left|\int_0^1 f(x)\,dx\right| + \left|\int_1^2 f(x)\,dx\right|$$
+        <p>Primitiva: $F(x) = \frac{x^4}{4} - x^3 + x^2$</p>
+        <p>$\int_0^1 = F(1) - F(0) = \frac{1}{4} - 1 + 1 = \frac{1}{4}$</p>
+        <p>$\int_1^2 = F(2) - F(1) = (4 - 8 + 4) - \frac{1}{4} = -\frac{1}{4}$</p>
+        <p>$A = \frac{1}{4} + \frac{1}{4} = \boxed{\frac{1}{2} \text{ u}^2}$</p>
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 8, pag 19 &mdash; Ej 4 (SOCIALES II 2023 Reserva 1 B4)</div>
+    <div class="card-label">Continuidad + derivabilidad + asintotas</div>
+    <p>Se considera la funcion $f(x) = \begin{cases} x^3 + 2x^2 - 3 & \text{si } x \leq 1 \\ 1 + \dfrac{1}{x-2} & \text{si } x > 1 \end{cases}$</p>
+    <p>a) Estudie la continuidad de $f$. Si la funcion no es continua en algun punto, indique el tipo de discontinuidad.</p>
+    <p>b) Estudie la derivabilidad de $f$.</p>
+    <p>c) Determine las asintotas de $f$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Continuidad:</strong></p>
+        <p>Cada trozo es continuo en su dominio (polinomica y racional). Solo estudiamos $x = 1$ y $x = 2$ (donde el 2o trozo no esta definido).</p>
+        <p><em>En $x = 1$:</em></p>
+        <p>$f(1) = 1 + 2 - 3 = 0$ &emsp; $\lim_{x \to 1^-}(x^3+2x^2-3) = 0$ &emsp; $\lim_{x \to 1^+}(1 + \frac{1}{x-2}) = 1 - 1 = 0$</p>
+        <p>Las 3 condiciones se cumplen $\Rightarrow$ <strong>continua en $x = 1$</strong>.</p>
+        <p><em>En $x = 2$:</em> $f(2)$ no existe ($\frac{1}{0}$). $\lim_{x \to 2^+} = +\infty$, $\lim_{x \to 2^-} = -\infty$.</p>
+        <p><strong>Discontinuidad esencial (de salto infinito) en $x = 2$.</strong></p>
+
+        <p><strong>b) Derivabilidad:</strong></p>
+        <p>En $x = 1$ (es continua, estudiamos derivadas laterales):</p>
+        <p>$f'(x) = 3x^2 + 4x$ para $x \leq 1$ $\Rightarrow f'(1^-) = 3 + 4 = 7$</p>
+        <p>$f'(x) = -\frac{1}{(x-2)^2}$ para $x > 1$ $\Rightarrow f'(1^+) = -\frac{1}{1} = -1$</p>
+        <p>$7 \neq -1$ $\Rightarrow$ <strong>no es derivable en $x = 1$</strong>.</p>
+        <p>Tampoco es derivable en $x = 2$ (no es continua).</p>
+
+        <p><strong>c) Asintotas:</strong></p>
+        <p><em>A.V.:</em> $x = 2$ (ya comprobado).</p>
+        <p><em>A.H.:</em> $\lim_{x \to +\infty}(1 + \frac{1}{x-2}) = 1$. A.H.: $y = 1$.</p>
+        <p>No hay A.O. (hay A.H.).</p>
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 8, pag 19 &mdash; Ej 7 (SOCIALES II 2023 Reserva 3 B3)</div>
+    <div class="card-label">Hallar parametros + area</div>
+    <p>a) Se considera la funcion $f(x) = \begin{cases} ax^2 + bx + 6 & \text{si } x \leq 2{,}5 \\ -1{,}4x + 7 & \text{si } x > 2{,}5 \end{cases}$ con $a$ y $b$ numeros reales. Calcule el valor de los parametros $a$ y $b$ para que la funcion sea continua y tenga un maximo en $x = 1$.</p>
+    <p>b) Represente graficamente la funcion $g(x) = -2x^2 + 2x + 4$ y calcule el area de la region acotada, limitada por la grafica de dicha funcion y el eje de abscisas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Hallar $a$ y $b$:</strong></p>
+        <p><em>Maximo en $x = 1$:</em> $f'(x) = 2ax + b$ para $x \leq 2{,}5$.</p>
+        <p>$f'(1) = 0 \Rightarrow 2a + b = 0 \Rightarrow b = -2a$ &emsp; (1)</p>
+        <p><em>Continuidad en $x = 2{,}5$:</em></p>
+        <p>$a(6{,}25) + b(2{,}5) + 6 = -1{,}4(2{,}5) + 7 = 3{,}5$</p>
+        <p>$6{,}25a + 2{,}5b + 6 = 3{,}5$ &emsp; (2)</p>
+        <p>Sustituyendo (1) en (2): $6{,}25a + 2{,}5(-2a) = -2{,}5 \Rightarrow 1{,}25a = -2{,}5 \Rightarrow a = -2$</p>
+        <p>$b = -2(-2) = 4$</p>
+        <p>$\boxed{a = -2, \; b = 4}$</p>
+
+        <p><strong>b) Area de $g(x) = -2x^2 + 2x + 4$:</strong></p>
+        <p>Cortes eje X: $-2x^2 + 2x + 4 = 0 \Rightarrow x^2 - x - 2 = 0 \Rightarrow (x-2)(x+1) = 0 \Rightarrow x = -1, 2$.</p>
+        <p>Parabola abre hacia abajo $\Rightarrow$ positiva entre $-1$ y $2$.</p>
+        $$A = \int_{-1}^{2}(-2x^2+2x+4)\,dx = \left[-\frac{2x^3}{3}+x^2+4x\right]_{-1}^{2}$$
+        $$= \left(-\frac{16}{3}+4+8\right) - \left(\frac{2}{3}+1-4\right) = \frac{20}{3} - \left(-\frac{7}{3}\right) = \frac{27}{3} = \boxed{9 \text{ u}^2}$$
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 8, pag 20 &mdash; Ej 12 (SOCIALES II 2022 Junio B3)</div>
+    <div class="card-label">Hallar coeficientes + area</div>
+    <p>a) Se considera la funcion $f(x) = x^3 + ax^2 + bx + c$, con $a$, $b$ y $c$ numeros reales. Calcule los valores de $a$, $b$ y $c$, sabiendo que la grafica de $f$ posee un extremo relativo en el punto de abscisa $x = 3$ y que la pendiente de la recta tangente a la grafica de $f$ en el punto $P(0, 18)$ es $-3$.</p>
+    <p>b) Calcule el area del recinto acotado, limitado por la grafica de la funcion $g(x) = x^3 - 4x^2 - 3x + 18$ y el eje de abscisas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Hallar $a$, $b$, $c$:</strong></p>
+        <p>$f'(x) = 3x^2 + 2ax + b$</p>
+        <p><em>$P(0, 18)$ esta en la grafica:</em> $f(0) = c = 18$ $\Rightarrow c = 18$</p>
+        <p><em>Pendiente en $P$ es $-3$:</em> $f'(0) = b = -3$ $\Rightarrow b = -3$</p>
+        <p><em>Extremo en $x = 3$:</em> $f'(3) = 27 + 6a - 3 = 0 \Rightarrow 6a = -24 \Rightarrow a = -4$</p>
+        <p>$\boxed{a = -4, \; b = -3, \; c = 18}$</p>
+
+        <p><strong>b) Area con $g(x) = x^3 - 4x^2 - 3x + 18$:</strong></p>
+        <p>Cortes eje X por Ruffini: probamos $x = 2$: $8 - 16 - 6 + 18 = 4 \neq 0$. $x = 3$: $27 - 36 - 9 + 18 = 0$ &#10003;</p>
+        <p>$g(x) = (x-3)(x^2 - x - 6) = (x-3)(x-3)(x+2) = (x-3)^2(x+2)$</p>
+        <p>Cortes: $x = -2$ y $x = 3$ (doble).</p>
+        <p>Signo: $g(0) = 18 > 0$. Como $(x-3)^2 \geq 0$ siempre, el signo depende de $(x+2)$:</p>
+        <p>$g(x) \geq 0$ en $[-2, +\infty)$ y $g(x) \leq 0$ en $(-\infty, -2)$.</p>
+        $$A = \int_{-2}^{3} (x-3)^2(x+2)\,dx = \int_{-2}^{3} (x^3 - 4x^2 - 3x + 18)\,dx$$
+        $$= \left[\frac{x^4}{4} - \frac{4x^3}{3} - \frac{3x^2}{2} + 18x\right]_{-2}^{3}$$
+        $$= \left(\frac{81}{4} - 36 - \frac{27}{2} + 54\right) - \left(4 + \frac{32}{3} - 6 - 36\right)$$
+        $$= \frac{81}{4} - 36 - \frac{27}{2} + 54 - 4 - \frac{32}{3} + 6 + 36 = \frac{625}{12} \approx 52{,}08 \text{ u}^2$$
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS TEMA 6                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="ejercicios-tema6">Ejercicios Tema 6</h2>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 6, pag 16, ej 1 &mdash; Asintotas</div>
+    <div class="card-label">Asintotas y posicion de la curva</div>
+    <p>Calcula las asintotas de $f(x) = \dfrac{2x+1}{x-1}$ y estudia la posicion de la funcion respecto de ellas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>A.V.:</strong> $x - 1 = 0 \Rightarrow x = 1$.</p>
+        <p>$\lim_{x \to 1^+} \frac{2x+1}{x-1} = \frac{3}{0^+} = +\infty$ &emsp; $\lim_{x \to 1^-} = \frac{3}{0^-} = -\infty$</p>
+        <p><strong>A.H.:</strong> $\lim_{x \to \infty} \frac{2x+1}{x-1} = \frac{2x}{x} = 2$. A.H.: $y = 2$.</p>
+        <p>Posicion: $\frac{2x+1}{x-1} = 2 + \frac{3}{x-1}$. Cuando $x > 1$: $\frac{3}{x-1} > 0$, curva por encima. Cuando $x < 1$: por debajo.</p>
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 6, pag 11, ej b &mdash; Indeterminacion 0/0 con radicales</div>
+    <div class="card-label">Limite con conjugado</div>
+    <p>Calcula $\displaystyle\lim_{x \to 2} \frac{\sqrt{x+7} - 3}{x^2 - 5x + 6}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituimos: $\frac{\sqrt{9}-3}{4-10+6} = \frac{0}{0}$. Multiplicamos por el conjugado:</p>
+        $$\frac{(\sqrt{x+7}-3)(\sqrt{x+7}+3)}{(x^2-5x+6)(\sqrt{x+7}+3)} = \frac{(x+7)-9}{(x-2)(x-3)(\sqrt{x+7}+3)} = \frac{x-2}{(x-2)(x-3)(\sqrt{x+7}+3)}$$
+        <p>Simplificamos $(x-2)$:</p>
+        $$\lim_{x \to 2} \frac{1}{(x-3)(\sqrt{x+7}+3)} = \frac{1}{(-1)(6)} = -\frac{1}{6}$$
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS TEMA 7                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="ejercicios-tema7">Ejercicios Tema 7</h2>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 7, pag 17, ej 7 &mdash; Hallar coeficientes</div>
+    <div class="card-label">Funcion con condiciones</div>
+    <p>Dada la funcion $f(x) = 2x^2 + ax + b$, determina los valores de $a$ y $b$ sabiendo que pasa por el punto $(1, 3)$ y alcanza un extremo en $x = 2$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Paso 1 - Extremo en $x = 2$:</strong> $f'(x) = 4x + a$. $f'(2) = 0 \Rightarrow 8 + a = 0 \Rightarrow a = -8$.</p>
+        <p><strong>Paso 2 - Pasa por $(1, 3)$:</strong> $f(1) = 2 - 8 + b = 3 \Rightarrow b = 9$.</p>
+        <p>$\boxed{a = -8, \; b = 9}$ &emsp; $f(x) = 2x^2 - 8x + 9$</p>
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 7, pag 17, ej 4 &mdash; Continuidad y derivabilidad</div>
+    <div class="card-label">Funcion a trozos: hallar $k$ para continuidad</div>
+    <p>Calcule el valor del parametro $k$ para que la funcion sea continua en $\mathbb{R}$ y estudie su derivabilidad para el valor de $k$ obtenido:</p>
+    <p>$f(x) = \begin{cases} -4x-3 & \text{si } x \leq -1 \\ 2x^2-1 & \text{si } -1 < x < 1 \\ \dfrac{k+2}{x} & \text{si } x \geq 1 \end{cases}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Continuidad en $x = -1$:</strong></p>
+        <p>$\lim_{x \to -1^-}(-4x-3) = 4-3 = 1$ &emsp; $\lim_{x \to -1^+}(2x^2-1) = 2-1 = 1$ &emsp; &#10003; continua.</p>
+        <p><strong>Continuidad en $x = 1$:</strong></p>
+        <p>$\lim_{x \to 1^-}(2x^2-1) = 1$ &emsp; $f(1) = k+2$</p>
+        <p>$k + 2 = 1 \Rightarrow \boxed{k = -1}$</p>
+        <p><strong>Derivabilidad en $x = -1$:</strong></p>
+        <p>$f'(x) = -4$ para $x \leq -1$ $\Rightarrow f'(-1^-) = -4$</p>
+        <p>$f'(x) = 4x$ para $-1 < x < 1$ $\Rightarrow f'(-1^+) = -4$ &emsp; Coinciden &#10003; <strong>derivable</strong>.</p>
+        <p><strong>Derivabilidad en $x = 1$:</strong></p>
+        <p>$f'(x) = 4x$ $\Rightarrow f'(1^-) = 4$</p>
+        <p>$f'(x) = \frac{-(k+2)}{x^2} = \frac{-1}{x^2}$ $\Rightarrow f'(1^+) = -1$</p>
+        <p>$4 \neq -1$ $\Rightarrow$ <strong>no derivable en $x = 1$</strong>.</p>
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 7, pag 18, ej 16 &mdash; Optimizacion</div>
+    <div class="card-label">Problema de optimizacion: hipermercado</div>
+    <p>El numero medio de clientes que visitan un hipermercado entre las 11 y las 20 horas esta dado por $f(x) = x^3 - 42x^2 + 576x - 2296$, en funcion de la hora $x$, siendo $11 \leq x \leq 20$.</p>
+    <p>a) Halle los extremos relativos de esta funcion.</p>
+    <p>c) Halle los valores maximo y minimo del numero medio de clientes entre las 11 y las 20 horas.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Extremos relativos:</strong></p>
+        <p>$f'(x) = 3x^2 - 84x + 576 = 3(x^2 - 28x + 192) = 3(x - 12)(x - 16)$</p>
+        <p>$f'(x) = 0 \Rightarrow x = 12, \; x = 16$. Ambos estan en $[11, 20]$.</p>
+        <p>$f''(x) = 6x - 84$</p>
+        <ul>
+            <li>$f''(12) = -12 < 0$ $\Rightarrow$ <strong>Maximo relativo en $x = 12$</strong>. $f(12) = 1728 - 6048 + 6912 - 2296 = 296$</li>
+            <li>$f''(16) = 12 > 0$ $\Rightarrow$ <strong>Minimo relativo en $x = 16$</strong>. $f(16) = 4096 - 10752 + 9216 - 2296 = 264$</li>
+        </ul>
+        <p><strong>c) Maximo y minimo absolutos</strong> en $[11, 20]$:</p>
+        <p>Evaluamos tambien en los extremos del intervalo:</p>
+        <p>$f(11) = 1331 - 5082 + 6336 - 2296 = 289$</p>
+        <p>$f(20) = 8000 - 16800 + 11520 - 2296 = 424$</p>
+        <p><strong>Maximo absoluto:</strong> $f(20) = 424$ clientes (a las 20h).</p>
+        <p><strong>Minimo absoluto:</strong> $f(16) = 264$ clientes (a las 16h).</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS TEMA 8                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="ejercicios-tema8">Ejercicios Tema 8</h2>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 8, pag 20 &mdash; Ej 10 (SOCIALES II 2023 Julio B3)</div>
+    <div class="card-label">Area entre curvas con contexto</div>
+    <p>El area quemada de la cubierta de plastico de un invernadero coincide con el area de la region acotada delimitada por las graficas de las funciones $f(x) = (x-1)^2$ y $g(x) = 5 - 2x$ donde $x$ esta expresado en metros.</p>
+    <p>a) Represente graficamente la zona deteriorada.</p>
+    <p>b) Para reparar la region quemada se ha de utilizar plastico cuyo coste es de 15 euros por metro cuadrado. Si en el trabajo de reparacion se desperdicia la tercera parte del plastico adquirido, cuanto costara el plastico comprado?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Puntos de corte:</strong> $(x-1)^2 = 5-2x \Rightarrow x^2 = 4 \Rightarrow x = -2, 2$.</p>
+        <p>En $x = 0$: $f(0) = 1$, $g(0) = 5$. $g$ esta por encima.</p>
+        <p><strong>b) Area:</strong></p>
+        $$A = \int_{-2}^{2}[(5-2x)-(x-1)^2]\,dx = \int_{-2}^{2}(4-x^2)\,dx = \left[4x - \frac{x^3}{3}\right]_{-2}^{2}$$
+        $$= \left(8 - \frac{8}{3}\right) - \left(-8 + \frac{8}{3}\right) = \frac{32}{3} \text{ m}^2$$
+        <p>Se desperdicia $\frac{1}{3}$, asi que necesitamos $\frac{32}{3} \times \frac{3}{2} = 16$ m$^2$ de plastico.</p>
+        <p>Coste: $16 \times 15 = \boxed{240 \text{ euros}}$</p>
+    </div>
+</div>
+
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Tema 8, pag 20 &mdash; Ej 13 (SOCIALES II 2022 Junio B4)</div>
+    <div class="card-label">Continuidad + derivabilidad + area</div>
+    <p>a) Se considera la funcion $f(x) = \begin{cases} 6x-3 & \text{si } x \leq 1 \\ ax^2+bx+2 & \text{si } x > 1 \end{cases}$ con $a$ y $b$ numeros reales. Determine los valores de $a$ y $b$ para que $f$ sea continua y derivable en todo su dominio.</p>
+    <p>b) Calcule el area del recinto acotado, limitado por el eje OX y la grafica de la funcion $g(x) = -2x^2 + 8x - 6$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a) Continuidad en $x = 1$:</strong></p>
+        <p>$f(1) = 6-3 = 3$ &emsp; $\lim_{x \to 1^+}(a+b+2) = a+b+2$</p>
+        <p>$a + b + 2 = 3 \Rightarrow a + b = 1$ &emsp; (1)</p>
+        <p><strong>Derivabilidad en $x = 1$:</strong></p>
+        <p>$f'(x) = 6$ para $x \leq 1$ &emsp; $f'(x) = 2ax+b$ para $x > 1$</p>
+        <p>$f'(1^-) = 6 = f'(1^+) = 2a + b$ &emsp; (2)</p>
+        <p>De (1) y (2): $a + b = 1$ y $2a + b = 6 \Rightarrow a = 5, \; b = -4$.</p>
+        <p>$\boxed{a = 5, \; b = -4}$</p>
+
+        <p><strong>b) Area con $g(x) = -2x^2+8x-6$:</strong></p>
+        <p>Cortes: $-2x^2+8x-6 = 0 \Rightarrow x^2-4x+3 = 0 \Rightarrow x = 1, 3$.</p>
+        <p>$g(2) = -8+16-6 = 2 > 0 \Rightarrow$ positiva entre 1 y 3.</p>
+        $$A = \int_1^3 (-2x^2+8x-6)\,dx = \left[-\frac{2x^3}{3}+4x^2-6x\right]_1^3$$
+        $$= (-18+36-18) - (-\frac{2}{3}+4-6) = 0 - (-\frac{8}{3}) = \boxed{\frac{8}{3} \approx 2{,}67 \text{ u}^2}$$
+    </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(function(a) { a.classList.remove('active'); if (a.getAttribute('href') === '#' + current) a.classList.add('active'); });
+});
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() { if (window.innerWidth <= 900) document.querySelector('.sidebar').classList.remove('show'); });
+});
+</script>
+
+</body>
+</html>

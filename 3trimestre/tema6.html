@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 6: Funciones, Limites y Continuidad - Analisis CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="graphs.js" defer></script>
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--blue);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--red);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+        .graph-canvas { width: 100%; border-radius: 8px; margin: 12px 0; }
+        .graph-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        @media (max-width: 600px) { .graph-row { grid-template-columns: 1fr; } }
+        .sel-tag { display: inline-block; font-size: 0.55rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; vertical-align: middle; margin-left: 8px; }
+        .sel-tag.si { background: rgba(158,206,106,0.12); color: #9ece6a; }
+        .sel-tag.no { background: rgba(247,118,142,0.12); color: #f7768e; }
+        .ponencia-banner { background: rgba(158,206,106,0.06); border: 1px solid rgba(158,206,106,0.2); border-left: 3px solid #9ece6a; border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; font-size: 0.88rem; color: var(--text); }
+        .ponencia-banner strong { color: #9ece6a; }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Analisis</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+
+    <h2>Tema 6 &middot; Funciones y Limites</h2>
+    <a href="#funciones">6.1 Concepto de funcion</a>
+    <a href="#dominio">6.2 Dominio</a>
+    <a href="#dominio-polinomica" class="sub">Polinomica</a>
+    <a href="#dominio-racional" class="sub">Racional</a>
+    <a href="#dominio-irracional" class="sub">Irracional</a>
+    <a href="#dominio-exponencial" class="sub">Exponencial</a>
+    <a href="#dominio-logaritmica" class="sub">Logaritmica</a>
+    <a href="#limites">6.3 Limites</a>
+    <a href="#limites-laterales" class="sub">Laterales</a>
+    <a href="#indeterminaciones" class="sub">Indeterminaciones</a>
+    <a href="#asintotas">6.4 Asintotas</a>
+    <a href="#continuidad">6.5 Continuidad</a>
+    <a href="#discontinuidad" class="sub">Discontinuidad</a>
+    <a href="tests.html?tema=6" class="sub test-link">Practicar Test T6</a>
+
+    <h2>Tema 7 &middot; Derivadas</h2>
+    <a href="tema7.html#derivada">7.1 Concepto de derivada</a>
+    <a href="tema7.html#reglas">7.2 Reglas de derivacion</a>
+    <a href="tema7.html#tangente">7.3 Recta tangente</a>
+    <a href="tema7.html#monotonia">7.4 Monotonia y extremos</a>
+    <a href="tema7.html#curvatura">7.5 Curvatura e inflexion</a>
+    <a href="tema7.html#optimizacion">7.6 Optimizacion</a>
+    <a href="tests.html?tema=7" class="sub test-link">Practicar Test T7</a>
+
+    <h2>Tema 8 &middot; Integrales</h2>
+    <a href="tema8.html#primitiva">8.1 Primitiva e integral</a>
+    <a href="tema8.html#inmediatas">8.2 Integrales inmediatas</a>
+    <a href="tema8.html#definida">8.3 Integral definida</a>
+    <a href="tema8.html#barrow">8.4 Regla de Barrow</a>
+    <a href="tema8.html#areas">8.5 Calculo de areas</a>
+    <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
+    <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+</nav>
+
+<div class="main">
+
+<h1>Tema 6: Funciones, Limites y Continuidad</h1>
+<p>Dominio, tipos de funciones, calculo de limites, indeterminaciones, asintotas y continuidad.</p>
+
+<div class="ponencia-banner">
+    <strong>Ponencia selectividad 2025-2026:</strong> Todo este tema entra excepto la <strong style="color:#f7768e;">asintota oblicua</strong>. Las asintotas vertical y horizontal si entran. Referencia: saberes B.2 (Cambio) y C.4 (Relaciones y funciones).
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 6.1 CONCEPTO DE FUNCION                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="funciones">6.1 Concepto de funcion <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Funcion real de variable real</div>
+    <p>Una <strong>funcion</strong> es una correspondencia que a cada valor $x$ de un subconjunto de $\mathbb{R}$ (llamado <strong>dominio</strong>) le asigna un unico valor $y = f(x)$.</p>
+    $$f: D \subseteq \mathbb{R} \to \mathbb{R}, \quad x \to y = f(x)$$
+    <p>El valor $x$ se llama <strong>variable independiente</strong> y el valor $y = f(x)$ se llama <strong>variable dependiente</strong> o <strong>imagen</strong> de $x$.</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Dominio y recorrido</div>
+    <p>El <strong>dominio</strong> ($\text{Dom}(f)$) es el conjunto de valores de $x$ para los que la funcion esta definida (tiene imagen).</p>
+    <p>El <strong>recorrido</strong> o <strong>imagen</strong> ($\text{Im}(f)$) es el conjunto de valores de $y$ que la funcion realmente toma.</p>
+    <p><em>Ejemplo:</em> Para $f(x) = \sqrt{x}$, el dominio es $[0, +\infty)$ (no podemos hacer raiz de negativos) y el recorrido es $[0, +\infty)$ (la raiz siempre da valores positivos o cero).</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Puntos de corte con los ejes <span class="exam-tag si">Suele entrar</span></div>
+    <p>Son los puntos donde la grafica toca los ejes:</p>
+    <ul>
+        <li><strong>Corte con el eje X:</strong> hacemos $y = 0$ (es decir, $f(x) = 0$) y despejamos $x$.</li>
+        <li><strong>Corte con el eje Y:</strong> hacemos $x = 0$ y calculamos $f(0)$.</li>
+    </ul>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Simetrias</div>
+    <p>Solo pueden existir si el dominio es simetrico respecto al origen (es decir, si $x$ esta en el dominio, $-x$ tambien).</p>
+    <ul>
+        <li><strong>Funcion par</strong> (simetrica respecto al eje Y): $f(x) = f(-x)$. Ejemplo: $f(x) = x^2$.</li>
+        <li><strong>Funcion impar</strong> (simetrica respecto al origen): $f(x) = -f(-x)$. Ejemplo: $f(x) = x^3$.</li>
+    </ul>
+</div>
+
+<!-- Graficos tipos de funcion -->
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Graficas de los tipos de funcion mas comunes</div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-poly"></canvas>
+        <canvas class="graph-canvas" id="g-rational"></canvas>
+    </div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-exp"></canvas>
+        <canvas class="graph-canvas" id="g-log"></canvas>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 6.2 DOMINIO                                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="dominio">6.2 Dominio de una funcion <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card warning">
+    <div class="card-label">Clave para el examen</div>
+    <p>El dominio depende del <strong>tipo de funcion</strong>. Hay 3 restricciones basicas que debes buscar:</p>
+    <table>
+        <tr><th>Restriccion</th><th>Que miras</th><th>Condicion</th></tr>
+        <tr><td><strong>No dividir por 0</strong></td><td>Denominadores</td><td>Denominador $\neq 0$</td></tr>
+        <tr><td><strong>No raiz par de negativo</strong></td><td>Radicandos pares ($\sqrt{\ }$, $\sqrt[4]{\ }$...)</td><td>Radicando $\geq 0$</td></tr>
+        <tr><td><strong>No log de negativo/cero</strong></td><td>Argumentos de logaritmos</td><td>Argumento $> 0$</td></tr>
+    </table>
+</div>
+
+<h3 id="dominio-polinomica">Polinomica</h3>
+<div class="card formula">
+    <div class="card-label">Dominio de funciones polinomicas</div>
+    <p>$f(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n$</p>
+    $$\text{Dom}(f) = \mathbb{R}$$
+    <p>No hay restricciones: se puede sustituir cualquier valor de $x$.</p>
+    <p><em>Ejemplo:</em> $f(x) = x^3 - 3x^2 + 6x + 2 \Rightarrow \text{Dom}(f) = \mathbb{R}$</p>
+</div>
+
+<h3 id="dominio-racional">Racional</h3>
+<div class="card formula">
+    <div class="card-label">Dominio de funciones racionales <span class="exam-tag si">Suele entrar</span></div>
+    <p>$f(x) = \dfrac{P(x)}{Q(x)}$, con $P(x)$ y $Q(x)$ polinomios.</p>
+    $$\text{Dom}(f) = \mathbb{R} \setminus \{x : Q(x) = 0\}$$
+    <p>Quitamos los valores que anulan el denominador.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Dominio racional</div>
+    <p>Halla el dominio de $f(x) = \dfrac{x^2 + 6x + 2}{x^2 - 5x + 6}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Resolvemos $x^2 - 5x + 6 = 0$:</p>
+        $$x = \frac{5 \pm \sqrt{25 - 24}}{2} = \frac{5 \pm 1}{2} \Rightarrow x = 3 \text{ o } x = 2$$
+        <p>$\text{Dom}(f) = \mathbb{R} \setminus \{2, 3\}$</p>
+    </div>
+</div>
+
+<h3 id="dominio-irracional">Irracional</h3>
+<div class="card formula">
+    <div class="card-label">Dominio de funciones irracionales</div>
+    <p>Depende de si el indice de la raiz es <strong>par</strong> o <strong>impar</strong>:</p>
+    <table>
+        <tr><th>Tipo</th><th>Forma</th><th>Dominio</th></tr>
+        <tr><td><strong>Indice impar</strong> ($\sqrt[3]{\ }$, $\sqrt[5]{\ }$...)</td><td>$f(x) = \sqrt[n]{P(x)}$, $n$ impar</td><td>$\text{Dom}(f) = \text{Dom}(P)$ (el radicando puede ser negativo)</td></tr>
+        <tr><td><strong>Indice par</strong> ($\sqrt{\ }$, $\sqrt[4]{\ }$...)</td><td>$f(x) = \sqrt[n]{P(x)}$, $n$ par</td><td>$\text{Dom}(f) = \{x \in \mathbb{R} : P(x) \geq 0\}$</td></tr>
+    </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Dominio de raiz par</div>
+    <p>Halla el dominio de $f(x) = \sqrt{x^2 - 5x + 6}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Necesitamos $x^2 - 5x + 6 \geq 0$. Las raices son $x = 2$ y $x = 3$.</p>
+        <p>Estudiamos el signo:</p>
+        <table>
+            <tr><th>Intervalo</th><th>$(-\infty, 2)$</th><th>$(2, 3)$</th><th>$(3, +\infty)$</th></tr>
+            <tr><td>Signo</td><td>$+$</td><td>$-$</td><td>$+$</td></tr>
+        </table>
+        <p>$\text{Dom}(f) = (-\infty, 2] \cup [3, +\infty)$</p>
+    </div>
+</div>
+
+<h3 id="dominio-exponencial">Exponencial</h3>
+<div class="card formula">
+    <div class="card-label">Dominio de funciones exponenciales</div>
+    <p>$f(x) = e^{P(x)}$ o $f(x) = a^{P(x)}$</p>
+    $$\text{Dom}(f) = \text{Dom}(P)$$
+    <p>La exponencial acepta cualquier exponente, asi que el dominio es el del exponente.</p>
+    <p><em>Ejemplo:</em> $f(x) = 5^{3x+1} \Rightarrow \text{Dom}(f) = \mathbb{R}$</p>
+    <p><em>Cuidado:</em> $f(x) = e^{2/(x^2-5x+6)}$. Hay una division en el exponente, asi que $x \neq 2, 3$. Dominio $= \mathbb{R} \setminus \{2, 3\}$.</p>
+</div>
+
+<h3 id="dominio-logaritmica">Logaritmica</h3>
+<div class="card formula">
+    <div class="card-label">Dominio de funciones logaritmicas <span class="exam-tag si">Suele entrar</span></div>
+    <p>$f(x) = \log_a(P(x))$</p>
+    $$\text{Dom}(f) = \{x \in \mathbb{R} : P(x) > 0\}$$
+    <p>El argumento del logaritmo debe ser <strong>estrictamente positivo</strong> (mayor que cero, no vale cero).</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Dominio logaritmico</div>
+    <p>Halla el dominio de $f(x) = \ln\!\left(\dfrac{x+5}{x^2-4x+3}\right)$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Necesitamos $\dfrac{x+5}{x^2-4x+3} > 0$.</p>
+        <p>Raices: $x + 5 = 0 \Rightarrow x = -5$; $\quad x^2 - 4x + 3 = 0 \Rightarrow x = 1, x = 3$.</p>
+        <p>Tabla de signos:</p>
+        <table>
+            <tr><th>Intervalo</th><th>$(-\infty,-5)$</th><th>$(-5,1)$</th><th>$(1,3)$</th><th>$(3,+\infty)$</th></tr>
+            <tr><td>$x+5$</td><td>$-$</td><td>$+$</td><td>$+$</td><td>$+$</td></tr>
+            <tr><td>$x-1$</td><td>$-$</td><td>$-$</td><td>$+$</td><td>$+$</td></tr>
+            <tr><td>$x-3$</td><td>$-$</td><td>$-$</td><td>$-$</td><td>$+$</td></tr>
+            <tr><td><strong>Cociente</strong></td><td>$-$</td><td>$+$</td><td>$-$</td><td>$+$</td></tr>
+        </table>
+        <p>$\text{Dom}(f) = (-5, 1) \cup (3, +\infty)$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 6.3 LIMITES                                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="limites">6.3 Limites de funciones <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Idea intuitiva de limite</div>
+    <p>El <strong>limite</strong> de $f(x)$ cuando $x$ tiende a $x_0$ es el valor al que se <strong>acercan</strong> las imagenes ($y$) cuando las $x$ se acercan a $x_0$.</p>
+    <p>No importa lo que valga $f(x_0)$ ni si existe: solo importa a que valor se aproxima la funcion <strong>alrededor</strong> de $x_0$.</p>
+    <p><em>Ejemplo:</em> $f(x) = x^2$, $\lim_{x \to 2} x^2 = 4$. Si $x$ se acerca a 2 (por ejemplo: $1{,}9 \to 3{,}61$; $1{,}99 \to 3{,}96$; $2{,}01 \to 4{,}04$...), $f(x)$ se acerca a 4.</p>
+</div>
+
+<h3 id="limites-laterales">Limites laterales</h3>
+
+<div class="card definition">
+    <div class="card-label">Limites laterales <span class="exam-tag si">Suele entrar</span></div>
+    <p>Podemos acercarnos a $x_0$ por la <strong>izquierda</strong> (valores menores) o por la <strong>derecha</strong> (valores mayores):</p>
+    <ul>
+        <li><strong>Limite por la izquierda:</strong> $\displaystyle\lim_{x \to x_0^-} f(x)$</li>
+        <li><strong>Limite por la derecha:</strong> $\displaystyle\lim_{x \to x_0^+} f(x)$</li>
+    </ul>
+    <p>El limite existe si y solo si ambos limites laterales existen y son iguales:</p>
+    $$\exists \lim_{x \to x_0} f(x) \iff \lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x)$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Limites laterales en funcion a trozos</div>
+    <p>$f(x) = \begin{cases} x^2 & \text{si } x > 2 \\ 4 & \text{si } x < 2 \end{cases}$. Calcula $\lim_{x \to 2} f(x)$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Por la derecha</strong> ($x > 2$): $\lim_{x \to 2^+} x^2 = 4$</p>
+        <p><strong>Por la izquierda</strong> ($x < 2$): $\lim_{x \to 2^-} 4 = 4$</p>
+        <p>Como coinciden, $\lim_{x \to 2} f(x) = 4$.</p>
+        <p>El limite vale 4 <strong>aunque la funcion no tenga imagen en $x = 2$</strong> (no esta definida ahi).</p>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Calculo directo de limites</div>
+    <p>Si $f$ es una funcion elemental (polinomica, racional, exponencial, logaritmica...) y esta definida en $x = a$, entonces:</p>
+    $$\lim_{x \to a} f(x) = f(a)$$
+    <p>Es decir, simplemente <strong>sustituimos</strong> $x$ por $a$.</p>
+    <p><em>Ejemplo:</em> $\lim_{x \to 2} (x^2 + x - 1) = 4 + 2 - 1 = 5$</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Operaciones con infinito</div>
+    <p>Resultados que NO son indeterminaciones (se resuelven directamente):</p>
+    <table>
+        <tr><th>Operacion</th><th>Resultado</th></tr>
+        <tr><td>$\infty \pm k$</td><td>$\infty$</td></tr>
+        <tr><td>$\infty + \infty$</td><td>$\infty$</td></tr>
+        <tr><td>$k \cdot \infty$ (con $k \neq 0$)</td><td>$\pm\infty$</td></tr>
+        <tr><td>$\infty \cdot \infty$</td><td>$\infty$</td></tr>
+        <tr><td>$0 / k$ (con $k \neq 0$)</td><td>$0$</td></tr>
+        <tr><td>$k / \infty$</td><td>$0$</td></tr>
+        <tr><td>$\infty / k$</td><td>$\infty$</td></tr>
+        <tr><td>$k / 0$ (con $k \neq 0$)</td><td>$\pm\infty$ (estudiar signo)</td></tr>
+        <tr><td>$k^0$ (con $k \neq 0$)</td><td>$1$</td></tr>
+    </table>
+</div>
+
+<h3 id="indeterminaciones">Indeterminaciones</h3>
+
+<div class="card important">
+    <div class="card-label">Las 4 indeterminaciones de la asignatura <span class="exam-tag si">Siempre entra</span></div>
+    <p>Cuando al sustituir obtenemos una de estas formas, hay que <strong>operar</strong> para resolver:</p>
+    $$\frac{0}{0}, \quad \frac{\infty}{\infty}, \quad \infty - \infty, \quad 0 \cdot \infty$$
+</div>
+
+<div class="card formula">
+    <div class="card-label">Indeterminacion $\frac{0}{0}$ &mdash; Cociente de polinomios <span class="exam-tag si">Muy frecuente</span></div>
+    <p>$\displaystyle\lim_{x \to a} \frac{P(x)}{Q(x)} = \frac{0}{0}$</p>
+    <p><strong>Metodo:</strong> Factorizamos ambos polinomios por Ruffini (dividiendo por $(x - a)$) y simplificamos.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Indeterminacion 0/0</div>
+    <p>$\displaystyle\lim_{x \to 1} \frac{x^2 - 2x + 1}{x^2 - 1}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\frac{1 - 2 + 1}{1 - 1} = \frac{0}{0}$ indeterminado.</p>
+        <p><strong>Factorizamos:</strong></p>
+        $$\frac{(x-1)^2}{(x-1)(x+1)} = \frac{x-1}{x+1}$$
+        <p>Ahora sustituimos: $\dfrac{1-1}{1+1} = \dfrac{0}{2} = 0$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Indeterminacion 0/0 con radicales</div>
+    <p>$\displaystyle\lim_{x \to 0} \frac{x}{1 - \sqrt{1-x}}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\frac{0}{1-1} = \frac{0}{0}$. Multiplicamos por el <strong>conjugado</strong>:</p>
+        $$\frac{x}{1 - \sqrt{1-x}} \cdot \frac{1 + \sqrt{1-x}}{1 + \sqrt{1-x}} = \frac{x(1 + \sqrt{1-x})}{1 - (1-x)} = \frac{x(1 + \sqrt{1-x})}{x}$$
+        <p>Simplificamos la $x$:</p>
+        $$\lim_{x \to 0} (1 + \sqrt{1-x}) = 1 + \sqrt{1} = 2$$
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Indeterminacion $\frac{\infty}{\infty}$ &mdash; Cociente de polinomios <span class="exam-tag si">Muy frecuente</span></div>
+    <p>$\displaystyle\lim_{x \to \infty} \frac{P(x)}{Q(x)} = \frac{\infty}{\infty}$</p>
+    <p><strong>Metodo:</strong> Nos quedamos SOLO con el monomio de mayor grado del numerador y del denominador.</p>
+    <table>
+        <tr><th>Si...</th><th>Resultado</th></tr>
+        <tr><td>grado numerador $<$ grado denominador</td><td>$0$</td></tr>
+        <tr><td>grado numerador $>$ grado denominador</td><td>$\pm\infty$</td></tr>
+        <tr><td>mismo grado</td><td>cociente de los coeficientes principales</td></tr>
+    </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Tres casos de $\infty/\infty$</div>
+    <p>a) $\displaystyle\lim_{x \to \infty} \frac{2x+1}{x^2+3x+9}$ &emsp; b) $\displaystyle\lim_{x \to \infty} \frac{3x^2-4x+1}{6x+9}$ &emsp; c) $\displaystyle\lim_{x \to \infty} \frac{4x^2-4x+1}{6x^2+x+8}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> Grado 1 vs grado 2 $\Rightarrow$ grado denominador mayor $\Rightarrow \displaystyle\lim = \frac{2x}{x^2} = \frac{2}{x} = 0$</p>
+        <p><strong>b)</strong> Grado 2 vs grado 1 $\Rightarrow$ grado numerador mayor $\Rightarrow \displaystyle\lim = \frac{3x^2}{6x} = \frac{x}{2} = \infty$</p>
+        <p><strong>c)</strong> Mismo grado (2) $\Rightarrow \displaystyle\lim = \frac{4x^2}{6x^2} = \frac{4}{6} = \frac{2}{3}$</p>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Indeterminacion $\infty - \infty$</div>
+    <p>Dos casos principales:</p>
+    <ul>
+        <li><strong>Con funciones racionales:</strong> ponemos a <strong>comun denominador</strong> y obtenemos $\frac{0}{0}$ que resolvemos por Ruffini.</li>
+        <li><strong>Con radicales:</strong> multiplicamos y dividimos por el <strong>conjugado</strong> y obtenemos $\frac{\infty}{\infty}$.</li>
+    </ul>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - $\infty - \infty$ con racionales</div>
+    <p>$\displaystyle\lim_{x \to 2}\left(\frac{1}{x-2} - \frac{2x}{x^2-4}\right)$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Comun denominador ($x^2 - 4 = (x-2)(x+2)$):</p>
+        $$\frac{(x+2) - 2x}{x^2-4} = \frac{2-x}{x^2-4} = \frac{-(x-2)}{(x-2)(x+2)} = \frac{-1}{x+2}$$
+        <p>Sustituimos: $\dfrac{-1}{2+2} = \dfrac{-1}{4}$</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - $\infty - \infty$ con radicales</div>
+    <p>$\displaystyle\lim_{x \to \infty}\left(\sqrt{3x+2} - \sqrt{3x-1}\right)$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Multiplicamos por el conjugado:</p>
+        $$\frac{(\sqrt{3x+2} - \sqrt{3x-1})(\sqrt{3x+2} + \sqrt{3x-1})}{\sqrt{3x+2} + \sqrt{3x-1}} = \frac{(3x+2) - (3x-1)}{\sqrt{3x+2} + \sqrt{3x-1}} = \frac{3}{\sqrt{3x+2} + \sqrt{3x-1}}$$
+        <p>Cuando $x \to \infty$, el denominador $\to \infty$, asi que el limite es $\dfrac{3}{\infty} = 0$.</p>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Indeterminacion $0 \cdot \infty$</div>
+    <p><strong>Metodo:</strong> Transformamos en $\frac{0}{0}$ o $\frac{\infty}{\infty}$ reescribiendo el producto como cociente.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - $0 \cdot \infty$</div>
+    <p>$\displaystyle\lim_{x \to \infty} \frac{1}{x} \cdot \sqrt{x^2 + 3x}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Reescribimos: $\dfrac{\sqrt{x^2+3x}}{x} = \dfrac{\infty}{\infty}$</p>
+        <p>Nos quedamos con el monomio de mayor grado bajo la raiz: $\dfrac{\sqrt{x^2}}{x} = \dfrac{x}{x} = 1$</p>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Limites tipo $k/0$ <span class="exam-tag si">Suele entrar</span></div>
+    <p>Cuando al sustituir obtenemos $\frac{k}{0}$ con $k \neq 0$, el limite es $\pm\infty$.</p>
+    <p>Para saber el <strong>signo</strong>, hay que estudiar los <strong>limites laterales</strong>: ver si el denominador tiende a $0^+$ o $0^-$.</p>
+    <ul>
+        <li>Si los laterales coinciden $\Rightarrow$ el limite es $+\infty$ o $-\infty$.</li>
+        <li>Si los laterales NO coinciden $\Rightarrow$ <strong>no existe</strong> el limite (hay asintota vertical).</li>
+    </ul>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Limite tipo $k/0$ con laterales</div>
+    <p>$\displaystyle\lim_{x \to 1} \frac{x+1}{x-1}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\frac{2}{0}$. Hay que estudiar laterales.</p>
+        <p><strong>Por la derecha</strong> ($x \to 1^+$): $x - 1 \to 0^+$ (positivo), asi que $\frac{2}{0^+} = +\infty$</p>
+        <p><strong>Por la izquierda</strong> ($x \to 1^-$): $x - 1 \to 0^-$ (negativo), asi que $\frac{2}{0^-} = -\infty$</p>
+        <p>Los laterales no coinciden $\Rightarrow$ $\nexists\lim_{x \to 1} \frac{x+1}{x-1}$.</p>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Limite de funciones a trozos <span class="exam-tag si">Suele entrar</span></div>
+    <p>En los <strong>puntos de union</strong> entre los trozos, hay que calcular los limites laterales usando la formula de cada trozo:</p>
+    <ul>
+        <li>Limite por la izquierda: usamos la formula del trozo de la izquierda.</li>
+        <li>Limite por la derecha: usamos la formula del trozo de la derecha.</li>
+        <li>Si coinciden, el limite existe. Si no, no existe.</li>
+    </ul>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Limite en funcion a trozos</div>
+    <p>$f(x) = \begin{cases} 1 & \text{si } x < -1 \\ x^2 & \text{si } -1 \leq x < 1 \\ 2 & \text{si } x \geq 1 \end{cases}$. Estudia los limites en $x = -1$ y $x = 1$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>En $x = -1$:</strong></p>
+        <p>$\lim_{x \to -1^-} 1 = 1$ &emsp; $\lim_{x \to -1^+} x^2 = 1$</p>
+        <p>Coinciden $\Rightarrow \lim_{x \to -1} f(x) = 1$ &#10003;</p>
+        <p><strong>En $x = 1$:</strong></p>
+        <p>$\lim_{x \to 1^-} x^2 = 1$ &emsp; $\lim_{x \to 1^+} 2 = 2$</p>
+        <p>No coinciden $\Rightarrow \nexists\lim_{x \to 1} f(x)$</p>
+    </div>
+</div>
+
+<!-- Grafico funcion a trozos con puntos abiertos/cerrados -->
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Funcion a trozos: &#9679; incluido, &#9675; no incluido</div>
+    <canvas class="graph-canvas" id="g-trozos" style="height: 280px;"></canvas>
+    <p style="text-align:center; color: var(--text-dim); font-size: 0.85rem;">En $x=-1$ el limite existe (coinciden). En $x=1$ no existe (salto de 1 a 2).</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 6.4 ASINTOTAS                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="asintotas">6.4 Asintotas <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Que son las asintotas</div>
+    <p>Las <strong>asintotas</strong> son rectas a las que la funcion se va acercando indefinidamente. Hay tres tipos:</p>
+</div>
+
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Ejemplo visual: los 3 tipos de asintotas</div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-asint-vh"></canvas>
+        <canvas class="graph-canvas" id="g-asint-oblicua"></canvas>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Asintota vertical (A.V.) <span class="exam-tag si">Suele entrar</span></div>
+    <p>Recta de ecuacion $x = a$. Se busca donde el denominador se anula (o en los bordes del dominio):</p>
+    $$\lim_{x \to a} f(x) = \pm\infty \Rightarrow x = a \text{ es A.V.}$$
+    <p>Para saber la posicion de la curva respecto a la asintota, calculamos los limites laterales.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Asintota horizontal (A.H.) <span class="exam-tag si">Suele entrar</span></div>
+    <p>Recta de ecuacion $y = b$. Se busca haciendo:</p>
+    $$\lim_{x \to +\infty} f(x) = b \quad \text{y/o} \quad \lim_{x \to -\infty} f(x) = b$$
+    <p>Si alguno de esos limites da un numero finito $b$, entonces $y = b$ es A.H.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Asintota oblicua (A.O.) <span class="sel-tag no">No selectividad</span></div>
+    <p>Recta de ecuacion $y = mx + n$. Solo existe si <strong>no hay A.H.</strong> en esa direccion.</p>
+    $$m = \lim_{x \to \infty} \frac{f(x)}{x}, \qquad n = \lim_{x \to \infty} \big(f(x) - mx\big)$$
+    <p>Si $m$ existe y es finito (y $\neq 0$), y $n$ existe, entonces hay A.O.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Asintotas de una funcion racional</div>
+    <p>Halla las asintotas de $f(x) = \dfrac{x^2 + 2x}{x + 1}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>A.V.:</strong> $x + 1 = 0 \Rightarrow x = -1$. Comprobamos: $\lim_{x \to -1} f(x) = \frac{-1}{0} = \pm\infty$ &#10003;</p>
+        <p><strong>A.H.:</strong> $\lim_{x \to \infty} \frac{x^2+2x}{x+1} = \frac{x^2}{x} = x = \infty$. No hay A.H.</p>
+        <p><strong>A.O.:</strong> Dividimos: $\frac{x^2+2x}{x+1} = x + 1 + \frac{-1}{x+1}$</p>
+        <p>La asintota oblicua es $y = x + 1$.</p>
+        <p>Cuando $x \to +\infty$: $\frac{-1}{x+1} < 0 \Rightarrow$ la curva esta por debajo de la asintota.</p>
+        <p>Cuando $x \to -\infty$: $\frac{-1}{x+1} > 0 \Rightarrow$ la curva esta por encima de la asintota.</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 6.5 CONTINUIDAD                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="continuidad">6.5 Continuidad <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Continuidad en un punto <span class="exam-tag si">Siempre entra</span></div>
+    <p>Una funcion $f(x)$ es <strong>continua en $x = a$</strong> si se cumplen las 3 condiciones:</p>
+    <table>
+        <tr><th>#</th><th>Condicion</th><th>Significado</th></tr>
+        <tr><td>1</td><td>$\exists\, f(a)$</td><td>La funcion tiene imagen en $a$ ($a$ esta en el dominio)</td></tr>
+        <tr><td>2</td><td>$\exists\, \lim_{x \to a} f(x)$</td><td>El limite existe (los laterales coinciden)</td></tr>
+        <tr><td>3</td><td>$\lim_{x \to a} f(x) = f(a)$</td><td>El limite coincide con el valor de la funcion</td></tr>
+    </table>
+    <p><strong>Importante:</strong> En el examen hay que escribir las 3 condiciones y comprobar cada una. Es la <em>definicion</em> de continuidad en un punto.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Funciones continuas en su dominio</div>
+    <p>Las funciones elementales son <strong>continuas en todos los puntos de su dominio</strong>:</p>
+    <ul>
+        <li>Polinomicas: continuas en todo $\mathbb{R}$.</li>
+        <li>Racionales: continuas en $\mathbb{R}$ excepto donde se anula el denominador.</li>
+        <li>Irracionales, exponenciales, logaritmicas: continuas en su dominio.</li>
+    </ul>
+    <p>Solo hay que estudiar la continuidad manualmente en las <strong>funciones a trozos</strong>, en los puntos donde cambia la definicion.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Continuidad de funcion a trozos</div>
+    <p>Estudia la continuidad de $f(x) = \begin{cases} x^2 & \text{si } x < 2 \\ 4 & \text{si } x \geq 2 \end{cases}$ en $x = 2$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>1.</strong> $f(2) = 4$ &#10003; (existe, porque $x = 2$ esta en el trozo $x \geq 2$)</p>
+        <p><strong>2.</strong> $\lim_{x \to 2^+} f(x) = \lim_{x \to 2^+} 4 = 4$</p>
+        <p>$\quad\;\; \lim_{x \to 2^-} f(x) = \lim_{x \to 2^-} x^2 = 4$</p>
+        <p>$\quad\;\;$ Coinciden $\Rightarrow \lim_{x \to 2} f(x) = 4$ &#10003;</p>
+        <p><strong>3.</strong> $\lim_{x \to 2} f(x) = 4 = f(2)$ &#10003;</p>
+        <p>Se cumplen las 3 condiciones $\Rightarrow$ $f$ es <strong>continua en $x = 2$</strong>.</p>
+    </div>
+</div>
+
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Continua vs discontinua &mdash; &#9679; punto incluido, &#9675; punto NO incluido</div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-continua"></canvas>
+        <canvas class="graph-canvas" id="g-discont"></canvas>
+    </div>
+    <canvas class="graph-canvas" id="g-evitable" style="max-width: 50%;"></canvas>
+</div>
+
+<h3 id="discontinuidad">Discontinuidad</h3>
+
+<div class="card definition">
+    <div class="card-label">Tipos de discontinuidad</div>
+    <p>Si alguna de las 3 condiciones falla, la funcion es <strong>discontinua</strong> en ese punto:</p>
+    <table>
+        <tr><th>Condicion que falla</th><th>Tipo</th><th>Ejemplo visual</th></tr>
+        <tr><td>No existe $f(a)$ pero si el limite</td><td><strong>Evitable</strong> (un "agujero")</td><td>Se puede "rellenar" definiendo $f(a) = L$</td></tr>
+        <tr><td>Los limites laterales existen pero no coinciden</td><td><strong>De salto</strong></td><td>La grafica "salta" de un valor a otro</td></tr>
+        <tr><td>Algun limite lateral es $\pm\infty$</td><td><strong>Esencial</strong> (asintota vertical)</td><td>La grafica se va al infinito</td></tr>
+    </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Discontinuidad evitable</div>
+    <p>$f(x) = \begin{cases} x^2 & \text{si } x < 2 \\ 4 & \text{si } x > 2 \end{cases}$ (no definida en $x = 2$).</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>1.</strong> $f(2)$ no existe &#10007; $\Rightarrow$ ya es discontinua.</p>
+        <p>Pero $\lim_{x \to 2^-} x^2 = 4 = \lim_{x \to 2^+} 4$, asi que el limite si existe y vale 4.</p>
+        <p>Es una <strong>discontinuidad evitable</strong>: si definieramos $f(2) = 4$, seria continua.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Hallar parametros para continuidad</div>
+    <p>Halla $a$ y $b$ para que $f(x) = \begin{cases} x+3 & \text{si } x < 0 \\ ax+b & \text{si } 0 \leq x \leq 2 \\ 0{,}5x+1 & \text{si } x > 2 \end{cases}$ sea continua en $\mathbb{R}$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Cada trozo es polinomico, asi que solo estudiamos los puntos de union: $x = 0$ y $x = 2$.</p>
+        <p><strong>En $x = 0$:</strong> Continuidad $\Rightarrow$ limites laterales iguales y $= f(0)$.</p>
+        <p>$\lim_{x \to 0^-}(x+3) = 3$ &emsp; $f(0) = a \cdot 0 + b = b$</p>
+        <p>$\Rightarrow b = 3$</p>
+        <p><strong>En $x = 2$:</strong></p>
+        <p>$f(2) = 2a + b = 2a + 3$ &emsp; $\lim_{x \to 2^+}(0{,}5x+1) = 2$</p>
+        <p>$\Rightarrow 2a + 3 = 2 \Rightarrow a = -\frac{1}{2}$</p>
+        <p><strong>Solucion:</strong> $a = -1/2$, $b = 3$.</p>
+    </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+// Progress bar
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+// Active nav highlight
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+// Mobile nav: close on link click
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+
+// === GRAFICOS ===
+window.addEventListener('load', function() {
+    // Tipos de funcion
+    plotGraph('g-poly', {
+        title: 'Polinomica: y = x³ - 3x',
+        functions: [function(x) { return x*x*x - 3*x; }],
+        xMin: -3, xMax: 3, yMin: -4, yMax: 4
+    });
+    plotGraph('g-rational', {
+        title: 'Racional: y = 1/(x-1)',
+        functions: [function(x) { return 1/(x-1); }],
+        xMin: -4, xMax: 6, yMin: -5, yMax: 5,
+        asymptotes: [{type:'v', val:1, label:'x=1', color:'#f7768e'}, {type:'h', val:0, label:'y=0', color:'#e0af68'}]
+    });
+    plotGraph('g-exp', {
+        title: 'Exponencial: y = eˣ',
+        functions: [function(x) { return Math.exp(x); }],
+        xMin: -3, xMax: 3, yMin: -1, yMax: 7,
+        asymptotes: [{type:'h', val:0, label:'y=0', color:'#e0af68'}]
+    });
+    plotGraph('g-log', {
+        title: 'Logaritmica: y = ln(x)',
+        functions: [function(x) { return x > 0 ? Math.log(x) : NaN; }],
+        xMin: -1, xMax: 8, yMin: -3, yMax: 3,
+        asymptotes: [{type:'v', val:0, label:'x=0', color:'#f7768e'}]
+    });
+
+    // Asintotas
+    plotGraph('g-asint-vh', {
+        title: 'A.V. x=2, x=-2   A.H. y=0',
+        functions: [function(x) { return 1/(4-x*x); }],
+        xMin: -5, xMax: 5, yMin: -4, yMax: 4,
+        asymptotes: [
+            {type:'v', val:2, label:'x=2', color:'#f7768e'},
+            {type:'v', val:-2, label:'x=-2', color:'#f7768e'},
+            {type:'h', val:0, label:'y=0', color:'#e0af68'}
+        ]
+    });
+    plotGraph('g-asint-oblicua', {
+        title: 'A.O. y = x+1   A.V. x=-1',
+        functions: [
+            function(x) { return (x*x+2*x)/(x+1); },
+            {fn: function(x) { return x+1; }, color: '#e0af68', lineWidth: 1, dashed: true}
+        ],
+        xMin: -6, xMax: 4, yMin: -6, yMax: 6,
+        asymptotes: [{type:'v', val:-1, label:'x=-1', color:'#f7768e'}]
+    });
+
+    // Continuidad
+    plotGraph('g-continua', {
+        title: 'Continua en x=2',
+        functions: [
+            function(x) { return x <= 2 ? x*x : 4; }
+        ],
+        xMin: -1, xMax: 5, yMin: -1, yMax: 6,
+        points: [{x:2, y:4, color:'#9ece6a', label:'f(2)=4', r:5}]
+    });
+    plotGraph('g-discont', {
+        title: 'Discont. de salto en x=1',
+        functions: [
+            function(x) { return x < 1 ? x*x : NaN; },
+            function(x) { return x >= 1 ? x + 1 : NaN; }
+        ],
+        xMin: -2, xMax: 4, yMin: -1, yMax: 5,
+        points: [
+            {x:1, y:1, color:'#f7768e', label:'no incluido', r:5, open: true},
+            {x:1, y:2, color:'#9ece6a', label:'f(1)=2', r:5}
+        ]
+    });
+
+    // Funcion a trozos con puntos abiertos/cerrados
+    plotGraph('g-trozos', {
+        height: 280,
+        title: 'f(x) = {1 si x<-1, x² si -1≤x<1, 2 si x≥1}',
+        functions: [
+            function(x) { return x < -1 ? 1 : NaN; },
+            function(x) { return (x >= -1 && x < 1) ? x*x : NaN; },
+            function(x) { return x >= 1 ? 2 : NaN; }
+        ],
+        xMin: -4, xMax: 4, yMin: -0.5, yMax: 3.5,
+        points: [
+            // En x = -1: limite por la izq = 1, f(-1) = 1 (incluido en trozo 2)
+            {x:-1, y:1, color:'#7aa2f7', label:'', r:5, open: true},    // trozo 1 no incluye x=-1
+            {x:-1, y:1, color:'#9ece6a', label:'f(-1)=1', r:5},         // trozo 2 incluye x=-1
+            // En x = 1: limite por la izq = 1, f(1) = 2 (incluido en trozo 3)
+            {x:1, y:1, color:'#f7768e', label:'lim izq=1', r:5, open: true},  // trozo 2 no incluye x=1
+            {x:1, y:2, color:'#9ece6a', label:'f(1)=2', r:5}                  // trozo 3 incluye x=1
+        ]
+    });
+
+    // Discontinuidad evitable (agujero)
+    plotGraph('g-evitable', {
+        title: 'Discont. evitable en x=2',
+        functions: [
+            function(x) { return x < 2 ? x*x : NaN; },
+            function(x) { return x > 2 ? x*x : NaN; }
+        ],
+        xMin: -1, xMax: 5, yMin: -1, yMax: 7,
+        points: [
+            {x:2, y:4, color:'#e0af68', label:'limite = 4', r:5, open: true}
+        ]
+    });
+});
+</script>
+
+</body>
+</html>

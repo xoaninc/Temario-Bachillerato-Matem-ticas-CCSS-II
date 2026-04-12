@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis CCSS II - 3er Trimestre</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--blue);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--rose);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Analisis</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+
+    <h2>Tema 6 &middot; Funciones y Limites</h2>
+    <a href="tema6.html#funciones">6.1 Concepto de funcion</a>
+    <a href="tema6.html#dominio">6.2 Dominio</a>
+    <a href="tema6.html#limites">6.3 Limites</a>
+    <a href="tema6.html#asintotas">6.4 Asintotas</a>
+    <a href="tema6.html#continuidad">6.5 Continuidad</a>
+    <a href="tests.html?tema=6" class="sub test-link">Practicar Test T6</a>
+
+    <h2>Tema 7 &middot; Derivadas</h2>
+    <a href="tema7.html#derivada">7.1 Concepto de derivada</a>
+    <a href="tema7.html#reglas">7.2 Reglas de derivacion</a>
+    <a href="tema7.html#tangente">7.3 Recta tangente</a>
+    <a href="tema7.html#monotonia">7.4 Monotonia y extremos</a>
+    <a href="tema7.html#curvatura">7.5 Curvatura e inflexion</a>
+    <a href="tema7.html#optimizacion">7.6 Optimizacion</a>
+    <a href="tests.html?tema=7" class="sub test-link">Practicar Test T7</a>
+
+    <h2>Tema 8 &middot; Integrales</h2>
+    <a href="tema8.html#primitiva">8.1 Primitiva e integral</a>
+    <a href="tema8.html#inmediatas">8.2 Integrales inmediatas</a>
+    <a href="tema8.html#definida">8.3 Integral definida</a>
+    <a href="tema8.html#barrow">8.4 Regla de Barrow</a>
+    <a href="tema8.html#areas">8.5 Calculo de areas</a>
+    <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
+    <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+
+    <h2>Examenes</h2>
+    <a href="examenes.html#modelo-ponencia">Modelo ponencia 2025-2026</a>
+    <a href="examenes.html#selectividad">Selectividad 2022-2023</a>
+    <a href="examenes.html#ejercicios-tema6">Ejercicios Tema 6</a>
+    <a href="examenes.html#ejercicios-tema7">Ejercicios Tema 7</a>
+    <a href="examenes.html#ejercicios-tema8">Ejercicios Tema 8</a>
+</nav>
+
+<div class="main">
+
+<h1 id="guia-aprender">Analisis CCSS II &mdash; Guia desde cero</h1>
+<p>Todo el bloque de analisis de 2o Bachillerato CCSS II: funciones, limites, derivadas e integrales, explicado paso a paso.</p>
+
+<div class="card definition" style="padding: 28px;">
+    <h3 style="margin-top: 0;">Antes de empezar: lo basico que necesitas saber</h3>
+
+    <h4>Que es una funcion?</h4>
+    <p>Una maquina que transforma numeros: le metes un $x$ y te devuelve un $y = f(x)$. Por ejemplo, $f(x) = x^2$ transforma el 3 en 9, el $-2$ en 4, etc. Cada $x$ tiene <strong>una unica imagen</strong>.</p>
+    <p>El <strong>dominio</strong> son todos los valores de $x$ que puedes meter sin que la maquina se rompa (sin dividir por 0, sin raiz de negativo, sin log de 0 o negativo).</p>
+
+    <h4>Que es un limite?</h4>
+    <p>Imagina que $x$ se acerca muchisimo a un valor (por ejemplo, a 2), pero sin llegar. El limite te dice a que valor se acerca $f(x)$. Es como preguntar: "si me acerco infinitamente a ese punto, que pasa con la funcion?"</p>
+    <p>A veces al sustituir sale $\frac{0}{0}$ o $\frac{\infty}{\infty}$. Eso no es un resultado, es una <strong>indeterminacion</strong>: hay que operar mas para sacar el resultado real.</p>
+
+    <h4>Que es una derivada?</h4>
+    <p>La derivada $f'(x)$ mide la <strong>velocidad de cambio</strong> de la funcion. Si $f'(x) > 0$, la funcion sube. Si $f'(x) < 0$, baja. Si $f'(x) = 0$, hay un posible maximo o minimo.</p>
+    <p>Geometricamente, $f'(a)$ es la <strong>pendiente de la recta tangente</strong> a la grafica en $x = a$.</p>
+
+    <h4>Que es una integral?</h4>
+    <p>Integrar es lo contrario de derivar. Si derivar dice "como cambia la funcion", integrar dice "cuanto se ha acumulado". La aplicacion principal es calcular <strong>areas</strong> entre curvas.</p>
+</div>
+
+<h2>Los 3 temas</h2>
+
+<a href="tema6.html" class="roadmap-step">
+    <span class="roadmap-num">6</span>
+    <div class="roadmap-content">
+        <h4>Funciones, Limites y Continuidad</h4>
+        <p><strong>5 secciones.</strong> Concepto de funcion, dominio de 6 tipos (polinomica, racional, irracional par/impar, exponencial, logaritmica), limites (idea intuitiva, laterales, calculo directo), indeterminaciones ($0/0$, $\infty/\infty$, $\infty-\infty$, $0 \cdot \infty$), asintotas (V, H, O), y continuidad (3 condiciones, funciones a trozos, tipos de discontinuidad).</p>
+    </div>
+</a>
+
+<a href="tema7.html" class="roadmap-step">
+    <span class="roadmap-num">7</span>
+    <div class="roadmap-content">
+        <h4>Derivadas y Aplicaciones</h4>
+        <p><strong>7 secciones.</strong> TVM y derivada en un punto, derivabilidad y continuidad, tabla completa de derivadas (con regla de la cadena), recta tangente y normal, monotonia (crecimiento/decrecimiento con $f'$), extremos (maximos/minimos con $f''$), curvatura (concavidad/convexidad), puntos de inflexion, problemas de optimizacion, y estudio global de funciones.</p>
+    </div>
+</a>
+
+<a href="tema8.html" class="roadmap-step">
+    <span class="roadmap-num">8</span>
+    <div class="roadmap-content">
+        <h4>Integrales</h4>
+        <p><strong>5 secciones.</strong> Primitiva e integral indefinida, tabla de integrales inmediatas (potencias, exponenciales, logaritmicas, con regla de la cadena), integral definida y sus propiedades, regla de Barrow, y calculo de areas: 4 casos (funcion positiva, negativa, que cambia de signo, y area entre dos curvas).</p>
+    </div>
+</a>
+
+<h2>Herramientas de estudio</h2>
+
+<a href="examenes.html" class="roadmap-step">
+    <span class="roadmap-num">!</span>
+    <div class="roadmap-content">
+        <h4>Ejercicios de examen resueltos</h4>
+        <p>Modelo de la ponencia 2025-2026 resuelto paso a paso, ejercicios de selectividad 2022-2023, y ejercicios de los PDFs de clase. Todos con referencia a la fuente original.</p>
+    </div>
+</a>
+
+<a href="herramientas.html" class="roadmap-step">
+    <span class="roadmap-num">?</span>
+    <div class="roadmap-content">
+        <h4>Que formula uso? + Tablas + Errores tipicos</h4>
+        <p>Diagrama de decision para cada tipo de problema, tabla completa de derivadas e integrales para consulta rapida, y los errores mas frecuentes en el examen.</p>
+    </div>
+</a>
+
+<a href="tests.html" class="roadmap-step">
+    <span class="roadmap-num">&#10003;</span>
+    <div class="roadmap-content">
+        <h4>Tests interactivos</h4>
+        <p>Preguntas aleatorias por tema con explicaciones detalladas para comprobar si dominas los conceptos.</p>
+    </div>
+</a>
+
+<h2>Orden de estudio recomendado</h2>
+
+<div class="card" style="padding: 24px;">
+    <p><strong>Cada concepto se construye sobre los anteriores.</strong> No saltes temas. Si no dominas los limites, no intentes derivadas. Si no sabes derivar, no podras integrar.</p>
+    <table>
+        <tr><th>Paso</th><th>Que estudiar</th><th>Necesitas antes</th><th>Donde</th></tr>
+        <tr><td>1</td><td>Dominio de funciones</td><td>Ecuaciones 2o grado, inecuaciones</td><td><a href="tema6.html#dominio">T6 sec. 6.2</a></td></tr>
+        <tr><td>2</td><td>Calculo de limites + indeterminaciones</td><td>Paso 1 + Ruffini</td><td><a href="tema6.html#limites">T6 sec. 6.3</a></td></tr>
+        <tr><td>3</td><td>Asintotas</td><td>Paso 2</td><td><a href="tema6.html#asintotas">T6 sec. 6.4</a></td></tr>
+        <tr><td>4</td><td>Continuidad + funciones a trozos</td><td>Pasos 1-2</td><td><a href="tema6.html#continuidad">T6 sec. 6.5</a></td></tr>
+        <tr><td>5</td><td>Derivada + reglas de derivacion</td><td>Pasos 1-2</td><td><a href="tema7.html#derivada">T7 sec. 7.1-7.2</a></td></tr>
+        <tr><td>6</td><td>Recta tangente</td><td>Paso 5</td><td><a href="tema7.html#tangente">T7 sec. 7.3</a></td></tr>
+        <tr><td>7</td><td>Monotonia + extremos + curvatura</td><td>Paso 5</td><td><a href="tema7.html#monotonia">T7 sec. 7.4-7.5</a></td></tr>
+        <tr><td>8</td><td>Optimizacion + estudio global</td><td>Pasos 3+7</td><td><a href="tema7.html#optimizacion">T7 sec. 7.6-7.7</a></td></tr>
+        <tr><td>9</td><td>Integrales inmediatas</td><td>Paso 5 (saber derivar)</td><td><a href="tema8.html#primitiva">T8 sec. 8.1-8.2</a></td></tr>
+        <tr><td>10</td><td>Regla de Barrow + areas</td><td>Paso 9</td><td><a href="tema8.html#barrow">T8 sec. 8.4-8.5</a></td></tr>
+    </table>
+    <p style="margin-top: 16px;"><strong>Consejo:</strong> Despues de cada paso, haz el <a href="tests.html">test del tema</a> correspondiente. Si fallas mas de 2, vuelve a leer la teoria antes de seguir.</p>
+</div>
+
+</div><!-- end main -->
+
+<script>
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

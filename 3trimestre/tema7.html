@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 7: Derivadas y Aplicaciones - Analisis CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="graphs.js" defer></script>
+    <style>
+        .graph-canvas { width: 100%; border-radius: 8px; margin: 12px 0; }
+        .graph-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        @media (max-width: 600px) { .graph-row { grid-template-columns: 1fr; } }
+        .sel-tag { display: inline-block; font-size: 0.55rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; vertical-align: middle; margin-left: 8px; }
+        .sel-tag.si { background: rgba(158,206,106,0.12); color: #9ece6a; }
+        .sel-tag.no { background: rgba(247,118,142,0.12); color: #f7768e; }
+        .ponencia-banner { background: rgba(158,206,106,0.06); border: 1px solid rgba(158,206,106,0.2); border-left: 3px solid #9ece6a; border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; font-size: 0.88rem; color: var(--text); }
+        .ponencia-banner strong { color: #9ece6a; }
+    </style>
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--blue);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--red);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Analisis</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+
+    <h2>Tema 6 &middot; Funciones y Limites</h2>
+    <a href="tema6.html#funciones">6.1 Concepto de funcion</a>
+    <a href="tema6.html#dominio">6.2 Dominio</a>
+    <a href="tema6.html#limites">6.3 Limites</a>
+    <a href="tema6.html#asintotas">6.4 Asintotas</a>
+    <a href="tema6.html#continuidad">6.5 Continuidad</a>
+    <a href="tests.html?tema=6" class="sub test-link">Practicar Test T6</a>
+
+    <h2>Tema 7 &middot; Derivadas</h2>
+    <a href="#derivada">7.1 Concepto de derivada</a>
+    <a href="#derivabilidad" class="sub">Derivabilidad</a>
+    <a href="#reglas">7.2 Reglas de derivacion</a>
+    <a href="#tabla-derivadas" class="sub">Tabla de derivadas</a>
+    <a href="#tangente">7.3 Recta tangente</a>
+    <a href="#monotonia">7.4 Monotonia y extremos</a>
+    <a href="#curvatura">7.5 Curvatura e inflexion</a>
+    <a href="#optimizacion">7.6 Optimizacion</a>
+    <a href="#estudio-global">7.7 Estudio global</a>
+    <a href="tests.html?tema=7" class="sub test-link">Practicar Test T7</a>
+
+    <h2>Tema 8 &middot; Integrales</h2>
+    <a href="tema8.html#primitiva">8.1 Primitiva e integral</a>
+    <a href="tema8.html#inmediatas">8.2 Integrales inmediatas</a>
+    <a href="tema8.html#definida">8.3 Integral definida</a>
+    <a href="tema8.html#barrow">8.4 Regla de Barrow</a>
+    <a href="tema8.html#areas">8.5 Calculo de areas</a>
+    <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
+    <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+</nav>
+
+<div class="main">
+
+<h1>Tema 7: Derivadas y Aplicaciones</h1>
+<p>Concepto de derivada, reglas de derivacion, recta tangente, monotonia, extremos, curvatura, inflexion, optimizacion y estudio global.</p>
+
+<div class="ponencia-banner">
+    <strong>Ponencia selectividad 2025-2026:</strong> Todo el contenido de este tema entra en la prueba de acceso. Referencia: saber B.2 (Cambio).
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.1 CONCEPTO DE DERIVADA                                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="derivada">7.1 Concepto de derivada <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Tasa de variacion media (TVM)</div>
+    <p>La <strong>TVM</strong> de $f$ en el intervalo $[a,b]$ es la pendiente de la recta que une los puntos $A(a, f(a))$ y $B(b, f(b))$:</p>
+    $$\text{TVM}[a,b] = \frac{f(b) - f(a)}{b - a}$$
+    <ul>
+        <li>Si la TVM es positiva $\Rightarrow$ la funcion <strong>crece</strong> en ese intervalo (en promedio).</li>
+        <li>Si la TVM es negativa $\Rightarrow$ la funcion <strong>decrece</strong> en ese intervalo (en promedio).</li>
+    </ul>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Derivada en un punto <span class="exam-tag si">Suele entrar</span></div>
+    <p>La <strong>derivada</strong> de $f$ en $x = a$ es la <strong>tasa de variacion instantanea</strong>: el limite de la TVM cuando el intervalo se hace infinitamente pequeno.</p>
+    $$f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x - a} = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$$
+    <p><strong>Significado geometrico:</strong> $f'(a)$ es la <strong>pendiente de la recta tangente</strong> a la grafica en el punto $(a, f(a))$.</p>
+    <ul>
+        <li>$f'(a) > 0 \Rightarrow$ la funcion es creciente en $x = a$.</li>
+        <li>$f'(a) < 0 \Rightarrow$ la funcion es decreciente en $x = a$.</li>
+        <li>$f'(a) = 0 \Rightarrow$ la tangente es horizontal (posible extremo).</li>
+    </ul>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Derivada por definicion</div>
+    <p>Calcula $f'(2)$ para $f(x) = 3x^2$ usando la definicion.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        $$f'(2) = \lim_{x \to 2} \frac{f(x) - f(2)}{x - 2} = \lim_{x \to 2} \frac{3x^2 - 12}{x - 2} = \frac{0}{0}$$
+        <p>Factorizamos: $3x^2 - 12 = 3(x^2 - 4) = 3(x-2)(x+2)$</p>
+        $$\lim_{x \to 2} \frac{3(x-2)(x+2)}{x-2} = \lim_{x \to 2} 3(x+2) = 3 \cdot 4 = 12$$
+    </div>
+</div>
+
+<h3 id="derivabilidad">Derivabilidad y continuidad</h3>
+
+<div class="card important">
+    <div class="card-label">Relacion derivabilidad-continuidad <span class="exam-tag si">Suele entrar</span></div>
+    <p><strong>Si $f$ es derivable en $x = a$ $\Rightarrow$ $f$ es continua en $x = a$.</strong></p>
+    <p>Pero el <strong>reciproco es falso</strong>: una funcion puede ser continua y no derivable (ejemplo: $f(x) = |x|$ en $x = 0$).</p>
+    <p>Consecuencia practica: para estudiar derivabilidad, <strong>primero</strong> comprobamos continuidad. Si no es continua, directamente no es derivable.</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Derivadas laterales</div>
+    <p>En funciones a trozos, $f$ es derivable en el punto de union $x = a$ si:</p>
+    <ol>
+        <li>$f$ es continua en $x = a$.</li>
+        <li>Las derivadas laterales coinciden: $f'(a^-) = f'(a^+)$.</li>
+    </ol>
+    <p>Se calculan derivando cada trozo y sustituyendo $x = a$.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Continuidad y derivabilidad a trozos</div>
+    <p>Estudia la continuidad y derivabilidad de $f(x) = \begin{cases} 9-x^2 & \text{si } x \leq 3 \\ -2x^2+16x-30 & \text{si } x > 3 \end{cases}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Continuidad en $x = 3$:</strong></p>
+        <p>$f(3) = 9 - 9 = 0$ &emsp; $\lim_{x \to 3^-}(9-x^2) = 0$ &emsp; $\lim_{x \to 3^+}(-2 \cdot 9 + 48 - 30) = 0$</p>
+        <p>Las 3 condiciones se cumplen $\Rightarrow$ <strong>continua</strong> &#10003;</p>
+        <p><strong>Derivabilidad en $x = 3$:</strong></p>
+        <p>$f'(x) = -2x$ para $x \leq 3$ $\Rightarrow$ $f'(3^-) = -6$</p>
+        <p>$f'(x) = -4x + 16$ para $x > 3$ $\Rightarrow$ $f'(3^+) = -12 + 16 = 4$</p>
+        <p>$-6 \neq 4$ $\Rightarrow$ <strong>no es derivable</strong> en $x = 3$ (punto anguloso).</p>
+    </div>
+</div>
+
+<!-- Grafico tangente -->
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">La derivada como pendiente de la tangente</div>
+    <canvas class="graph-canvas" id="g-tangente" style="height: 300px;"></canvas>
+    <p style="text-align:center; color: var(--text-dim); font-size: 0.85rem;">$f(x) = x^2$ en $x = 1$: la tangente (verde) tiene pendiente $f'(1) = 2$</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.2 REGLAS DE DERIVACION                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="reglas">7.2 Reglas de derivacion <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card formula">
+    <div class="card-label">Operaciones con derivadas</div>
+    <table>
+        <tr><th>Operacion</th><th>Funcion</th><th>Derivada</th></tr>
+        <tr><td>Constante por funcion</td><td>$k \cdot f(x)$</td><td>$k \cdot f'(x)$</td></tr>
+        <tr><td>Suma/resta</td><td>$f(x) \pm g(x)$</td><td>$f'(x) \pm g'(x)$</td></tr>
+        <tr><td>Producto</td><td>$f(x) \cdot g(x)$</td><td>$f'(x) \cdot g(x) + f(x) \cdot g'(x)$</td></tr>
+        <tr><td>Cociente</td><td>$\dfrac{f(x)}{g(x)}$</td><td>$\dfrac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{[g(x)]^2}$</td></tr>
+        <tr><td>Regla de la cadena</td><td>$f(g(x))$</td><td>$f'(g(x)) \cdot g'(x)$</td></tr>
+    </table>
+</div>
+
+<h3 id="tabla-derivadas">Tabla de derivadas</h3>
+
+<div class="card formula">
+    <div class="card-label">Derivadas de funciones elementales <span class="exam-tag si">Imprescindible</span></div>
+    <table>
+        <tr><th>Funcion</th><th>Derivada</th><th>Funcion compuesta</th><th>Derivada (cadena)</th></tr>
+        <tr><td>$k$ (constante)</td><td>$0$</td><td></td><td></td></tr>
+        <tr><td>$x$</td><td>$1$</td><td></td><td></td></tr>
+        <tr><td>$x^n$</td><td>$nx^{n-1}$</td><td>$[f(x)]^n$</td><td>$n[f(x)]^{n-1} \cdot f'(x)$</td></tr>
+        <tr><td>$\sqrt{x}$</td><td>$\dfrac{1}{2\sqrt{x}}$</td><td>$\sqrt{f(x)}$</td><td>$\dfrac{f'(x)}{2\sqrt{f(x)}}$</td></tr>
+        <tr><td>$\dfrac{1}{x}$</td><td>$-\dfrac{1}{x^2}$</td><td>$\dfrac{1}{f(x)}$</td><td>$-\dfrac{f'(x)}{[f(x)]^2}$</td></tr>
+        <tr><td>$e^x$</td><td>$e^x$</td><td>$e^{f(x)}$</td><td>$e^{f(x)} \cdot f'(x)$</td></tr>
+        <tr><td>$a^x$</td><td>$a^x \cdot \ln a$</td><td>$a^{f(x)}$</td><td>$a^{f(x)} \cdot \ln a \cdot f'(x)$</td></tr>
+        <tr><td>$\ln x$</td><td>$\dfrac{1}{x}$</td><td>$\ln f(x)$</td><td>$\dfrac{f'(x)}{f(x)}$</td></tr>
+        <tr><td>$\log_a x$</td><td>$\dfrac{1}{x \ln a}$</td><td>$\log_a f(x)$</td><td>$\dfrac{f'(x)}{f(x) \cdot \ln a}$</td></tr>
+    </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplos rapidos de derivadas</div>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver ejemplos</button>
+    <div class="solution-content">
+        <p>a) $f(x) = 3x^2 - 5x - 8 \Rightarrow f'(x) = 6x - 5$</p>
+        <p>b) $f(x) = \sqrt{7x+3} \Rightarrow f'(x) = \dfrac{7}{2\sqrt{7x+3}}$</p>
+        <p>c) $f(x) = e^{3x} \Rightarrow f'(x) = 3e^{3x}$</p>
+        <p>d) $f(x) = \ln(x^2+x) \Rightarrow f'(x) = \dfrac{2x+1}{x^2+x}$</p>
+        <p>e) $f(x) = \dfrac{x^2-3x}{4x+5} \Rightarrow f'(x) = \dfrac{(2x-3)(4x+5) - (x^2-3x) \cdot 4}{(4x+5)^2} = \dfrac{4x^2+10x-15}{(4x+5)^2}$</p>
+        <p>f) $f(x) = x^2 \cdot e^{-3x} \Rightarrow f'(x) = 2x \cdot e^{-3x} + x^2 \cdot (-3) \cdot e^{-3x} = e^{-3x}(2x - 3x^2)$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.3 RECTA TANGENTE                                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="tangente">7.3 Recta tangente y normal</h2>
+
+<div class="card formula">
+    <div class="card-label">Ecuacion de la recta tangente <span class="exam-tag si">Siempre entra</span> <span class="sel-tag si">Selectividad</span></div>
+    <p>La recta tangente a $f$ en el punto $(a, f(a))$ tiene pendiente $m = f'(a)$:</p>
+    $$\boxed{y - f(a) = f'(a) \cdot (x - a)}$$
+</div>
+
+<div class="card formula">
+    <div class="card-label">Ecuacion de la recta normal <span class="sel-tag si">Selectividad</span></div>
+    <p>La recta <strong>normal</strong> (perpendicular a la tangente) tiene pendiente $m_n = -\dfrac{1}{f'(a)}$:</p>
+    $$y - f(a) = -\frac{1}{f'(a)} \cdot (x - a)$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Recta tangente paralela a una recta dada</div>
+    <p>Halla la ecuacion de la recta tangente a $y = x^2 - 5x + 6$ paralela a la recta $3x + y - 2 = 0$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Paso 1:</strong> La recta $3x + y - 2 = 0 \Rightarrow y = -3x + 2$ tiene pendiente $m = -3$.</p>
+        <p><strong>Paso 2:</strong> Para que la tangente sea paralela, necesitamos $f'(a) = -3$.</p>
+        <p>$f'(x) = 2x - 5$. Resolvemos $2a - 5 = -3 \Rightarrow a = 1$.</p>
+        <p><strong>Paso 3:</strong> $f(1) = 1 - 5 + 6 = 2$. Punto de tangencia: $(1, 2)$.</p>
+        <p>$y - 2 = -3(x - 1) \Rightarrow \boxed{y = -3x + 5}$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.4 MONOTONIA Y EXTREMOS                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="monotonia">7.4 Monotonia, crecimiento y extremos <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card formula">
+    <div class="card-label">Crecimiento y decrecimiento <span class="exam-tag si">Siempre entra</span></div>
+    <p>La derivada nos dice si la funcion crece o decrece:</p>
+    <ul>
+        <li>$f'(x) > 0$ en $(a,b)$ $\Rightarrow$ $f$ es <strong>creciente</strong> en $(a,b)$.</li>
+        <li>$f'(x) < 0$ en $(a,b)$ $\Rightarrow$ $f$ es <strong>decreciente</strong> en $(a,b)$.</li>
+    </ul>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Pasos para hallar intervalos de crecimiento/decrecimiento</div>
+    <ol>
+        <li>Calcular el dominio.</li>
+        <li>Derivar: hallar $f'(x)$.</li>
+        <li>Resolver $f'(x) = 0$ para obtener los <strong>puntos criticos</strong>.</li>
+        <li>Formar intervalos con los puntos criticos y los puntos de discontinuidad.</li>
+        <li>Evaluar el signo de $f'(x)$ en cada intervalo (sustituyendo un valor cualquiera).</li>
+        <li>$f'(x) > 0 \Rightarrow$ creciente, $f'(x) < 0 \Rightarrow$ decreciente.</li>
+    </ol>
+</div>
+
+<!-- Grafico monotonia y extremos -->
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Crecimiento, decrecimiento y extremos</div>
+    <canvas class="graph-canvas" id="g-monotonia" style="height: 300px;"></canvas>
+    <p style="text-align:center; color: var(--text-dim); font-size: 0.85rem;">$f(x) = x^3 - 3x + 2$: maximo en $(-1, 4)$, minimo en $(1, 0)$</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Monotonia</div>
+    <p>Estudia el crecimiento de $f(x) = x^3 - 3x + 2$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$\text{Dom}(f) = \mathbb{R}$. $\quad f'(x) = 3x^2 - 3$.</p>
+        <p>$f'(x) = 0 \Rightarrow 3x^2 - 3 = 0 \Rightarrow x^2 = 1 \Rightarrow x = -1, \; x = 1$.</p>
+        <p>Signo de $f'$:</p>
+        <table>
+            <tr><th>Intervalo</th><th>$(-\infty, -1)$</th><th>$(-1, 1)$</th><th>$(1, +\infty)$</th></tr>
+            <tr><td>$f'(x)$</td><td>$f'(-2) = 9 > 0$</td><td>$f'(0) = -3 < 0$</td><td>$f'(2) = 9 > 0$</td></tr>
+            <tr><td>$f$</td><td>Creciente</td><td>Decreciente</td><td>Creciente</td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Maximos y minimos relativos <span class="exam-tag si">Siempre entra</span></div>
+    <p>Si $f'(a) = 0$ (punto critico), usamos la <strong>segunda derivada</strong> para clasificar:</p>
+    <table>
+        <tr><th>Condicion</th><th>Tipo de extremo</th></tr>
+        <tr><td>$f'(a) = 0$ y $f''(a) < 0$</td><td><strong>Maximo relativo</strong> en $(a, f(a))$</td></tr>
+        <tr><td>$f'(a) = 0$ y $f''(a) > 0$</td><td><strong>Minimo relativo</strong> en $(a, f(a))$</td></tr>
+    </table>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Maximos y minimos</div>
+    <p>Halla los extremos de $f(x) = x^3 - 3x + 2$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Ya sabemos que $f'(x) = 3x^2 - 3$ y los puntos criticos son $x = -1$ y $x = 1$.</p>
+        <p>$f''(x) = 6x$.</p>
+        <p><strong>En $x = -1$:</strong> $f''(-1) = -6 < 0$ $\Rightarrow$ <strong>Maximo relativo</strong>. $f(-1) = -1+3+2 = 4$. Maximo en $(-1, 4)$.</p>
+        <p><strong>En $x = 1$:</strong> $f''(1) = 6 > 0$ $\Rightarrow$ <strong>Minimo relativo</strong>. $f(1) = 1-3+2 = 0$. Minimo en $(1, 0)$.</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.5 CURVATURA E INFLEXION                                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="curvatura">7.5 Curvatura y puntos de inflexion <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card formula">
+    <div class="card-label">Concavidad y convexidad</div>
+    <p>La <strong>segunda derivada</strong> nos dice la curvatura:</p>
+    <ul>
+        <li>$f''(x) > 0$ en $(a,b)$ $\Rightarrow$ $f$ es <strong>convexa</strong> en $(a,b)$ (forma de valle $\cup$).</li>
+        <li>$f''(x) < 0$ en $(a,b)$ $\Rightarrow$ $f$ es <strong>concava</strong> en $(a,b)$ (forma de montana $\cap$).</li>
+    </ul>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Puntos de inflexion <span class="exam-tag si">Suele entrar</span></div>
+    <p>Un <strong>punto de inflexion</strong> es donde la funcion cambia de concavidad a convexidad o viceversa.</p>
+    <p>Para hallarlo:</p>
+    <ol>
+        <li>Calcular $f''(x)$.</li>
+        <li>Resolver $f''(x) = 0$ para obtener candidatos.</li>
+        <li>Comprobar que $f'''(a) \neq 0$ (o que $f''$ cambia de signo en ese punto).</li>
+        <li>Calcular la imagen: el punto de inflexion es $(a, f(a))$.</li>
+    </ol>
+</div>
+
+<!-- Grafico curvatura -->
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Concavidad, convexidad e inflexion</div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-curvatura"></canvas>
+        <canvas class="graph-canvas" id="g-inflexion"></canvas>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Curvatura e inflexion</div>
+    <p>Halla los intervalos de concavidad/convexidad y los puntos de inflexion de $f(x) = x^3 - 3x + 2$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$f''(x) = 6x$. Resolvemos $f''(x) = 0 \Rightarrow x = 0$.</p>
+        <p>$f'''(x) = 6 \neq 0$ $\Rightarrow$ hay punto de inflexion en $x = 0$.</p>
+        <p>$f(0) = 2$. <strong>Punto de inflexion: $(0, 2)$</strong>.</p>
+        <p>Signo de $f''$:</p>
+        <table>
+            <tr><th>Intervalo</th><th>$(-\infty, 0)$</th><th>$(0, +\infty)$</th></tr>
+            <tr><td>$f''(x)$</td><td>$f''(-1) = -6 < 0$</td><td>$f''(1) = 6 > 0$</td></tr>
+            <tr><td>Curvatura</td><td>Concava $\cap$</td><td>Convexa $\cup$</td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.6 OPTIMIZACION                                                -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="optimizacion">7.6 Problemas de optimizacion <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card formula">
+    <div class="card-label">Metodo para problemas de optimizacion <span class="exam-tag si">Suele entrar</span></div>
+    <p>Pasos:</p>
+    <ol>
+        <li>Identificar la <strong>funcion a optimizar</strong> (lo que hay que maximizar o minimizar).</li>
+        <li>Expresarla en funcion de <strong>una sola variable</strong> usando las restricciones del enunciado.</li>
+        <li>Derivar e igualar a cero: $f'(x) = 0$.</li>
+        <li>Comprobar si es maximo o minimo con $f''$.</li>
+        <li>Dar la solucion completa del problema.</li>
+    </ol>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Optimizacion economica</div>
+    <p>El valor de las existencias de una empresa (en miles de euros) viene dado por $f(t) = -4t^2 + 60t - 15$, con $1 \leq t \leq 8$ (en anos). Halla el valor maximo de las existencias y en que instante se alcanza.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$f'(t) = -8t + 60$. Igualamos a cero: $-8t + 60 = 0 \Rightarrow t = 7{,}5$ anos.</p>
+        <p>$f''(t) = -8 < 0 \Rightarrow$ es un <strong>maximo</strong>.</p>
+        <p>$f(7{,}5) = -4(56{,}25) + 60(7{,}5) - 15 = -225 + 450 - 15 = 210$ miles de euros.</p>
+        <p><strong>El maximo de existencias es de 210.000 euros, a los 7,5 anos.</strong></p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 7.7 ESTUDIO GLOBAL DE FUNCIONES                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="estudio-global">7.7 Estudio global de funciones <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card formula">
+    <div class="card-label">Pasos para representar una funcion <span class="exam-tag si">Suele entrar</span></div>
+    <ol>
+        <li><strong>Dominio</strong> de la funcion.</li>
+        <li><strong>Puntos de corte</strong> con los ejes (eje X: $y=0$; eje Y: $x=0$).</li>
+        <li><strong>Asintotas</strong>: verticales ($x = a$), horizontales ($y = b$), oblicuas ($y = mx+n$).</li>
+        <li><strong>Monotonia y extremos</strong>: $f'(x) = 0$ $\Rightarrow$ intervalos de crecimiento/decrecimiento + maximos/minimos.</li>
+        <li><strong>Curvatura y puntos de inflexion</strong>: $f''(x) = 0$ $\Rightarrow$ intervalos concavos/convexos + inflexion.</li>
+        <li><strong>Representacion grafica</strong> con toda la informacion.</li>
+    </ol>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Estudio global completo</div>
+    <p>Estudia y representa $f(x) = 1 - \dfrac{2}{x+2}$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>1. Dominio:</strong> $\mathbb{R} \setminus \{-2\}$</p>
+        <p><strong>2. Cortes:</strong></p>
+        <ul>
+            <li>Eje Y ($x=0$): $f(0) = 1 - 1 = 0$. Corta en $(0, 0)$.</li>
+            <li>Eje X ($y=0$): $1 - \frac{2}{x+2} = 0 \Rightarrow x+2 = 2 \Rightarrow x = 0$. Corta en $(0, 0)$.</li>
+        </ul>
+        <p><strong>3. Asintotas:</strong></p>
+        <ul>
+            <li>A.V.: $x = -2$ (donde se anula el denominador).</li>
+            <li>A.H.: $\lim_{x \to \pm\infty}\left(1 - \frac{2}{x+2}\right) = 1$. A.H.: $y = 1$.</li>
+        </ul>
+        <p><strong>4. Monotonia:</strong> $f'(x) = \frac{2}{(x+2)^2} > 0$ siempre $\Rightarrow$ <strong>creciente en todo su dominio</strong>.</p>
+        <p><strong>5. Curvatura:</strong> $f''(x) = \frac{-4}{(x+2)^3}$.</p>
+        <ul>
+            <li>$x < -2$: $f''(x) > 0$ $\Rightarrow$ convexa.</li>
+            <li>$x > -2$: $f''(x) < 0$ $\Rightarrow$ concava.</li>
+        </ul>
+        <p>No hay punto de inflexion ($f''$ no se anula, solo cambia de signo en $x = -2$ que no esta en el dominio).</p>
+    </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+
+// === GRAFICOS ===
+window.addEventListener('load', function() {
+    // Tangente
+    plotGraph('g-tangente', {
+        height: 300,
+        title: 'Tangente a f(x) = x² en x = 1',
+        functions: [
+            function(x) { return x*x; },
+            {fn: function(x) { return 2*x - 1; }, color: '#9ece6a', lineWidth: 1.5, dashed: true}
+        ],
+        xMin: -2, xMax: 3, yMin: -1, yMax: 5,
+        points: [{x:1, y:1, color:'#f7768e', label:'(1, 1)', r:5}]
+    });
+
+    // Monotonia y extremos
+    plotGraph('g-monotonia', {
+        height: 300,
+        title: 'f(x) = x³ - 3x + 2',
+        functions: [function(x) { return x*x*x - 3*x + 2; }],
+        xMin: -3, xMax: 3, yMin: -3, yMax: 6,
+        points: [
+            {x:-1, y:4, color:'#f7768e', label:'Max (-1, 4)', r:5},
+            {x:1, y:0, color:'#9ece6a', label:'Min (1, 0)', r:5}
+        ]
+    });
+
+    // Curvatura
+    plotGraph('g-curvatura', {
+        title: 'Convexa (∪) vs Concava (∩)',
+        functions: [
+            {fn: function(x) { return x*x; }, color: '#7aa2f7'},
+            {fn: function(x) { return -x*x + 4; }, color: '#9ece6a'}
+        ],
+        xMin: -3, xMax: 3, yMin: -3, yMax: 5
+    });
+
+    // Inflexion
+    plotGraph('g-inflexion', {
+        title: 'Inflexion en (0, 2)',
+        functions: [function(x) { return x*x*x - 3*x + 2; }],
+        xMin: -2.5, xMax: 2.5, yMin: -2, yMax: 6,
+        points: [{x:0, y:2, color:'#e0af68', label:'Inflexion', r:5}]
+    });
+});
+</script>
+
+</body>
+</html>

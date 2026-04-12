@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 8: Integrales - Analisis CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="graphs.js" defer></script>
+    <style>
+        .graph-canvas { width: 100%; border-radius: 8px; margin: 12px 0; }
+        .graph-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        @media (max-width: 600px) { .graph-row { grid-template-columns: 1fr; } }
+        .sel-tag { display: inline-block; font-size: 0.55rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; vertical-align: middle; margin-left: 8px; }
+        .sel-tag.si { background: rgba(158,206,106,0.12); color: #9ece6a; }
+        .sel-tag.no { background: rgba(247,118,142,0.12); color: #f7768e; }
+        .ponencia-banner { background: rgba(158,206,106,0.06); border: 1px solid rgba(158,206,106,0.2); border-left: 3px solid #9ece6a; border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; font-size: 0.88rem; color: var(--text); }
+        .ponencia-banner strong { color: #9ece6a; }
+    </style>
+    <style>
+        :root {
+            --card: var(--surface);
+            --card-hover: var(--surface-hover);
+            --accent: var(--blue);
+            --accent2: var(--violet);
+            --accent3: var(--green);
+            --accent4: var(--amber);
+            --success: var(--green);
+            --warning: var(--amber);
+            --danger: var(--red);
+        }
+        html { scroll-behavior: smooth; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--teal));
+            z-index: 300; transition: width 0.15s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <h1>Analisis</h1>
+        <span>Matematicas CCSS II</span>
+    </div>
+
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="herramientas.html#guia-decision">Que formula uso?</a>
+    <a href="herramientas.html#errores-tipicos">Errores tipicos examen</a>
+
+    <h2>Tema 6 &middot; Funciones y Limites</h2>
+    <a href="tema6.html#funciones">6.1 Concepto de funcion</a>
+    <a href="tema6.html#dominio">6.2 Dominio</a>
+    <a href="tema6.html#limites">6.3 Limites</a>
+    <a href="tema6.html#asintotas">6.4 Asintotas</a>
+    <a href="tema6.html#continuidad">6.5 Continuidad</a>
+    <a href="tests.html?tema=6" class="sub test-link">Practicar Test T6</a>
+
+    <h2>Tema 7 &middot; Derivadas</h2>
+    <a href="tema7.html#derivada">7.1 Concepto de derivada</a>
+    <a href="tema7.html#reglas">7.2 Reglas de derivacion</a>
+    <a href="tema7.html#tangente">7.3 Recta tangente</a>
+    <a href="tema7.html#monotonia">7.4 Monotonia y extremos</a>
+    <a href="tema7.html#curvatura">7.5 Curvatura e inflexion</a>
+    <a href="tema7.html#optimizacion">7.6 Optimizacion</a>
+    <a href="tests.html?tema=7" class="sub test-link">Practicar Test T7</a>
+
+    <h2>Tema 8 &middot; Integrales</h2>
+    <a href="#primitiva">8.1 Primitiva e integral</a>
+    <a href="#inmediatas">8.2 Integrales inmediatas</a>
+    <a href="#tabla-integrales" class="sub">Tabla de integrales</a>
+    <a href="#definida">8.3 Integral definida</a>
+    <a href="#barrow">8.4 Regla de Barrow</a>
+    <a href="#areas">8.5 Calculo de areas</a>
+    <a href="#area-positiva" class="sub">Funcion positiva</a>
+    <a href="#area-negativa" class="sub">Funcion negativa</a>
+    <a href="#area-mixta" class="sub">Cambia de signo</a>
+    <a href="#area-dos-curvas" class="sub">Entre dos curvas</a>
+    <a href="tests.html?tema=8" class="sub test-link">Practicar Test T8</a>
+
+    <h2>Herramientas</h2>
+    <a href="herramientas.html#derivadas-tabla">Tabla de derivadas</a>
+    <a href="herramientas.html#integrales-tabla">Tabla de integrales</a>
+    <a href="herramientas.html#resumen-formulas">Todas las formulas</a>
+</nav>
+
+<div class="main">
+
+<h1>Tema 8: Integrales</h1>
+<p>Primitiva, integral indefinida, integrales inmediatas, integral definida, regla de Barrow y calculo de areas.</p>
+
+<div class="ponencia-banner">
+    <strong>Ponencia selectividad 2025-2026:</strong> Todo el contenido de este tema entra en la prueba de acceso. Referencia: saber B.1 (Medicion).
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 8.1 PRIMITIVA E INTEGRAL INDEFINIDA                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="primitiva">8.1 Primitiva e integral indefinida <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Que es una primitiva</div>
+    <p>Integrar es el proceso <strong>inverso de derivar</strong>. Dada una funcion $f(x)$, buscamos una funcion $F(x)$ tal que:</p>
+    $$F'(x) = f(x)$$
+    <p>A $F(x)$ la llamamos <strong>primitiva</strong> (o antiderivada) de $f(x)$.</p>
+    <p><em>Ejemplo:</em> Si $f(x) = 3x^2$, una primitiva es $F(x) = x^3$ porque $(x^3)' = 3x^2$. Pero $x^3 + 5$ tambien es primitiva, y $x^3 - 13$ tambien. Hay <strong>infinitas primitivas</strong>, todas difieren en una constante.</p>
+</div>
+
+<div class="card definition">
+    <div class="card-label">Integral indefinida</div>
+    <p>La <strong>integral indefinida</strong> es el conjunto de todas las primitivas de $f(x)$:</p>
+    $$\int f(x)\,dx = F(x) + C$$
+    <p>donde $C$ es la <strong>constante de integracion</strong> ($C \in \mathbb{R}$).</p>
+    <p><strong>Para comprobar:</strong> basta derivar el resultado. Si al derivar $F(x) + C$ obtenemos $f(x)$, esta bien.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Propiedades (linealidad de la integral)</div>
+    <ul>
+        <li>$\displaystyle\int k \cdot f(x)\,dx = k \cdot \int f(x)\,dx$ &emsp; (la constante sale fuera)</li>
+        <li>$\displaystyle\int [f(x) \pm g(x)]\,dx = \int f(x)\,dx \pm \int g(x)\,dx$ &emsp; (se integra sumando por separado)</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 8.2 INTEGRALES INMEDIATAS                                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="inmediatas">8.2 Integrales inmediatas <span class="sel-tag si">Selectividad</span></h2>
+
+<h3 id="tabla-integrales">Tabla de integrales inmediatas</h3>
+
+<div class="card formula">
+    <div class="card-label">Integrales basicas <span class="exam-tag si">Imprescindible</span></div>
+    <table>
+        <tr><th>Tipo</th><th>Integral simple</th><th>Integral compuesta (con cadena)</th></tr>
+        <tr><td>Constante</td><td>$\int a\,dx = ax + C$</td><td></td></tr>
+        <tr><td>Potencia ($n \neq -1$)</td><td>$\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C$</td><td>$\int [f(x)]^n \cdot f'(x)\,dx = \dfrac{[f(x)]^{n+1}}{n+1} + C$</td></tr>
+        <tr><td>$n = -1$ (logaritmo)</td><td>$\int \dfrac{1}{x}\,dx = \ln|x| + C$</td><td>$\int \dfrac{f'(x)}{f(x)}\,dx = \ln|f(x)| + C$</td></tr>
+        <tr><td>Exponencial base $e$</td><td>$\int e^x\,dx = e^x + C$</td><td>$\int e^{f(x)} \cdot f'(x)\,dx = e^{f(x)} + C$</td></tr>
+        <tr><td>Exponencial base $a$</td><td>$\int a^x\,dx = \dfrac{a^x}{\ln a} + C$</td><td>$\int a^{f(x)} \cdot f'(x)\,dx = \dfrac{a^{f(x)}}{\ln a} + C$</td></tr>
+    </table>
+</div>
+
+<div class="card warning">
+    <div class="card-label">El truco de las integrales casi inmediatas</div>
+    <p>Muchas integrales del examen son <strong>casi inmediatas</strong>: la funcion de dentro no lleva exactamente su derivada delante, pero se puede ajustar multiplicando y dividiendo por una constante.</p>
+    <p><em>Ejemplo:</em> $\displaystyle\int e^{3x}\,dx$. La derivada de $3x$ es $3$, pero no hay un $3$ delante. Lo creamos:</p>
+    $$\int e^{3x}\,dx = \frac{1}{3}\int 3 \cdot e^{3x}\,dx = \frac{1}{3} e^{3x} + C$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplos de integrales resueltas</div>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver ejemplos</button>
+    <div class="solution-content">
+        <p><strong>a)</strong> $\displaystyle\int (5x^2 + \frac{2}{x^4} - 3\sqrt[3]{x})\,dx = \frac{5x^3}{3} + \frac{2x^{-3}}{-3} - 3 \cdot \frac{x^{4/3}}{4/3} + C = \frac{5x^3}{3} - \frac{2}{3x^3} - \frac{9\sqrt[3]{x^4}}{4} + C$</p>
+        <p><strong>b)</strong> $\displaystyle\int \frac{5x^2}{4x^3-3}\,dx = \frac{5}{12}\int \frac{12x^2}{4x^3-3}\,dx = \frac{5}{12}\ln|4x^3-3| + C$</p>
+        <p>(La derivada de $4x^3-3$ es $12x^2$. Multiplicamos y dividimos por $\frac{12}{5}$ para ajustar.)</p>
+        <p><strong>c)</strong> $\displaystyle\int \frac{\ln x}{x}\,dx = \int \ln x \cdot \frac{1}{x}\,dx = \frac{(\ln x)^2}{2} + C$</p>
+        <p>(Es $[f(x)]^n \cdot f'(x)$ con $f(x) = \ln x$, $f'(x) = 1/x$, $n = 1$.)</p>
+        <p><strong>d)</strong> $\displaystyle\int \frac{x^2+\sqrt{x}}{x}\,dx = \int \left(x + x^{-1/2}\right)dx = \frac{x^2}{2} + 2\sqrt{x} + C$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 8.3 INTEGRAL DEFINIDA                                           -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="definida">8.3 Integral definida <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card definition">
+    <div class="card-label">Integral definida</div>
+    <p>La <strong>integral definida</strong> de $f(x)$ entre $a$ y $b$ se escribe:</p>
+    $$\int_a^b f(x)\,dx$$
+    <p>donde $a$ es el <strong>limite inferior</strong> y $b$ el <strong>limite superior</strong> de integracion.</p>
+    <p>Geometricamente, si $f(x) \geq 0$, la integral definida da el <strong>area</strong> entre la grafica de $f$, el eje X y las rectas $x = a$, $x = b$.</p>
+</div>
+
+<div class="card formula">
+    <div class="card-label">Propiedades de la integral definida</div>
+    <ol>
+        <li>$\displaystyle\int_a^b f(x)\,dx = -\int_b^a f(x)\,dx$ &emsp; (cambiar los limites cambia el signo)</li>
+        <li>$\displaystyle\int_a^a f(x)\,dx = 0$ &emsp; (limites iguales $\Rightarrow$ integral = 0)</li>
+        <li>$\displaystyle\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx$ &emsp; (se puede partir el intervalo)</li>
+        <li>$\displaystyle\int_a^b [f(x) + g(x)]\,dx = \int_a^b f(x)\,dx + \int_a^b g(x)\,dx$</li>
+        <li>$\displaystyle\int_a^b k \cdot f(x)\,dx = k \cdot \int_a^b f(x)\,dx$</li>
+    </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 8.4 REGLA DE BARROW                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="barrow">8.4 Regla de Barrow <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card formula">
+    <div class="card-label">Regla de Barrow <span class="exam-tag si">Siempre entra</span></div>
+    <p>Si $F(x)$ es una primitiva de $f(x)$ (es decir, $F'(x) = f(x)$) y $f$ es continua en $[a,b]$, entonces:</p>
+    $$\boxed{\int_a^b f(x)\,dx = F(b) - F(a) = \Big[F(x)\Big]_a^b}$$
+    <p>Es decir: calculamos la primitiva, la evaluamos en el limite superior, le restamos el valor en el limite inferior. No hace falta poner la constante $C$ (se cancela).</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Regla de Barrow</div>
+    <p>Calcula $\displaystyle\int_{-1}^{1} (3x^3 - x^2 + x - 1)\,dx$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Primitiva: $F(x) = \dfrac{3x^4}{4} - \dfrac{x^3}{3} + \dfrac{x^2}{2} - x$</p>
+        <p>$F(1) = \dfrac{3}{4} - \dfrac{1}{3} + \dfrac{1}{2} - 1 = \dfrac{9 - 4 + 6 - 12}{12} = -\dfrac{1}{12}$</p>
+        <p>$F(-1) = \dfrac{3}{4} + \dfrac{1}{3} + \dfrac{1}{2} + 1 = \dfrac{9 + 4 + 6 + 12}{12} = \dfrac{31}{12}$</p>
+        <p>$\displaystyle\int_{-1}^{1} = F(1) - F(-1) = -\frac{1}{12} - \frac{31}{12} = -\frac{32}{12} = -\frac{8}{3}$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 8.5 CALCULO DE AREAS                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="areas">8.5 Calculo de areas <span class="sel-tag si">Selectividad</span></h2>
+
+<div class="card important">
+    <div class="card-label">Atencion: area vs integral</div>
+    <p>La integral definida puede dar valores <strong>negativos</strong> (cuando la funcion esta por debajo del eje X), pero el area siempre es <strong>positiva</strong>.</p>
+    <p>Por eso hay que tener cuidado: no siempre el area coincide con la integral directa. Depende del signo de la funcion.</p>
+</div>
+
+<!-- Graficos de los 4 casos de area -->
+<div class="card" style="padding: 20px;">
+    <div class="card-label" style="background: var(--violet-dim); color: var(--violet);">Los 4 casos de calculo de areas</div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-area-pos"></canvas>
+        <canvas class="graph-canvas" id="g-area-neg"></canvas>
+    </div>
+    <div class="graph-row">
+        <canvas class="graph-canvas" id="g-area-mix"></canvas>
+        <canvas class="graph-canvas" id="g-area-dos"></canvas>
+    </div>
+</div>
+
+<h3 id="area-positiva">Caso 1: Funcion positiva en todo el intervalo</h3>
+
+<div class="card formula">
+    <div class="card-label">Area con funcion positiva</div>
+    <p>Si $f(x) \geq 0$ en $[a,b]$, el area entre la curva, el eje X y las rectas $x=a$, $x=b$ es directamente:</p>
+    $$A = \int_a^b f(x)\,dx = F(b) - F(a)$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Area con funcion positiva</div>
+    <p>Calcula el area entre $y = 4x - x^2$ y el eje X.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>1. Puntos de corte con el eje X:</strong> $4x - x^2 = 0 \Rightarrow x(4-x) = 0 \Rightarrow x = 0, x = 4$.</p>
+        <p>La parabola abre hacia abajo y esta por encima del eje X entre 0 y 4.</p>
+        <p><strong>2. Area:</strong></p>
+        $$A = \int_0^4 (4x-x^2)\,dx = \left[2x^2 - \frac{x^3}{3}\right]_0^4 = 32 - \frac{64}{3} = \frac{96-64}{3} = \frac{32}{3} \text{ u}^2$$
+    </div>
+</div>
+
+<h3 id="area-negativa">Caso 2: Funcion negativa en todo el intervalo</h3>
+
+<div class="card formula">
+    <div class="card-label">Area con funcion negativa</div>
+    <p>Si $f(x) \leq 0$ en $[a,b]$, la integral da negativo. El area es el <strong>valor absoluto</strong>:</p>
+    $$A = \left|\int_a^b f(x)\,dx\right| = -\int_a^b f(x)\,dx$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Area con funcion negativa</div>
+    <p>Calcula el area entre $y = x^2 - 4x$ y el eje X.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Cortes con eje X: $x^2 - 4x = 0 \Rightarrow x(x-4) = 0 \Rightarrow x = 0, x = 4$.</p>
+        <p>La parabola abre hacia arriba $\Rightarrow$ esta por <strong>debajo</strong> del eje X entre 0 y 4.</p>
+        $$\int_0^4 (x^2-4x)\,dx = \left[\frac{x^3}{3} - 2x^2\right]_0^4 = \frac{64}{3} - 32 = -\frac{32}{3}$$
+        <p>$A = \left|-\dfrac{32}{3}\right| = \dfrac{32}{3} \text{ u}^2$</p>
+    </div>
+</div>
+
+<h3 id="area-mixta">Caso 3: La funcion cambia de signo</h3>
+
+<div class="card formula">
+    <div class="card-label">Area cuando la funcion cruza el eje X <span class="exam-tag si">Suele entrar</span></div>
+    <p>Si $f$ es positiva en unas zonas y negativa en otras, hay que:</p>
+    <ol>
+        <li><strong>Hallar los puntos de corte</strong> con el eje X (resolver $f(x) = 0$).</li>
+        <li><strong>Partir la integral</strong> en trozos donde $f$ no cambie de signo.</li>
+        <li><strong>Sumar los valores absolutos</strong> de cada integral.</li>
+    </ol>
+    <p>$A = \left|\int_a^{c_1} f(x)\,dx\right| + \left|\int_{c_1}^{c_2} f(x)\,dx\right| + \cdots$</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Area con cambio de signo</div>
+    <p>Calcula el area entre $f(x) = x^3 - 2x^2 - 5x + 6$ y el eje X.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>1. Cortes con eje X</strong> (por Ruffini): $x = -2, x = 1, x = 3$.</p>
+        <p><strong>2. Dos recintos:</strong> de $-2$ a $1$ y de $1$ a $3$.</p>
+        <p><strong>3. Primitiva:</strong> $F(x) = \dfrac{x^4}{4} - \dfrac{2x^3}{3} - \dfrac{5x^2}{2} + 6x$</p>
+        <p>$A_1 = \int_{-2}^{1}f(x)\,dx = F(1) - F(-2) = \left(\frac{1}{4}-\frac{2}{3}-\frac{5}{2}+6\right) - \left(4+\frac{16}{3}-10-12\right) = \frac{63}{4}$</p>
+        <p>$A_2 = \int_{1}^{3}f(x)\,dx = F(3) - F(1) = -\frac{16}{3}$</p>
+        <p>$A = |A_1| + |A_2| = \frac{63}{4} + \frac{16}{3} = \frac{189+64}{12} = \frac{253}{12} \approx 21{,}08 \text{ u}^2$</p>
+    </div>
+</div>
+
+<h3 id="area-dos-curvas">Caso 4: Area entre dos curvas</h3>
+
+<div class="card formula">
+    <div class="card-label">Area entre dos funciones <span class="exam-tag si">Suele entrar</span></div>
+    <p>Para calcular el area entre $f(x)$ y $g(x)$:</p>
+    <ol>
+        <li><strong>Hallar los puntos de corte:</strong> resolver $f(x) = g(x)$ para obtener $x = a, x = b$.</li>
+        <li><strong>Determinar cual esta por encima</strong> en $(a,b)$ (sustituir un valor intermedio).</li>
+        <li><strong>Integrar la diferencia</strong> (la de arriba menos la de abajo):</li>
+    </ol>
+    $$A = \int_a^b \big[f_{\text{arriba}}(x) - f_{\text{abajo}}(x)\big]\,dx$$
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - Area entre dos curvas</div>
+    <p>Calcula el area entre $y = x^2 - 5x + 6$ y $y = 2x$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>1. Puntos de corte:</strong> $x^2 - 5x + 6 = 2x \Rightarrow x^2 - 7x + 6 = 0 \Rightarrow x = 1, x = 6$.</p>
+        <p><strong>2. Quien esta arriba?</strong> En $x = 3$: recta $= 6$, parabola $= 9-15+6 = 0$. La recta esta arriba.</p>
+        <p><strong>3. Area:</strong></p>
+        $$A = \int_1^6 \big[2x - (x^2-5x+6)\big]\,dx = \int_1^6 (-x^2+7x-6)\,dx$$
+        $$= \left[-\frac{x^3}{3} + \frac{7x^2}{2} - 6x\right]_1^6 = \left(-72+126-36\right) - \left(-\frac{1}{3}+\frac{7}{2}-6\right)$$
+        $$= 18 - \left(-\frac{17}{6}\right) = 18 + \frac{17}{6} = \frac{125}{6} \approx 20{,}83 \text{ u}^2$$
+    </div>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Resumen: pasos para calcular areas</div>
+    <table>
+        <tr><th>Situacion</th><th>Que hacer</th></tr>
+        <tr><td>$f(x) \geq 0$ en todo $[a,b]$</td><td>$A = \int_a^b f(x)\,dx$ directamente</td></tr>
+        <tr><td>$f(x) \leq 0$ en todo $[a,b]$</td><td>$A = -\int_a^b f(x)\,dx$ (o valor absoluto)</td></tr>
+        <tr><td>$f$ cambia de signo</td><td>Partir en trozos + sumar valores absolutos</td></tr>
+        <tr><td>Area entre $f$ y $g$</td><td>$A = \int_a^b |f(x)-g(x)|\,dx$ (arriba $-$ abajo)</td></tr>
+    </table>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function toggleSolution(btn) {
+    var content = btn.nextElementSibling;
+    content.classList.toggle('show');
+    btn.textContent = content.classList.contains('show') ? 'Ocultar solucion' : 'Ver solucion';
+    if (window.MathJax && MathJax.typeset) MathJax.typeset();
+}
+
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+});
+
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+
+// === GRAFICOS ===
+window.addEventListener('load', function() {
+    var f1 = function(x) { return 4*x - x*x; };
+    var f2 = function(x) { return x*x - 4*x; };
+    var f3 = function(x) { return x*x*x - 3*x; };
+    var zero = function() { return 0; };
+
+    plotGraph('g-area-pos', {
+        title: 'Caso 1: f(x) ≥ 0',
+        functions: [f1],
+        xMin: -1, xMax: 5, yMin: -1, yMax: 5,
+        fillBetween: [{f1: f1, f2: zero, from: 0, to: 4, color: 'rgba(122,162,247,0.2)'}]
+    });
+
+    plotGraph('g-area-neg', {
+        title: 'Caso 2: f(x) ≤ 0',
+        functions: [f2],
+        xMin: -1, xMax: 5, yMin: -5, yMax: 1,
+        fillBetween: [{f1: zero, f2: f2, from: 0, to: 4, color: 'rgba(247,118,142,0.2)'}]
+    });
+
+    plotGraph('g-area-mix', {
+        title: 'Caso 3: cambia de signo',
+        functions: [f3],
+        xMin: -3, xMax: 3, yMin: -3, yMax: 3,
+        fillBetween: [
+            {f1: f3, f2: zero, from: -1.73, to: 0, color: 'rgba(247,118,142,0.2)'},
+            {f1: f3, f2: zero, from: 0, to: 1.73, color: 'rgba(122,162,247,0.2)'}
+        ]
+    });
+
+    var top = function(x) { return 2*x; };
+    var bot = function(x) { return x*x - 5*x + 6; };
+    plotGraph('g-area-dos', {
+        title: 'Caso 4: entre dos curvas',
+        functions: [
+            {fn: top, color: '#9ece6a'},
+            {fn: bot, color: '#7aa2f7'}
+        ],
+        xMin: -1, xMax: 7, yMin: -2, yMax: 14,
+        fillBetween: [{f1: top, f2: bot, from: 1, to: 6, color: 'rgba(158,206,106,0.15)'}],
+        points: [
+            {x:1, y:2, color:'#e0af68', label:'(1,2)', r:4},
+            {x:6, y:12, color:'#e0af68', label:'(6,12)', r:4}
+        ]
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas - Analisis CCSS II</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="graphs.js" defer></script>
+    <style>
+        .graph-canvas { width: 100%; border-radius: 8px; margin: 12px 0; }
+        .calc-func-input { width: 100%; padding: 12px 16px; background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius); color: var(--text-bright); font-size: 1rem; font-family: 'IBM Plex Sans', monospace; }
+        .calc-func-input:focus { outline: none; border-color: var(--blue); }
+        .calc-func-controls { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+        .calc-func-controls button { padding: 6px 14px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.85rem; font-family: var(--font-body); }
+        .calc-func-controls button:hover { border-color: var(--blue); color: var(--blue); }
+        .calc-func-controls button.active { background: var(--blue); color: var(--bg); border-color: var(--blue); }
+        .range-row { display: flex; gap: 12px; align-items: center; margin: 8px 0; flex-wrap: wrap; }
+        .range-row label { font-size: 0.82rem; color: var(--text-dim); min-width: 50px; }
+        .range-row input[type=number] { width: 70px; padding: 6px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.85rem; }
+        .range-row input[type=number]:focus { outline: none; border-color: var(--blue); }
+    </style>
+    <style>
+        :root { --card: var(--surface); --accent: var(--blue); --success: var(--green); --warning: var(--amber); --danger: var(--red); }
+        html { scroll-behavior: smooth; }
+        .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, var(--blue), var(--teal)); z-index: 300; transition: width 0.15s; }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="nav-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><h1>Analisis</h1><span>Matematicas CCSS II</span></div>
+    <h2>Inicio</h2>
+    <a href="index.html#guia-aprender">Guia desde cero</a>
+    <a href="#guia-decision">Que formula uso?</a>
+    <a href="#errores-tipicos">Errores tipicos examen</a>
+    <h2>Tema 6 &middot; Funciones y Limites</h2>
+    <a href="tema6.html#funciones">6.1 Concepto de funcion</a>
+    <a href="tema6.html#dominio">6.2 Dominio</a>
+    <a href="tema6.html#limites">6.3 Limites</a>
+    <a href="tema6.html#asintotas">6.4 Asintotas</a>
+    <a href="tema6.html#continuidad">6.5 Continuidad</a>
+    <h2>Tema 7 &middot; Derivadas</h2>
+    <a href="tema7.html#derivada">7.1 Concepto de derivada</a>
+    <a href="tema7.html#reglas">7.2 Reglas de derivacion</a>
+    <a href="tema7.html#tangente">7.3 Recta tangente</a>
+    <a href="tema7.html#monotonia">7.4 Monotonia y extremos</a>
+    <a href="tema7.html#curvatura">7.5 Curvatura e inflexion</a>
+    <h2>Tema 8 &middot; Integrales</h2>
+    <a href="tema8.html#primitiva">8.1 Primitiva e integral</a>
+    <a href="tema8.html#inmediatas">8.2 Integrales inmediatas</a>
+    <a href="tema8.html#barrow">8.4 Regla de Barrow</a>
+    <a href="tema8.html#areas">8.5 Calculo de areas</a>
+    <h2>Herramientas</h2>
+    <a href="#calculadora">Calculadora funciones</a>
+    <a href="#guia-decision">Que formula uso?</a>
+    <a href="#derivadas-tabla">Tabla de derivadas</a>
+    <a href="#integrales-tabla">Tabla de integrales</a>
+    <a href="#errores-tipicos">Errores tipicos</a>
+    <a href="#resumen-formulas">Todas las formulas</a>
+</nav>
+
+<div class="main">
+
+<h1>Herramientas de estudio</h1>
+<p>Guia de decision, tablas de referencia rapida, errores frecuentes y calculadora de funciones.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- QUE FORMULA USO                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="guia-decision">Que formula uso?</h2>
+
+<div class="card warning" style="padding: 24px;">
+    <h3 style="margin-top:0;">Diagrama de decision rapido</h3>
+    <table>
+        <tr><th>Te piden...</th><th>Usas...</th><th>Donde</th></tr>
+        <tr><td>Dominio de una funcion</td><td>Buscar restricciones: $\neq 0$, $\geq 0$, $> 0$</td><td><a href="tema6.html#dominio">T6 sec. 6.2</a></td></tr>
+        <tr><td>Calcular un limite</td><td>Sustituir. Si sale indeterminacion: Ruffini, conjugado, o infinitos equivalentes</td><td><a href="tema6.html#limites">T6 sec. 6.3</a></td></tr>
+        <tr><td>Asintotas</td><td>AV: denominador $= 0$. AH: $\lim_{x\to\infty}$. AO: $m = \lim f/x$, $n = \lim(f - mx)$</td><td><a href="tema6.html#asintotas">T6 sec. 6.4</a></td></tr>
+        <tr><td>Continuidad en un punto</td><td>3 condiciones: $\exists f(a)$, $\exists \lim$, $\lim = f(a)$</td><td><a href="tema6.html#continuidad">T6 sec. 6.5</a></td></tr>
+        <tr><td>Derivabilidad en un punto</td><td>Primero continuidad. Luego $f'(a^-) = f'(a^+)$</td><td><a href="tema7.html#derivabilidad">T7 sec. 7.1</a></td></tr>
+        <tr><td>Derivar una funcion</td><td>Tabla de derivadas + reglas (producto, cociente, cadena)</td><td><a href="tema7.html#reglas">T7 sec. 7.2</a></td></tr>
+        <tr><td>Recta tangente en $x = a$</td><td>$y - f(a) = f'(a)(x - a)$</td><td><a href="tema7.html#tangente">T7 sec. 7.3</a></td></tr>
+        <tr><td>Intervalos crecimiento/decrecimiento</td><td>$f'(x) = 0 \to$ signo de $f'$ en cada intervalo</td><td><a href="tema7.html#monotonia">T7 sec. 7.4</a></td></tr>
+        <tr><td>Maximos y minimos</td><td>$f'(a) = 0$; $f''(a) < 0$ max, $f''(a) > 0$ min</td><td><a href="tema7.html#monotonia">T7 sec. 7.4</a></td></tr>
+        <tr><td>Curvatura e inflexion</td><td>$f''(x) = 0 \to$ signo de $f''$; inflexion si $f'''(a) \neq 0$</td><td><a href="tema7.html#curvatura">T7 sec. 7.5</a></td></tr>
+        <tr><td>Integrar una funcion</td><td>Tabla de integrales. Buscar si es potencia, ln, o exponencial</td><td><a href="tema8.html#inmediatas">T8 sec. 8.2</a></td></tr>
+        <tr><td>Integral definida</td><td>Barrow: $\int_a^b f = F(b) - F(a)$</td><td><a href="tema8.html#barrow">T8 sec. 8.4</a></td></tr>
+        <tr><td>Area entre curva y eje X</td><td>Cortes con eje X $\to$ partir si cambia signo $\to$ sumar $|$integrales$|$</td><td><a href="tema8.html#areas">T8 sec. 8.5</a></td></tr>
+        <tr><td>Area entre dos curvas</td><td>Cortes entre ellas $\to$ integrar (arriba $-$ abajo)</td><td><a href="tema8.html#areas">T8 sec. 8.5</a></td></tr>
+    </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TABLA DE DERIVADAS                                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="derivadas-tabla">Tabla de derivadas</h2>
+
+<div class="card formula" style="padding: 24px;">
+    <table>
+        <tr><th>Funcion</th><th>Derivada</th><th>Compuesta (cadena)</th></tr>
+        <tr><td>$k$</td><td>$0$</td><td></td></tr>
+        <tr><td>$x^n$</td><td>$nx^{n-1}$</td><td>$n[f(x)]^{n-1} \cdot f'(x)$</td></tr>
+        <tr><td>$\sqrt{x}$</td><td>$\frac{1}{2\sqrt{x}}$</td><td>$\frac{f'(x)}{2\sqrt{f(x)}}$</td></tr>
+        <tr><td>$\frac{1}{x}$</td><td>$-\frac{1}{x^2}$</td><td>$-\frac{f'(x)}{[f(x)]^2}$</td></tr>
+        <tr><td>$e^x$</td><td>$e^x$</td><td>$e^{f(x)} \cdot f'(x)$</td></tr>
+        <tr><td>$a^x$</td><td>$a^x \ln a$</td><td>$a^{f(x)} \cdot \ln a \cdot f'(x)$</td></tr>
+        <tr><td>$\ln x$</td><td>$\frac{1}{x}$</td><td>$\frac{f'(x)}{f(x)}$</td></tr>
+        <tr><td>$\log_a x$</td><td>$\frac{1}{x \ln a}$</td><td>$\frac{f'(x)}{f(x) \cdot \ln a}$</td></tr>
+    </table>
+    <p style="margin-top: 12px;"><strong>Operaciones:</strong></p>
+    <ul>
+        <li><strong>Producto:</strong> $(f \cdot g)' = f' \cdot g + f \cdot g'$</li>
+        <li><strong>Cociente:</strong> $\left(\frac{f}{g}\right)' = \frac{f' \cdot g - f \cdot g'}{g^2}$</li>
+        <li><strong>Cadena:</strong> $[f(g(x))]' = f'(g(x)) \cdot g'(x)$</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TABLA DE INTEGRALES                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="integrales-tabla">Tabla de integrales</h2>
+
+<div class="card formula" style="padding: 24px;">
+    <table>
+        <tr><th>Tipo</th><th>Integral simple</th><th>Integral compuesta</th></tr>
+        <tr><td>Constante</td><td>$\int a\,dx = ax + C$</td><td></td></tr>
+        <tr><td>Potencia ($n \neq -1$)</td><td>$\int x^n\,dx = \frac{x^{n+1}}{n+1} + C$</td><td>$\int [f]^n \cdot f'\,dx = \frac{[f]^{n+1}}{n+1} + C$</td></tr>
+        <tr><td>$n = -1$</td><td>$\int \frac{1}{x}\,dx = \ln|x| + C$</td><td>$\int \frac{f'}{f}\,dx = \ln|f| + C$</td></tr>
+        <tr><td>$e^x$</td><td>$\int e^x\,dx = e^x + C$</td><td>$\int e^f \cdot f'\,dx = e^f + C$</td></tr>
+        <tr><td>$a^x$</td><td>$\int a^x\,dx = \frac{a^x}{\ln a} + C$</td><td>$\int a^f \cdot f'\,dx = \frac{a^f}{\ln a} + C$</td></tr>
+    </table>
+    <p style="margin-top: 12px;"><strong>Propiedades:</strong></p>
+    <ul>
+        <li>$\int k \cdot f\,dx = k \int f\,dx$</li>
+        <li>$\int (f \pm g)\,dx = \int f\,dx \pm \int g\,dx$</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ERRORES TIPICOS                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="errores-tipicos">Errores tipicos del examen</h2>
+
+<div class="card important" style="padding: 24px;">
+    <table>
+        <tr><th>#</th><th>Error</th><th>Lo correcto</th></tr>
+        <tr><td>1</td><td>Decir que $\frac{0}{0} = 0$ o $= 1$</td><td>$\frac{0}{0}$ es <strong>indeterminado</strong>. Hay que factorizar/operar.</td></tr>
+        <tr><td>2</td><td>En $\frac{\infty}{\infty}$, simplificar todos los terminos</td><td>Solo te quedas con el <strong>monomio de mayor grado</strong> de numerador y denominador.</td></tr>
+        <tr><td>3</td><td>Olvidar la <strong>regla de la cadena</strong></td><td>$(\ln(3x))' = \frac{3}{3x} = \frac{1}{x}$, NO $\frac{1}{3x}$.</td></tr>
+        <tr><td>4</td><td>Derivar el cociente como $\frac{f'}{g'}$</td><td>Regla del cociente: $\frac{f'g - fg'}{g^2}$. <strong>No es f'/g'.</strong></td></tr>
+        <tr><td>5</td><td>Confundir $f'(a) = 0$ con "es maximo"</td><td>$f'(a) = 0$ solo dice que hay un <strong>punto critico</strong>. Hay que usar $f''(a)$ para clasificar.</td></tr>
+        <tr><td>6</td><td>Olvidar la <strong>constante $C$</strong> en integrales indefinidas</td><td>$\int x\,dx = \frac{x^2}{2} + C$, no $\frac{x^2}{2}$.</td></tr>
+        <tr><td>7</td><td>Hacer $\int_a^b f\,dx$ directa para el area cuando $f < 0$</td><td>Si $f$ es negativa, la integral da negativo. El area es el <strong>valor absoluto</strong>.</td></tr>
+        <tr><td>8</td><td>No comprobar las 3 condiciones de continuidad</td><td>Hay que escribir las 3: $\exists f(a)$, $\exists \lim$, $\lim = f(a)$. Puntos por proceso.</td></tr>
+        <tr><td>9</td><td>En funciones a trozos, olvidar estudiar <strong>derivabilidad</strong> ademas de continuidad</td><td>Primero continuidad, luego derivadas laterales. Son dos pasos distintos.</td></tr>
+        <tr><td>10</td><td>No poner <strong>unidades</strong> en el area ($\text{u}^2$)</td><td>El area se mide en <strong>unidades cuadradas</strong>. Ponlo siempre.</td></tr>
+    </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RESUMEN DE FORMULAS                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="resumen-formulas">Resumen de todas las formulas</h2>
+
+<div class="card definition" style="padding: 24px;">
+    <h4>Limites</h4>
+    <ul>
+        <li>$\frac{0}{0}$: factorizar por Ruffini o multiplicar por conjugado</li>
+        <li>$\frac{\infty}{\infty}$: monomios de mayor grado</li>
+        <li>$\infty - \infty$ racionales: comun denominador $\to \frac{0}{0}$</li>
+        <li>$\infty - \infty$ radicales: conjugado $\to \frac{\infty}{\infty}$</li>
+        <li>$0 \cdot \infty$: reescribir como cociente</li>
+    </ul>
+
+    <h4>Asintotas</h4>
+    <ul>
+        <li><strong>A.V.:</strong> $x = a$ donde $\lim_{x \to a} f(x) = \pm\infty$</li>
+        <li><strong>A.H.:</strong> $y = b$ donde $\lim_{x \to \pm\infty} f(x) = b$</li>
+        <li><strong>A.O.:</strong> $y = mx + n$ con $m = \lim \frac{f(x)}{x}$, $n = \lim(f(x) - mx)$</li>
+    </ul>
+
+    <h4>Continuidad en $x = a$</h4>
+    <p>1. $\exists f(a)$ &emsp; 2. $\exists \lim_{x \to a} f(x)$ &emsp; 3. $\lim_{x \to a} f(x) = f(a)$</p>
+
+    <h4>Derivadas - Aplicaciones</h4>
+    <ul>
+        <li><strong>Tangente:</strong> $y - f(a) = f'(a)(x-a)$</li>
+        <li><strong>Creciente:</strong> $f'(x) > 0$ &emsp; <strong>Decreciente:</strong> $f'(x) < 0$</li>
+        <li><strong>Maximo:</strong> $f'(a)=0$, $f''(a)<0$ &emsp; <strong>Minimo:</strong> $f'(a)=0$, $f''(a)>0$</li>
+        <li><strong>Convexa $\cup$:</strong> $f''(x)>0$ &emsp; <strong>Concava $\cap$:</strong> $f''(x)<0$</li>
+        <li><strong>Inflexion:</strong> $f''(a)=0$ y $f'''(a) \neq 0$</li>
+    </ul>
+
+    <h4>Integrales</h4>
+    <ul>
+        <li><strong>Barrow:</strong> $\int_a^b f(x)\,dx = F(b) - F(a)$</li>
+        <li><strong>Area ($f \geq 0$):</strong> $A = \int_a^b f(x)\,dx$</li>
+        <li><strong>Area ($f \leq 0$):</strong> $A = \left|\int_a^b f(x)\,dx\right|$</li>
+        <li><strong>Area entre curvas:</strong> $A = \int_a^b [f_{\text{arriba}} - f_{\text{abajo}}]\,dx$</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- CALCULADORA DE FUNCIONES                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="calculadora">Calculadora de funciones</h2>
+
+<div class="card" style="padding: 24px;">
+    <p style="margin-bottom: 10px;">Escribe una funcion y pulsa <strong>Dibujar</strong> para verla. Puedes escribir hasta 3 funciones separadas por <code>;</code></p>
+    <input type="text" class="calc-func-input" id="func-input" value="x^3 - 3*x + 2" placeholder="Ej: x^2 - 4*x ; 2*x ; sqrt(x)">
+    <div class="calc-func-controls">
+        <button onclick="drawFunc()" class="active" style="background:var(--blue);color:var(--bg);">Dibujar</button>
+        <button onclick="setFunc('x^2')">$x^2$</button>
+        <button onclick="setFunc('x^3 - 3*x')">$x^3-3x$</button>
+        <button onclick="setFunc('1/(x-1)')">$1/(x-1)$</button>
+        <button onclick="setFunc('exp(x)')">$e^x$</button>
+        <button onclick="setFunc('log(x)')">$\ln x$</button>
+        <button onclick="setFunc('sqrt(x)')">$\sqrt{x}$</button>
+        <button onclick="setFunc('sin(x)')">$\sin x$</button>
+        <button onclick="setFunc('abs(x)')">$|x|$</button>
+    </div>
+    <div class="range-row">
+        <label>$x$ de</label><input type="number" id="xmin" value="-6">
+        <label>a</label><input type="number" id="xmax" value="6">
+        <label>$y$ de</label><input type="number" id="ymin" value="-5">
+        <label>a</label><input type="number" id="ymax" value="5">
+    </div>
+    <canvas class="graph-canvas" id="g-calc" style="height: 380px;"></canvas>
+    <p style="color: var(--text-dim); font-size: 0.78rem; margin-top: 4px;">Sintaxis: <code>x^2</code>, <code>x^3</code>, <code>sqrt(x)</code>, <code>exp(x)</code>, <code>log(x)</code>, <code>abs(x)</code>, <code>sin(x)</code>, <code>cos(x)</code>, <code>1/(x-2)</code>. Separar varias funciones con <code>;</code></p>
+</div>
+
+</div><!-- end main -->
+
+<script>
+window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+});
+var navSections = document.querySelectorAll('h2[id], h3[id]');
+var navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', function() {
+    var current = '';
+    navSections.forEach(function(s) { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(function(a) { a.classList.remove('active'); if (a.getAttribute('href') === '#' + current) a.classList.add('active'); });
+});
+document.querySelectorAll('.sidebar a').forEach(function(a) {
+    a.addEventListener('click', function() { if (window.innerWidth <= 900) document.querySelector('.sidebar').classList.remove('show'); });
+});
+
+// === CALCULADORA ===
+function parseMathExpr(expr) {
+    var s = expr.trim()
+        .replace(/\^/g, '**')
+        .replace(/sqrt\(/g, 'Math.sqrt(')
+        .replace(/abs\(/g, 'Math.abs(')
+        .replace(/exp\(/g, 'Math.exp(')
+        .replace(/log\(/g, 'Math.log(')
+        .replace(/ln\(/g, 'Math.log(')
+        .replace(/sin\(/g, 'Math.sin(')
+        .replace(/cos\(/g, 'Math.cos(')
+        .replace(/tan\(/g, 'Math.tan(')
+        .replace(/pi/g, 'Math.PI')
+        .replace(/e(?![xp])/g, 'Math.E');
+    try {
+        return new Function('x', 'try { return ' + s + '; } catch(e) { return NaN; }');
+    } catch(e) {
+        return function() { return NaN; };
+    }
+}
+
+function setFunc(expr) {
+    document.getElementById('func-input').value = expr;
+    drawFunc();
+}
+
+function drawFunc() {
+    var input = document.getElementById('func-input').value;
+    var exprs = input.split(';').map(function(s) { return s.trim(); }).filter(Boolean);
+    var fns = exprs.map(function(e) { return parseMathExpr(e); });
+
+    plotGraph('g-calc', {
+        height: 380,
+        functions: fns,
+        xMin: parseFloat(document.getElementById('xmin').value) || -6,
+        xMax: parseFloat(document.getElementById('xmax').value) || 6,
+        yMin: parseFloat(document.getElementById('ymin').value) || -5,
+        yMax: parseFloat(document.getElementById('ymax').value) || 5,
+        title: exprs.join('  ;  ')
+    });
+}
+
+document.getElementById('func-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') drawFunc();
+});
+
+// Draw on load
+window.addEventListener('load', function() { drawFunc(); });
+</script>
+
+</body>
+</html>
