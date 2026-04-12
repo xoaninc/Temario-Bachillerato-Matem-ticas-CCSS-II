@@ -399,7 +399,357 @@
     </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS PONENCIA ANALISIS 24/25                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="ponencia-analisis">Ejercicios Ponencia Analisis 24/25 (resueltos)</h2>
+
+<div class="card warning" style="padding: 16px;">
+    <p>Estos ejercicios vienen del PDF <strong>"Analisis Envia La Ponencia 24/25 resueltos"</strong> que subio la profesora al classroom el 25 de febrero. Son ejercicios tipo selectividad con funciones exponenciales, logaritmicas y a trozos.</p>
+</div>
+
+<!-- EJ 7 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 7</div>
+    <div class="card-label">Continuidad y derivabilidad con logaritmo</div>
+    <p>Se considera la funcion $f(x) = \begin{cases} a - \ln(x) & \text{si } 0 < x \leq 1 \\ -x^2 + x + b & \text{si } x > 1 \end{cases}$</p>
+    <p>i) Determine los valores de $a$ y $b$ para que $f$ sea continua y derivable en su dominio.</p>
+    <p>ii) Para $a = 1$ y $b = 1$: a) Estudie los intervalos de crecimiento y decrecimiento. b) Halle los puntos de corte con los ejes y represente graficamente.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Continuidad en $x = 1$:</strong></p>
+        <p>$f(1) = a - \ln 1 = a$</p>
+        <p>$\lim_{x \to 1^-}(a - \ln x) = a$ &emsp; $\lim_{x \to 1^+}(-x^2+x+b) = -1+1+b = b$</p>
+        <p>Continuidad $\Rightarrow a = b$</p>
+        <p><strong>Derivabilidad en $x = 1$:</strong></p>
+        <p>$f'(x) = -\frac{1}{x}$ si $0 < x \leq 1$ $\Rightarrow f'(1^-) = -1$</p>
+        <p>$f'(x) = -2x+1$ si $x > 1$ $\Rightarrow f'(1^+) = -2+1 = -1$</p>
+        <p>$f'(1^-) = f'(1^+) = -1$ &#10003; $\Rightarrow$ derivable para $\boxed{a = b}$</p>
+
+        <p><strong>ii) Con $a = b = 1$:</strong></p>
+        <p><strong>a) Monotonia:</strong></p>
+        <p>$f'(x) = -\frac{1}{x} < 0$ en $(0, 1]$ $\Rightarrow$ decreciente</p>
+        <p>$f'(x) = -2x+1 = 0 \Rightarrow x = \frac{1}{2} \notin (1, +\infty)$. En $(1, +\infty)$: $f'(2) = -3 < 0$ $\Rightarrow$ decreciente</p>
+        <p><strong>$f$ es decreciente en todo $(0, +\infty)$.</strong></p>
+        <p><strong>b) Cortes:</strong></p>
+        <p>Eje Y: $x = 0 \notin \text{Dom}(f)$, no hay corte.</p>
+        <p>Eje X: $1 - \ln x = 0 \Rightarrow \ln x = 1 \Rightarrow x = e \notin (0,1]$. $-x^2+x+1 = 0 \Rightarrow x = \frac{1+\sqrt{5}}{2} \approx 1{,}61$. Corte en $\left(\frac{1+\sqrt{5}}{2}, 0\right)$.</p>
+    </div>
+</div>
+
+<!-- EJ 8 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 8</div>
+    <div class="card-label">Funcion a trozos con exponencial + area <span class="pts-tag">Completo</span></div>
+    <p>Se considera la funcion $f(x) = \begin{cases} x^2 + ax + b & \text{si } x < -6 \\ 2^{-x/2} & \text{si } x \geq -6 \end{cases}$</p>
+    <p>i) Determine los valores de $a$ y $b$ para que $f$ sea continua y derivable en su dominio.</p>
+    <p>ii) Para $a = 1$ y $b = 1$: a) Estudie la monotonia, extremos relativos y asintotas. b) Represente. c) Calcule el area entre la grafica, el eje de abscisa y las rectas $x = -10$ y $x = 10$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Continuidad en $x = -6$:</strong></p>
+        <p>$f(-6) = 2^{6/2} = 2^3 = 8$</p>
+        <p>$\lim_{x \to -6^-}((-6)^2 + a(-6) + b) = 36 - 6a + b$ &emsp; $\Rightarrow 36 - 6a + b = 8$</p>
+        <p><strong>Derivabilidad en $x = -6$:</strong></p>
+        <p>$f'(x) = 2x + a$ si $x < -6$ $\Rightarrow f'(-6^-) = -12 + a$</p>
+        <p>$f'(x) = 2^{-x/2} \cdot (-\frac{1}{2}) \ln 2$ si $x \geq -6$ $\Rightarrow f'(-6^+) = 2^3 \cdot (-\frac{1}{2})\ln 2 = -4\ln 2$</p>
+        <p>$-12 + a = -4\ln 2 \Rightarrow a = 12 - 4\ln 2$</p>
+        <p>$b = -28 + 72 - 24\ln 2 = 44 - 24\ln 2$</p>
+        <p>$\boxed{a = 12 - 4\ln 2, \quad b = 44 - 24\ln 2}$</p>
+
+        <p><strong>ii) Con $a = 1$, $b = 1$:</strong> $f(x) = \begin{cases} x^2+x+1 & x < -6 \\ 2^{-x/2} & x \geq -6 \end{cases}$</p>
+        <p><strong>a) Monotonia:</strong></p>
+        <p>$f'(x) = 2x+1 = 0 \Rightarrow x = -\frac{1}{2} \notin (-\infty, -6)$. En $(-\infty, -6)$: $f'(-7) = -13 < 0$, decreciente.</p>
+        <p>$f'(x) = -\frac{\ln 2}{2} \cdot 2^{-x/2} < 0$ siempre en $(-6, +\infty)$, decreciente.</p>
+        <p><strong>$f$ es decreciente en todo su dominio. No hay extremos relativos.</strong></p>
+        <p><strong>Asintotas:</strong> No A.V. (dominio $= \mathbb{R}$). A.H.: $\lim_{x \to -\infty}(x^2+x+1) = +\infty$ (no hay). $\lim_{x \to +\infty} 2^{-x/2} = 0$ $\Rightarrow$ <strong>A.H. $y = 0$ cuando $x \to +\infty$</strong>.</p>
+        <p><strong>c) Area entre $x = -10$ y $x = 10$:</strong></p>
+        <p>$f(x) > 0$ en todo el intervalo (la parabola tiene vertice en $(-\frac{1}{2}, \frac{3}{4})$ y la exponencial es positiva).</p>
+        $$A = \int_{-10}^{-6}(x^2+x+1)\,dx + \int_{-6}^{10} 2^{-x/2}\,dx$$
+        $$= \left[\frac{x^3}{3}+\frac{x^2}{2}+x\right]_{-10}^{-6} + \frac{-2}{\ln 2}\left[2^{-x/2}\right]_{-6}^{10}$$
+        $$= \left[(-72+18-6) - (-\frac{1000}{3}+50-10)\right] + \frac{-2}{\ln 2}(2^{-5} - 2^3)$$
+        $$\approx 256{,}33 \text{ u}^2$$
+    </div>
+</div>
+
+<!-- EJ 9 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 9</div>
+    <div class="card-label">Crecimiento de bacterias (exponencial)</div>
+    <p>El cultivo de un tipo de bacteria comienza con 100 celulas y media hora despues asciende hasta 449 celulas. El numero de bacterias para cada instante $t$ viene expresado por $f(t) = a \cdot e^{kt}$, con $t \geq 0$ en minutos y $a$, $k$ parametros positivos.</p>
+    <p>i) Calcule los valores de $a$ y de $k$.</p>
+    <p>ii) Para $a = 100$ y $k = 0{,}05$: a) Estudie la monotonia y la curvatura. b) Represente. c) Cuantos minutos se tardara en llegar a las 4700 celulas?</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Hallar $a$ y $k$:</strong></p>
+        <p>$f(0) = a \cdot e^0 = a = 100$</p>
+        <p>$f(30) = 100 \cdot e^{30k} = 449 \Rightarrow e^{30k} = 4{,}49 \Rightarrow 30k = \ln 4{,}49 \Rightarrow k = \frac{\ln 4{,}49}{30} \approx 0{,}05$</p>
+        <p>$\boxed{a = 100, \quad k \approx 0{,}05}$</p>
+
+        <p><strong>ii) Con $f(t) = 100e^{0{,}05t}$:</strong></p>
+        <p><strong>a) Monotonia:</strong> $f'(t) = 5e^{0{,}05t} > 0$ siempre $\Rightarrow$ <strong>creciente en todo $\mathbb{R}$</strong>.</p>
+        <p><strong>Curvatura:</strong> $f''(t) = 0{,}25 \cdot e^{0{,}05t} > 0$ siempre $\Rightarrow$ <strong>convexa ($\cup$) en todo $\mathbb{R}$</strong>.</p>
+        <p><strong>c) Llegar a 4700:</strong></p>
+        <p>$100e^{0{,}05t} = 4700 \Rightarrow e^{0{,}05t} = 47 \Rightarrow 0{,}05t = \ln 47 \Rightarrow t = \frac{\ln 47}{0{,}05} \approx 77$ minutos.</p>
+    </div>
+</div>
+
+<!-- EJ 10 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 10</div>
+    <div class="card-label">Desintegracion (exponencial base 2)</div>
+    <p>Una sustancia quimica se desintegra segun $F(t) = a \cdot 2^{-t/b}$, $t \geq 0$, donde $F(t)$ en gramos es la cantidad presente al cabo de $t$ anos.</p>
+    <p>i) Determine los valores de $a$ y $b$ sabiendo que inicialmente habia 100 gramos y que transcurridos 6 anos quedan 25 gramos.</p>
+    <p>ii) Para $a = 100$ y $b = 3$: a) Cuantos anos para que se reduzca a la mitad? b) Calcule las asintotas e interprete. c) Monotonia y extremos. d) Represente.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Hallar $a$ y $b$:</strong></p>
+        <p>$F(0) = a \cdot 2^0 = a = 100$</p>
+        <p>$F(6) = 100 \cdot 2^{-6/b} = 25 \Rightarrow 2^{-6/b} = \frac{1}{4} = 2^{-2} \Rightarrow -\frac{6}{b} = -2 \Rightarrow b = 3$</p>
+        <p>$\boxed{a = 100, \quad b = 3}$ $\Rightarrow F(t) = 100 \cdot 2^{-t/3}$</p>
+
+        <p><strong>ii a) Mitad:</strong> $50 = 100 \cdot 2^{-t/3} \Rightarrow 2^{-t/3} = \frac{1}{2} = 2^{-1} \Rightarrow t = 3$ anos.</p>
+
+        <p><strong>b) Asintotas:</strong></p>
+        <p>A.V.: No tiene (exponencial, dominio $[0, +\infty)$).</p>
+        <p>A.H.: $\lim_{t \to +\infty} 100 \cdot 2^{-t/3} = \frac{100}{2^{+\infty}} = 0$ $\Rightarrow$ <strong>A.H. $y = 0$</strong>.</p>
+        <p><em>Interpretacion:</em> al cabo de muchos anos, la cantidad de sustancia tiende a 0 gramos.</p>
+
+        <p><strong>c) Monotonia:</strong></p>
+        <p>$F'(t) = -\frac{100 \ln 2}{3} \cdot 2^{-t/3} < 0$ siempre $\Rightarrow$ <strong>decreciente en $(0, +\infty)$</strong>. No hay extremos.</p>
+    </div>
+</div>
+
+<!-- EJ 11 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 11</div>
+    <div class="card-label">Estudio de $f(x) = 1 - e^x$</div>
+    <p>Se considera la funcion $f(x) = 1 - e^x$.</p>
+    <p>i) Estudie la monotonia. ii) Calcule las asintotas. iii) Represente la grafica.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Monotonia:</strong></p>
+        <p>$f'(x) = -e^x$. Como $e^x > 0$ siempre, $f'(x) < 0$ siempre.</p>
+        <p><strong>$f$ es decreciente en todo $\mathbb{R}$.</strong> No hay extremos.</p>
+
+        <p><strong>ii) Asintotas:</strong></p>
+        <p>A.V.: No tiene (dominio $= \mathbb{R}$).</p>
+        <p>A.H.: $\lim_{x \to +\infty}(1-e^x) = 1 - \infty = -\infty$ (no hay).</p>
+        <p>$\lim_{x \to -\infty}(1-e^x) = 1 - 0 = 1$ $\Rightarrow$ <strong>A.H. $y = 1$ cuando $x \to -\infty$</strong>.</p>
+
+        <p><strong>iii) Datos para la grafica:</strong></p>
+        <p>Corte eje X: $1-e^x = 0 \Rightarrow e^x = 1 \Rightarrow x = 0$. Punto $(0, 0)$.</p>
+        <p>Corte eje Y: $f(0) = 0$. La funcion pasa por el origen, decrece, se acerca a $y = 1$ por la izquierda y a $-\infty$ por la derecha.</p>
+    </div>
+</div>
+
+<!-- EJ 12 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 12</div>
+    <div class="card-label">Estudio de $f(x) = e^{2x-1} - 1$ + tangente</div>
+    <p>Se considera la funcion $f(x) = e^{2x-1} - 1$.</p>
+    <p>i) Estudie la monotonia. ii) Halle la recta tangente en $x = 1$. iii) Represente la grafica.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Monotonia:</strong></p>
+        <p>$f'(x) = 2e^{2x-1} > 0$ siempre $\Rightarrow$ <strong>$f$ es creciente en todo $\mathbb{R}$</strong>. No hay extremos.</p>
+
+        <p><strong>ii) Tangente en $x = 1$:</strong></p>
+        <p>$f(1) = e^{2-1} - 1 = e - 1$</p>
+        <p>$f'(1) = 2e^{2-1} = 2e$</p>
+        <p>$y - (e-1) = 2e(x-1) \Rightarrow \boxed{y = 2ex - e - 1}$</p>
+
+        <p><strong>iii) Grafica:</strong></p>
+        <p>A.H.: $\lim_{x \to -\infty}(e^{2x-1}-1) = 0 - 1 = -1$ $\Rightarrow$ A.H. $y = -1$ cuando $x \to -\infty$.</p>
+        <p>Corte eje X: $e^{2x-1} = 1 \Rightarrow 2x-1 = 0 \Rightarrow x = \frac{1}{2}$. Corte eje Y: $f(0) = e^{-1}-1 \approx -0{,}63$.</p>
+    </div>
+</div>
+
+<!-- EJ 13 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 13</div>
+    <div class="card-label">Estudio completo de $f(x) = \ln(x^2+1)$ <span class="pts-tag">Completo</span></div>
+    <p>Se considera la funcion $f(x) = \ln(x^2+1)$.</p>
+    <p>i) Halle el dominio y los puntos de corte con los ejes.</p>
+    <p>ii) Estudie la monotonia y la curvatura, y calcule sus extremos relativos y puntos de inflexion.</p>
+    <p>iii) Represente la grafica.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Dominio y cortes:</strong></p>
+        <p>$x^2+1 > 0$ siempre $\Rightarrow$ <strong>Dom$(f) = \mathbb{R}$</strong>.</p>
+        <p>Eje X: $\ln(x^2+1) = 0 \Rightarrow x^2+1 = 1 \Rightarrow x = 0$. Eje Y: $f(0) = \ln 1 = 0$. <strong>Corte: $(0, 0)$</strong>.</p>
+
+        <p><strong>ii) Monotonia:</strong></p>
+        <p>$f'(x) = \frac{2x}{x^2+1}$. $\quad f'(x) = 0 \Rightarrow x = 0$.</p>
+        <p>$f'(x) < 0$ en $(-\infty, 0)$ $\Rightarrow$ decreciente. $\quad f'(x) > 0$ en $(0, +\infty)$ $\Rightarrow$ creciente.</p>
+        <p><strong>Minimo relativo en $(0, 0)$.</strong></p>
+
+        <p><strong>Curvatura:</strong></p>
+        <p>$f''(x) = \frac{2(x^2+1) - 2x \cdot 2x}{(x^2+1)^2} = \frac{-2x^2+2}{(x^2+1)^2}$</p>
+        <p>$f''(x) = 0 \Rightarrow -2x^2+2 = 0 \Rightarrow x = \pm 1$</p>
+        <p>Signo de $f''$: negativo en $(-\infty, -1)$, positivo en $(-1, 1)$, negativo en $(1, +\infty)$.</p>
+        <p>Concava, convexa, concava.</p>
+        <p>$f(1) = \ln 2$, $f(-1) = \ln 2$. <strong>Puntos de inflexion: $(-1, \ln 2)$ y $(1, \ln 2)$.</strong></p>
+    </div>
+</div>
+
+<!-- EJ 14 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">PDF Ponencia Analisis 24/25, ej 14</div>
+    <div class="card-label">Estudio de $f(x) = x \cdot e^{1-x^2}$ + area <span class="pts-tag">Completo</span></div>
+    <p>Se considera la funcion $f(x) = x \cdot e^{(1-x^2)}$.</p>
+    <p>i) Estudie la monotonia y calcule sus extremos relativos.</p>
+    <p>ii) Represente el recinto limitado por las rectas $x = -1$, $x = 1$, el eje de abscisas y la grafica de $f$. Calcule el area.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>i) Monotonia:</strong></p>
+        <p>$f'(x) = e^{1-x^2} + x \cdot (-2x) \cdot e^{1-x^2} = e^{1-x^2}(1 - 2x^2)$</p>
+        <p>$e^{1-x^2} > 0$ siempre, asi que $f'(x) = 0 \Leftrightarrow 1-2x^2 = 0 \Rightarrow x = \pm\frac{\sqrt{2}}{2} \approx \pm 0{,}71$</p>
+        <p>$f'(x) < 0$ en $(-\infty, -\frac{\sqrt{2}}{2})$ y $(\frac{\sqrt{2}}{2}, +\infty)$ $\Rightarrow$ decreciente.</p>
+        <p>$f'(x) > 0$ en $(-\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})$ $\Rightarrow$ creciente.</p>
+        <p>$f\!\left(\frac{\sqrt{2}}{2}\right) = \frac{\sqrt{2}}{2} \cdot e^{1/2} = \frac{\sqrt{2e}}{2} \approx 1{,}17$ &emsp; $f\!\left(-\frac{\sqrt{2}}{2}\right) = -\frac{\sqrt{2e}}{2} \approx -1{,}17$</p>
+        <p><strong>Minimo en $\left(-\frac{\sqrt{2}}{2},\; -\frac{\sqrt{2e}}{2}\right)$. Maximo en $\left(\frac{\sqrt{2}}{2},\; \frac{\sqrt{2e}}{2}\right)$.</strong></p>
+
+        <p><strong>ii) Area entre $x = -1$ y $x = 1$:</strong></p>
+        <p>$f$ es impar ($f(-x) = -f(x)$) y cambia de signo en $x = 0$: negativa en $(-1, 0)$, positiva en $(0, 1)$.</p>
+        $$A = \left|\int_{-1}^{0} x \cdot e^{1-x^2}\,dx\right| + \int_0^1 x \cdot e^{1-x^2}\,dx$$
+        <p>Usamos sustitucion: $\int x \cdot e^{1-x^2}\,dx = -\frac{1}{2}\int -2x \cdot e^{1-x^2}\,dx = -\frac{1}{2}e^{1-x^2} + C$</p>
+        $$\int_{-1}^{0} = -\frac{1}{2}\left[e^{1-x^2}\right]_{-1}^{0} = -\frac{1}{2}(e^1 - e^0) = -\frac{1}{2}(e-1)$$
+        $$\int_0^1 = -\frac{1}{2}\left[e^{1-x^2}\right]_0^1 = -\frac{1}{2}(e^0 - e^1) = \frac{1}{2}(e-1)$$
+        $$A = \frac{e-1}{2} + \frac{e-1}{2} = \boxed{e - 1 \approx 1{,}72 \text{ u}^2}$$
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- EJERCICIOS DE CLASE                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="ejercicios-clase">Ejercicios de clase (pizarra)</h2>
+
+<div class="card warning" style="padding: 16px;">
+    <p>Estos ejercicios los hizo la profesora en la pizarra durante las clases de marzo y abril. Transcritos de las fotos del classroom.</p>
+</div>
+
+<!-- CLASE 16 MAR - Continuidad -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 16 marzo &mdash; PDF Tema 6, pag 25, ej 7</div>
+    <div class="card-label">Continuidad + representacion de funcion a trozos</div>
+    <p>Se considera $f(x) = \begin{cases} \frac{5}{9}x+3 & \text{si } -1 \leq x \leq 0 \\ \sqrt[3]{x} \cdot e^{x} & \text{si } x > 0 \end{cases}$. Estudie la continuidad en $x = 0$ y represente.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Continuidad en $x = 0$:</strong></p>
+        <p>1. $f(0) = \frac{5}{9}(0)+3 = 3$ &#10003;</p>
+        <p>2. $\lim_{x \to 0^-}\left(\frac{5}{9}x+3\right) = 3$ &emsp; $\lim_{x \to 0^+}\sqrt[3]{x} \cdot e^x = 0 \cdot 1 = 0$</p>
+        <p>$3 \neq 0$ $\Rightarrow$ <strong>No existe el limite</strong>.</p>
+        <p><strong>Discontinuidad de salto</strong> (salto de valor $|3-0| = 3$).</p>
+    </div>
+</div>
+
+<!-- CLASE 16 MAR - 3 condiciones -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 16 marzo &mdash; PDF Tema 6, pag 24, ej 2c</div>
+    <div class="card-label">Discontinuidad evitable</div>
+    <p>Estudia la continuidad de $f(x) = \begin{cases} 3x+4 & \text{si } x < -1 \\ 4-7x & \text{si } x > -1 \end{cases}$ en $x = -1$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>1. $f(-1)$ no existe (no esta definida en $x = -1$) &#10007;</p>
+        <p>2. $\lim_{x \to -1^-}(3x+4) = 1$ &emsp; $\lim_{x \to -1^+}(4-7x) = 4-(-7) = 11$</p>
+        <p>$1 \neq 11$ $\Rightarrow$ el limite no existe.</p>
+        <p><strong>Discontinuidad de salto finito</strong> (salto $= 10$).</p>
+    </div>
+</div>
+
+<!-- CLASE 17 MAR -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 17 marzo &mdash; Selectividad (estudio global)</div>
+    <div class="card-label">Estudio completo de funcion racional</div>
+    <p>Ejercicio 2: $f(t) = \dfrac{12t-24}{t+3}$, con $t \geq 0$. Halle dominio, asintotas, puntos de corte y represente.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Dominio:</strong> $\mathbb{R} \setminus \{-3\}$, pero como $t \geq 0$: $[0, +\infty)$.</p>
+        <p><strong>A.V.:</strong> $t = -3$ (fuera del dominio, no aplica en este contexto).</p>
+        <p><strong>A.H.:</strong> $\lim_{t \to +\infty}\frac{12t-24}{t+3} = \frac{12t}{t} = 12$ $\Rightarrow$ <strong>A.H. $y = 12$</strong>.</p>
+        <p><strong>Corte eje Y:</strong> $f(0) = \frac{-24}{3} = -8$. Punto $(0, -8)$.</p>
+        <p><strong>Corte eje X:</strong> $12t-24 = 0 \Rightarrow t = 2$. Punto $(2, 0)$.</p>
+        <p><strong>Posicion respecto a A.H.:</strong> $\frac{12t-24}{t+3} = 12 - \frac{60}{t+3}$. Como $\frac{60}{t+3} > 0$ para $t > 0$, la curva esta siempre <strong>por debajo</strong> de $y = 12$.</p>
+    </div>
+</div>
+
+<!-- CLASE 6 ABR - Ej hallar a,b derivabilidad -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 6 abril &mdash; PDF Tema 7, pag 17, ej 6</div>
+    <div class="card-label">Hallar a,b para derivabilidad + tangente</div>
+    <p>Se considera $f(x) = \begin{cases} ax^2+bx-3 & \text{si } x \leq 1 \\ 2bx-4 & \text{si } x > 1 \end{cases}$. Determine $a$ y $b$ para que $f$ sea derivable. Para $a = 1$, $b = 2$, calcule la ecuacion de la recta tangente a $f(x)$ en $x = 0$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Continuidad en $x = 1$:</strong></p>
+        <p>$f(1) = a+b-3$ &emsp; $\lim_{x \to 1^+}(2b-4) = 2b-4$</p>
+        <p>$a+b-3 = 2b-4 \Rightarrow a-b = -1$ &emsp; (1)</p>
+        <p><strong>Derivabilidad en $x = 1$:</strong></p>
+        <p>$f'(x) = 2ax+b \Rightarrow f'(1^-) = 2a+b$</p>
+        <p>$f'(x) = 2b \Rightarrow f'(1^+) = 2b$</p>
+        <p>$2a+b = 2b \Rightarrow 2a = b$ &emsp; (2)</p>
+        <p>De (1) y (2): $a - 2a = -1 \Rightarrow a = 1$, $b = 2$.</p>
+        <p><strong>Tangente en $x = 0$ (con $a=1$, $b=2$):</strong></p>
+        <p>$f(0) = 0+0-3 = -3$ &emsp; $f'(0) = 0+2 = 2$</p>
+        <p>$y-(-3) = 2(x-0) \Rightarrow \boxed{y = 2x - 3}$</p>
+    </div>
+</div>
+
+<!-- CLASE 6 ABR - Ej 7 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 6 abril &mdash; PDF Tema 7, pag 17, ej 7</div>
+    <div class="card-label">Hallar a,b con condiciones</div>
+    <p>Dada $f(x) = 2x^2 + ax + b$, determina $a$ y $b$ sabiendo que pasa por $(1, 3)$ y alcanza un extremo en $x = 2$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Extremo en $x = 2$:</strong> $f'(x) = 4x+a$. $f'(2) = 0 \Rightarrow 8+a = 0 \Rightarrow a = -8$.</p>
+        <p><strong>Pasa por $(1,3)$:</strong> $f(1) = 2-8+b = 3 \Rightarrow b = 9$.</p>
+        <p>$\boxed{a = -8, \; b = 9}$</p>
+    </div>
+</div>
+
+<!-- CLASE 6 ABR - Ej 8 -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 6 abril &mdash; PDF Tema 7, pag 17, ej 8</div>
+    <div class="card-label">Hallar a,b,c con extremo e inflexion</div>
+    <p>Sea $f(x) = ax^3 + bx^2 + cx$. Halle $a$, $b$ y $c$ sabiendo que en $(0, 0)$ su grafica posee un extremo relativo y que $(2, -16)$ es punto de inflexion.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>$f'(x) = 3ax^2 + 2bx + c$ &emsp; $f''(x) = 6ax + 2b$</p>
+        <p><strong>Pasa por $(0, 0)$:</strong> $f(0) = 0$ &#10003; (se cumple automaticamente).</p>
+        <p><strong>Extremo en $(0,0)$:</strong> $f'(0) = c = 0$.</p>
+        <p><strong>Pasa por $(2, -16)$:</strong> $f(2) = 8a+4b = -16$ &emsp; (1)</p>
+        <p><strong>Inflexion en $x = 2$:</strong> $f''(2) = 12a + 2b = 0 \Rightarrow b = -6a$ &emsp; (2)</p>
+        <p>Sustituyendo (2) en (1): $8a + 4(-6a) = -16 \Rightarrow -16a = -16 \Rightarrow a = 1$</p>
+        <p>$b = -6$, $c = 0$.</p>
+        <p>$\boxed{a = 1, \; b = -6, \; c = 0}$ $\Rightarrow f(x) = x^3 - 6x^2$</p>
+    </div>
+</div>
+
+<!-- CLASE 6 ABR - Ej 10a estudio completo -->
+<div class="card example" style="padding: 24px;">
+    <div class="source-tag">Clase 6 abril &mdash; PDF Tema 7, pag 17, ej 10a</div>
+    <div class="card-label">Estudio completo: monotonia, extremos, curvatura, inflexion</div>
+    <p>Estudia la monotonia, extremos relativos, curvatura y puntos de inflexion de $f(x) = x^3 - 6x^2 + 11$.</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p><strong>Monotonia:</strong> $f'(x) = 3x^2 - 12x = 3x(x-4)$</p>
+        <p>$f'(x) = 0 \Rightarrow x = 0, \; x = 4$</p>
+        <p>Creciente en $(-\infty, 0) \cup (4, +\infty)$. Decreciente en $(0, 4)$.</p>
+
+        <p><strong>Extremos:</strong> $f''(x) = 6x - 12$</p>
+        <p>$f''(0) = -12 < 0 \Rightarrow$ <strong>Maximo en $(0, 11)$</strong>.</p>
+        <p>$f''(4) = 12 > 0 \Rightarrow$ <strong>Minimo en $(4, -21)$</strong>. ($f(4) = 64-96+11 = -21$)</p>
+
+        <p><strong>Curvatura:</strong> $f''(x) = 0 \Rightarrow 6x-12 = 0 \Rightarrow x = 2$</p>
+        <p>Concava en $(-\infty, 2)$, convexa en $(2, +\infty)$.</p>
+        <p>$f(2) = 8-24+11 = -5$. <strong>Punto de inflexion: $(2, -5)$.</strong></p>
+    </div>
+</div>
+
 </div><!-- end main -->
+
 
 <script>
 function toggleSolution(btn) {
