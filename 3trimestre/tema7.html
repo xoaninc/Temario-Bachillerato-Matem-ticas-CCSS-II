@@ -73,6 +73,7 @@
     <a href="#derivabilidad" class="sub">Derivabilidad</a>
     <a href="#reglas">7.2 Reglas de derivacion</a>
     <a href="#tabla-derivadas" class="sub">Tabla de derivadas</a>
+    <a href="#hopital" class="sub">L'Hopital</a>
     <a href="#tangente">7.3 Recta tangente</a>
     <a href="#monotonia">7.4 Monotonia y extremos</a>
     <a href="#curvatura">7.5 Curvatura e inflexion</a>
@@ -272,6 +273,79 @@
         <p>d) $f(x) = \ln(x^2+x) \Rightarrow f'(x) = \dfrac{2x+1}{x^2+x}$</p>
         <p>e) $f(x) = \dfrac{x^2-3x}{4x+5} \Rightarrow f'(x) = \dfrac{(2x-3)(4x+5) - (x^2-3x) \cdot 4}{(4x+5)^2} = \dfrac{4x^2+10x-15}{(4x+5)^2}$</p>
         <p>f) $f(x) = x^2 \cdot e^{-3x} \Rightarrow f'(x) = 2x \cdot e^{-3x} + x^2 \cdot (-3) \cdot e^{-3x} = e^{-3x}(2x - 3x^2)$</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- L'HOPITAL                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h3 id="hopital">Regla de L'Hopital <span class="sel-tag si">Selectividad</span></h3>
+
+<div class="card important">
+    <div class="card-label">Regla de L'Hopital <span class="exam-tag si">Muy util</span></div>
+    <p>Si $\displaystyle\lim_{x \to a} \frac{f(x)}{g(x)}$ da la indeterminacion $\dfrac{0}{0}$ o $\dfrac{\infty}{\infty}$, entonces:</p>
+    $$\boxed{\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}}$$
+    <p>(siempre que el limite de la derecha exista).</p>
+    <p><strong>Atencion:</strong> Se deriva el numerador y el denominador <strong>por separado</strong>. NO es la regla del cociente.</p>
+</div>
+
+<div class="card warning">
+    <div class="card-label">Cuando usar L'Hopital</div>
+    <table>
+        <tr><th>Situacion</th><th>Puedes usar L'Hopital?</th></tr>
+        <tr><td>$\dfrac{0}{0}$</td><td><strong>Si</strong> &#10003;</td></tr>
+        <tr><td>$\dfrac{\infty}{\infty}$</td><td><strong>Si</strong> &#10003;</td></tr>
+        <tr><td>$0 \cdot \infty$</td><td>Reescribir como $\dfrac{0}{0}$ o $\dfrac{\infty}{\infty}$ primero</td></tr>
+        <tr><td>$\infty - \infty$</td><td>Reescribir como cociente primero</td></tr>
+        <tr><td>$\dfrac{3}{0}$, $\dfrac{5}{2}$, etc.</td><td><strong>No</strong> &mdash; no es indeterminacion</td></tr>
+    </table>
+    <p><strong>Truco:</strong> Si al aplicar L'Hopital sigue saliendo $\frac{0}{0}$ o $\frac{\infty}{\infty}$, puedes aplicarlo <strong>otra vez</strong>.</p>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con $\frac{0}{0}$</div>
+    <p>$\displaystyle\lim_{x \to 0} \frac{e^x - 1}{x}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{e^0 - 1}{0} = \dfrac{0}{0}$ &rarr; indeterminado. Aplicamos L'Hopital:</p>
+        $$\lim_{x \to 0} \frac{(e^x - 1)'}{(x)'} = \lim_{x \to 0} \frac{e^x}{1} = e^0 = 1$$
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con $\frac{0}{0}$ (dos veces)</div>
+    <p>$\displaystyle\lim_{x \to 0} \frac{e^x - x - 1}{x^2}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{1 - 0 - 1}{0} = \dfrac{0}{0}$. L'Hopital:</p>
+        $$\lim_{x \to 0} \frac{e^x - 1}{2x} = \frac{0}{0} \text{ otra vez!}$$
+        <p>Aplicamos L'Hopital <strong>de nuevo</strong>:</p>
+        $$\lim_{x \to 0} \frac{e^x}{2} = \frac{1}{2}$$
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con $\frac{\infty}{\infty}$</div>
+    <p>$\displaystyle\lim_{x \to +\infty} \frac{x^2}{e^x}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{\infty}{\infty}$. L'Hopital:</p>
+        $$\lim_{x \to +\infty} \frac{2x}{e^x} = \frac{\infty}{\infty} \text{ otra vez}$$
+        <p>L'Hopital de nuevo:</p>
+        $$\lim_{x \to +\infty} \frac{2}{e^x} = \frac{2}{\infty} = 0$$
+        <p><strong>Conclusion:</strong> la exponencial crece mucho mas rapido que cualquier polinomio.</p>
+    </div>
+</div>
+
+<div class="card example">
+    <div class="card-label">Ejemplo - L'Hopital con $\frac{0}{0}$ de polinomios</div>
+    <p>$\displaystyle\lim_{x \to 1} \frac{x^2 - 2x + 1}{x^2 - 1}$</p>
+    <button class="solution-toggle" onclick="toggleSolution(this)">Ver solucion</button>
+    <div class="solution-content">
+        <p>Sustituyendo: $\dfrac{0}{0}$. L'Hopital:</p>
+        $$\lim_{x \to 1} \frac{2x - 2}{2x} = \frac{0}{2} = 0$$
+        <p><strong>Nota:</strong> Este limite tambien se puede resolver factorizando (tema 6). L'Hopital es un metodo alternativo mas rapido.</p>
     </div>
 </div>
 
