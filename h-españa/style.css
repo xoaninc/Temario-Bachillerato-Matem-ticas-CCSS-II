@@ -1042,6 +1042,265 @@ tr:last-child td { border-bottom: none; }
 }
 
 /* ==========================================================================
+   TENSIONES / DUALIDADES
+   ========================================================================== */
+.tensiones {
+    margin: 2rem 0 2.5rem;
+}
+
+.tensiones h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.015em;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.tensiones h3::before {
+    content: "⚖";
+    color: #b91c1c;
+    font-size: 1.3rem;
+}
+
+.tensiones .tensiones-sub {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1.1rem;
+    font-weight: 600;
+}
+
+.tensiones-list {
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: 1fr;
+}
+
+.tension {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 2fr;
+    gap: 0.5rem;
+    align-items: center;
+    background: var(--paper-2);
+    border: 1.5px solid var(--ink);
+    padding: 0.6rem 0.9rem;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: all 0.15s ease;
+    font-size: 0.94rem;
+    line-height: 1.3;
+}
+
+.tension:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #b91c1c;
+    background: var(--paper-3);
+}
+
+.tension .t-a {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+    letter-spacing: -0.01em;
+}
+
+.tension .t-vs {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 0.68rem;
+    color: #b91c1c;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1.5px solid #b91c1c;
+    background: var(--paper);
+}
+
+.tension .t-b {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.tension .t-arrow {
+    font-family: var(--font-sans);
+    color: var(--ink-3);
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.tension .t-evidencia {
+    font-family: var(--font-body);
+    color: var(--ink-2);
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-left: 2px solid var(--gold);
+    margin-left: 0.2rem;
+    padding: 0.15rem 0 0.15rem 0.65rem;
+}
+
+.tension .t-evidencia strong {
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+@media (max-width: 720px) {
+    .tension {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+    .tension .t-a, .tension .t-b { text-align: left; }
+    .tension .t-vs { justify-self: start; }
+    .tension .t-arrow { display: none; }
+    .tension .t-evidencia { margin-left: 0; border-left: none; border-top: 1px dashed var(--gold); padding: 0.4rem 0 0; }
+}
+
+/* ==========================================================================
+   TEMAS POSIBLES / EXAMEN
+   ========================================================================== */
+.examen-format {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.5rem 1.8rem;
+    margin: 2rem 0;
+    box-shadow: 5px 5px 0 #b91c1c;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.examen-format .ef-item {
+    position: relative;
+}
+
+.examen-format .ef-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--gold-light);
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+}
+
+.examen-format .ef-label {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--paper-4);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.examen-format .ef-desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--paper);
+    line-height: 1.5;
+}
+
+.examen-format .ef-desc strong {
+    color: var(--gold-light);
+}
+
+@media (max-width: 720px) {
+    .examen-format { grid-template-columns: 1fr; }
+}
+
+.tema-posible {
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    padding: 1.3rem 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: all 0.15s ease;
+}
+
+.tema-posible:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 #b91c1c;
+}
+
+.tema-posible .tp-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+}
+
+.tema-posible .tp-code {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 2px 8px;
+}
+
+.tema-posible .tp-titulo {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.tema-posible .tp-que {
+    font-family: var(--font-body);
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+}
+
+.tema-posible .tp-que strong {
+    color: #b91c1c;
+}
+
+.tema-posible .tp-clave-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin-right: 0.4rem;
+}
+
+.tema-posible .tp-claves {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--rule-soft);
+    align-items: center;
+}
+
+.tema-posible .tp-clave {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    background: var(--gold-light);
+    color: var(--ink);
+    padding: 1px 8px;
+    border: 1px solid var(--ink);
+    font-weight: 600;
+}
+
+/* ==========================================================================
    CRONOLOGÍA (TIMELINE)
    ========================================================================== */
 .cronologia {
