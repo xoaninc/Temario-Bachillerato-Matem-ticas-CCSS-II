@@ -2,8 +2,6 @@
 *.HEIC
 *.heic
 *.pdf
-*.doc
-*.docx
 jpg/
 
 # System files
@@ -13,4 +11,3 @@ jpg/
 
 # Claude config
 .claude/
-.serena/

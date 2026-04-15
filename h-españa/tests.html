@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tests · Historia de España</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== TESTS specific styles ===== */
+.test-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.5rem 0 2rem;
+    align-items: center;
+}
+
+.test-btn {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.6rem 1.1rem;
+    background: var(--paper-2);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: all 0.15s ease;
+}
+
+.test-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--ink);
+}
+
+.test-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink);
+}
+
+.test-btn.primary {
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 3px 3px 0 #b91c1c;
+}
+
+.test-btn.primary:hover {
+    box-shadow: 4px 4px 0 #b91c1c;
+}
+
+.test-info {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.score-bar {
+    background: var(--paper-3);
+    border: 2px solid var(--ink);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.score-bar .score-value {
+    color: #b91c1c;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.q-card {
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    padding: 1.5rem 1.7rem;
+    margin: 1.5rem 0;
+}
+
+.q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px dashed var(--rule-soft);
+}
+
+.q-num {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #b91c1c;
+    line-height: 1;
+}
+
+.q-bloque {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--gold-light);
+    padding: 2px 8px;
+    border: 1px solid var(--ink);
+}
+
+.q-text {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+}
+
+.q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.q-option {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    font-family: var(--font-body);
+    font-size: 0.97rem;
+    color: var(--ink);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    text-align: left;
+    width: 100%;
+}
+
+.q-option:hover:not(.disabled) {
+    background: var(--paper-3);
+    transform: translateX(3px);
+}
+
+.q-option.disabled {
+    cursor: default;
+}
+
+.q-option .opt-letter {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: var(--paper-3);
+    border: 1px solid var(--ink);
+    padding: 1px 7px;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+}
+
+.q-option.correct {
+    background: #d4e7d4;
+    border-color: #1e5a1e;
+    border-width: 2px;
+}
+
+.q-option.correct .opt-letter {
+    background: #1e5a1e;
+    color: var(--paper);
+    border-color: #1e5a1e;
+}
+
+.q-option.incorrect {
+    background: #f0d4d4;
+    border-color: #8a1818;
+    border-width: 2px;
+}
+
+.q-option.incorrect .opt-letter {
+    background: #8a1818;
+    color: var(--paper);
+    border-color: #8a1818;
+}
+
+.q-feedback {
+    margin-top: 0.9rem;
+    padding: 0.8rem 1rem;
+    background: rgba(20, 16, 12, 0.05);
+    border-left: 3px solid var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    display: none;
+}
+
+.q-feedback.shown { display: block; }
+
+.q-feedback strong {
+    color: #b91c1c;
+}
+
+.results-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 1.8rem;
+    margin: 1.5rem 0;
+    border: 2px solid var(--ink);
+    box-shadow: 5px 5px 0 #b91c1c;
+    text-align: center;
+}
+
+.results-card .big-score {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--gold-light);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.results-card .score-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--paper-4);
+    margin-bottom: 1rem;
+}
+
+.results-card .verdict {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--paper);
+    margin-top: 0.8rem;
+    font-weight: 600;
+}
+
+.filter-chips {
+    display: flex;
+    gap: 0.4rem;
+    margin: 0.8rem 0;
+    flex-wrap: wrap;
+}
+
+.chip {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.35rem 0.8rem;
+    background: var(--paper-2);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    cursor: pointer;
+    transition: all 0.12s ease;
+}
+
+.chip:hover { background: var(--paper-3); }
+.chip.selected {
+    background: var(--ink);
+    color: var(--paper);
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+    <h1>Historia</h1>
+    <div class="sidebar-meta">Examen 1 · 3ª Eval.</div>
+
+    <h2>Navegación</h2>
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="croquis.html">Croquis</a></li>
+        <li><a href="cronologia.html">Cronología</a></li>
+        <li><a href="personajes.html">Personajes</a></li>
+        <li><a href="tests.html" class="active">Tests de repaso</a></li>
+    </ul>
+
+    <h2>Bloque 4 · s. XVIII</h2>
+    <ul>
+        <li><a href="bloque4.html">Preguntas cortas</a></li>
+    </ul>
+
+    <h2>Bloque 9 · 1902–1931</h2>
+    <ul>
+        <li><a href="bloque9.html#tema1">1. Alfonso XIII y regeneración</a></li>
+        <li><a href="bloque9.html#tema2">2. Crisis de 1917</a></li>
+        <li><a href="bloque9.html#tema3">3. Dictadura Primo de Rivera</a></li>
+    </ul>
+
+    <h2>Bloque 10A · 1931–1936</h2>
+    <ul>
+        <li><a href="bloque10.html#tema4">4. II República y Constitución</a></li>
+        <li><a href="bloque10.html#tema5">5. Bienios y Frente Popular</a></li>
+    </ul>
+
+    <h2>Documentos</h2>
+    <ul>
+        <li><a href="documentos.html">17 documentos resueltos</a></li>
+    </ul>
+</aside>
+
+<main>
+    <div class="breadcrumb"><a href="index.html">Inicio</a> · Tests de repaso</div>
+    <header class="masthead">
+        <div class="overline">Autoevaluación</div>
+        <h1>Tests de repaso</h1>
+        <div class="subtitle">Pon a prueba tus conocimientos antes del examen. 50+ preguntas tipo test repartidas por bloques.</div>
+    </header>
+
+    <div class="priority-banner">
+        Selecciona un bloque y el número de preguntas. Cada test es <strong>aleatorio</strong>: cada vez que pulses
+        «Generar test» tendrás preguntas distintas. <strong>Pulsa una opción</strong> para responder y verás
+        la respuesta correcta + explicación al instante.
+    </div>
+
+    <h3 class="subseccion">Filtros</h3>
+    <p style="font-size: 0.9rem; color: var(--ink-3); margin-bottom: 0.5rem;">Bloque:</p>
+    <div class="filter-chips" id="bloque-chips">
+        <button class="chip selected" data-bloque="todos">Todos</button>
+        <button class="chip" data-bloque="4">Bloque 4 (s. XVIII)</button>
+        <button class="chip" data-bloque="9">Bloque 9 (1902–1931)</button>
+        <button class="chip" data-bloque="10">Bloque 10A (1931–1936)</button>
+    </div>
+
+    <p style="font-size: 0.9rem; color: var(--ink-3); margin: 0.6rem 0 0.5rem;">Número de preguntas:</p>
+    <div class="filter-chips" id="num-chips">
+        <button class="chip" data-num="5">5</button>
+        <button class="chip selected" data-num="10">10</button>
+        <button class="chip" data-num="15">15</button>
+        <button class="chip" data-num="20">20</button>
+        <button class="chip" data-num="all">Todas</button>
+    </div>
+
+    <div class="test-controls">
+        <button class="test-btn primary" id="generate-btn">⚡ Generar test</button>
+        <button class="test-btn" id="reset-btn">Reiniciar</button>
+        <span class="test-info" id="test-info">Listo para empezar</span>
+    </div>
+
+    <div class="score-bar" id="score-bar" style="display:none;">
+        <span>Aciertos</span>
+        <span class="score-value" id="score-value">0 / 0</span>
+        <span id="progress">Pregunta 0/0</span>
+    </div>
+
+    <div id="quiz-container"></div>
+
+    <div id="results-container"></div>
+</main>
+
+<script>
+const QUESTIONS = [
+    // ============== BLOQUE 4 ==============
+    {b:4, q:"¿En qué consistieron los Decretos de Nueva Planta (1707–1716)?", o:[
+        "En conceder fueros y autonomía a la Corona de Aragón",
+        "En suprimir los fueros e instituciones de la Corona de Aragón e imponer las leyes castellanas",
+        "En crear el sistema de virreinatos americanos",
+        "En proclamar el liberalismo en España"
+    ], c:1, e:"Suprimieron los fueros e instituciones (Cortes, Generalitat) de Aragón, Valencia, Mallorca y Cataluña, imponiendo el modelo castellano centralizado."},
+
+    {b:4, q:"¿Cuál fue la causa inmediata de la Guerra de Sucesión Española?", o:[
+        "El motín de Esquilache",
+        "La invasión napoleónica",
+        "La muerte sin descendencia de Carlos II «el Hechizado» en 1700",
+        "La firma del Tratado de Utrecht"
+    ], c:2, e:"Carlos II murió en 1700 sin descendencia, dejando dos pretendientes: Felipe de Anjou (Borbón) y el archiduque Carlos de Habsburgo."},
+
+    {b:4, q:"¿Qué dos potencias internas (dentro de España) se enfrentaron en la Guerra de Sucesión?", o:[
+        "El País Vasco contra Navarra",
+        "Castilla (borbónica) contra la Corona de Aragón (austracista)",
+        "Andalucía contra Galicia",
+        "Cataluña contra Valencia"
+    ], c:1, e:"Castilla apoyó a Felipe de Anjou (modelo centralista) y la Corona de Aragón al archiduque Carlos (modelo pactista/foralista)."},
+
+    {b:4, q:"¿Qué países formaron la Gran Alianza de La Haya?", o:[
+        "Francia, España y Portugal",
+        "Reino Unido, Holanda, Austria, Portugal y Saboya",
+        "Rusia, Prusia y Austria",
+        "Italia, Francia y los Países Bajos"
+    ], c:1, e:"La Gran Alianza de La Haya apoyaba al archiduque Carlos contra los Borbones."},
+
+    {b:4, q:"¿Qué frase resume el «despotismo ilustrado»?", o:[
+        "«Libertad, igualdad, fraternidad»",
+        "«El Estado soy yo»",
+        "«Todo para el pueblo, pero sin el pueblo»",
+        "«Después de mí, el diluvio»"
+    ], c:2, e:"Es la frase que resume las reformas hechas desde arriba por el monarca para el bien del pueblo, pero sin participación popular."},
+
+    {b:4, q:"¿Qué territorios perdió España en el Tratado de Utrecht (1713)?", o:[
+        "Cuba y Filipinas",
+        "Gibraltar y Menorca (a Reino Unido), Milanesado, Flandes, Cerdeña y Nápoles (a Austria), Sicilia (a Saboya)",
+        "Solo Gibraltar",
+        "Florida y Luisiana"
+    ], c:1, e:"Pérdida masiva de las posesiones europeas. Reino Unido obtuvo además privilegios comerciales con América (asiento de negros y navío de permiso)."},
+
+    {b:4, q:"¿Quién fue el ministro italiano de Carlos III cuyo nombre lleva el motín popular de 1766?", o:[
+        "El conde de Floridablanca",
+        "Pedro Rodríguez de Campomanes",
+        "El marqués de Esquilache",
+        "Pablo de Olavide"
+    ], c:2, e:"Esquilache impulsó reformas como la Ley de libre circulación de granos (1765) que provocó la subida del precio del pan."},
+
+    {b:4, q:"¿Cuál fue una consecuencia política directa del motín de Esquilache?", o:[
+        "La proclamación de la República",
+        "La expulsión de los jesuitas en 1767",
+        "La invasión francesa",
+        "El asesinato del rey"
+    ], c:1, e:"Las investigaciones responsabilizaron a los jesuitas, lo que sirvió de pretexto a Carlos III para expulsarlos en 1767 (política regalista)."},
+
+    {b:4, q:"¿Qué fueron las Sociedades Económicas de Amigos del País?", o:[
+        "Sindicatos obreros del s. XIX",
+        "Asociaciones que difundían las ideas ilustradas y fomentaban la economía y la enseñanza profesional",
+        "Logias masónicas",
+        "Partidos políticos republicanos"
+    ], c:1, e:"La primera fue la Real Sociedad Bascongada (1765), creada por el marqués de Peñaflorida. En 1789 había ya 56 sociedades."},
+
+    {b:4, q:"¿Qué dirigió Pablo de Olavide y dónde?", o:[
+        "Las Misiones Pedagógicas en Extremadura",
+        "La repoblación de Sierra Morena con 10.000 campesinos católicos centroeuropeos",
+        "La Reforma Agraria en Cataluña",
+        "El asalto a la Bastilla en París"
+    ], c:1, e:"Las Nuevas Poblaciones de Sierra Morena y el Valle del Guadalquivir (1767–1768)."},
+
+    {b:4, q:"¿Cómo se llaman los tres tratados de alianza entre España y Francia en el s. XVIII?", o:[
+        "Concordatos",
+        "Bulas papales",
+        "Pactos de Familia",
+        "Capitulaciones"
+    ], c:2, e:"Los tres Pactos de Familia (1733, 1743, 1761) entre los Borbones de España y Francia, frente a Inglaterra."},
+
+    {b:4, q:"¿Qué sustituyeron las Secretarías de Despacho (1721) en la administración borbónica?", o:[
+        "Las Cortes de Castilla",
+        "El sistema de Consejos de los Habsburgo",
+        "La Inquisición",
+        "Los Concejos municipales"
+    ], c:1, e:"Las Secretarías son el antecedente de los actuales ministerios."},
+
+    {b:4, q:"¿Qué reemplazaron los Borbones a los virreyes en la administración territorial?", o:[
+        "Los gobernadores civiles",
+        "Las Capitanías Generales",
+        "Las Intendencias municipales",
+        "Los corregidores"
+    ], c:1, e:"Las Capitanías Generales, que tenían poder militar y administrativo, sustituyeron a los virreyes."},
+
+    {b:4, q:"¿Qué documento se elaboró bajo el reinado de Fernando VI para hacer un censo fiscal?", o:[
+        "El Estatuto Real",
+        "El Catastro de Ensenada (1750–1754)",
+        "El Concordato de Bolonia",
+        "La Constitución de 1812"
+    ], c:1, e:"Pretendía servir de base para una Contribución única, pero el intento fracasó."},
+
+    {b:4, q:"¿Qué supuso el Reglamento de Libre Comercio de 1778?", o:[
+        "El monopolio de Cádiz sobre el comercio americano",
+        "El final del monopolio de Cádiz y de las Flotas en el comercio con América",
+        "La prohibición del comercio con Inglaterra",
+        "La creación del Banco de España"
+    ], c:1, e:"Liberalizó el comercio con América abriendo más puertos peninsulares al tráfico colonial."},
+
+    // ============== BLOQUE 9 ==============
+    {b:9, q:"¿Quién intentó la «revolución desde arriba» como jefe de gobierno conservador (1907–1909)?", o:[
+        "José Canalejas",
+        "Antonio Maura",
+        "Eduardo Dato",
+        "Práxedes Mateo Sagasta"
+    ], c:1, e:"Maura, jefe del Partido Conservador, intentó reformar el sistema desde dentro siguiendo los postulados regeneracionistas."},
+
+    {b:9, q:"¿Cuál fue el detonante de la Semana Trágica de Barcelona (1909)?", o:[
+        "La proclamación de la República catalana",
+        "El embarque de reservistas catalanes hacia la guerra de Marruecos",
+        "El asesinato de Cánovas",
+        "La huelga de La Canadiense"
+    ], c:1, e:"Tras el desastre del Barranco del Lobo, Maura ordenó embarcar reservistas, lo que provocó la indignación popular y la huelga general."},
+
+    {b:9, q:"¿A qué pedagogo anarquista ejecutaron tras la Semana Trágica?", o:[
+        "Pablo Iglesias",
+        "Francisco Ferrer i Guardia",
+        "Anselmo Lorenzo",
+        "Buenaventura Durruti"
+    ], c:1, e:"Ferrer i Guardia, fundador de la Escuela Moderna. Su ejecución sin pruebas provocó protestas internacionales."},
+
+    {b:9, q:"¿Qué ley aprobó Canalejas en 1911 contra las órdenes religiosas?", o:[
+        "La Ley de Congregaciones",
+        "La Ley del Candado",
+        "La Ley de Mancomunidades",
+        "La Ley de Jurisdicciones"
+    ], c:1, e:"La Ley del Candado prohibía la creación de nuevas órdenes religiosas durante dos años."},
+
+    {b:9, q:"¿Dónde y cuándo asesinaron a Canalejas?", o:[
+        "En Barcelona, en 1909",
+        "En la Puerta del Sol de Madrid, el 12 de noviembre de 1912",
+        "En Sevilla, en 1932",
+        "En Cataluña, en 1923"
+    ], c:1, e:"Lo asesinó un anarquista. Su muerte supone el fracaso del último intento de salvar el sistema canovista."},
+
+    {b:9, q:"Durante la I Guerra Mundial, los partidarios de Francia e Inglaterra eran...", o:[
+        "Germanófilos",
+        "Aliadófilos",
+        "Africanistas",
+        "Carlistas"
+    ], c:1, e:"Aliadófilos: progresistas, republicanos, burguesía catalana y vasca. Los germanófilos eran la Iglesia, el ejército y la oligarquía."},
+
+    {b:9, q:"¿Cuáles son los TRES frentes de la Crisis de 1917?", o:[
+        "Iglesia, ejército y prensa",
+        "Juntas Militares de Defensa, Asamblea de Parlamentarios y Huelga General",
+        "Cataluña, País Vasco y Andalucía",
+        "PSOE, PCE y CNT"
+    ], c:1, e:"Los tres conflictos paralelos que estuvieron a punto de derribar el sistema de la Restauración."},
+
+    {b:9, q:"¿Quién lideró la Asamblea de Parlamentarios en Barcelona (julio 1917)?", o:[
+        "Manuel Azaña",
+        "Largo Caballero",
+        "Francesc Cambó",
+        "Antonio Maura"
+    ], c:2, e:"Cambó, líder de la Lliga Regionalista, convocó a 70 diputados y senadores para reclamar Cortes Constituyentes."},
+
+    {b:9, q:"¿Quiénes convocaron la Huelga General de agosto de 1917?", o:[
+        "PSOE y CEDA",
+        "UGT y CNT, con apoyo del PSOE",
+        "PCE y FAI",
+        "Lliga Regionalista y PNV"
+    ], c:1, e:"Tras el conflicto ferroviario en Valencia. Largo Caballero y Besteiro fueron condenados a cadena perpetua (luego amnistiados)."},
+
+    {b:9, q:"¿Qué fue la «ley de fugas» del general Martínez Anido?", o:[
+        "Una ley para liberar presos",
+        "Disparar contra detenidos «que intentaran huir», aplicada también a falsos fugados",
+        "Una amnistía general",
+        "El estatuto de los exiliados"
+    ], c:1, e:"Aplicada en Barcelona durante el pistolerismo de los años 1920–1923. «Terrorismo de Estado»."},
+
+    {b:9, q:"¿Quién y cuándo asesinó al presidente Eduardo Dato?", o:[
+        "Un carlista en 1812",
+        "Tres hombres de la CNT, en marzo de 1921, en represalia por la ley de fugas",
+        "Un militar africanista en 1923",
+        "Un falangista en 1936"
+    ], c:1, e:"Asesinado en Madrid. Era la respuesta anarquista al envío de Martínez Anido a Barcelona."},
+
+    {b:9, q:"¿Cuándo y dónde se produjo el Desastre de Annual?", o:[
+        "En Cuba, en 1898",
+        "En Marruecos, en julio de 1921, con 10.000 muertos",
+        "En Asturias, en 1934",
+        "En Filipinas, en 1898"
+    ], c:1, e:"Ofensiva precipitada del general Silvestre, derrotada por Abd el-Krim. Silvestre se suicidó."},
+
+    {b:9, q:"¿Qué documento investigó las responsabilidades del Desastre de Annual?", o:[
+        "El Pacto de San Sebastián",
+        "El Expediente Picasso",
+        "La Memoria Berenguer",
+        "El Manifiesto de Mola"
+    ], c:1, e:"Reveló graves irregularidades del ejército y del gobierno. Su publicación inminente fue causa inmediata del golpe de Primo de Rivera."},
+
+    {b:9, q:"¿Cuándo dio su golpe de Estado Primo de Rivera?", o:[
+        "1898",
+        "El 13 de septiembre de 1923, desde Barcelona",
+        "El 17 de julio de 1936",
+        "El 14 de abril de 1931"
+    ], c:1, e:"Capitán general de Cataluña. Alfonso XIII aceptó el golpe y le encargó formar gobierno."},
+
+    {b:9, q:"¿Cuál fue el partido único de la Dictadura de Primo de Rivera?", o:[
+        "Falange Española",
+        "Unión Patriótica",
+        "Partido Nacional",
+        "Comunión Tradicionalista"
+    ], c:1, e:"Fundada en 1924 por Calvo Sotelo. Llegó a 500.000 afiliados."},
+
+    {b:9, q:"¿Qué operación militar puso fin al problema de Marruecos en 1925?", o:[
+        "La batalla del Ebro",
+        "El Desembarco de Alhucemas (operación franco-española)",
+        "El sitio de Madrid",
+        "La toma de Tetuán"
+    ], c:1, e:"En septiembre de 1925. Derrota definitiva de Abd el-Krim. Marruecos pacificado en 1927."},
+
+    {b:9, q:"¿Qué dos monopolios estatales nacieron durante el Directorio Civil?", o:[
+        "Renfe y Endesa",
+        "CAMPSA (petróleos) y Telefónica (filial de ITT)",
+        "Banco de España y Caja Postal",
+        "RTVE y Iberia"
+    ], c:1, e:"Ambos en la segunda mitad de los años 20, dentro del programa de obras públicas e intervencionismo estatal."},
+
+    {b:9, q:"¿Qué intelectual escribió «El error Berenguer» (1930)?", o:[
+        "Miguel de Unamuno",
+        "José Ortega y Gasset",
+        "Antonio Machado",
+        "Federico García Lorca"
+    ], c:1, e:"Publicado en El Sol el 15 noviembre 1930. Acaba con «Delenda est monarchia»."},
+
+    {b:9, q:"¿Qué pacto firmaron en agosto de 1930 los enemigos de la monarquía?", o:[
+        "El Pacto de El Pardo",
+        "El Pacto de San Sebastián",
+        "El Pacto de Aranjuez",
+        "El Pacto de Salamanca"
+    ], c:1, e:"Republicanos, socialistas y nacionalistas se comprometieron a derribar la monarquía."},
+
+    {b:9, q:"¿Qué dos capitanes lideraron la Sublevación de Jaca (diciembre 1930)?", o:[
+        "Franco y Mola",
+        "Galán y García Hernández",
+        "Sanjurjo y Goded",
+        "Queipo de Llano y Yagüe"
+    ], c:1, e:"Fueron fusilados y se convirtieron en los primeros mártires de la causa republicana."},
+
+    {b:9, q:"¿Qué fecha marca la proclamación de la II República?", o:[
+        "12 de abril de 1931",
+        "14 de abril de 1931",
+        "28 de junio de 1931",
+        "1 de mayo de 1931"
+    ], c:1, e:"El 12 de abril fueron las elecciones municipales, el 14 la proclamación. Alfonso XIII al exilio."},
+
+    // ============== BLOQUE 10A ==============
+    {b:10, q:"¿En cuántas capitales de provincia ganaron los republicanos en las municipales del 12 de abril de 1931?", o:[
+        "En 50 de las 50",
+        "En 41 de las 50",
+        "En 25 de las 50",
+        "En 10 de las 50"
+    ], c:1, e:"Los monárquicos ganaron en los pequeños núcleos rurales (caciquismo), pero los republicanos arrasaron en las grandes ciudades."},
+
+    {b:10, q:"¿Quién fue el primer presidente del gobierno provisional de la República?", o:[
+        "Manuel Azaña",
+        "Niceto Alcalá Zamora",
+        "Alejandro Lerroux",
+        "Indalecio Prieto"
+    ], c:1, e:"Republicano conservador, antiguo monárquico, firmante del Pacto de San Sebastián. Pasó luego a ser Presidente de la República."},
+
+    {b:10, q:"¿Cuándo se proclamó la Constitución de la II República?", o:[
+        "Abril de 1931",
+        "Diciembre de 1931, con 368 votos a favor",
+        "Febrero de 1936",
+        "Junio de 1932"
+    ], c:1, e:"Constitución democrática y progresista, con tintes socialistas. Aprobada tras intensos debates."},
+
+    {b:10, q:"¿Qué definía el artículo 1 de la Constitución de 1931?", o:[
+        "España es una monarquía parlamentaria",
+        "España es una República democrática de trabajadores de toda clase",
+        "España es un estado confesional católico",
+        "España es una federación de naciones libres"
+    ], c:1, e:"Define también el «Estado integral», compatible con autonomías regionales."},
+
+    {b:10, q:"¿Qué supuso el artículo 26 de la Constitución de 1931?", o:[
+        "La libertad de comercio",
+        "La extinción del presupuesto del clero y la disolución de las órdenes con voto especial (jesuitas)",
+        "El derecho al voto femenino",
+        "La nacionalización de la banca"
+    ], c:1, e:"Provocó la dimisión del sector católico del gobierno. Azaña sustituye a Alcalá Zamora como jefe del gobierno."},
+
+    {b:10, q:"¿Qué reformas militares impulsó Azaña en 1931?", o:[
+        "Aumentar el número de oficiales",
+        "Ley de Retiro de la Oficialidad, cierre de la Academia de Zaragoza, creación de la Guardia de Asalto",
+        "Restablecer las Juntas de Defensa",
+        "Crear un nuevo ejército colonial"
+    ], c:1, e:"Pretendía un ejército profesional y leal a la República. Provocó el descontento de los africanistas."},
+
+    {b:10, q:"¿Qué intentó Sanjurjo en agosto de 1932?", o:[
+        "Una huelga general",
+        "Un golpe de Estado en Sevilla (la «Sanjurjada»)",
+        "Una invasión desde Portugal",
+        "Un atentado contra Azaña"
+    ], c:1, e:"Mal preparado, fracasó. Sanjurjo fue condenado y luego amnistiado por la CEDA en 1934."},
+
+    {b:10, q:"¿Cuándo se aprobó la Ley de Reforma Agraria?", o:[
+        "Junio de 1931",
+        "Septiembre de 1932",
+        "Enero de 1933",
+        "Octubre de 1934"
+    ], c:1, e:"Permitía expropiar las tierras de los Grandes de España sin indemnización. Resultados deficientes (12.000 familias asentadas)."},
+
+    {b:10, q:"¿Qué pasó en Casas Viejas (Cádiz) en enero de 1933?", o:[
+        "Se proclamó la República catalana",
+        "Levantamiento campesino anarquista, brutalmente reprimido (14 muertos, 12 hombres maniatados ejecutados por el capitán Rojas)",
+        "Sanjurjo dio un golpe",
+        "Se firmó un pacto con la Iglesia"
+    ], c:1, e:"Provocó la salida de los socialistas del gobierno y aceleró el final del bienio reformista."},
+
+    {b:10, q:"¿Cuántas escuelas y maestros creó la reforma educativa de Azaña?", o:[
+        "1.000 escuelas y 700 maestros",
+        "10.000 escuelas y 7.000 plazas de maestros",
+        "100.000 escuelas y 50.000 maestros",
+        "500 escuelas y 200 maestros"
+    ], c:1, e:"Incremento del 50% del presupuesto de educación. Escuela mixta, laica, obligatoria y gratuita."},
+
+    {b:10, q:"¿Quién dirigió la compañía teatral La Barraca?", o:[
+        "Antonio Machado",
+        "Federico García Lorca",
+        "Rafael Alberti",
+        "Luis Buñuel"
+    ], c:1, e:"Compañía teatral ambulante del proyecto cultural republicano que llevaba el repertorio español a los pueblos."},
+
+    {b:10, q:"¿Quiénes ganaron las elecciones de noviembre de 1933?", o:[
+        "PSOE y PCE",
+        "El centro-derecha: CEDA (115) y Partido Radical de Lerroux (102)",
+        "Falange y Renovación Española",
+        "Esquerra Republicana y PNV"
+    ], c:1, e:"Primera vez que votaron las mujeres. La izquierda fue desunida; la derecha unida y organizada."},
+
+    {b:10, q:"¿Quién lideraba la CEDA?", o:[
+        "Calvo Sotelo",
+        "José María Gil Robles",
+        "Lerroux",
+        "José Antonio Primo de Rivera"
+    ], c:1, e:"Confederación Española de Derechas Autónomas, partido confesional y accidentalista, con tendencias cuasi-fascistas."},
+
+    {b:10, q:"¿Qué provocó la Revolución de Octubre de 1934?", o:[
+        "La proclamación del Frente Popular",
+        "La entrada de tres ministros de la CEDA en el gobierno (interpretada como deriva fascista)",
+        "El asesinato de Calvo Sotelo",
+        "La invasión nazi de España"
+    ], c:1, e:"Hitler llevaba un año en el poder en Alemania. Largo Caballero y la UGT convocaron huelga general revolucionaria."},
+
+    {b:10, q:"¿Quién dirigió la represión militar de la Revolución de Asturias (octubre 1934)?", o:[
+        "Sanjurjo",
+        "El general Franco, al mando de La Legión",
+        "Gil Robles",
+        "Mola"
+    ], c:1, e:"Más de 1.300 muertos. Resistencia de los mineros durante 10 días."},
+
+    {b:10, q:"¿Qué hizo Lluís Companys en octubre de 1934?", o:[
+        "Proclamó la República catalana dentro de la República Federal Española",
+        "Apoyó al gobierno",
+        "Se unió a Falange",
+        "Dimitió"
+    ], c:0, e:"Para evitar la entrada de la CEDA. La CNT no participó. El ejército ocupó la Generalitat. Companys fue encarcelado."},
+
+    {b:10, q:"¿Qué escándalo provocó la caída del Partido Radical en 1935?", o:[
+        "El caso Annual",
+        "El estraperlo (ruleta trucada con sobornos) y el caso Nombela",
+        "El caso Matesa",
+        "El asunto Filesa"
+    ], c:1, e:"Los escándalos hundieron a Lerroux. Alcalá Zamora convocó elecciones para febrero de 1936."},
+
+    {b:10, q:"¿Cuándo ganó las elecciones el Frente Popular?", o:[
+        "16 de febrero de 1936",
+        "14 de abril de 1931",
+        "12 de abril de 1931",
+        "17 de julio de 1936"
+    ], c:0, e:"Coalición de republicanos, socialistas, comunistas y nacionalistas de izquierda. Última victoria del proyecto democrático republicano."},
+
+    {b:10, q:"¿Quién fue presidente del gobierno tras las elecciones del Frente Popular?", o:[
+        "Manuel Azaña",
+        "Casares Quiroga",
+        "Niceto Alcalá Zamora",
+        "Indalecio Prieto"
+    ], c:1, e:"Azaña pasó a ser Presidente de la República. Casares Quiroga (líder de la ORGA) fue nombrado jefe del gobierno."},
+
+    {b:10, q:"¿Quién fue «el Director» del golpe militar de julio de 1936?", o:[
+        "Francisco Franco",
+        "El general Emilio Mola",
+        "Sanjurjo",
+        "Queipo de Llano"
+    ], c:1, e:"Mola, dispersado a Navarra por el gobierno, fue el verdadero organizador. Franco lideraba el ejército de África."},
+
+    {b:10, q:"¿Quién fue asesinado el 13 de julio de 1936?", o:[
+        "El teniente Castillo",
+        "José Calvo Sotelo, dirigente monárquico",
+        "Manuel Azaña",
+        "Largo Caballero"
+    ], c:1, e:"Como represalia por el asesinato del teniente Castillo el 12. Su muerte aceleró los planes golpistas."},
+
+    {b:10, q:"¿Cuándo se inició la sublevación militar?", o:[
+        "El 14 de abril de 1936",
+        "El 17 de julio de 1936, en Marruecos",
+        "El 1 de octubre de 1936",
+        "El 18 de noviembre de 1936"
+    ], c:1, e:"Inicio de la Guerra Civil Española."},
+
+    {b:10, q:"¿Qué partido fundó José Antonio Primo de Rivera en 1933?", o:[
+        "Renovación Española",
+        "Falange Española (fusionada con las JONS en 1934)",
+        "CEDA",
+        "Comunión Tradicionalista"
+    ], c:1, e:"Hijo del dictador Primo de Rivera. Falange asumió un fuerte protagonismo violento durante el Frente Popular."},
+
+    {b:10, q:"¿Qué ley aprobada en mayo de 1933 limitaba la propiedad de las órdenes religiosas?", o:[
+        "La Ley de Sucesión",
+        "La Ley de Congregaciones",
+        "La Ley del Candado",
+        "La Ley de Reforma Agraria"
+    ], c:1, e:"Completó la reforma religiosa del bienio reformista, junto con la disolución de los jesuitas."},
+
+    {b:10, q:"¿Qué Estatuto de Autonomía se aprobó en septiembre de 1932?", o:[
+        "El de Galicia",
+        "El de Cataluña (Estatuto de Nuria, recortado por las Cortes)",
+        "El del País Vasco",
+        "El de Navarra"
+    ], c:1, e:"Macià fue elegido primer presidente de la Generalitat. ERC fue el partido más votado."},
+];
+
+// ============== STATE ==============
+let state = {
+    bloque: 'todos',
+    num: 10,
+    test: [],
+    answers: {},
+    submitted: false
+};
+
+// ============== UI ==============
+const $ = s => document.querySelector(s);
+const container = $('#quiz-container');
+const results = $('#results-container');
+const scoreBar = $('#score-bar');
+
+document.querySelectorAll('#bloque-chips .chip').forEach(c => {
+    c.addEventListener('click', () => {
+        document.querySelectorAll('#bloque-chips .chip').forEach(x => x.classList.remove('selected'));
+        c.classList.add('selected');
+        state.bloque = c.dataset.bloque;
+        updateInfo();
+    });
+});
+
+document.querySelectorAll('#num-chips .chip').forEach(c => {
+    c.addEventListener('click', () => {
+        document.querySelectorAll('#num-chips .chip').forEach(x => x.classList.remove('selected'));
+        c.classList.add('selected');
+        state.num = c.dataset.num;
+        updateInfo();
+    });
+});
+
+$('#generate-btn').addEventListener('click', generateTest);
+$('#reset-btn').addEventListener('click', () => {
+    container.innerHTML = '';
+    results.innerHTML = '';
+    scoreBar.style.display = 'none';
+    state.test = [];
+    state.answers = {};
+    updateInfo();
+});
+
+function updateInfo() {
+    const pool = state.bloque === 'todos'
+        ? QUESTIONS
+        : QUESTIONS.filter(q => q.b == state.bloque);
+    const total = state.num === 'all' ? pool.length : Math.min(parseInt(state.num), pool.length);
+    $('#test-info').textContent = `${total} preguntas · ${pool.length} disponibles`;
+}
+
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function generateTest() {
+    const pool = state.bloque === 'todos'
+        ? QUESTIONS
+        : QUESTIONS.filter(q => q.b == state.bloque);
+    const n = state.num === 'all' ? pool.length : Math.min(parseInt(state.num), pool.length);
+    state.test = shuffle(pool).slice(0, n);
+    state.answers = {};
+    state.submitted = false;
+
+    container.innerHTML = '';
+    results.innerHTML = '';
+    scoreBar.style.display = 'flex';
+    updateScore();
+
+    state.test.forEach((q, i) => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `q-${i}`;
+
+        const optsHtml = q.o.map((opt, idx) => `
+            <button class="q-option" data-q="${i}" data-opt="${idx}">
+                <span class="opt-letter">${String.fromCharCode(65 + idx)}</span>
+                <span>${opt}</span>
+            </button>
+        `).join('');
+
+        card.innerHTML = `
+            <div class="q-meta">
+                <span class="q-num">${i + 1} / ${state.test.length}</span>
+                <span class="q-bloque">Bloque ${q.b}</span>
+            </div>
+            <div class="q-text">${q.q}</div>
+            <div class="q-options">${optsHtml}</div>
+            <div class="q-feedback" id="feedback-${i}"></div>
+        `;
+        container.appendChild(card);
+    });
+
+    container.querySelectorAll('.q-option').forEach(btn => {
+        btn.addEventListener('click', () => answerQuestion(parseInt(btn.dataset.q), parseInt(btn.dataset.opt)));
+    });
+
+    container.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+function answerQuestion(qIdx, optIdx) {
+    if (state.answers[qIdx] !== undefined) return;
+    state.answers[qIdx] = optIdx;
+
+    const q = state.test[qIdx];
+    const card = $(`#q-${qIdx}`);
+    const opts = card.querySelectorAll('.q-option');
+    opts.forEach((o, i) => {
+        o.classList.add('disabled');
+        if (i === q.c) o.classList.add('correct');
+        else if (i === optIdx) o.classList.add('incorrect');
+    });
+
+    const fb = $(`#feedback-${qIdx}`);
+    const correct = optIdx === q.c;
+    fb.innerHTML = `<strong>${correct ? '✓ Correcto.' : '✗ Incorrecto.'}</strong> ${q.e}`;
+    fb.classList.add('shown');
+
+    updateScore();
+
+    // If all answered, show results
+    if (Object.keys(state.answers).length === state.test.length) {
+        showResults();
+    }
+}
+
+function updateScore() {
+    const answered = Object.keys(state.answers).length;
+    const correct = Object.entries(state.answers)
+        .filter(([k, v]) => v === state.test[k].c).length;
+    $('#score-value').textContent = `${correct} / ${answered}`;
+    $('#progress').textContent = `Pregunta ${answered} / ${state.test.length}`;
+}
+
+function showResults() {
+    const correct = Object.entries(state.answers)
+        .filter(([k, v]) => v === state.test[k].c).length;
+    const total = state.test.length;
+    const pct = Math.round((correct / total) * 100);
+
+    let verdict = '';
+    if (pct >= 90) verdict = 'Sobresaliente. Estás listo para el examen.';
+    else if (pct >= 70) verdict = 'Notable. Buen nivel — repasa los fallos.';
+    else if (pct >= 50) verdict = 'Aprobado. Necesitas más repaso.';
+    else verdict = 'Insuficiente. Vuelve a estudiar y haz otro test.';
+
+    results.innerHTML = `
+        <div class="results-card">
+            <div class="score-label">Resultado final</div>
+            <div class="big-score">${correct}/${total}</div>
+            <div class="score-label" style="color: var(--paper); margin-top: 0.4rem;">${pct}% acierto</div>
+            <div class="verdict">${verdict}</div>
+        </div>
+    `;
+    results.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+updateInfo();
+</script>
+</body>
+</html>

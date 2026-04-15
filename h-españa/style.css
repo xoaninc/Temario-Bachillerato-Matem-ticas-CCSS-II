@@ -1,0 +1,1182 @@
+/* ==========================================================================
+   Historia de España · 3ª Evaluación · Examen 1
+   Dirección estética: archivo histórico editorial
+   Paleta: negro tinta · papel crema · rojo hemorragia
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* core palette */
+    --ink: #14100c;
+    --ink-2: #2b241c;
+    --ink-3: #4a4135;
+    --paper: #f2ebdf;
+    --paper-2: #fbf5e8;
+    --paper-3: #e8dfcd;
+    --paper-4: #ddd1b8;
+
+    /* accents */
+    --blood: #8a1818;
+    --blood-dark: #5a0a0a;
+    --blood-light: #b52d2d;
+    --gold: #a68f3d;
+    --gold-dark: #78642a;
+    --gold-light: #d6b955;
+    --sea: #1d4a52;
+
+    /* semantic */
+    --rule: var(--ink);
+    --rule-soft: rgba(20, 16, 12, 0.15);
+    --rule-softer: rgba(20, 16, 12, 0.08);
+
+    /* fonts */
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+    --font-sans: 'Archivo', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+    /* spacing */
+    --gutter: clamp(1rem, 2vw, 2rem);
+    --page-pad: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* RESET */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 17px;
+    font-variant-numeric: oldstyle-nums;
+    /* Subtle paper texture via layered gradients */
+    background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(166, 143, 61, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(138, 24, 24, 0.03) 0%, transparent 50%),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(74, 65, 53, 0.012) 2px,
+            rgba(74, 65, 53, 0.012) 3px
+        );
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* SELECTION */
+::selection {
+    background: var(--blood);
+    color: var(--paper);
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+.layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2.5rem 1.5rem 3rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 1px solid var(--ink-2);
+    /* Thin decorative line pattern */
+    background-image:
+        linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+}
+
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 3px; }
+
+.sidebar h1 {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+}
+
+.sidebar h1::before {
+    content: "§";
+    color: var(--blood-light);
+    margin-right: 0.3em;
+    font-weight: 400;
+}
+
+.sidebar .sidebar-meta {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    color: var(--paper-4);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--ink-3);
+    font-weight: 500;
+}
+
+.sidebar h2 {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin: 1.5rem 0 0.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sidebar h2::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: var(--gold-light);
+}
+
+.sidebar ul { list-style: none; }
+.sidebar li { margin: 0.1rem 0; }
+
+.sidebar a {
+    color: var(--paper-3);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    display: block;
+    padding: 0.22rem 0.5rem 0.22rem 0.65rem;
+    border-left: 2px solid transparent;
+    transition: all 0.18s ease;
+    line-height: 1.4;
+}
+
+.sidebar a:hover {
+    color: var(--paper-2);
+    border-left-color: var(--blood-light);
+    background: rgba(255, 255, 255, 0.02);
+    padding-left: 0.9rem;
+}
+
+.sidebar a.active {
+    color: var(--paper-2);
+    font-weight: 600;
+    border-left-color: var(--blood-light);
+    background: rgba(181, 45, 45, 0.1);
+}
+
+.sidebar .sub {
+    padding-left: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--paper-4);
+}
+
+/* ==========================================================================
+   MAIN CONTENT
+   ========================================================================== */
+main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem var(--page-pad) 6rem;
+    position: relative;
+}
+
+/* Folio / masthead */
+header.masthead {
+    border-top: 3px double var(--ink);
+    border-bottom: 3px double var(--ink);
+    padding: 2rem 0 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+}
+
+header.masthead::before,
+header.masthead::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: var(--ink);
+}
+
+header.masthead::before { top: 8px; }
+header.masthead::after { bottom: 8px; }
+
+header.masthead .overline {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--blood);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+header.masthead .overline::before,
+header.masthead .overline::after {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--blood);
+}
+
+header.masthead h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.8rem;
+}
+
+header.masthead .subtitle {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--ink-2);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.4;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    margin-bottom: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.breadcrumb a {
+    color: var(--blood);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--blood);
+}
+
+/* Headings */
+h1.tema {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 4rem 0 1.8rem;
+    padding: 1.3rem 0 0.8rem;
+    border-top: 4px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+}
+
+h1.tema::before {
+    content: "§ TEMA";
+    position: absolute;
+    top: -0.8rem;
+    left: 0;
+    background: var(--paper);
+    padding: 0 0.8rem 0 0;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    color: var(--blood);
+    letter-spacing: 0.3em;
+    font-weight: 800;
+}
+
+h2.seccion {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+    color: var(--ink);
+    margin: 3rem 0 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+}
+
+h2.seccion::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule-soft);
+    margin-bottom: 0.4em;
+}
+
+h3.subseccion {
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    color: var(--blood);
+    margin: 1.8rem 0 0.65rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+}
+
+h3.subseccion::before {
+    content: "— ";
+    color: var(--ink);
+}
+
+h4 {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--ink);
+    margin: 1.3rem 0 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+}
+
+p {
+    margin-bottom: 1.05rem;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+strong {
+    color: #b91c1c;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+}
+
+em {
+    font-style: normal;
+    color: var(--ink);
+    background: linear-gradient(transparent 62%, rgba(166, 143, 61, 0.32) 62%, rgba(166, 143, 61, 0.32) 92%, transparent 92%);
+    padding: 0 2px;
+    font-weight: 500;
+}
+
+/* Drop cap for first paragraph after tema */
+h1.tema + p::first-letter,
+h2.seccion + p::first-letter {
+    font-family: var(--font-display);
+    font-size: 3.6em;
+    font-weight: 800;
+    color: var(--blood);
+    float: left;
+    line-height: 0.85;
+    margin: 0.08em 0.12em 0 0;
+    padding-top: 0.05em;
+}
+
+/* Lists */
+ul, ol {
+    margin: 0.6rem 0 1.2rem 1.5rem;
+}
+
+ul { list-style: none; }
+ul li {
+    position: relative;
+    margin-bottom: 0.4rem;
+    padding-left: 0.3rem;
+}
+
+ul li::before {
+    content: "●";
+    position: absolute;
+    left: -1rem;
+    color: var(--blood);
+    font-size: 0.6em;
+    top: 0.5em;
+}
+
+ol { padding-left: 0.5rem; }
+ol li {
+    margin-bottom: 0.4rem;
+    padding-left: 0.3rem;
+}
+ol li::marker {
+    color: var(--blood);
+    font-weight: 700;
+    font-family: var(--font-sans);
+}
+
+ul.clean { margin-left: 0.5rem; }
+ul.clean li::before {
+    content: "—";
+    color: var(--gold-dark);
+    font-size: 1em;
+    top: 0;
+}
+
+/* ==========================================================================
+   CARDS / BOXES
+   ========================================================================== */
+.dato {
+    background: var(--paper-2);
+    border: 1px solid var(--ink);
+    padding: 1.1rem 1.4rem;
+    margin: 1.4rem 0;
+    position: relative;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dato:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--ink);
+}
+
+.dato .label {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    color: var(--blood);
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    margin-bottom: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--blood);
+    background: var(--paper);
+}
+
+.fecha-clave {
+    background: #f5edd5;
+    border-color: var(--gold-dark);
+    box-shadow: 3px 3px 0 var(--gold-dark);
+}
+.fecha-clave:hover { box-shadow: 4px 4px 0 var(--gold-dark); }
+.fecha-clave .label {
+    color: var(--gold-dark);
+    border-color: var(--gold-dark);
+}
+
+.atencion {
+    background: #f5e8d8;
+    border-color: var(--blood-dark);
+    box-shadow: 3px 3px 0 var(--blood-dark);
+}
+.atencion:hover { box-shadow: 4px 4px 0 var(--blood-dark); }
+.atencion .label {
+    color: var(--blood-dark);
+    border-color: var(--blood-dark);
+}
+
+.concepto {
+    background: #ece3d1;
+    border-color: var(--ink-2);
+}
+.concepto .label {
+    color: var(--ink-2);
+    border-color: var(--ink-2);
+}
+
+/* HIGH-PRIORITY "cae en el examen" */
+.cae-examen {
+    background: var(--ink);
+    color: var(--paper);
+    border: 2px solid var(--ink);
+    padding: 1.3rem 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--blood);
+    line-height: 1.55;
+}
+
+.cae-examen::before {
+    content: "⚑ CAE EN EL EXAMEN";
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    font-weight: 800;
+    color: var(--gold-light);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px dashed var(--ink-3);
+}
+
+.cae-examen strong {
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+.cae-examen ul li::before {
+    color: var(--blood-light);
+}
+
+/* ==========================================================================
+   BLOCKQUOTE / CITA (pull-quote editorial)
+   ========================================================================== */
+blockquote.cita {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+    padding: 1.6rem 2rem 1.3rem;
+    margin: 1.6rem 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    background: rgba(20, 16, 12, 0.025);
+    position: relative;
+    text-align: left;
+}
+
+blockquote.cita::before {
+    content: "«";
+    position: absolute;
+    left: -0.1rem;
+    top: -0.4rem;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--blood);
+    font-weight: 900;
+    background: var(--paper);
+    padding: 0 0.3rem;
+}
+
+blockquote.cita footer {
+    display: block;
+    margin-top: 0.9rem;
+    font-family: var(--font-sans);
+    text-align: right;
+    font-size: 0.72rem;
+    color: var(--blood);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+blockquote.cita footer::before {
+    content: "— ";
+    color: var(--ink-3);
+}
+
+/* ==========================================================================
+   TAGS / SELLOS
+   ========================================================================== */
+.tag {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    font-weight: 700;
+    vertical-align: middle;
+    border: 1px solid currentColor;
+}
+
+.tag.clave { background: var(--blood); color: var(--paper); border-color: var(--blood-dark); }
+.tag.fecha { background: var(--gold); color: var(--ink); border-color: var(--gold-dark); }
+.tag.personaje { background: var(--ink-2); color: var(--paper); }
+.tag.ley { background: var(--sea); color: var(--paper); }
+
+/* Probabilidad en el examen */
+.prob-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.63rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    font-weight: 800;
+    border-radius: 0;
+    vertical-align: middle;
+    position: relative;
+}
+
+.prob-tag::before {
+    content: "●";
+    font-size: 0.8em;
+    letter-spacing: 0;
+}
+
+.prob-tag.alta {
+    background: var(--blood);
+    color: var(--paper);
+    border: 2px solid var(--blood-dark);
+    box-shadow: 2px 2px 0 var(--ink);
+    transform: rotate(-1.5deg);
+}
+
+.prob-tag.media {
+    background: var(--gold);
+    color: var(--ink);
+    border: 2px solid var(--gold-dark);
+    box-shadow: 2px 2px 0 var(--ink);
+    transform: rotate(-1deg);
+}
+
+.prob-tag.baja {
+    background: var(--paper-3);
+    color: var(--ink-2);
+    border: 2px solid var(--ink-3);
+    box-shadow: 2px 2px 0 var(--ink);
+    transform: rotate(-0.5deg);
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   TABLE
+   ========================================================================== */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.4rem 0;
+    font-size: 0.92rem;
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+th, td {
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+}
+
+th {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    padding: 0.8rem 0.9rem;
+    border-bottom: 2px solid var(--blood);
+}
+
+tr:nth-child(even) td { background: rgba(20, 16, 12, 0.03); }
+
+tr:last-child td { border-bottom: none; }
+
+/* ==========================================================================
+   LANDING PAGE GRID
+   ========================================================================== */
+.landing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.3rem;
+    margin: 2.2rem 0 3rem;
+}
+
+.landing-card {
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    padding: 1.8rem 1.7rem 2rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
+    box-shadow: 4px 4px 0 var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.landing-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--blood);
+}
+
+.landing-card:hover .num { color: var(--blood); }
+.landing-card:hover h3 { color: var(--blood); }
+
+.landing-card .num {
+    font-family: var(--font-display);
+    font-size: 3.4rem;
+    color: var(--ink);
+    line-height: 0.85;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    transition: color 0.18s ease;
+}
+
+.landing-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin: 0.3rem 0 0;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    font-weight: 700;
+    transition: color 0.18s ease;
+}
+
+.landing-card p {
+    color: var(--ink-2);
+    font-size: 0.93rem;
+    margin: 0;
+    line-height: 1.45;
+    font-family: var(--font-body);
+}
+
+/* Priority banner */
+.priority-banner {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.4rem 1.6rem 1.5rem;
+    margin: 2rem 0;
+    border: 2px solid var(--ink);
+    font-family: var(--font-body);
+    box-shadow: 5px 5px 0 var(--blood);
+    position: relative;
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+.priority-banner::before {
+    content: "NOTA DEL EDITOR";
+    position: absolute;
+    top: -0.7rem;
+    left: 1rem;
+    background: var(--blood);
+    color: var(--paper);
+    padding: 0.15rem 0.7rem;
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    font-weight: 800;
+}
+
+.priority-banner strong { color: var(--gold-light); font-weight: 700; }
+.priority-banner a { color: var(--gold-light) !important; }
+
+/* ==========================================================================
+   DOCUMENTO CARDS
+   ========================================================================== */
+.doc-card {
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    padding: 1.8rem 2rem 2rem;
+    margin: 2.5rem 0;
+    box-shadow: 5px 5px 0 var(--ink);
+    position: relative;
+}
+
+.doc-card .doc-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .doc-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--blood);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.doc-card .doc-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--ink);
+    font-weight: 700;
+    flex: 1;
+    line-height: 1.2;
+    min-width: 200px;
+    letter-spacing: -0.015em;
+}
+
+.doc-card .tipo-tag {
+    margin-left: auto;
+    font-size: 0.65rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3px 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    align-self: flex-start;
+}
+
+.doc-probability {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    margin-bottom: 1.2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.doc-probability-label {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    color: var(--ink-3);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.respuesta {
+    margin-top: 1.3rem;
+}
+
+.respuesta-label {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    color: var(--paper);
+    background: var(--blood);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    margin: 0.8rem 0 0.8rem;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.respuesta-label::after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(135deg, var(--blood) 50%, transparent 50%);
+}
+
+/* ==========================================================================
+   CRONOLOGÍA (TIMELINE)
+   ========================================================================== */
+.cronologia {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 1.5rem 0 2.5rem;
+    position: relative;
+}
+
+.cronologia .evento {
+    position: relative;
+    margin-bottom: 0.9rem;
+    padding-left: 0.2rem;
+    font-size: 0.96rem;
+    line-height: 1.55;
+}
+
+.cronologia .evento::before {
+    content: "";
+    position: absolute;
+    left: -2.35rem;
+    top: 0.5em;
+    width: 11px;
+    height: 11px;
+    background: var(--blood);
+    border-radius: 0;
+    border: 2px solid var(--ink);
+    transform: rotate(45deg);
+}
+
+.cronologia .anio {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-weight: 800;
+    color: var(--ink);
+    background: var(--gold-light);
+    padding: 0.1rem 0.5rem;
+    margin-right: 0.5rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--ink);
+}
+
+/* ==========================================================================
+   ORNAMENT
+   ========================================================================== */
+.ornament {
+    text-align: center;
+    color: var(--blood);
+    margin: 3rem 0;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+    opacity: 0.8;
+    position: relative;
+}
+
+.ornament::before,
+.ornament::after {
+    content: "";
+    display: inline-block;
+    width: 80px;
+    height: 1px;
+    background: var(--ink);
+    vertical-align: middle;
+    margin: 0 1rem;
+}
+
+.ornament::before { content: "❦"; font-size: 1.5rem; color: var(--blood); width: auto; height: auto; background: transparent; margin-right: 0.8rem; }
+.ornament::after { display: none; }
+
+/* ==========================================================================
+   KEY-VALUE BOXES (used in croquis)
+   ========================================================================== */
+.sketch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.9rem;
+    margin: 1.4rem 0 2rem;
+}
+
+.sketch-card {
+    background: var(--paper-2);
+    border: 1.5px solid var(--ink);
+    padding: 0.9rem 1rem;
+    position: relative;
+    transition: all 0.15s ease;
+    font-size: 0.93rem;
+    line-height: 1.4;
+}
+
+.sketch-card:hover {
+    background: var(--paper-3);
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+.sketch-card .sk-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--blood);
+    font-size: 1.02rem;
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.01em;
+}
+
+.sketch-card .sk-date {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--ink);
+    background: var(--gold-light);
+    padding: 1px 6px;
+    margin-right: 0.35rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    border: 1px solid var(--ink);
+}
+
+.sketch-card .sk-desc {
+    color: var(--ink-2);
+    font-size: 0.88rem;
+    margin-top: 0.2rem;
+}
+
+.sketch-section-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin: 2rem 0 0.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.sketch-section-title::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 2px;
+    background: var(--blood);
+}
+
+.sketch-section-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+/* Mapa conceptual */
+.concept-map {
+    background: var(--paper-3);
+    border: 2px solid var(--ink);
+    padding: 1.5rem;
+    margin: 1.5rem 0 2rem;
+    box-shadow: 4px 4px 0 var(--ink);
+    position: relative;
+}
+
+.concept-map h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--blood);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: none;
+}
+
+.concept-map h4::before { content: "→ "; color: var(--ink); }
+
+.cm-chain {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.cm-node {
+    background: var(--paper-2);
+    border: 1.5px solid var(--ink);
+    padding: 0.3rem 0.7rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    position: relative;
+    transition: all 0.12s ease;
+    cursor: default;
+}
+
+.cm-node:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.cm-node.key {
+    background: var(--blood);
+    color: var(--paper);
+    border-color: var(--blood-dark);
+    font-weight: 700;
+}
+
+.cm-node.date {
+    background: var(--gold-light);
+    font-weight: 700;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+}
+
+.cm-arrow {
+    font-family: var(--font-sans);
+    color: var(--blood);
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid var(--ink-2);
+        padding: 1.5rem 1.3rem;
+    }
+    main { padding: 2rem 1.5rem 4rem; }
+    header.masthead h1 { font-size: 1.9rem; }
+    h1.tema { font-size: 1.5rem; }
+    h2.seccion { font-size: 1.3rem; }
+    .doc-card { padding: 1.3rem 1.2rem; }
+    blockquote.cita { padding: 1.3rem 1.2rem; font-size: 1rem; }
+    blockquote.cita::before { font-size: 2.5rem; }
+}
+
+/* ==========================================================================
+   PRINT
+   ========================================================================== */
+@media print {
+    .sidebar { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    main { max-width: 100%; padding: 0; }
+    body { background: white; font-size: 11pt; }
+    .dato, .cae-examen, .doc-card, blockquote.cita, .landing-card, .priority-banner {
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+}
+
+/* ==========================================================================
+   ANIMATIONS (respect reduced motion)
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+    .landing-card, .dato, .doc-card, .sketch-card {
+        opacity: 0;
+        animation: fadeInUp 0.4s ease forwards;
+    }
+    .landing-card:nth-child(1) { animation-delay: 0.05s; }
+    .landing-card:nth-child(2) { animation-delay: 0.12s; }
+    .landing-card:nth-child(3) { animation-delay: 0.19s; }
+    .landing-card:nth-child(4) { animation-delay: 0.26s; }
+    .landing-card:nth-child(5) { animation-delay: 0.33s; }
+    .landing-card:nth-child(6) { animation-delay: 0.40s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Focus states */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--blood);
+    outline-offset: 3px;
+}
